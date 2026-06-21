@@ -61,7 +61,9 @@ function Navbar() {
           <a href="/calculators/murabaha">Murabaha</a>
           <a href="/calculators/mudarabah">Mudarabah</a>
           <a href="/calculators/roi">ROI</a>
+          <a href="/tools/chatpdf" style={{ color: 'var(--primary)', fontWeight: 'bold' }}>🔒 ChatPDF</a>
           <a href="/tools/json-formatter">JSON</a>
+          <a href="/tools/jwt-decoder">JWT</a>
           <a href="/tools/password-generator">Password</a>
         </nav>
       </div>
