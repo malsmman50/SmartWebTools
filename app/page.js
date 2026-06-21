@@ -18,8 +18,38 @@ export default function Home() {
   return (
     <div className="container">
       <section className="hero">
-        <h1>Free <span className="hero-gradient">Islamic Financial</span> & Developer Tools</h1>
-        <p>Professional-grade tools built on Halal principles. Run entirely in your browser. No signups, no tracking.</p>
+        <h1>Free <span className="hero-gradient">Islamic Finance</span> & Pro Dev Tools</h1>
+        <p>Professional-grade calculators built on Halal principles and offline-first developer utilities. Run entirely in your browser. No signups, no data tracking, 100% private.</p>
+        
+        <div className="trust-badges">
+          <div className="trust-badge">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <div>
+              <strong>100% Private</strong>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>Data never leaves your device</div>
+            </div>
+          </div>
+          <div className="trust-badge">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <div>
+              <strong>Sharia Compliant</strong>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>Based on standard Fiqh rules</div>
+            </div>
+          </div>
+          <div className="trust-badge">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <div>
+              <strong>Lightning Fast</strong>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>No server roundtrips</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section style={{ marginBottom: '48px' }}>

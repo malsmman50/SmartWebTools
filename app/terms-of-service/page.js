@@ -1,41 +1,44 @@
 export const metadata = {
-  title: 'Terms of Service | SmartCalcTools',
-  description: 'Terms of Service and conditions of use for SmartCalcTools. Please read these terms carefully before using our free tools and calculators.'
+  title: 'Terms of Service & Disclaimer | SmartCalcTools',
+  description: 'Terms of service and Shariah compliance disclaimers for SmartCalcTools.',
 };
 
-export default function TermsOfService() {
+export default function TermsPage() {
   return (
-    <div className="container" style={{ padding: '40px 20px', maxWidth: '800px' }}>
+    <div className="container" style={{ padding: '60px 20px', maxWidth: '800px' }}>
       <div className="page-header">
-        <h1>Terms of Service</h1>
-        <p>Last Updated: June 2026</p>
+        <h1>Terms of Service & Disclaimer</h1>
+        <p>Last updated: June 2026</p>
       </div>
-      <article className="card" style={{ lineHeight: '1.8' }}>
-        <h2 style={{ marginBottom: '16px' }}>1. Acceptance of Terms</h2>
-        <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-          By accessing and using SmartCalcTools (the "Website"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by these terms, please do not use this Website.
+
+      <div className="card" style={{ padding: '40px' }}>
+        <div style={{ padding: '24px', background: 'var(--bg)', borderRadius: '8px', borderLeft: '4px solid var(--primary)', marginBottom: '32px' }}>
+          <h2 style={{ marginBottom: '16px', fontSize: '1.2rem' }}>⚠️ Important Shariah Disclaimer (Not a Fatwa)</h2>
+          <p style={{ lineHeight: '1.8', fontSize: '0.95rem' }}>
+            The calculators and educational tools provided on SmartCalcTools are designed as mathematical utilities to apply general Islamic finance principles. <strong>The results provided do not constitute a Fatwa (religious ruling), personalized Shariah advisory, or legal/financial advice.</strong> Islamic finance is highly nuanced and specific rulings can vary based on individual circumstances and differences in recognized schools of jurisprudence (Madhahib). We strongly advise all users to verify these calculations and consult with a qualified Islamic scholar or certified Shariah advisor before making binding financial decisions or fulfilling religious obligations like Zakat.
+          </p>
+        </div>
+
+        <h2 style={{ marginBottom: '16px' }}>1. Terms</h2>
+        <p style={{ marginBottom: '24px', lineHeight: '1.8' }}>
+          By accessing the website at https://smartcalctools.xyz, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.
         </p>
 
-        <h2 style={{ marginBottom: '16px' }}>2. Use of Our Tools</h2>
-        <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-          SmartCalcTools provides free online financial calculators and developer tools. These tools are provided for informational and educational purposes only. While we strive to ensure the accuracy of our calculators, we do not guarantee that the results are 100% accurate or suitable for your specific financial or technical needs.
+        <h2 style={{ marginBottom: '16px' }}>2. Use License</h2>
+        <p style={{ marginBottom: '24px', lineHeight: '1.8' }}>
+          Permission is granted to temporarily use the tools and calculators on SmartCalcTools for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
         </p>
 
-        <h2 style={{ marginBottom: '16px' }}>3. No Financial Advice</h2>
-        <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-          The calculators provided on this Website (such as the Zakat, Murabaha, and ROI calculators) are meant to provide estimations based on the data you input. They do not constitute professional financial, legal, or religious advice. You should always consult with a qualified professional or religious scholar before making significant financial decisions based on the outputs of our tools.
+        <h2 style={{ marginBottom: '16px' }}>3. Accuracy and Liability</h2>
+        <p style={{ marginBottom: '24px', lineHeight: '1.8' }}>
+          While we strive to ensure our formulas align with standard mathematical and Islamic financial principles, we make no representations or warranties regarding the absolute completeness or accuracy of the results for every unique situation. The materials appearing on SmartCalcTools' website could include technical, typographical, or mathematical errors. SmartCalcTools disclaims any liability for financial loss, legal consequences, or religious obligations unfulfilled due to reliance on this tool.
         </p>
 
-        <h2 style={{ marginBottom: '16px' }}>4. Disclaimer of Warranties</h2>
-        <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-          The Website and all tools are provided on an "as is" and "as available" basis without any warranties of any kind, either express or implied. We do not warrant that the tools will be uninterrupted or error-free.
+        <h2 style={{ marginBottom: '16px' }}>4. Modifications</h2>
+        <p style={{ lineHeight: '1.8' }}>
+          SmartCalcTools may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
         </p>
-
-        <h2 style={{ marginBottom: '16px' }}>5. Limitation of Liability</h2>
-        <p style={{ color: 'var(--text-muted)' }}>
-          In no event shall SmartCalcTools be liable for any direct, indirect, incidental, consequential, or special damages arising out of or in any way connected with the use of our tools or Website.
-        </p>
-      </article>
+      </div>
     </div>
   );
 }
