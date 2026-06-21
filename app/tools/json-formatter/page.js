@@ -77,8 +77,8 @@ export default function JsonFormatter() {
           <h4 style={{ fontSize: '1.1rem' }}>What is the difference between JSON and JavaScript objects?</h4>
           <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>JSON is a text-based data format derived from JavaScript syntax, but it is much stricter. In JSON, all property names must be double-quoted strings, and functions or undefined values are not allowed.</p>
 
-          <h4 style={{ fontSize: '1.1rem' }}>How do I fix "Unexpected token } in JSON at position X"?</h4>
-          <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>This error usually means you have a trailing comma right before a closing brace `}`, or you forgot a closing brace entirely. Check the end of your arrays and objects.</p>
+          <h4 style={{ fontSize: '1.1rem' }}>How do I fix "Unexpected token {'}'} in JSON at position X"?</h4>
+          <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>This error usually means you have a trailing comma right before a closing brace `{'}'}`, or you forgot a closing brace entirely. Check the end of your arrays and objects.</p>
 
           <h4 style={{ fontSize: '1.1rem' }}>Is this JSON formatter safe for production API keys?</h4>
           <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>Yes. Since our tool runs entirely offline in your browser, it is perfectly safe to paste API keys, JWTs, or confidential database dumps. No network requests are made during formatting.</p>
