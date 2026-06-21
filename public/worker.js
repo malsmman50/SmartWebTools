@@ -19,7 +19,19 @@ class PipelineSingleton {
     }
 }
 
-self.addEventListener('message', async (event) => {
+let isProcessing = false;
+let queue = [];
+
+self.addEventListener('message', (event) => {
+    queue.push(event);
+    processQueue();
+});
+
+async function processQueue() {
+    if (isProcessing || queue.length === 0) return;
+    isProcessing = true;
+    const event = queue.shift();
+    
     try {
         let extractor = await PipelineSingleton.getInstance(x => {
             // Send progress updates back (e.g. downloading model chunks)
@@ -39,4 +51,7 @@ self.addEventListener('message', async (event) => {
     } catch (err) {
         self.postMessage({ status: 'error', error: err.message });
     }
-});
+    
+    isProcessing = false;
+    processQueue();
+}
