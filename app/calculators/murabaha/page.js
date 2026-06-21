@@ -60,12 +60,76 @@ export default function MurabahaCalculator() {
         </div>
       </div>
 
-      <article className="card" style={{ marginTop: '40px' }}>
-        <h2>What is Murabaha?</h2>
-        <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', marginTop: '12px' }}>
-          Murabaha is an Islamic financing structure where the seller and buyer agree to the cost and markup of an asset. Unlike conventional interest-based (Riba) loans where money is lent to make money, Murabaha is an actual sale of goods. The financier buys the asset (like a house or car) and sells it to the customer at a higher, agreed-upon price, paid in fixed installments. There are no compounding interest rates, and the price cannot increase if a payment is delayed.
+      <article className="card" style={{ marginTop: '40px', lineHeight: '1.8' }}>
+        <h2>The Complete Guide to Murabaha (Islamic Financing)</h2>
+        <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>
+          Murabaha is one of the most common modes of Islamic financing used globally to purchase homes, vehicles, and business equipment without resorting to interest-based (Riba) loans. In a conventional loan, a bank lends you money and charges compounding interest over time. In a Murabaha transaction, the financier purchases the actual asset and sells it to you at a pre-agreed profit margin. You then pay for the asset in fixed monthly installments.
         </p>
+
+        <h3 style={{ marginTop: '24px' }}>How Murabaha Works</h3>
+        <p style={{ color: 'var(--text-muted)', marginTop: '8px' }}>
+          The process of Murabaha is entirely transparent and based on a tangible asset. Here are the typical steps:
+        </p>
+        <ul style={{ paddingLeft: '20px', color: 'var(--text-muted)', marginTop: '8px' }}>
+          <li><strong>Asset Identification:</strong> You identify the property or vehicle you wish to buy.</li>
+          <li><strong>Purchase by Bank:</strong> The Islamic bank purchases the asset directly from the seller and takes ownership.</li>
+          <li><strong>Sale to Customer:</strong> The bank sells the asset to you at the original cost plus a transparent, mutually agreed profit margin.</li>
+          <li><strong>Fixed Installments:</strong> You pay the total price (Cost + Profit) over a set period (e.g., 5 years) in equal monthly installments.</li>
+        </ul>
+
+        <h3 style={{ marginTop: '24px' }}>Murabaha vs. Conventional Mortgage</h3>
+        <p style={{ color: 'var(--text-muted)', marginTop: '8px' }}>
+          The key difference lies in the nature of the contract. A conventional mortgage is a money-lending contract where the asset is just collateral. If you default or miss payments, the bank charges penalty interest, compounding your debt. A Murabaha is a trading contract. The profit is fixed on day one. If you delay a payment, the bank cannot charge you additional profit or interest (though some may charge a charitable penalty to deter deliberate delays, which the bank cannot keep as profit).
+        </p>
+
+        <h3 style={{ marginTop: '24px' }}>Calculating the Profit Margin</h3>
+        <p style={{ color: 'var(--text-muted)', marginTop: '8px' }}>
+          Unlike a conventional APR that compounds over the remaining balance, the profit margin in a Murabaha contract is often calculated upfront as a flat rate against the financed amount. Our Murabaha calculator allows you to input the cost of the asset, your down payment, and the agreed profit margin to instantly see your fixed monthly installment and the exact profit the financier will earn.
+        </p>
+
+        <h3 style={{ marginTop: '24px' }}>Frequently Asked Questions (FAQ)</h3>
+        <div style={{ marginTop: '16px' }}>
+          <h4 style={{ fontSize: '1.1rem' }}>Is the Murabaha profit margin the same as interest?</h4>
+          <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>No. While Islamic banks often benchmark their profit rates against market interest rates (like LIBOR or SOFR) to remain competitive, the underlying mechanism is a sale, not a loan. Profit from trade is Halal, whereas profit from lending money (Riba) is Haram.</p>
+
+          <h4 style={{ fontSize: '1.1rem' }}>What happens if I want to pay off a Murabaha early?</h4>
+          <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>Since the profit was fixed and added to the total debt upfront, early settlement relies on a concept called <i>Ibra'</i> (rebate). Most Islamic banks will voluntarily grant a rebate on the unearned profit for the remaining years, though they are not contractually obligated to do so upfront.</p>
+
+          <h4 style={{ fontSize: '1.1rem' }}>Can Murabaha be used for personal cash loans?</h4>
+          <p style={{ color: 'var(--text-muted)', marginTop: '4px', marginBottom: '16px' }}>No. Murabaha requires a tangible asset (like a house, car, or commodities). It cannot be used to simply generate cash liquidity, as that would replicate a conventional interest-bearing personal loan. For cash needs, banks use a different structure called Tawarruq.</p>
+        </div>
       </article>
+
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is the Murabaha profit margin the same as interest?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. While banks benchmark rates to remain competitive, the underlying mechanism is a sale, not a loan. Profit from trade is Halal, whereas profit from lending money is Haram."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if I want to pay off a Murabaha early?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Early settlement relies on a concept called Ibra' (rebate). Most Islamic banks will voluntarily grant a rebate on the unearned profit for the remaining years."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Murabaha be used for personal cash loans?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Murabaha requires a tangible asset (like a house, car, or commodities). It cannot be used to simply generate cash liquidity."
+            }
+          }
+        ]
+      })}} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default function ZakatCalculator() {
     // Using a common public metals API or fallback to manual if it fails/CORS issues
     const fetchNisab = async () => {
       try {
-        const res = await fetch('https://data-asg.goldprice.org/dbXRates/USD', {
+        const res = await fetch('/api/gold', {
           headers: { 'Accept': 'application/json' },
           signal: AbortSignal.timeout(4000) // 4 second timeout
         });
