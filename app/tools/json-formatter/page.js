@@ -47,15 +47,25 @@ export default function JsonFormatter() {
           {output && !error && <button className="copy-btn" onClick={copy} style={{ marginLeft: 'auto', background: '#0e639c', color: 'white', border: 'none', padding: '6px 16px', borderRadius: '4px', cursor: 'pointer' }}>{copied ? '✅ Copied' : '📋 Copy Output'}</button>}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#333' }}>
-          <div style={{ background: '#1e1e1e' }}>
+          <div style={{ background: '#1e1e1e', display: 'flex', flexDirection: 'column' }}>
             <div style={{ padding: '8px 16px', color: '#858585', fontSize: '0.8rem', borderBottom: '1px solid #333' }}>INPUT.json</div>
-            <Editor
-              height="60vh"
-              defaultLanguage="json"
-              theme="vs-dark"
+            <textarea
+              style={{
+                flexGrow: 1,
+                width: '100%',
+                background: '#1e1e1e',
+                color: '#d4d4d4',
+                border: 'none',
+                padding: '16px',
+                fontFamily: 'monospace',
+                fontSize: '14px',
+                resize: 'none',
+                outline: 'none',
+                lineHeight: '1.5'
+              }}
+              placeholder='{"key": "value"}'
               value={input}
-              onChange={(val) => setInput(val || '')}
-              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' }}
+              onChange={(e) => setInput(e.target.value)}
             />
           </div>
           <div style={{ background: '#1e1e1e' }}>
