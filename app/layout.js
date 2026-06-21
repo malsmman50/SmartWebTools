@@ -1,4 +1,7 @@
 import './globals.css';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata = {
   metadataBase: new URL('https://smartcalctools.xyz'),
@@ -28,7 +31,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={inter.className}>
         <Navbar />
         <main style={{ minHeight: 'calc(100vh - 200px)' }}>
           {children}

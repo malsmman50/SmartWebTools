@@ -55,6 +55,11 @@ export default function ChatPDF() {
       }
     };
     
+    workerRef.current.onerror = (e) => {
+      console.error('Worker error:', e);
+      setStatus(`Worker Error: Failed to initialize AI model or process document. Details: ${e.message}`);
+    };
+    
     return () => workerRef.current.terminate();
   }, []);
 

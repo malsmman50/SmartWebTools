@@ -1,7 +1,10 @@
 import { pipeline, env } from '@xenova/transformers';
 
-// Skip local model check since we are running in browser
-env.allowLocalModels = false;
+// Configure local paths and disable remote fetching
+env.allowRemoteModels = false;
+env.allowLocalModels = true;
+env.localModelPath = '/models/';
+env.backends.onnx.wasm.wasmPaths = '/wasm/';
 
 class PipelineSingleton {
     static task = 'feature-extraction';
