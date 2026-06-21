@@ -93,9 +93,7 @@ export default function ChatPDF() {
     setDb([]);
     
     try {
-      // Dynamic import with variable to bypass Turbopack static analysis
-      const pdfPath = '/pdf.min.mjs';
-      const pdfjsLib = await import(pdfPath);
+      const pdfjsLib = await import('pdfjs-dist/build/pdf');
       pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
       
       const arrayBuffer = await file.arrayBuffer();
