@@ -33,14 +33,16 @@ async function processQueue() {
     const event = queue.shift();
     
     try {
+        self.postMessage({ status: 'debug', msg: `Getting extractor for event id: ${event.data.id}` });
         let extractor = await PipelineSingleton.getInstance(x => {
-            // Send progress updates back (e.g. downloading model chunks)
             self.postMessage({ status: 'progress', data: x });
         });
 
+        self.postMessage({ status: 'debug', msg: `Extractor ready. Processing id: ${event.data.id}` });
         if (event.data.type === 'embed') {
             const output = await extractor(event.data.text, { pooling: 'mean', normalize: true });
             
+            self.postMessage({ status: 'debug', msg: `Extraction complete for id: ${event.data.id}` });
             self.postMessage({ 
                 status: 'complete', 
                 id: event.data.id,
@@ -49,7 +51,7 @@ async function processQueue() {
             });
         }
     } catch (err) {
-        self.postMessage({ status: 'error', error: err.message });
+        self.postMessage({ status: 'error', error: err ? err.message || err.toString() : 'Unknown error' });
     }
     
     isProcessing = false;

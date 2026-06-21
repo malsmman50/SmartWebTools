@@ -36,21 +36,33 @@ export default function ChatPDF() {
         setProgress(0);
         return;
       }
-      if (msg.status === 'progress') {
+      if (msg.status === 'debug') {
+        setStatus(`Worker Debug: ${msg.msg}`);
+      } else if (msg.status === 'progress') {
         setStatus(`Loading AI Model... ${msg.data.file || ''}`);
         if (msg.data.progress) setProgress(msg.data.progress);
       } else if (msg.status === 'complete') {
         if (msg.id === 'query') {
           // Perform search
-          const queryVector = msg.vector;
-          const scored = dbRef.current.map(doc => ({
-            ...doc,
-            score: cosineSimilarity(queryVector, doc.vector)
-          }));
-          scored.sort((a, b) => b.score - a.score);
-          setResults(scored.slice(0, 3));
-          setStatus('Ready');
-          setProgress(100);
+          try {
+            const queryVector = msg.vector;
+            const scored = dbRef.current.map(doc => {
+              if (!queryVector) throw new Error('queryVector is undefined');
+              if (!doc.vector) throw new Error('doc.vector is undefined for chunk ' + doc.id);
+              if (queryVector.length !== doc.vector.length) throw new Error(`Vector mismatch: ${queryVector.length} vs ${doc.vector.length}`);
+              return {
+                ...doc,
+                score: cosineSimilarity(queryVector, doc.vector)
+              };
+            });
+            scored.sort((a, b) => b.score - a.score);
+            setResults(scored.slice(0, 3));
+            setStatus('Ready');
+            setProgress(100);
+          } catch (err) {
+            console.error(err);
+            setStatus(`Search Error: ${err.message}`);
+          }
         } else {
           // Adding document to DB
           dbRef.current.push({ id: msg.id, text: msg.text, vector: msg.vector });
