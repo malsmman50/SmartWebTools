@@ -29,6 +29,11 @@ export default function ChatPDF() {
     
     workerRef.current.onmessage = (e) => {
       const msg = e.data;
+      if (msg.status === 'error') {
+        setStatus(`Worker Internal Error: ${msg.error}`);
+        setProgress(0);
+        return;
+      }
       if (msg.status === 'progress') {
         setStatus(`Loading AI Model... ${msg.data.file || ''}`);
         if (msg.data.progress) setProgress(msg.data.progress);

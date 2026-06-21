@@ -20,19 +20,23 @@ class PipelineSingleton {
 }
 
 self.addEventListener('message', async (event) => {
-    let extractor = await PipelineSingleton.getInstance(x => {
-        // Send progress updates back (e.g. downloading model chunks)
-        self.postMessage({ status: 'progress', data: x });
-    });
-
-    if (event.data.type === 'embed') {
-        const output = await extractor(event.data.text, { pooling: 'mean', normalize: true });
-        
-        self.postMessage({ 
-            status: 'complete', 
-            id: event.data.id,
-            vector: Array.from(output.data),
-            text: event.data.text
+    try {
+        let extractor = await PipelineSingleton.getInstance(x => {
+            // Send progress updates back (e.g. downloading model chunks)
+            self.postMessage({ status: 'progress', data: x });
         });
+
+        if (event.data.type === 'embed') {
+            const output = await extractor(event.data.text, { pooling: 'mean', normalize: true });
+            
+            self.postMessage({ 
+                status: 'complete', 
+                id: event.data.id,
+                vector: Array.from(output.data),
+                text: event.data.text
+            });
+        }
+    } catch (err) {
+        self.postMessage({ status: 'error', error: err.message });
     }
 });
