@@ -1,8 +1,5 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import * as pdfjsLib from 'pdfjs-dist/build/pdf';
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 function cosineSimilarity(vecA, vecB) {
     let dotProduct = 0;
@@ -83,6 +80,9 @@ export default function ChatPDF() {
     setDb([]);
     
     try {
+      const pdfjsLib = await import('pdfjs-dist/build/pdf');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+      
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       let fullText = '';
