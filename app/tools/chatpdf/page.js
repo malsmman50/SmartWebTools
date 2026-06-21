@@ -23,6 +23,7 @@ export default function ChatPDF() {
   
   const workerRef = useRef(null);
   const totalChunksRef = useRef(0);
+  const dbRef = useRef([]);
 
   useEffect(() => {
     // Initialize Web Worker from public directory to bypass Turbopack
@@ -41,28 +42,22 @@ export default function ChatPDF() {
       } else if (msg.status === 'complete') {
         if (msg.id === 'query') {
           // Perform search
+          const queryVector = msg.vector;
+          const scored = dbRef.current.map(doc => ({
+            ...doc,
+            score: cosineSimilarity(queryVector, doc.vector)
+          }));
+          scored.sort((a, b) => b.score - a.score);
+          setResults(scored.slice(0, 3));
           setStatus('Ready');
           setProgress(100);
-          const queryVector = msg.vector;
-          
-          setDb(currentDb => {
-            const scored = currentDb.map(doc => ({
-              ...doc,
-              score: cosineSimilarity(queryVector, doc.vector)
-            }));
-            scored.sort((a, b) => b.score - a.score);
-            setResults(scored.slice(0, 3));
-            return currentDb;
-          });
         } else {
           // Adding document to DB
-          setDb(prev => {
-            const newDb = [...prev, { id: msg.id, text: msg.text, vector: msg.vector }];
-            if (newDb.length === totalChunksRef.current) {
-              setStatus('Ready');
-            }
-            return newDb;
-          });
+          dbRef.current.push({ id: msg.id, text: msg.text, vector: msg.vector });
+          setDb([...dbRef.current]);
+          if (dbRef.current.length === totalChunksRef.current) {
+            setStatus('Ready');
+          }
         }
       }
     };
@@ -98,6 +93,8 @@ export default function ChatPDF() {
     setStatus('Extracting text from PDF...');
     setProgress(0);
     setDb([]);
+    dbRef.current = [];
+    setResults([]);
     
     try {
       const pdfjsLib = await import('pdfjs-dist/build/pdf');
