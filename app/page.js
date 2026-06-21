@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
 const calculators = [
-  { title: 'Mortgage Calculator', desc: 'Calculate monthly payments, total interest, and amortization schedules for home loans.', href: '/calculators/mortgage', icon: '🏠', color: '#2563eb' },
-  { title: 'Compound Interest', desc: 'See how your investments grow over time with the power of compounding.', href: '/calculators/compound-interest', icon: '📈', color: '#059669' },
-  { title: 'ROI Calculator', desc: 'Measure the profitability of your investments with clear percentage returns.', href: '/calculators/roi', icon: '💰', color: '#7c3aed' },
-  { title: 'Loan Calculator', desc: 'Compare loan scenarios with fixed vs variable rates and find the best deal.', href: '/calculators/loan', icon: '🏦', color: '#dc2626' },
+  { title: 'Zakat Calculator', desc: 'Calculate your annual Zakat precisely according to Islamic guidelines based on Nisab.', href: '/calculators/zakat', icon: '🤲', color: '#059669' },
+  { title: 'Murabaha Calculator', desc: 'Calculate cost-plus Halal financing installments. The interest-free alternative to loans.', href: '/calculators/murabaha', icon: '🤝', color: '#2563eb' },
+  { title: 'Mudarabah Calculator', desc: 'Calculate profit sharing and loss allocation in Islamic investment partnerships.', href: '/calculators/mudarabah', icon: '⚖️', color: '#f59e0b' },
+  { title: 'Halal ROI Calculator', desc: 'Measure the profitability of your Halal investments and business ventures.', href: '/calculators/roi', icon: '💰', color: '#7c3aed' },
 ];
 
 const tools = [
@@ -18,12 +18,12 @@ export default function Home() {
   return (
     <div className="container">
       <section className="hero">
-        <h1>Free <span className="hero-gradient">Financial Calculators</span> & Developer Tools</h1>
-        <p>Professional-grade tools that run entirely in your browser. No signups, no tracking, no fees. Just results.</p>
+        <h1>Free <span className="hero-gradient">Islamic Financial</span> & Developer Tools</h1>
+        <p>Professional-grade tools built on Halal principles. Run entirely in your browser. No signups, no tracking.</p>
       </section>
 
       <section style={{ marginBottom: '48px' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>💰 Financial Calculators</h2>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>🕌 Islamic Financial Tools (100% Halal)</h2>
         <div className="grid-4">
           {calculators.map(c => (
             <Link key={c.href} href={c.href} className="card card-link">
@@ -36,7 +36,7 @@ export default function Home() {
       </section>
 
       <section style={{ marginBottom: '48px' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>🛠️ Developer Tools</h2>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>🛠️ Developer Utilities</h2>
         <div className="grid-4">
           {tools.map(t => (
             <Link key={t.href} href={t.href} className="card card-link">
@@ -52,16 +52,16 @@ export default function Home() {
         <h2 style={{ marginBottom: '12px' }}>Why SmartCalcTools?</h2>
         <div className="grid-3" style={{ marginTop: '24px', textAlign: 'left' }}>
           <div>
+            <h4 style={{ marginBottom: '8px' }}>☪️ Halal First</h4>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>We refuse to build tools for Riba (Usury). All our financial calculators follow Islamic guidelines.</p>
+          </div>
+          <div>
             <h4 style={{ marginBottom: '8px' }}>🔒 100% Private</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>All calculations run in your browser. Your data never leaves your device.</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>All calculations run locally in your browser. Your financial data never leaves your device.</p>
           </div>
           <div>
             <h4 style={{ marginBottom: '8px' }}>⚡ Lightning Fast</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>No server roundtrips. Instant results as you type.</p>
-          </div>
-          <div>
-            <h4 style={{ marginBottom: '8px' }}>🆓 Forever Free</h4>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>No signup, no credit card, no premium tier. Every tool is completely free.</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>No server roundtrips. Get instant results as you type with modern web technologies.</p>
           </div>
         </div>
       </section>

@@ -51,8 +51,9 @@ function Navbar() {
           📐 Smart<span>CalcTools</span>
         </a>
         <nav className="navbar-links">
-          <a href="/calculators/mortgage">Mortgage</a>
-          <a href="/calculators/compound-interest">Compound Interest</a>
+          <a href="/calculators/zakat">Zakat</a>
+          <a href="/calculators/murabaha">Murabaha</a>
+          <a href="/calculators/mudarabah">Mudarabah</a>
           <a href="/calculators/roi">ROI</a>
           <a href="/tools/json-formatter">JSON</a>
           <a href="/tools/password-generator">Password</a>
