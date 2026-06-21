@@ -24,8 +24,8 @@ export default function ChatPDF() {
   const workerRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Web Worker
-    workerRef.current = new Worker(new URL('./worker.js', import.meta.url));
+    // Initialize Web Worker from public directory to bypass Turbopack
+    workerRef.current = new Worker('/worker.js', { type: 'module' });
     
     workerRef.current.onmessage = (e) => {
       const msg = e.data;
@@ -93,7 +93,9 @@ export default function ChatPDF() {
     setDb([]);
     
     try {
-      const pdfjsLib = await import('pdfjs-dist/build/pdf');
+      // Dynamic import with variable to bypass Turbopack static analysis
+      const pdfPath = '/pdf.min.mjs';
+      const pdfjsLib = await import(pdfPath);
       pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
       
       const arrayBuffer = await file.arrayBuffer();

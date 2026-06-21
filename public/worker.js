@@ -1,4 +1,4 @@
-import { pipeline, env } from '@xenova/transformers';
+import { pipeline, env } from '/transformers.min.js';
 
 // Configure local paths and disable remote fetching
 env.allowRemoteModels = false;
