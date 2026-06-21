@@ -35,7 +35,13 @@ export default function RootLayout({ children }) {
         </main>
         <footer className="footer">
           <div className="container">
-            <p>© 2026 SmartCalcTools. Free tools built for speed and privacy.</p>
+            <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', marginBottom: '16px', flexWrap: 'wrap' }}>
+              <a href="/about" style={{ color: 'var(--text-muted)' }}>About Us</a>
+              <a href="/privacy-policy" style={{ color: 'var(--text-muted)' }}>Privacy Policy</a>
+              <a href="/terms-of-service" style={{ color: 'var(--text-muted)' }}>Terms of Service</a>
+              <a href="/contact" style={{ color: 'var(--text-muted)' }}>Contact</a>
+            </div>
+            <p>© 2026 SmartCalcTools. Free tools built for speed, privacy, and ethics.</p>
           </div>
         </footer>
       </body>
