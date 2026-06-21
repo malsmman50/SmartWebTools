@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET() {
-  const fetchWithTimeout = async (url, options, timeout = 4000) => {
+  const fetchWithTimeout = async (url, options, timeout = 2500) => {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
     const response = await fetch(url, { ...options, signal: controller.signal });
@@ -45,22 +45,22 @@ export async function GET() {
     }
   ];
 
-  let errors = [];
-
-  for (const api of apis) {
-    try {
-      const pricePerOunce = await api.fetch();
-      if (pricePerOunce > 0) {
-        console.log(`Successfully fetched gold price from ${api.name}: ${pricePerOunce}`);
-        return NextResponse.json({ pricePerOunce, source: api.name });
-      }
-    } catch (e) {
-      console.warn(`Failed fetching from ${api.name}:`, e.message);
-      errors.push(`${api.name}: ${e.message}`);
-    }
+  try {
+    // 🔥 Promise.any executes ALL 3 requests simultaneously!
+    // The very first one to successfully return a price "wins" instantly.
+    // This reduces the wait time to just the speed of the fastest API (usually < 300ms)
+    const result = await Promise.any(
+      apis.map(async (api) => {
+        const price = await api.fetch();
+        if (price > 0) return { pricePerOunce: price, source: api.name };
+        throw new Error('Invalid price');
+      })
+    );
+    
+    return NextResponse.json(result);
+  } catch (aggregateError) {
+    // If we reach here, it means ALL 3 APIs failed simultaneously
+    console.error('All Gold APIs failed:', aggregateError.errors);
+    return NextResponse.json({ error: 'All APIs failed' }, { status: 500 });
   }
-
-  // If all APIs fail
-  console.error('All Gold APIs failed:', errors);
-  return NextResponse.json({ error: 'All APIs failed', details: errors }, { status: 500 });
 }
