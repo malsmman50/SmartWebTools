@@ -23,8 +23,12 @@ export default function ZakatCalculator() {
         });
         if (!res.ok) throw new Error('API Response not OK');
         const data = await res.json();
-        // Assuming data.items[0].xauPrice is per ounce (28.3495g)
-        const goldPricePerOz = data.items[0].xauPrice;
+        
+        if (!data.pricePerOunce) {
+           throw new Error('Missing pricePerOunce in response');
+        }
+
+        const goldPricePerOz = data.pricePerOunce;
         const goldPricePerGram = goldPricePerOz / 31.1035;
         const nisabGold = goldPricePerGram * 85; // 85 grams threshold
         setNisab(Math.round(nisabGold));
