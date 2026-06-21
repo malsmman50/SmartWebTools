@@ -22,6 +22,7 @@ export default function ChatPDF() {
   const [results, setResults] = useState([]);
   
   const workerRef = useRef(null);
+  const totalChunksRef = useRef(0);
 
   useEffect(() => {
     // Initialize Web Worker from public directory to bypass Turbopack
@@ -55,7 +56,13 @@ export default function ChatPDF() {
           });
         } else {
           // Adding document to DB
-          setDb(prev => [...prev, { id: msg.id, text: msg.text, vector: msg.vector }]);
+          setDb(prev => {
+            const newDb = [...prev, { id: msg.id, text: msg.text, vector: msg.vector }];
+            if (newDb.length === totalChunksRef.current) {
+              setStatus('Ready');
+            }
+            return newDb;
+          });
         }
       }
     };
@@ -111,6 +118,7 @@ export default function ChatPDF() {
       
       setStatus('Chunking and Vectorizing Document (Using Local GPU)...');
       const chunks = chunkText(fullText);
+      totalChunksRef.current = chunks.length;
       
       chunks.forEach((chunk, i) => {
         workerRef.current.postMessage({ type: 'embed', id: i, text: chunk });
