@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { NumericFormat } from 'react-number-format';
 
 export default function MudarabahCalculator() {
   const [capital, setCapital] = useState(50000);
@@ -13,7 +14,7 @@ export default function MudarabahCalculator() {
   const investorProfit = !isLoss ? netProfit * (investorShare / 100) : 0;
   const managerProfit = !isLoss ? netProfit * ((100 - investorShare) / 100) : 0;
 
-  const investorFinal = !isLoss ? capital + investorProfit : capital + netProfit; // netProfit is negative in loss
+  const investorFinal = !isLoss ? capital + investorProfit : Math.max(0, capital + netProfit); // Liability capped at capital
   
   const fmt = (n) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
@@ -29,15 +30,15 @@ export default function MudarabahCalculator() {
           <h3 style={{ marginBottom: '16px' }}>Project Details</h3>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Capital Invested ($)</label>
-            <input type="number" className="input" value={capital} onChange={e => setCapital(Number(e.target.value))} />
+            <NumericFormat className="input" value={capital} onValueChange={v => setCapital(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Total Project Revenue ($)</label>
-            <input type="number" className="input" value={revenue} onChange={e => setRevenue(Number(e.target.value))} />
+            <NumericFormat className="input" value={revenue} onValueChange={v => setRevenue(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '24px' }}>
             <label className="label">Total Project Expenses ($)</label>
-            <input type="number" className="input" value={expenses} onChange={e => setExpenses(Number(e.target.value))} />
+            <NumericFormat className="input" value={expenses} onValueChange={v => setExpenses(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: '16px' }}>Agreed Profit Sharing Ratio</h3>
@@ -74,6 +75,7 @@ export default function MudarabahCalculator() {
           <div className="card" style={{ padding: '16px', textAlign: 'center', background: 'var(--bg)' }}>
             <div className="result-label">Investor's Final Capital Returned</div>
             <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)' }}>{fmt(investorFinal)}</div>
+            {isLoss && investorFinal === 0 && <p style={{ fontSize: '0.8rem', color: 'var(--danger)', marginTop: '4px' }}>Investor liability is strictly capped at capital</p>}
           </div>
         </div>
       </div>
@@ -146,7 +148,7 @@ export default function MudarabahCalculator() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

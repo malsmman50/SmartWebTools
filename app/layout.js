@@ -3,14 +3,14 @@ import './globals.css';
 export const metadata = {
   metadataBase: new URL('https://smartcalctools.xyz'),
   title: {
-    default: 'SmartCalcTools — Free Financial Calculators & Developer Tools',
+    default: 'SmartCalcTools — Halal Financial Calculators & Secure Developer Tools',
     template: '%s | SmartCalcTools',
   },
-  description: 'Free online mortgage calculator, compound interest calculator, ROI calculator, JSON formatter, password generator, and more. Fast, private, no signup required.',
-  keywords: ['mortgage calculator', 'compound interest calculator', 'ROI calculator', 'JSON formatter', 'password generator', 'cron generator', 'free online tools'],
+  description: '100% free, private, and client-side tools. Explore our Zakat Calculator, Murabaha Financing Calculator, Islamic FIRE tool, JSON Formatter, and secure WebGPU ChatPDF.',
+  keywords: ['Islamic finance calculators', 'Zakat calculator', 'Murabaha calculator', 'Mudarabah profit calculator', 'Halal investment tools', 'JSON formatter', 'JWT decoder offline', 'client-side ChatPDF', 'free developer tools'],
   openGraph: {
-    title: 'SmartCalcTools — Free Financial Calculators & Developer Tools',
-    description: 'Free online mortgage calculator, compound interest calculator, ROI calculator, JSON formatter, password generator, and more.',
+    title: 'SmartCalcTools — Halal Financial Calculators & Secure Developer Tools',
+    description: 'Free, offline-first developer tools and Sharia-compliant financial calculators. Private and secure.',
     url: 'https://smartcalctools.xyz',
     siteName: 'SmartCalcTools',
     type: 'website',
@@ -18,8 +18,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SmartCalcTools — Free Financial Calculators & Developer Tools',
-    description: 'Free online mortgage calculator, compound interest calculator, ROI calculator, JSON formatter, and more.',
+    title: 'SmartCalcTools — Halal Finance & Pro Dev Tools',
+    description: 'Explore our Zakat Calculator, Islamic FIRE tool, and ultra-secure offline developer utilities.',
   },
   robots: { index: true, follow: true },
   alternates: { canonical: 'https://smartcalctools.xyz' },

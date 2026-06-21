@@ -39,12 +39,15 @@ export default function ChatPDF() {
           setProgress(100);
           const queryVector = msg.vector;
           
-          const scored = db.map(doc => ({
-            ...doc,
-            score: cosineSimilarity(queryVector, doc.vector)
-          }));
-          scored.sort((a, b) => b.score - a.score);
-          setResults(scored.slice(0, 3));
+          setDb(currentDb => {
+            const scored = currentDb.map(doc => ({
+              ...doc,
+              score: cosineSimilarity(queryVector, doc.vector)
+            }));
+            scored.sort((a, b) => b.score - a.score);
+            setResults(scored.slice(0, 3));
+            return currentDb;
+          });
         } else {
           // Adding document to DB
           setDb(prev => [...prev, { id: msg.id, text: msg.text, vector: msg.vector }]);
@@ -53,7 +56,7 @@ export default function ChatPDF() {
     };
     
     return () => workerRef.current.terminate();
-  }, [db]);
+  }, []);
 
   const chunkText = (text, maxLength = 500) => {
     const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
@@ -81,18 +84,20 @@ export default function ChatPDF() {
     
     try {
       const pdfjsLib = await import('pdfjs-dist/build/pdf');
-      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
       
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      let fullText = '';
       
-      for (let i = 1; i <= pdf.numPages; i++) {
-        setStatus(`Extracting text from PDF... Page ${i}/${pdf.numPages}`);
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        fullText += textContent.items.map(item => item.str).join(' ') + ' ';
-      }
+      setStatus(`Extracting text from ${pdf.numPages} pages...`);
+      const pagePromises = Array.from({ length: pdf.numPages }, (_, i) => 
+        pdf.getPage(i + 1).then(async (page) => {
+          const textContent = await page.getTextContent();
+          return textContent.items.map(item => item.str).join(' ');
+        })
+      );
+      const pagesData = await Promise.all(pagePromises);
+      const fullText = pagesData.join(' ') + ' ';
       
       setStatus('Chunking and Vectorizing Document (Using Local GPU)...');
       const chunks = chunkText(fullText);
@@ -202,7 +207,7 @@ export default function ChatPDF() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

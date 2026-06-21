@@ -187,7 +187,7 @@ export default function CronGenerator() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

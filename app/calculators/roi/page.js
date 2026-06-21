@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { NumericFormat } from 'react-number-format';
 
 export default function ROICalculator() {
   const [invested, setInvested] = useState(5000);
@@ -19,11 +20,11 @@ export default function ROICalculator() {
         <div className="card">
           <div style={{ marginBottom: '20px' }}>
             <label className="label">Amount Invested ($)</label>
-            <input type="number" className="input" value={invested} onChange={e => setInvested(Number(e.target.value))} />
+            <NumericFormat className="input" value={invested} onValueChange={v => setInvested(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div>
             <label className="label">Amount Returned ($)</label>
-            <input type="number" className="input" value={returned} onChange={e => setReturned(Number(e.target.value))} />
+            <NumericFormat className="input" value={returned} onValueChange={v => setReturned(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
         </div>
 

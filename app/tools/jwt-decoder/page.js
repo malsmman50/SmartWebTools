@@ -146,7 +146,7 @@ export default function JwtDecoder() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

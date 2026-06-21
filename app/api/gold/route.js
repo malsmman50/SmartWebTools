@@ -6,9 +6,11 @@ export async function GET() {
   const fetchWithTimeout = async (url, options, timeout = 2500) => {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
-    const response = await fetch(url, { ...options, signal: controller.signal });
-    clearTimeout(id);
-    return response;
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      clearTimeout(id);
+    }
   };
 
   const apis = [

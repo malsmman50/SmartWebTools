@@ -150,7 +150,7 @@ export default function JsonFormatter() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

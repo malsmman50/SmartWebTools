@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { NumericFormat } from 'react-number-format';
 
 export default function MurabahaCalculator() {
   const [cost, setCost] = useState(100000);
@@ -9,8 +10,9 @@ export default function MurabahaCalculator() {
 
   const financedAmount = cost - downPayment;
   const profitAmount = financedAmount > 0 ? financedAmount * (markupPercent / 100) : 0;
-  const totalSellingPrice = financedAmount + profitAmount;
-  const monthlyInstallment = months > 0 && totalSellingPrice > 0 ? totalSellingPrice / months : 0;
+  const totalDeferredBalance = financedAmount + profitAmount;
+  const trueSellingPrice = cost + profitAmount;
+  const monthlyInstallment = months > 0 && totalDeferredBalance > 0 ? totalDeferredBalance / months : 0;
 
   const fmt = (n) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
@@ -25,11 +27,11 @@ export default function MurabahaCalculator() {
         <div className="card">
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Asset Cost / Purchase Price ($)</label>
-            <input type="number" className="input" value={cost} onChange={e => setCost(Number(e.target.value))} />
+            <NumericFormat className="input" value={cost} onValueChange={v => setCost(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Down Payment ($)</label>
-            <input type="number" className="input" value={downPayment} onChange={e => setDownPayment(Number(e.target.value))} />
+            <NumericFormat className="input" value={downPayment} onValueChange={v => setDownPayment(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Agreed Profit Margin (%)</label>
@@ -49,13 +51,17 @@ export default function MurabahaCalculator() {
           </div>
           <div className="grid-2">
             <div className="result-box">
-              <div className="result-label">Total Selling Price (Excl. Down Payment)</div>
-              <div className="result-value" style={{ fontSize: '1.4rem', color: 'var(--text)' }}>{fmt(totalSellingPrice)}</div>
+              <div className="result-label">Total Contractual Selling Price</div>
+              <div className="result-value" style={{ fontSize: '1.4rem', color: 'var(--text)' }}>{fmt(trueSellingPrice)}</div>
             </div>
             <div className="result-box">
-              <div className="result-label">Financier's Fixed Profit</div>
-              <div className="result-value" style={{ fontSize: '1.4rem', color: 'var(--success)' }}>{fmt(profitAmount)}</div>
+              <div className="result-label">Total Deferred Balance</div>
+              <div className="result-value" style={{ fontSize: '1.4rem', color: 'var(--text)' }}>{fmt(totalDeferredBalance)}</div>
             </div>
+          </div>
+          <div className="result-box" style={{ marginTop: '16px' }}>
+            <div className="result-label">Financier's Fixed Profit</div>
+            <div className="result-value" style={{ fontSize: '1.4rem', color: 'var(--success)' }}>{fmt(profitAmount)}</div>
           </div>
         </div>
       </div>
@@ -129,7 +135,7 @@ export default function MurabahaCalculator() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { NumericFormat } from 'react-number-format';
 
 export default function ZakatCalculator() {
   const [cash, setCash] = useState(5000);
@@ -61,25 +62,25 @@ export default function ZakatCalculator() {
           <h3 style={{ marginBottom: '16px' }}>Assets (What you own)</h3>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Cash & Savings ($)</label>
-            <input type="number" className="input" value={cash} onChange={e => setCash(Number(e.target.value))} />
+            <NumericFormat className="input" value={cash} onValueChange={v => setCash(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Gold Value ($)</label>
-            <input type="number" className="input" value={gold} onChange={e => setGold(Number(e.target.value))} />
+            <NumericFormat className="input" value={gold} onValueChange={v => setGold(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
             <label className="label">Silver Value ($)</label>
-            <input type="number" className="input" value={silver} onChange={e => setSilver(Number(e.target.value))} />
+            <NumericFormat className="input" value={silver} onValueChange={v => setSilver(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '24px' }}>
             <label className="label">Business Inventory & Shares ($)</label>
-            <input type="number" className="input" value={business} onChange={e => setBusiness(Number(e.target.value))} />
+            <NumericFormat className="input" value={business} onValueChange={v => setBusiness(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: '16px' }}>Liabilities (What you owe)</h3>
           <div style={{ marginBottom: '24px' }}>
             <label className="label">Immediate Debts & Bills ($)</label>
-            <input type="number" className="input" value={debts} onChange={e => setDebts(Number(e.target.value))} />
+            <NumericFormat className="input" value={debts} onValueChange={v => setDebts(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: '16px' }}>Threshold (Nisab)</h3>
@@ -102,7 +103,7 @@ export default function ZakatCalculator() {
                   </p>
                 )}
                 <label className="label">Manual Nisab Value ($)</label>
-                <input type="number" className="input" value={nisab} onChange={e => setNisab(Number(e.target.value))} />
+                <NumericFormat className="input" value={nisab} onValueChange={v => setNisab(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Typically the value of 595g of silver or 85g of gold.</p>
               </div>
             )}
@@ -215,7 +216,7 @@ export default function ZakatCalculator() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

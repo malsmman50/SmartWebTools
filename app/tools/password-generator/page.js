@@ -14,9 +14,20 @@ export default function PasswordGenerator() {
     if (useUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     if (useNumbers) chars += '0123456789';
     if (useSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    if (!chars) return;
+    
+    let pwd = '';
+    const maxValid = Math.floor(4294967296 / chars.length) * chars.length;
     const array = new Uint32Array(length);
-    crypto.getRandomValues(array);
-    setPassword(Array.from(array, x => chars[x % chars.length]).join(''));
+    while (pwd.length < length) {
+      crypto.getRandomValues(array);
+      for (let i = 0; i < array.length && pwd.length < length; i++) {
+        if (array[i] < maxValid) {
+          pwd += chars[array[i] % chars.length];
+        }
+      }
+    }
+    setPassword(pwd);
   };
 
   const copy = () => { navigator.clipboard.writeText(password); setCopied(true); setTimeout(() => setCopied(false), 2000); };
@@ -148,7 +159,7 @@ export default function PasswordGenerator() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

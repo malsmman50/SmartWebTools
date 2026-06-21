@@ -1,11 +1,12 @@
 'use client';
 import { useState } from 'react';
+import { NumericFormat } from 'react-number-format';
 
 export default function IslamicFireCalculator() {
   const [annualExpenses, setAnnualExpenses] = useState(60000);
   const [expectedReturn, setExpectedReturn] = useState(8.0);
   const [inflationRate, setInflationRate] = useState(3.0);
-  const [isZakatable, setIsZakatable] = useState(true);
+  const [zakatType, setZakatType] = useState('long-term');
 
   // Math
   const realReturn = (expectedReturn - inflationRate) / 100;
@@ -14,8 +15,8 @@ export default function IslamicFireCalculator() {
   const conventionalSWR = realReturn;
   const conventionalFireNumber = conventionalSWR > 0 ? annualExpenses / conventionalSWR : 0;
 
-  // Islamic: We must subtract 2.5% from the real return to account for annual Zakat on the principal
-  const zakatRate = isZakatable ? 0.025 : 0;
+  // Islamic: Subtract Zakat from real return
+  const zakatRate = zakatType === 'long-term' ? 0.008 : zakatType === 'active' ? 0.025 : 0;
   const islamicSWR = realReturn - zakatRate;
   const islamicFireNumber = islamicSWR > 0 ? annualExpenses / islamicSWR : 0;
 
@@ -34,8 +35,14 @@ export default function IslamicFireCalculator() {
         <div className="card">
           <h3 style={{ marginBottom: '16px' }}>Your Goals & Market Assumptions</h3>
           <div style={{ marginBottom: '16px' }}>
-            <label className="label">Desired Annual Living Expenses ($)</label>
-            <input type="number" className="input" value={annualExpenses} onChange={e => setAnnualExpenses(Number(e.target.value))} />
+            <label className="label">Desired Annual Living Expenses</label>
+            <NumericFormat 
+              className="input" 
+              value={annualExpenses} 
+              onValueChange={(values) => setAnnualExpenses(values.floatValue || 0)}
+              thousandSeparator={true}
+              prefix="$"
+            />
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>How much money do you need per year to live comfortably?</p>
           </div>
           
@@ -52,10 +59,11 @@ export default function IslamicFireCalculator() {
           </div>
 
           <div style={{ marginBottom: '16px' }}>
-            <label className="label">Is the Retirement Portfolio Fully Zakatable?</label>
-            <select className="input" value={isZakatable.toString()} onChange={e => setIsZakatable(e.target.value === 'true')}>
-              <option value="true">Yes (Liquid Stocks, Cash, Crypto)</option>
-              <option value="false">No (Real Estate Rentals - Zakat is on income, not property value)</option>
+            <label className="label">Portfolio Zakat Strategy (AAOIFI Standard)</label>
+            <select className="input" value={zakatType} onChange={e => setZakatType(e.target.value)}>
+              <option value="long-term">Long-Term Index Funds/ETFs (Effective Zakat ~0.8%)</option>
+              <option value="active">Active Trading/Cash Portfolio (Zakat 2.5%)</option>
+              <option value="none">Real Estate Rentals (Zakat on income only, 0% on property value)</option>
             </select>
           </div>
         </div>
@@ -156,7 +164,7 @@ export default function IslamicFireCalculator() {
             }
           }
         ]
-      })}} />
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }
