@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Editor from '@monaco-editor/react';
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('');
@@ -8,39 +9,64 @@ export default function JsonFormatter() {
   const [copied, setCopied] = useState(false);
 
   const format = () => {
-    try { setOutput(JSON.stringify(JSON.parse(input), null, 2)); setError(''); } 
-    catch (e) { setError('❌ Invalid JSON: ' + e.message); setOutput(''); }
+    try { 
+      setOutput(JSON.stringify(JSON.parse(input), null, 2)); 
+      setError(''); 
+    } catch (e) { 
+      setError('❌ Invalid JSON: ' + e.message); 
+    }
   };
+  
   const minify = () => {
-    try { setOutput(JSON.stringify(JSON.parse(input))); setError(''); }
-    catch (e) { setError('❌ Invalid JSON: ' + e.message); setOutput(''); }
+    try { 
+      setOutput(JSON.stringify(JSON.parse(input))); 
+      setError(''); 
+    } catch (e) { 
+      setError('❌ Invalid JSON: ' + e.message); 
+    }
   };
-  const copy = () => { navigator.clipboard.writeText(output); setCopied(true); setTimeout(() => setCopied(false), 2000); };
+  
+  const copy = () => { 
+    navigator.clipboard.writeText(output); 
+    setCopied(true); 
+    setTimeout(() => setCopied(false), 2000); 
+  };
 
   return (
-    <div className="container" style={{ padding: '40px 20px' }}>
+    <div className="container" style={{ padding: '40px 20px', maxWidth: '1400px' }}>
       <div className="page-header">
-        <h1>{'{ }'} JSON Formatter & Validator</h1>
-        <p>Paste your JSON to format, validate, and minify it instantly. Runs entirely in your browser — your data stays private.</p>
+        <h1>{'{ }'} JSON Formatter (Pro Edition)</h1>
+        <p>Powered by the VS Code engine (Monaco). Paste your JSON to format, validate, and minify it instantly in your browser.</p>
       </div>
 
-      <div className="card">
-        <div className="grid-2">
-          <div>
-            <label className="label">Input JSON</label>
-            <textarea className="input" rows="16" placeholder='{"key": "value"}' value={input} onChange={e => setInput(e.target.value)} style={{ fontFamily: 'monospace', fontSize: '0.9rem' }} />
-            <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-              <button className="btn btn-primary" onClick={format}>Format</button>
-              <button className="btn btn-outline" onClick={minify}>Minify</button>
-            </div>
-            {error && <p style={{ color: 'var(--danger)', marginTop: '8px', fontSize: '0.9rem' }}>{error}</p>}
+      <div className="card" style={{ padding: 0, overflow: 'hidden', background: '#1e1e1e', border: '1px solid #333' }}>
+        <div style={{ display: 'flex', padding: '12px 20px', background: '#252526', borderBottom: '1px solid #333', gap: '12px', alignItems: 'center' }}>
+          <button className="btn btn-primary" onClick={format} style={{ padding: '6px 16px', fontSize: '0.9rem' }}>Format</button>
+          <button className="btn btn-outline" onClick={minify} style={{ padding: '6px 16px', fontSize: '0.9rem', borderColor: '#444', color: '#ccc' }}>Minify</button>
+          {error && <span style={{ color: '#f48771', fontSize: '0.9rem', marginLeft: 'auto' }}>{error}</span>}
+          {output && !error && <button className="copy-btn" onClick={copy} style={{ marginLeft: 'auto', background: '#0e639c', color: 'white', border: 'none', padding: '6px 16px', borderRadius: '4px', cursor: 'pointer' }}>{copied ? '✅ Copied' : '📋 Copy Output'}</button>}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#333' }}>
+          <div style={{ background: '#1e1e1e' }}>
+            <div style={{ padding: '8px 16px', color: '#858585', fontSize: '0.8rem', borderBottom: '1px solid #333' }}>INPUT.json</div>
+            <Editor
+              height="60vh"
+              defaultLanguage="json"
+              theme="vs-dark"
+              value={input}
+              onChange={(val) => setInput(val || '')}
+              options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' }}
+            />
           </div>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <label className="label" style={{ margin: 0 }}>Output</label>
-              {output && <button className="copy-btn" onClick={copy}>{copied ? '✅ Copied' : '📋 Copy'}</button>}
-            </div>
-            <textarea className="input" rows="16" readOnly value={output} placeholder="Formatted output appears here..." style={{ fontFamily: 'monospace', fontSize: '0.9rem', background: 'var(--bg)' }} />
+          <div style={{ background: '#1e1e1e' }}>
+            <div style={{ padding: '8px 16px', color: '#858585', fontSize: '0.8rem', borderBottom: '1px solid #333' }}>OUTPUT.json</div>
+            <Editor
+              height="60vh"
+              defaultLanguage="json"
+              theme="vs-dark"
+              value={output}
+              options={{ readOnly: true, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' }}
+            />
           </div>
         </div>
       </div>
