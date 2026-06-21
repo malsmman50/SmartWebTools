@@ -15,6 +15,11 @@ export default function CronGenerator() {
   const cronString = `${minute} ${hour} ${dayOfMonth} ${month} ${dayOfWeek}`;
 
   useEffect(() => {
+    if (cronString.length > 100) {
+      setHumanReadable('Error: Expression too long. Max 100 characters.');
+      setIsValid(false);
+      return;
+    }
     try {
       setHumanReadable(cronstrue.toString(cronString));
       setIsValid(true);

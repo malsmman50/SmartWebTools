@@ -138,8 +138,8 @@ export default function ChatPDF() {
   return (
     <div className="container" style={{ padding: '40px 20px', maxWidth: '1000px' }}>
       <div className="page-header">
-        <h1>🔒 Private SearchPDF (Zero Trust)</h1>
-        <p>Talk to your PDFs securely. Your file never leaves your computer. We use local AI running entirely within your browser to read and search your documents.</p>
+        <h1>📑 Semantic PDF Search</h1>
+        <p>100% private, local-first document analysis. Search your PDFs semantically using on-device AI embeddings. No data leaves your browser.</p>
       </div>
 
       <div className="card" style={{ marginBottom: '24px', textAlign: 'center', padding: '40px' }}>

@@ -10,34 +10,61 @@ export default function PasswordGenerator() {
   const [copied, setCopied] = useState(false);
 
   const generate = () => {
-    let chars = 'abcdefghijklmnopqrstuvwxyz';
-    if (useUpper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    if (useNumbers) chars += '0123456789';
-    if (useSymbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    if (!chars) return;
-    
-    let pwd = '';
-    const maxValid = Math.floor(4294967296 / chars.length) * chars.length;
+    let charSets = [];
+    if (useUpper) charSets.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    if (useNumbers) charSets.push('0123456789');
+    if (useSymbols) charSets.push('!@#$%^&*()_+-=[]{}|;:,.<>?');
+    if (charSets.length === 0) charSets.push('abcdefghijklmnopqrstuvwxyz'); // fallback
+    const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
+    charSets.push(lowerChars);
+
+    let pwdChars = [];
     const array = new Uint32Array(length);
-    while (pwd.length < length) {
+    crypto.getRandomValues(array);
+
+    // Guarantee one character from each selected set
+    for (let i = 0; i < charSets.length && pwdChars.length < length; i++) {
+      const set = charSets[i];
+      pwdChars.push(set[array[i] % set.length]);
+    }
+
+    // Fill the rest randomly from all combined allowed characters
+    const allChars = charSets.join('');
+    const maxValid = Math.floor(4294967296 / allChars.length) * allChars.length;
+    let index = pwdChars.length;
+    
+    while (pwdChars.length < length) {
       crypto.getRandomValues(array);
-      for (let i = 0; i < array.length && pwd.length < length; i++) {
+      for (let i = 0; i < array.length && pwdChars.length < length; i++) {
         if (array[i] < maxValid) {
-          pwd += chars[array[i] % chars.length];
+          pwdChars.push(allChars[array[i] % allChars.length]);
         }
       }
     }
-    setPassword(pwd);
+
+    // Shuffle the characters array using Fisher-Yates
+    const shuffleArray = new Uint32Array(pwdChars.length);
+    crypto.getRandomValues(shuffleArray);
+    for (let i = pwdChars.length - 1; i > 0; i--) {
+      const j = shuffleArray[i] % (i + 1);
+      [pwdChars[i], pwdChars[j]] = [pwdChars[j], pwdChars[i]];
+    }
+
+    setPassword(pwdChars.join(''));
   };
 
   const copy = () => { navigator.clipboard.writeText(password); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
   const strength = () => {
-    let s = 0;
-    if (length >= 12) s++; if (length >= 16) s++; if (length >= 20) s++;
-    if (useUpper) s++; if (useNumbers) s++; if (useSymbols) s++;
-    if (s <= 2) return { text: 'Weak', color: 'var(--danger)' };
-    if (s <= 4) return { text: 'Good', color: '#f59e0b' };
+    let charsetSize = 26; // lower case
+    if (useUpper) charsetSize += 26;
+    if (useNumbers) charsetSize += 10;
+    if (useSymbols) charsetSize += 26; // approx 26 symbols
+
+    const entropy = length * Math.log2(charsetSize);
+    
+    if (entropy < 50) return { text: 'Weak', color: 'var(--danger)' };
+    if (entropy < 75) return { text: 'Good', color: '#f59e0b' };
     return { text: 'Strong', color: 'var(--success)' };
   };
 

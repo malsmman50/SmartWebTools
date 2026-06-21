@@ -1,7 +1,5 @@
 'use client';
 import { useState, useRef } from 'react';
-import Editor from '@monaco-editor/react';
-
 export default function JsonFormatter() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -36,7 +34,7 @@ export default function JsonFormatter() {
     <div className="container" style={{ padding: '40px 20px', maxWidth: '1400px' }}>
       <div className="page-header">
         <h1>{'{ }'} JSON Formatter (Pro Edition)</h1>
-        <p>Powered by the VS Code engine (Monaco). Paste your JSON to format, validate, and minify it instantly in your browser.</p>
+        <p>Paste your JSON to format, validate, and minify it instantly in your browser. <strong>100% Offline and Private.</strong> No external editors or CDNs are loaded.</p>
       </div>
 
       <div className="card" style={{ padding: 0, overflow: 'hidden', background: '#1e1e1e', border: '1px solid #333' }}>
@@ -70,12 +68,23 @@ export default function JsonFormatter() {
           </div>
           <div style={{ background: '#1e1e1e' }}>
             <div style={{ padding: '8px 16px', color: '#858585', fontSize: '0.8rem', borderBottom: '1px solid #333' }}>OUTPUT.json</div>
-            <Editor
-              height="60vh"
-              defaultLanguage="json"
-              theme="vs-dark"
+            <textarea
+              style={{
+                flexGrow: 1,
+                width: '100%',
+                height: '60vh',
+                background: '#1e1e1e',
+                color: '#d4d4d4',
+                border: 'none',
+                padding: '16px',
+                fontFamily: 'monospace',
+                fontSize: '14px',
+                resize: 'none',
+                outline: 'none',
+                lineHeight: '1.5'
+              }}
+              readOnly
               value={output}
-              options={{ readOnly: true, minimap: { enabled: false }, fontSize: 14, wordWrap: 'on' }}
             />
           </div>
         </div>

@@ -36,6 +36,14 @@ export default function JwtDecoder() {
       <div className="page-header">
         <h1>🔐 JWT Decoder (Pro Edition)</h1>
         <p>Decode JSON Web Tokens instantly. Runs 100% offline in your browser — your tokens never leave your device.</p>
+        
+        <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid #f59e0b', borderRadius: '8px', color: '#b45309', textAlign: 'left', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '1.2rem' }}>⚠️</span>
+          <div>
+            <strong style={{ display: 'block', marginBottom: '4px' }}>Security Warning</strong>
+            This tool performs a Base64Url decode only. It <strong>does NOT verify the cryptographic signature</strong> of the token. A decoded payload does not guarantee the token is authentic or untampered. Always perform signature verification on your backend server.
+          </div>
+        </div>
       </div>
 
       <div className="grid-2">
@@ -84,6 +92,11 @@ export default function JwtDecoder() {
         <h2>The Complete Guide to JSON Web Tokens (JWT)</h2>
         <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>
           JSON Web Tokens (JWT) are an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.
+        </p>
+
+        <h3 style={{ marginTop: '24px' }}>Does this tool verify the signature?</h3>
+        <p style={{ color: 'var(--text-muted)' }}>
+          No. This tool is designed purely for <strong>decoding and inspecting</strong> the payload and headers of a token during development. It does not perform cryptographic signature validation. To ensure a JWT is authentic and hasn't been tampered with, you must verify the signature on your backend server using the appropriate secret key or public key.
         </p>
 
         <h3 style={{ marginTop: '24px' }}>Why You Need a Client-Side JWT Decoder</h3>
