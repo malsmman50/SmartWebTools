@@ -18,6 +18,8 @@ export default function ChatPDF() {
   const [status, setStatus] = useState('Idle');
   const [progress, setProgress] = useState(0);
   const [dbLength, setDbLength] = useState(0);
+  const [fileInfo, setFileInfo] = useState(null);
+  const [reverseArabic, setReverseArabic] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   
@@ -107,9 +109,11 @@ export default function ChatPDF() {
     }).join('\n');
   };
 
-  const chunkText = (text, maxLength = 500) => {
-    // Apply Arabic fix before chunking
-    text = fixArabicPDFText(text);
+  const chunkText = (text, shouldReverse, maxLength = 500) => {
+    // Apply Arabic fix before chunking if user opted in
+    if (shouldReverse) {
+      text = fixArabicPDFText(text);
+    }
     const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
     const chunks = [];
     let currentChunk = '';
@@ -132,15 +136,21 @@ export default function ChatPDF() {
     setStatus('Extracting text from PDF...');
     setProgress(0);
     setDbLength(0);
+    setFileInfo(null);
     dbRef.current = [];
     setResults([]);
-    
     try {
       const pdfjsLib = await import('pdfjs-dist/build/pdf');
       pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
       
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      
+      setFileInfo({
+        name: file.name,
+        size: (file.size / 1024 / 1024).toFixed(2) + ' MB',
+        pages: pdf.numPages
+      });
       
       setStatus(`Extracting text from ${pdf.numPages} pages...`);
       
@@ -162,7 +172,7 @@ export default function ChatPDF() {
       
       setStatus('Chunking and Vectorizing Document (Using Local GPU)...');
       setProgress(20); // Start of vectorization phase
-      const chunks = chunkText(fullText);
+      const chunks = chunkText(fullText, reverseArabic);
       totalChunksRef.current = chunks.length;
       
       chunks.forEach((chunk, i) => {
@@ -197,7 +207,32 @@ export default function ChatPDF() {
         <label htmlFor="pdf-upload" className="btn btn-primary" style={{ cursor: 'pointer', fontSize: '1.2rem', padding: '12px 24px' }}>
           📄 Upload PDF (Max Security)
         </label>
-        <p style={{ marginTop: '16px', color: 'var(--text-muted)' }}>Status: <strong style={{ color: 'var(--primary)' }}>{status}</strong></p>
+        
+        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+          <input 
+            type="checkbox" 
+            id="reverseArabic" 
+            checked={reverseArabic} 
+            onChange={(e) => setReverseArabic(e.target.checked)} 
+            style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+          />
+          <label htmlFor="reverseArabic" style={{ fontSize: '0.9rem', color: 'var(--text-muted)', cursor: 'pointer' }}>
+            Fix Garbled Arabic (Check this if extracted Arabic text appears backwards)
+          </label>
+        </div>
+
+        {fileInfo && (
+          <div style={{ marginTop: '24px', textAlign: 'left', padding: '16px', background: 'rgba(99,102,241,0.05)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+            <h3 style={{ margin: '0 0 12px 0', fontSize: '1rem', color: 'var(--primary)' }}>📄 Document Information</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px', fontSize: '0.9rem' }}>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Name:</strong> <span style={{ wordBreak: 'break-all' }}>{fileInfo.name}</span></div>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Size:</strong> {fileInfo.size}</div>
+              <div><strong style={{ color: 'var(--text-muted)' }}>Pages:</strong> {fileInfo.pages}</div>
+            </div>
+          </div>
+        )}
+
+        <p style={{ marginTop: '24px', color: 'var(--text-muted)' }}>Status: <strong style={{ color: 'var(--primary)' }}>{status}</strong></p>
         
         {(progress > 0 && status !== 'Ready') && (
           <div style={{ width: '100%', height: '8px', background: '#e0e0e0', borderRadius: '4px', overflow: 'hidden', marginTop: '12px' }}>
