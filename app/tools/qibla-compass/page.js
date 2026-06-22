@@ -110,7 +110,7 @@ export default function QiblaCompass() {
   return (
     <div className="container" style={{ padding: '40px 20px', maxWidth: '800px', margin: '0 auto' }}>
       <Script 
-        src="https://cdn.jsdelivr.net/npm/adhan@4.4.4/lib/adhan.umd.min.js" 
+        src="/api/adhan" 
         onLoad={() => setAdhanLoaded(true)}
       />
 
