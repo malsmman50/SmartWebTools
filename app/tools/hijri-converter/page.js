@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Script from 'next/script';
 
 export default function HijriConverter() {
   const [gregorianDate, setGregorianDate] = useState('');
@@ -9,76 +10,73 @@ export default function HijriConverter() {
   const [activeTab, setActiveTab] = useState('g2h'); // 'g2h' or 'h2g'
   
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [momentLoaded, setMomentLoaded] = useState(false);
 
   // Get today's date formatted for input on mount
   useEffect(() => {
     const today = new Date();
     setGregorianDate(today.toISOString().split('T')[0]);
-    
-    // Default Hijri to a roughly current date
-    setHDay(today.getDate().toString());
-    setHMonth(((today.getMonth() + 6) % 12 + 1).toString()); // rough approximation
-    setHYear('1446');
   }, []);
 
-  const convertGregorianToHijri = async (dateString) => {
-    try {
-      setLoading(true);
-      setResult(null);
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) throw new Error("Invalid date");
-      
-      const dd = String(date.getDate()).padStart(2, '0');
-      const mm = String(date.getMonth() + 1).padStart(2, '0');
-      const yyyy = date.getFullYear();
-      
-      const res = await fetch(`https://api.aladhan.com/v1/gToH?date=${dd}-${mm}-${yyyy}`);
-      const data = await res.json();
-      
-      if (data.code === 200) {
-        const h = data.data.hijri;
-        setResult({
-          primary: `${h.day} ${h.month.en} ${h.year} AH`,
-          secondary: `Numeric: ${h.date}`,
-          type: 'hijri'
-        });
-      } else {
-        throw new Error(data.data || "API Error");
-      }
-    } catch (e) {
-      setResult({ error: "Failed to convert date. Please ensure your input is valid." });
-    } finally {
-      setLoading(false);
+  // Sync default Hijri date when moment is loaded
+  useEffect(() => {
+    if (momentLoaded && window.moment) {
+      const today = window.moment();
+      setHYear(today.iYear().toString());
+      setHMonth((today.iMonth() + 1).toString());
+      setHDay(today.iDate().toString());
+    }
+  }, [momentLoaded]);
+
+  const checkMomentLoaded = () => {
+    if (window.moment && window.moment().iYear) {
+      setMomentLoaded(true);
+    } else {
+      setTimeout(checkMomentLoaded, 100);
     }
   };
 
-  const convertHijriToGregorian = async (hijriStr) => {
+  const convertGregorianToHijri = (dateString) => {
     try {
-      setLoading(true);
       setResult(null);
+      if (!window.moment || !window.moment().iYear) throw new Error("Library loading...");
       
-      const [hy, hm, hd] = hijriStr.split('-');
-      const dd = String(hd).padStart(2, '0');
-      const mm = String(hm).padStart(2, '0');
+      const m = window.moment(dateString, 'YYYY-MM-DD');
+      if (!m.isValid()) throw new Error("Invalid date");
       
-      const res = await fetch(`https://api.aladhan.com/v1/hToG?date=${dd}-${mm}-${hy}`);
-      const data = await res.json();
+      const hDate = `${m.iDate()} ${m.format('iMMMM')} ${m.iYear()} AH`;
+      const numeric = `${m.iYear()}-${String(m.iMonth() + 1).padStart(2, '0')}-${String(m.iDate()).padStart(2, '0')}`;
       
-      if (data.code === 200) {
-        const g = data.data.gregorian;
-        setResult({
-          primary: `${g.day} ${g.month.en} ${g.year}`,
-          secondary: `ISO Format: ${g.date.split('-').reverse().join('-')}`, // YYYY-MM-DD
-          type: 'gregorian'
-        });
-      } else {
-        throw new Error(data.data || "API Error");
-      }
+      setResult({
+        primary: hDate,
+        secondary: `Numeric: ${numeric}`,
+        type: 'hijri'
+      });
     } catch (e) {
-      setResult({ error: "Invalid Hijri date. Please note that some Islamic months have only 29 days." });
-    } finally {
-      setLoading(false);
+      setResult({ error: e.message === "Library loading..." ? e.message : "Failed to convert date. Please ensure your input is valid." });
+    }
+  };
+
+  const convertHijriToGregorian = (hijriStr) => {
+    try {
+      setResult(null);
+      if (!window.moment || !window.moment().iYear) throw new Error("Library loading...");
+      
+      // hijriStr format: YYYY-M-D
+      // moment-hijri parses iYYYY-iM-iD
+      const m = window.moment(hijriStr, 'iYYYY-iM-iD');
+      if (!m.isValid()) throw new Error("Invalid date");
+      
+      const gDate = m.format('D MMMM YYYY');
+      const iso = m.format('YYYY-MM-DD');
+      
+      setResult({
+        primary: gDate,
+        secondary: `ISO Format: ${iso}`,
+        type: 'gregorian'
+      });
+    } catch (e) {
+      setResult({ error: e.message === "Library loading..." ? e.message : "Invalid Hijri date or conversion error." });
     }
   };
 
@@ -92,10 +90,14 @@ export default function HijriConverter() {
 
   return (
     <div className="container">
+      {/* Load Moment.js and Moment-Hijri */}
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" strategy="beforeInteractive" />
+      <Script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js" strategy="beforeInteractive" onLoad={checkMomentLoaded} />
+
       <div className="card" style={{ maxWidth: '600px', margin: '40px auto' }}>
         <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Smart Date Converter 📅</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          Accurate conversion between Gregorian and Hijri (Umm al-Qura) calendars directly in your browser.
+          Accurate conversion between Gregorian and Hijri (Umm al-Qura) calendars locally in your browser.
         </p>
 
         <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: '24px' }}>
@@ -160,10 +162,10 @@ export default function HijriConverter() {
 
         <button 
           onClick={handleConvert}
-          disabled={loading}
-          style={{ width: '100%', padding: '14px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.1rem', cursor: loading ? 'not-allowed' : 'pointer', marginBottom: '24px', opacity: loading ? 0.7 : 1 }}
+          disabled={!momentLoaded}
+          style={{ width: '100%', padding: '14px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.1rem', cursor: !momentLoaded ? 'not-allowed' : 'pointer', marginBottom: '24px', opacity: !momentLoaded ? 0.7 : 1 }}
         >
-          {loading ? 'Converting...' : 'Convert Now'}
+          {!momentLoaded ? 'Loading Engine...' : 'Convert Now'}
         </button>
 
         {result && (
