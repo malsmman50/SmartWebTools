@@ -5,6 +5,9 @@ env.allowRemoteModels = false;
 env.allowLocalModels = true;
 env.localModelPath = '/models/';
 env.backends.onnx.wasm.wasmPaths = '/wasm/';
+// Force single-threaded execution to prevent ONNX from spawning sub-workers
+// which causes NetworkError / importScripts failures on blob URLs in some browsers.
+env.backends.onnx.wasm.numThreads = 1;
 
 class PipelineSingleton {
     static task = 'feature-extraction';
