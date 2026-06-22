@@ -6,14 +6,20 @@ const calculators = [
   { title: 'Murabaha Calculator', desc: 'Calculate cost-plus Halal financing installments. The interest-free alternative to loans.', href: '/calculators/murabaha', icon: '🤝', color: '#2563eb' },
   { title: 'Mudarabah Calculator', desc: 'Calculate profit sharing and loss allocation in Islamic investment partnerships.', href: '/calculators/mudarabah', icon: '📈', color: '#f59e0b' },
   { title: 'Halal ROI Calculator', desc: 'Measure the profitability of your Halal investments and business ventures.', href: '/calculators/roi', icon: '💰', color: '#7c3aed' },
+  { title: 'Islamic FIRE', desc: 'Calculate your path to Halal Financial Independence and Early Retirement.', href: '/calculators/islamic-fire', icon: '🔥', color: '#dc2626' },
+];
+
+const utilities = [
+  { title: 'Hijri Date Converter', desc: 'Convert instantly between Gregorian and Hijri (Umm al-Qura) calendars.', href: '/tools/hijri-converter', icon: '📅', color: '#059669' },
   { title: 'Live Currency', desc: 'Real-time currency converter supporting over 150 global currencies.', href: '/calculators/currency', icon: '💱', color: '#10b981' },
+  { title: 'Image Compressor', desc: 'Compress JPG/PNG images instantly without uploading them to any server.', href: '/tools/image-compressor', icon: '🖼️', color: '#2563eb' },
+  { title: 'Semantic PDF Search', desc: 'Chat directly with your PDF documents securely in your browser.', href: '/tools/chatpdf', icon: '📄', color: '#f59e0b' },
+  { title: 'Password Generator', desc: 'Generate cryptographically secure passwords with customizable options.', href: '/tools/password-generator', icon: '🔐', color: '#7c3aed' },
 ];
 
 const tools = [
-  { title: 'Hijri Date Converter', desc: 'Convert instantly between Gregorian and Hijri (Umm al-Qura) calendars.', href: '/tools/hijri-converter', icon: '📅', color: '#059669' },
-  { title: 'Image Compressor', desc: 'Compress JPG/PNG images instantly without uploading them to any server.', href: '/tools/image-compressor', icon: '🖼️', color: '#2563eb' },
   { title: 'JSON Formatter', desc: 'Format, validate, and minify JSON data instantly in your browser.', href: '/tools/json-formatter', icon: '{ }', color: '#2563eb' },
-  { title: 'Password Generator', desc: 'Generate cryptographically secure passwords with customizable options.', href: '/tools/password-generator', icon: '🔐', color: '#7c3aed' },
+  { title: 'JWT Decoder', desc: 'Decode and inspect JSON Web Tokens entirely offline.', href: '/tools/jwt-decoder', icon: '🔑', color: '#f59e0b' },
   { title: 'Cron Generator', desc: 'Build and understand cron expressions with an intuitive visual editor.', href: '/tools/cron-generator', icon: '⏰', color: '#059669' },
   { title: 'AI Prompt Builder', desc: 'Craft optimized prompts for ChatGPT, Claude, and other AI models.', href: '/tools/prompt-generator', icon: '✨', color: '#f59e0b' },
 ];
@@ -70,7 +76,20 @@ export default function Home() {
       </section>
 
       <section style={{ marginBottom: '48px' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>🛠️ Developer Utilities</h2>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>✨ Smart Utilities</h2>
+        <div className="grid-4">
+          {utilities.map(u => (
+            <Link key={u.href} href={u.href} className="card card-link">
+              <div style={{ fontSize: '2rem', marginBottom: '12px' }}>{u.icon}</div>
+              <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>{u.title}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5' }}>{u.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ marginBottom: '48px' }}>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>👨‍💻 Developer Tools</h2>
         <div className="grid-4">
           {tools.map(t => (
             <Link key={t.href} href={t.href} className="card card-link">

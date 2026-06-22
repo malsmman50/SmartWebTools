@@ -57,16 +57,19 @@ export default function Navbar() {
     { name: 'Mudarabah', path: '/calculators/mudarabah' },
     { name: 'Halal ROI', path: '/calculators/roi' },
     { name: 'Islamic FIRE', path: '/calculators/islamic-fire' },
-    { name: 'Currency', path: '/calculators/currency' },
+  ];
+
+  const utilities = [
+    { name: 'Hijri Converter', path: '/tools/hijri-converter' },
+    { name: 'Live Currency', path: '/calculators/currency' },
+    { name: 'Image Compressor', path: '/tools/image-compressor' },
+    { name: 'PDF Search', path: '/tools/chatpdf' },
+    { name: 'Password Gen', path: '/tools/password-generator' },
   ];
 
   const tools = [
-    { name: 'Hijri Converter', path: '/tools/hijri-converter' },
-    { name: 'Image Compressor', path: '/tools/image-compressor' },
     { name: 'JSON Formatter', path: '/tools/json-formatter' },
     { name: 'JWT Decoder', path: '/tools/jwt-decoder' },
-    { name: 'PDF Search', path: '/tools/chatpdf' },
-    { name: 'Password Gen', path: '/tools/password-generator' },
     { name: 'Cron Gen', path: '/tools/cron-generator' },
     { name: 'Prompt Builder', path: '/tools/prompt-generator' },
   ];
@@ -85,7 +88,7 @@ export default function Navbar() {
           <nav className="desktop-menu" aria-label="Main navigation">
             <div className="premium-dropdown">
               <span className="nav-link" style={{ cursor: 'pointer' }}>
-                Calculators 
+                Islamic Finance
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </span>
               <div className="dropdown-content">
@@ -99,7 +102,21 @@ export default function Navbar() {
 
             <div className="premium-dropdown">
               <span className="nav-link" style={{ cursor: 'pointer' }}>
-                Developer Tools 
+                Smart Utilities
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+              <div className="dropdown-content">
+                {utilities.map((item) => (
+                  <Link key={item.path} href={item.path} className="dropdown-item">
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="premium-dropdown">
+              <span className="nav-link" style={{ cursor: 'pointer' }}>
+                Dev Tools 
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </span>
               <div className="dropdown-content">
@@ -164,14 +181,21 @@ export default function Navbar() {
           </div>
 
           <div className="mobile-menu-section">
-            <h4>🕌 Calculators</h4>
+            <h4>🕌 Islamic Finance</h4>
             {calculators.map(c => (
               <Link key={c.path} href={c.path} onClick={toggleMenu}>{c.name}</Link>
             ))}
           </div>
           
           <div className="mobile-menu-section">
-            <h4>🛠️ Developer Tools</h4>
+            <h4>✨ Smart Utilities</h4>
+            {utilities.map(u => (
+              <Link key={u.path} href={u.path} onClick={toggleMenu}>{u.name}</Link>
+            ))}
+          </div>
+
+          <div className="mobile-menu-section">
+            <h4>👨‍💻 Developer Tools</h4>
             {tools.map(t => (
               <Link key={t.path} href={t.path} onClick={toggleMenu}>{t.name}</Link>
             ))}
