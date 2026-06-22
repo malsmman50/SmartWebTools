@@ -37,7 +37,8 @@ export default function ChatPDF() {
         return;
       }
       if (msg.status === 'debug') {
-        setStatus(`Worker Debug: ${msg.msg}`);
+        // Debug messages go to console only, not UI
+        console.log('[Worker Debug]', msg.msg);
       } else if (msg.status === 'progress') {
         setStatus(`Loading AI Model... ${msg.data.file || ''}`);
         if (msg.data.progress) setProgress(msg.data.progress);
@@ -139,9 +140,11 @@ export default function ChatPDF() {
   };
 
   const handleSearch = () => {
-    if (!query) return;
+    if (!query.trim()) return;
+    if (!workerRef.current) { setStatus('Error: Worker not initialized'); return; }
+    if (dbRef.current.length === 0) { setStatus('Please upload a PDF first'); return; }
     setStatus('Searching...');
-    workerRef.current.postMessage({ type: 'embed', id: 'query', text: query });
+    workerRef.current.postMessage({ type: 'embed', id: 'query', text: query.trim() });
   };
 
   return (
@@ -149,6 +152,9 @@ export default function ChatPDF() {
       <div className="page-header">
         <h1>📑 Semantic PDF Search</h1>
         <p>100% private, local-first document analysis. Search your PDFs semantically using on-device AI embeddings. No data leaves your browser.</p>
+        <div style={{ marginTop: '12px', padding: '12px 16px', background: 'rgba(99,102,241,0.08)', border: '1px solid var(--primary)', borderRadius: '8px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+          ⚠️ <strong>First use:</strong> This tool downloads a ~22MB AI model to your device. This happens only once and is cached locally. Subsequent uses are instant.
+        </div>
       </div>
 
       <div className="card" style={{ marginBottom: '24px', textAlign: 'center', padding: '40px' }}>

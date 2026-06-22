@@ -13,7 +13,9 @@ class PipelineSingleton {
 
     static async getInstance(progress_callback = null) {
         if (this.instance === null) {
-            this.instance = pipeline(this.task, this.model, { progress_callback });
+            // CRITICAL: await is required here. Without it, this.instance becomes
+            // an unresolved Promise, permanently poisoning the singleton on failure.
+            this.instance = await pipeline(this.task, this.model, { progress_callback });
         }
         return this.instance;
     }
@@ -33,25 +35,25 @@ async function processQueue() {
     const event = queue.shift();
     
     try {
-        self.postMessage({ status: 'debug', msg: `Getting extractor for event id: ${event.data.id}` });
         let extractor = await PipelineSingleton.getInstance(x => {
             self.postMessage({ status: 'progress', data: x });
         });
 
-        self.postMessage({ status: 'debug', msg: `Extractor ready. Processing id: ${event.data.id}` });
         if (event.data.type === 'embed') {
             const output = await extractor(event.data.text, { pooling: 'mean', normalize: true });
             
-            self.postMessage({ status: 'debug', msg: `Extraction complete for id: ${event.data.id}` });
             self.postMessage({ 
                 status: 'complete', 
                 id: event.data.id,
+                // Transfer as Float32Array for efficiency (structured-cloneable)
                 vector: Array.from(output.data),
                 text: event.data.text
             });
         }
     } catch (err) {
-        self.postMessage({ status: 'error', error: err ? err.message || err.toString() : 'Unknown error' });
+        // Reset singleton on failure so it can be retried
+        PipelineSingleton.instance = null;
+        self.postMessage({ status: 'error', error: err ? (err.message || err.toString()) : 'Unknown worker error' });
     }
     
     isProcessing = false;

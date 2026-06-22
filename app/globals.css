@@ -10,6 +10,7 @@
   --border: #e2e8f0;
   --success: #059669;
   --danger: #dc2626;
+  --warning: #d97706;
   --radius: 16px;
   --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
   --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.08);
@@ -27,6 +28,7 @@
   --border: #334155;
   --success: #10b981;
   --danger: #ef4444;
+  --warning: #f59e0b;
   --shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
   --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.5);
 }

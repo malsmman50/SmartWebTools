@@ -14,9 +14,9 @@ export default function PasswordGenerator() {
     if (useUpper) charSets.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     if (useNumbers) charSets.push('0123456789');
     if (useSymbols) charSets.push('!@#$%^&*()_+-=[]{}|;:,.<>?');
-    if (charSets.length === 0) charSets.push('abcdefghijklmnopqrstuvwxyz'); // fallback
-    const lowerChars = 'abcdefghijklmnopqrstuvwxyz';
-    charSets.push(lowerChars);
+    if (charSets.length === 0) charSets.push('abcdefghijklmnopqrstuvwxyz'); // all unchecked: fallback to lowercase
+    // Always include lowercase UNLESS it was already added as fallback
+    else charSets.push('abcdefghijklmnopqrstuvwxyz');
 
     let pwdChars = [];
     const array = new Uint32Array(length);

@@ -8,6 +8,7 @@ export default function CronGenerator() {
   const [dayOfMonth, setDayOfMonth] = useState('*');
   const [month, setMonth] = useState('*');
   const [dayOfWeek, setDayOfWeek] = useState('*');
+  const [copied, setCopied] = useState(false);
 
   const [humanReadable, setHumanReadable] = useState('');
   const [isValid, setIsValid] = useState(true);
@@ -31,7 +32,8 @@ export default function CronGenerator() {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(cronString);
-    alert('Copied to clipboard!');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const templates = [
@@ -97,7 +99,7 @@ export default function CronGenerator() {
             }}>
               ✨ "{humanReadable}"
             </div>
-            <button onClick={copyToClipboard} className="btn btn-outline" style={{ marginTop: '16px' }}>Copy to Clipboard</button>
+            <button onClick={copyToClipboard} className="btn btn-outline" style={{ marginTop: '16px' }}>{copied ? '✅ Copied!' : '📋 Copy to Clipboard'}</button>
           </div>
 
           <div className="card">
