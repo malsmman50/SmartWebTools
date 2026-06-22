@@ -337,6 +337,10 @@ input[type=number] {
 .copy-btn:hover { border-color: var(--primary); color: var(--primary); }
 
 /* Responsive */
+@media (min-width: 851px) {
+  .mobile-only-controls { display: none !important; }
+}
+
 @media (max-width: 850px) {
   .desktop-menu { display: none; }
   .hamburger { display: flex; }
@@ -355,4 +359,12 @@ input[type=number] {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .navbar-inner { flex-direction: row; justify-content: space-between; align-items: center; }
   .trust-badges { gap: 12px; }
+}
+
+/* AdSense Fallbacks */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}
+ins.adsbygoogle:empty {
+  display: none !important;
 }
