@@ -10,6 +10,7 @@ const calculators = [
 ];
 
 const utilities = [
+  { title: 'Live Qibla Compass', desc: 'Find the exact Qibla direction and calculate accurate prayer times offline.', href: '/tools/qibla-compass', icon: '🕋', color: '#10b981' },
   { title: 'Hijri Date Converter', desc: 'Convert instantly between Gregorian and Hijri (Umm al-Qura) calendars.', href: '/tools/hijri-converter', icon: '📅', color: '#059669' },
   { title: 'Live Currency', desc: 'Real-time currency converter supporting over 150 global currencies.', href: '/calculators/currency', icon: '💱', color: '#10b981' },
   { title: 'Image Compressor', desc: 'Compress JPG/PNG images instantly without uploading them to any server.', href: '/tools/image-compressor', icon: '🖼️', color: '#2563eb' },

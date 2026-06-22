@@ -60,6 +60,7 @@ export default function Navbar() {
   ];
 
   const utilities = [
+    { name: 'Live Qibla Compass', path: '/tools/qibla-compass' },
     { name: 'Hijri Converter', path: '/tools/hijri-converter' },
     { name: 'Live Currency', path: '/calculators/currency' },
     { name: 'Image Compressor', path: '/tools/image-compressor' },
