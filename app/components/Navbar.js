@@ -51,12 +51,12 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <nav className="desktop-menu" aria-label="Main navigation">
           <Link href="/calculators/zakat" className="nav-link">Zakat</Link>
+          <Link href="/calculators/inheritance" className="nav-link">Inherit</Link>
           <Link href="/calculators/murabaha" className="nav-link">Murabaha</Link>
-          <Link href="/calculators/mudarabah" className="nav-link">Mudarabah</Link>
-          <Link href="/calculators/roi" className="nav-link">Halal ROI</Link>
-          <Link href="/calculators/islamic-fire" className="nav-link">FIRE</Link>
+          <Link href="/calculators/currency" className="nav-link">Currency</Link>
+          <Link href="/tools/hijri-converter" className="nav-link">Hijri</Link>
+          <Link href="/tools/image-compressor" className="nav-link">Image</Link>
           <Link href="/tools/json-formatter" className="nav-link">JSON</Link>
-          <Link href="/tools/jwt-decoder" className="nav-link">JWT</Link>
           <Link href="/tools/chatpdf" className="nav-link">PDF Search</Link>
 
           {/* Theme Toggle */}
@@ -104,13 +104,17 @@ export default function Navbar() {
         <div className="mobile-menu-section">
           <h4>🕌 Islamic Finance</h4>
           <Link href="/calculators/zakat" onClick={toggleMenu}>Zakat Calculator</Link>
+          <Link href="/calculators/inheritance" onClick={toggleMenu}>Inheritance (Mawarith)</Link>
           <Link href="/calculators/murabaha" onClick={toggleMenu}>Murabaha Financing</Link>
           <Link href="/calculators/mudarabah" onClick={toggleMenu}>Mudarabah Profit</Link>
           <Link href="/calculators/roi" onClick={toggleMenu}>Halal ROI Calculator</Link>
           <Link href="/calculators/islamic-fire" onClick={toggleMenu}>Islamic FIRE Calculator</Link>
+          <Link href="/calculators/currency" onClick={toggleMenu}>Live Currency Converter</Link>
         </div>
         <div className="mobile-menu-section">
           <h4>🛠️ Developer Tools</h4>
+          <Link href="/tools/hijri-converter" onClick={toggleMenu}>Hijri Date Converter</Link>
+          <Link href="/tools/image-compressor" onClick={toggleMenu}>Image Compressor</Link>
           <Link href="/tools/json-formatter" onClick={toggleMenu}>JSON Formatter</Link>
           <Link href="/tools/jwt-decoder" onClick={toggleMenu}>JWT Decoder</Link>
           <Link href="/tools/chatpdf" onClick={toggleMenu}>Semantic PDF Search</Link>

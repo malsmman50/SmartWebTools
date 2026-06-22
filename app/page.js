@@ -2,12 +2,16 @@ import Link from 'next/link';
 
 const calculators = [
   { title: 'Zakat Calculator', desc: 'Calculate your annual Zakat precisely according to Islamic guidelines based on Nisab.', href: '/calculators/zakat', icon: '🤲', color: '#059669' },
+  { title: 'Inheritance (Mawarith)', desc: 'Simplified Islamic inheritance calculator for primary heirs.', href: '/calculators/inheritance', icon: '⚖️', color: '#f59e0b' },
   { title: 'Murabaha Calculator', desc: 'Calculate cost-plus Halal financing installments. The interest-free alternative to loans.', href: '/calculators/murabaha', icon: '🤝', color: '#2563eb' },
-  { title: 'Mudarabah Calculator', desc: 'Calculate profit sharing and loss allocation in Islamic investment partnerships.', href: '/calculators/mudarabah', icon: '⚖️', color: '#f59e0b' },
+  { title: 'Mudarabah Calculator', desc: 'Calculate profit sharing and loss allocation in Islamic investment partnerships.', href: '/calculators/mudarabah', icon: '📈', color: '#f59e0b' },
   { title: 'Halal ROI Calculator', desc: 'Measure the profitability of your Halal investments and business ventures.', href: '/calculators/roi', icon: '💰', color: '#7c3aed' },
+  { title: 'Live Currency', desc: 'Real-time currency converter supporting over 150 global currencies.', href: '/calculators/currency', icon: '💱', color: '#10b981' },
 ];
 
 const tools = [
+  { title: 'Hijri Date Converter', desc: 'Convert instantly between Gregorian and Hijri (Umm al-Qura) calendars.', href: '/tools/hijri-converter', icon: '📅', color: '#059669' },
+  { title: 'Image Compressor', desc: 'Compress JPG/PNG images instantly without uploading them to any server.', href: '/tools/image-compressor', icon: '🖼️', color: '#2563eb' },
   { title: 'JSON Formatter', desc: 'Format, validate, and minify JSON data instantly in your browser.', href: '/tools/json-formatter', icon: '{ }', color: '#2563eb' },
   { title: 'Password Generator', desc: 'Generate cryptographically secure passwords with customizable options.', href: '/tools/password-generator', icon: '🔐', color: '#7c3aed' },
   { title: 'Cron Generator', desc: 'Build and understand cron expressions with an intuitive visual editor.', href: '/tools/cron-generator', icon: '⏰', color: '#059669' },
