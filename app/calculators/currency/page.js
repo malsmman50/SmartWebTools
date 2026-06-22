@@ -25,7 +25,7 @@ export default function CurrencyConverter() {
         setLoading(false);
       } catch (err) {
         console.error("Error fetching currencies", err);
-        setError("تعذر جلب أسعار الصرف الحالية. تأكد من اتصالك بالإنترنت.");
+        setError("Failed to fetch live exchange rates. Please check your internet connection.");
         setLoading(false);
       }
     };
@@ -67,14 +67,14 @@ export default function CurrencyConverter() {
   return (
     <div className="container">
       <div className="card" style={{ maxWidth: '600px', margin: '40px auto' }}>
-        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>محول العملات المباشر 💱</h1>
+        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Live Currency Converter 💱</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          أسعار صرف حية محدثة يومياً لأكثر من 150 عملة عالمية.
+          Real-time exchange rates updated daily for over 150 global currencies.
         </p>
 
         {loading ? (
           <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-            جاري تحميل أسعار الصرف المباشرة...
+            Loading live exchange rates...
           </div>
         ) : error ? (
           <div style={{ padding: '20px', color: '#ef4444', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', textAlign: 'center' }}>
@@ -83,7 +83,7 @@ export default function CurrencyConverter() {
         ) : (
           <div>
             <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>المبلغ:</label>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Amount:</label>
               <input 
                 type="number" 
                 value={amount}
@@ -95,7 +95,7 @@ export default function CurrencyConverter() {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
               <div style={{ flex: 1 }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>من (From):</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>From:</label>
                 <select 
                   value={fromCurrency}
                   onChange={(e) => setFromCurrency(e.target.value)}
@@ -110,7 +110,7 @@ export default function CurrencyConverter() {
               <button 
                 onClick={handleSwap}
                 style={{ marginTop: '28px', padding: '12px', borderRadius: '50%', background: 'var(--surface-sunken)', border: '1px solid var(--border)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                title="تبديل العملات"
+                title="Swap Currencies"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="16 3 21 3 21 8"></polyline>
@@ -122,7 +122,7 @@ export default function CurrencyConverter() {
               </button>
 
               <div style={{ flex: 1 }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>إلى (To):</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>To:</label>
                 <select 
                   value={toCurrency}
                   onChange={(e) => setToCurrency(e.target.value)}
@@ -136,7 +136,7 @@ export default function CurrencyConverter() {
             </div>
 
             <div style={{ padding: '24px', borderRadius: '8px', background: 'var(--surface-sunken)', border: '1px solid var(--border)', textAlign: 'center', marginTop: '32px' }}>
-              <div style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: '8px' }}>النتيجة</div>
+              <div style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: '8px' }}>Result</div>
               <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'var(--primary)', fontFamily: 'monospace' }} dir="ltr">
                 {calculateResult()} <span style={{ fontSize: '1.2rem', color: 'var(--text)' }}>{toCurrency}</span>
               </div>
@@ -146,7 +146,7 @@ export default function CurrencyConverter() {
             </div>
             
             <div style={{ marginTop: '24px', fontSize: '0.8rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-              يتم جلب أسعار الصرف يومياً عبر الشبكة العالمية ولا تتحمل المنصة مسؤولية أي قرارات تداول بناءً عليها.
+              Exchange rates are fetched daily via a global CDN. This platform is not responsible for any trading decisions made based on these rates.
             </div>
           </div>
         )}

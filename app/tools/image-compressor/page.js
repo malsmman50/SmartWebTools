@@ -15,7 +15,7 @@ export default function ImageCompressor() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('الرجاء اختيار ملف صورة صالح.');
+      alert('Please select a valid image file.');
       return;
     }
 
@@ -76,9 +76,9 @@ export default function ImageCompressor() {
   return (
     <div className="container">
       <div className="card" style={{ maxWidth: '800px', margin: '40px auto' }}>
-        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>ضاغط الصور الذكي 🖼️</h1>
+        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Smart Image Compressor 🖼️</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          ضغط الصور وتقليل حجمها بنسبة تصل إلى 90٪ بدون رفعها لأي سيرفر (100٪ أمان محلي).
+          Compress images and reduce their size by up to 90% without uploading them to any server (100% local privacy).
         </p>
 
         <div style={{ marginBottom: '24px' }}>
@@ -101,7 +101,7 @@ export default function ImageCompressor() {
               <circle cx="8.5" cy="8.5" r="1.5"></circle>
               <polyline points="21 15 16 10 5 21"></polyline>
             </svg>
-            <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--primary)' }}>اضغط لاختيار صورة</span>
+            <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--primary)' }}>Click to select an image</span>
             <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '8px' }}>(JPG, PNG, WebP)</span>
             <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }} />
           </label>
@@ -109,11 +109,11 @@ export default function ImageCompressor() {
 
         {originalFile && (
           <div style={{ padding: '24px', border: '1px solid var(--border)', borderRadius: '8px', marginBottom: '24px' }}>
-            <h3 style={{ marginBottom: '16px' }}>إعدادات الضغط</h3>
+            <h3 style={{ marginBottom: '16px' }}>Compression Settings</h3>
             
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label>جودة الصورة:</label>
+                <label>Image Quality:</label>
                 <span style={{ fontWeight: 'bold' }}>{Math.round(quality * 100)}%</span>
               </div>
               <input 
@@ -126,8 +126,8 @@ export default function ImageCompressor() {
                 style={{ width: '100%', cursor: 'pointer' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                <span>حجم أصغر (جودة أقل)</span>
-                <span>حجم أكبر (جودة أفضل)</span>
+                <span>Smaller Size (Lower Quality)</span>
+                <span>Larger Size (Higher Quality)</span>
               </div>
             </div>
 
@@ -136,7 +136,7 @@ export default function ImageCompressor() {
               disabled={isCompressing}
               style={{ width: '100%', padding: '14px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.1rem', cursor: isCompressing ? 'not-allowed' : 'pointer', opacity: isCompressing ? 0.7 : 1 }}
             >
-              {isCompressing ? 'جاري الضغط...' : 'ضغط الصورة الآن'}
+              {isCompressing ? 'Compressing...' : 'Compress Image Now'}
             </button>
           </div>
         )}
@@ -147,17 +147,17 @@ export default function ImageCompressor() {
         {compressedUrl && (
           <div className="grid-2" style={{ marginTop: '32px', gap: '24px' }}>
             <div style={{ padding: '16px', background: 'var(--surface-sunken)', borderRadius: '8px', textAlign: 'center' }}>
-              <h4 style={{ color: '#ef4444', marginBottom: '8px' }}>الصورة الأصلية</h4>
+              <h4 style={{ color: '#ef4444', marginBottom: '8px' }}>Original Image</h4>
               <img src={originalUrl} alt="Original" style={{ width: '100%', maxHeight: '200px', objectFit: 'contain', borderRadius: '4px', marginBottom: '12px' }} />
               <div style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{formatBytes(originalFile.size)}</div>
             </div>
 
             <div style={{ padding: '16px', background: 'var(--surface-sunken)', borderRadius: '8px', textAlign: 'center' }}>
-              <h4 style={{ color: '#10b981', marginBottom: '8px' }}>بعد الضغط</h4>
+              <h4 style={{ color: '#10b981', marginBottom: '8px' }}>Compressed Image</h4>
               <img src={compressedUrl} alt="Compressed" style={{ width: '100%', maxHeight: '200px', objectFit: 'contain', borderRadius: '4px', marginBottom: '12px' }} />
               <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#10b981' }}>
                 {formatBytes(compressedFile.size)}
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginRight: '8px' }}>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginLeft: '8px' }}>
                   (-{Math.round(((originalFile.size - compressedFile.size) / originalFile.size) * 100)}%)
                 </span>
               </div>
@@ -167,14 +167,14 @@ export default function ImageCompressor() {
                 download={compressedFile.name}
                 style={{ display: 'block', width: '100%', padding: '10px', background: '#10b981', color: 'white', textDecoration: 'none', borderRadius: '6px', fontWeight: 'bold', marginTop: '16px' }}
               >
-                تحميل الصورة ⬇️
+                Download Image ⬇️
               </a>
             </div>
           </div>
         )}
 
         <div style={{ marginTop: '24px', fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: '1.6' }}>
-          <strong>ملاحظة الخصوصية:</strong> هذه الأداة تستخدم تقنية Canvas المدمجة في متصفحك. لا يتم إرسال أو رفع صورك إلى أي خادم، وتتم معالجتها بالكامل داخل جهازك لضمان خصوصيتك.
+          <strong>Privacy Note:</strong> This tool utilizes the Canvas API built into your browser. Your images are never sent or uploaded to any server, ensuring 100% privacy as all processing happens locally on your device.
         </div>
       </div>
     </div>

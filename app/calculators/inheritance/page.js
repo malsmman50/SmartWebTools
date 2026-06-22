@@ -19,7 +19,7 @@ export default function InheritanceCalculator() {
   const calculateInheritance = () => {
     const value = parseFloat(estateValue);
     if (isNaN(value) || value <= 0) {
-      alert("الرجاء إدخال مبلغ التركة بشكل صحيح");
+      alert("Please enter a valid estate value.");
       return;
     }
 
@@ -30,11 +30,11 @@ export default function InheritanceCalculator() {
     // 1. Spouse Share
     if (spouseType === 'husband') {
       const share = hasChildren ? (1 / 4) : (1 / 2);
-      shares.push({ name: 'الزوج', fraction: share, amount: value * share });
+      shares.push({ name: 'Husband', fraction: share, amount: value * share });
       remainingFraction -= share;
     } else if (spouseType === 'wife') {
       const share = hasChildren ? (1 / 8) : (1 / 4);
-      shares.push({ name: `الزوجة / الزوجات (${wivesCount})`, fraction: share, amount: value * share, perPerson: (value * share) / wivesCount });
+      shares.push({ name: `Wife / Wives (${wivesCount})`, fraction: share, amount: value * share, perPerson: (value * share) / wivesCount });
       remainingFraction -= share;
     }
 
@@ -42,7 +42,7 @@ export default function InheritanceCalculator() {
     if (motherAlive) {
       // Simplification: Mother gets 1/6 if children exist or multiple siblings exist (we assume no siblings here for simplicity, so 1/3 if no children)
       const share = hasChildren ? (1 / 6) : (1 / 3);
-      shares.push({ name: 'الأم', fraction: share, amount: value * share });
+      shares.push({ name: 'Mother', fraction: share, amount: value * share });
       remainingFraction -= share;
     }
 
@@ -55,7 +55,7 @@ export default function InheritanceCalculator() {
         // Asaba (gets everything remaining) if no children
         fatherShare = remainingFraction; 
       }
-      shares.push({ name: 'الأب', fraction: fatherShare, amount: value * fatherShare });
+      shares.push({ name: 'Father', fraction: fatherShare, amount: value * fatherShare });
       remainingFraction -= fatherShare;
     }
 
@@ -67,10 +67,10 @@ export default function InheritanceCalculator() {
         const partValue = (remainingFraction * value) / totalParts;
         
         if (sonsCount > 0) {
-          shares.push({ name: `الأبناء الذكور (${sonsCount})`, amount: partValue * 2 * sonsCount, perPerson: partValue * 2 });
+          shares.push({ name: `Sons (${sonsCount})`, amount: partValue * 2 * sonsCount, perPerson: partValue * 2 });
         }
         if (daughtersCount > 0) {
-          shares.push({ name: `البنات (${daughtersCount})`, amount: partValue * daughtersCount, perPerson: partValue });
+          shares.push({ name: `Daughters (${daughtersCount})`, amount: partValue * daughtersCount, perPerson: partValue });
         }
         remainingFraction = 0;
       } else if (daughtersCount > 0) {
@@ -82,12 +82,12 @@ export default function InheritanceCalculator() {
         // Ensure we don't exceed remaining fraction (Awl - not fully handled in this simple version)
         if (daughterFraction > remainingFraction) daughterFraction = remainingFraction;
         
-        shares.push({ name: `البنات (${daughtersCount})`, fraction: daughterFraction, amount: value * daughterFraction, perPerson: (value * daughterFraction) / daughtersCount });
+        shares.push({ name: `Daughters (${daughtersCount})`, fraction: daughterFraction, amount: value * daughterFraction, perPerson: (value * daughterFraction) / daughtersCount });
         remainingFraction -= daughterFraction;
         
         // If father is alive and there's remainder after daughters, father takes it (Ta'seeb)
         if (fatherAlive && remainingFraction > 0) {
-          const fatherIndex = shares.findIndex(s => s.name === 'الأب');
+          const fatherIndex = shares.findIndex(s => s.name === 'Father');
           if (fatherIndex > -1) {
             shares[fatherIndex].fraction += remainingFraction;
             shares[fatherIndex].amount += value * remainingFraction;
@@ -107,44 +107,44 @@ export default function InheritanceCalculator() {
   return (
     <div className="container">
       <div className="card" style={{ maxWidth: '800px', margin: '40px auto' }}>
-        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>حاسبة المواريث الشرعية ⚖️</h1>
+        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Islamic Inheritance Calculator ⚖️</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          حساب الأنصبة التقديرية للورثة من الدرجة الأولى وفقاً لأحكام الشريعة الإسلامية.
+          Estimate the legal shares of primary heirs according to Islamic Sharia (Mawarith).
         </p>
 
         <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '16px', borderRadius: '8px', marginBottom: '24px', fontSize: '0.9rem', lineHeight: '1.5' }}>
-          <strong>تنبيه فقهي هام جداً:</strong> هذه الحاسبة هي أداة تعليمية مبسطة تقتصر على الورثة من الدرجة الأولى (الزوجين، الأبناء، الوالدين). علم الفرائض معقد جداً ويحتوي على قواعد الحجب والعول والرد والإخوة. لا تعتمد على هذه الحاسبة في التقسيم الفعلي للتركة، ويجب الرجوع دائماً للمحاكم الشرعية أو المفتي المعتمد في بلدك.
+          <strong>Important Fiqh Disclaimer:</strong> This calculator is a simplified educational tool limited to primary heirs (spouses, children, parents). The science of Mawarith is highly complex and includes rules of exclusion (Hajb), Awl, and siblings. Do not rely on this calculator for actual estate division. Always consult official Sharia courts or a certified Mufti in your country.
         </div>
 
         <div className="grid-2" style={{ gap: '24px', marginBottom: '32px' }}>
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>إجمالي مبلغ التركة (بعد سداد الديون والوصية):</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Total Estate Value (after debts & will):</label>
             <input 
               type="number" 
               value={estateValue}
               onChange={(e) => setEstateValue(e.target.value)}
               min="0"
               style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.2rem' }}
-              placeholder="مثال: 100000"
+              placeholder="e.g. 100000"
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>حالة الزوج/الزوجة للمتوفى:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Spouse Status (of the deceased):</label>
             <select 
               value={spouseType}
               onChange={(e) => setSpouseType(e.target.value)}
               style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
             >
-              <option value="none">لا يوجد (أو متوفي قبله)</option>
-              <option value="wife">ترك زوجة (أو زوجات)</option>
-              <option value="husband">تركت زوجاً</option>
+              <option value="none">None (or passed away)</option>
+              <option value="wife">Leaves Wife (or Wives)</option>
+              <option value="husband">Leaves a Husband</option>
             </select>
           </div>
 
           {spouseType === 'wife' && (
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>عدد الزوجات:</label>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Wives:</label>
               <input 
                 type="number" 
                 value={wivesCount}
@@ -156,7 +156,7 @@ export default function InheritanceCalculator() {
           )}
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>عدد الأبناء الذكور:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Sons:</label>
             <input 
               type="number" 
               value={sonsCount}
@@ -167,7 +167,7 @@ export default function InheritanceCalculator() {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>عدد البنات:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Daughters:</label>
             <input 
               type="number" 
               value={daughtersCount}
@@ -185,7 +185,7 @@ export default function InheritanceCalculator() {
                 onChange={(e) => setFatherAlive(e.target.checked)}
                 style={{ width: '20px', height: '20px', accentColor: 'var(--primary)' }}
               />
-              <span style={{ fontWeight: 'bold' }}>الأب على قيد الحياة</span>
+              <span style={{ fontWeight: 'bold' }}>Father is alive</span>
             </label>
           </div>
 
@@ -197,7 +197,7 @@ export default function InheritanceCalculator() {
                 onChange={(e) => setMotherAlive(e.target.checked)}
                 style={{ width: '20px', height: '20px', accentColor: 'var(--primary)' }}
               />
-              <span style={{ fontWeight: 'bold' }}>الأم على قيد الحياة</span>
+              <span style={{ fontWeight: 'bold' }}>Mother is alive</span>
             </label>
           </div>
         </div>
@@ -206,23 +206,23 @@ export default function InheritanceCalculator() {
           onClick={calculateInheritance}
           style={{ width: '100%', padding: '16px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.2rem', cursor: 'pointer' }}
         >
-          حساب وتقسيم التركة
+          Calculate Shares
         </button>
 
         {results && (
           <div style={{ marginTop: '32px' }}>
-            <h3 style={{ marginBottom: '16px', fontSize: '1.3rem', borderBottom: '2px solid var(--border)', paddingBottom: '8px' }}>نتيجة التقسيم:</h3>
+            <h3 style={{ marginBottom: '16px', fontSize: '1.3rem', borderBottom: '2px solid var(--border)', paddingBottom: '8px' }}>Division Results:</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {results.shares.map((share, idx) => (
                 <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', background: 'var(--surface-sunken)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                   <div>
                     <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--primary)' }}>{share.name}</div>
-                    {share.fraction && <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>النصيب الشرعي: {Math.round(share.fraction * 100)}%</div>}
+                    {share.fraction && <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Legal Share: {Math.round(share.fraction * 100)}%</div>}
                   </div>
-                  <div style={{ textAlign: 'left' }}>
+                  <div style={{ textAlign: 'right' }}>
                     <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{new Intl.NumberFormat('en-US').format(Math.floor(share.amount))}</div>
                     {share.perPerson && share.amount !== share.perPerson && (
-                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>نصيب الفرد: {new Intl.NumberFormat('en-US').format(Math.floor(share.perPerson))}</div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Per Person: {new Intl.NumberFormat('en-US').format(Math.floor(share.perPerson))}</div>
                     )}
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export default function InheritanceCalculator() {
               
               {results.unallocated > 0 && (
                 <div style={{ padding: '16px', background: 'rgba(234, 179, 8, 0.1)', color: '#ca8a04', borderRadius: '8px', border: '1px dashed #ca8a04', marginTop: '8px' }}>
-                  <strong>باقي التركة:</strong> {new Intl.NumberFormat('en-US').format(Math.floor(results.unallocated))} (يُرد على أقرب العصبات وفقاً للمسائل الفقهية المتقدمة التي لا تغطيها هذه الحاسبة المبسطة).
+                  <strong>Remaining Estate:</strong> {new Intl.NumberFormat('en-US').format(Math.floor(results.unallocated))} (To be distributed to extended relatives 'Asaba' based on advanced Fiqh rulings not covered by this simplified calculator).
                 </div>
               )}
             </div>

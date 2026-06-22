@@ -31,6 +31,8 @@ export default function HijriConverter() {
       const date = new Date(dateString);
       if (isNaN(date.getTime())) throw new Error("Invalid date");
 
+      // We still use 'ar-SA' locale for the primary visual display because Islamic month names 
+      // (Muharram, Safar) are best represented natively, but we can also use 'en-US'
       const optionsAr = { 
         weekday: 'long', 
         year: 'numeric', 
@@ -46,16 +48,17 @@ export default function HijriConverter() {
         calendar: 'islamic-umalqura' 
       };
 
-      const arFormatted = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', optionsAr).format(date);
+      // Force English locale for the primary string to match the site language
+      const enLongFormatted = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
       const enFormatted = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', optionsEn).format(date); // M/D/YYYY
       
       setResult({
-        primary: arFormatted,
-        secondary: enFormatted,
+        primary: enLongFormatted,
+        secondary: `Numeric: ${enFormatted}`,
         type: 'hijri'
       });
     } catch (e) {
-      setResult({ error: "الرجاء إدخال تاريخ صحيح" });
+      setResult({ error: "Please enter a valid date" });
     }
   };
 
@@ -97,25 +100,25 @@ export default function HijriConverter() {
       }
 
       if (found) {
-        const optionsAr = { 
+        const optionsEn = { 
           weekday: 'long', 
           year: 'numeric', 
           month: 'long', 
           day: 'numeric' 
         };
-        const arFormatted = new Intl.DateTimeFormat('ar-SA', optionsAr).format(currentGDate);
+        const enLongFormatted = new Intl.DateTimeFormat('en-US', optionsEn).format(currentGDate);
         const iso = currentGDate.toISOString().split('T')[0];
         
         setResult({
-          primary: arFormatted,
-          secondary: iso,
+          primary: enLongFormatted,
+          secondary: `ISO Format: ${iso}`,
           type: 'gregorian'
         });
       } else {
-        setResult({ error: "التاريخ الهجري غير صالح أو خارج النطاق المدعوم" });
+        setResult({ error: "Invalid Hijri date or out of supported range" });
       }
     } catch (e) {
-      setResult({ error: "حدث خطأ أثناء التحويل" });
+      setResult({ error: "An error occurred during conversion" });
     }
   };
 
@@ -130,9 +133,9 @@ export default function HijriConverter() {
   return (
     <div className="container">
       <div className="card" style={{ maxWidth: '600px', margin: '40px auto' }}>
-        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>محول التاريخ الذكي 📅</h1>
+        <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Smart Date Converter 📅</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          تحويل دقيق بين التقويم الميلادي والهجري (أم القرى) مباشرة في متصفحك.
+          Accurate conversion between Gregorian and Hijri (Umm al-Qura) calendars directly in your browser.
         </p>
 
         <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: '24px' }}>
@@ -141,21 +144,21 @@ export default function HijriConverter() {
             onClick={() => { setActiveTab('g2h'); setResult(null); }}
             style={{ flex: 1, padding: '12px', background: 'none', border: 'none', borderBottom: activeTab === 'g2h' ? '2px solid var(--primary)' : '2px solid transparent', color: activeTab === 'g2h' ? 'var(--primary)' : 'var(--text-muted)', fontWeight: 'bold', cursor: 'pointer' }}
           >
-            ميلادي إلى هجري
+            Gregorian to Hijri
           </button>
           <button 
             className={`tab-btn ${activeTab === 'h2g' ? 'active' : ''}`}
             onClick={() => { setActiveTab('h2g'); setResult(null); }}
             style={{ flex: 1, padding: '12px', background: 'none', border: 'none', borderBottom: activeTab === 'h2g' ? '2px solid var(--primary)' : '2px solid transparent', color: activeTab === 'h2g' ? 'var(--primary)' : 'var(--text-muted)', fontWeight: 'bold', cursor: 'pointer' }}
           >
-            هجري إلى ميلادي
+            Hijri to Gregorian
           </button>
         </div>
 
         <div style={{ marginBottom: '24px' }}>
           {activeTab === 'g2h' ? (
             <div>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>اختر التاريخ الميلادي:</label>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Select Gregorian Date:</label>
               <input 
                 type="date" 
                 value={gregorianDate}
@@ -165,16 +168,16 @@ export default function HijriConverter() {
             </div>
           ) : (
             <div>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>أدخل التاريخ الهجري:</label>
-              <div style={{ display: 'flex', gap: '12px', direction: 'ltr' }}>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Enter Hijri Date:</label>
+              <div style={{ display: 'flex', gap: '12px' }}>
                 <input 
                   type="date" 
                   value={hijriDate}
                   onChange={(e) => setHijriDate(e.target.value)}
-                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem', direction: 'rtl' }}
+                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
                 />
               </div>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>ملاحظة: بعض المتصفحات لا تدعم منتقي التاريخ الهجري، يمكنك كتابة التاريخ يدوياً (سنة-شهر-يوم).</p>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>Note: Some browsers lack a native Hijri picker. You can type the date manually (YYYY-MM-DD).</p>
             </div>
           )}
         </div>
@@ -183,7 +186,7 @@ export default function HijriConverter() {
           onClick={handleConvert}
           style={{ width: '100%', padding: '14px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.1rem', cursor: 'pointer', marginBottom: '24px' }}
         >
-          تحويل الآن
+          Convert Now
         </button>
 
         {result && (
@@ -193,7 +196,7 @@ export default function HijriConverter() {
             ) : (
               <>
                 <h2 style={{ fontSize: '1.5rem', color: 'var(--primary)', marginBottom: '8px' }}>{result.primary}</h2>
-                <div style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }} dir="ltr">{result.secondary}</div>
+                <div style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>{result.secondary}</div>
               </>
             )}
           </div>
