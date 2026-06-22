@@ -110,21 +110,50 @@ export default function ChatPDF() {
   };
 
   const chunkText = (text, shouldReverse, maxLength = 500) => {
-    // Apply Arabic fix before chunking if user opted in
+    // 1. Normalize unicode (Crucial for AI to understand Arabic presentation forms)
+    text = text.normalize('NFKC');
+
+    // 2. Reverse garbled Arabic if user requested
     if (shouldReverse) {
       text = fixArabicPDFText(text);
     }
-    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+
+    // 3. Robust Chunking (Fallback to length-based if no punctuation)
     const chunks = [];
     let currentChunk = '';
-    for (const sentence of sentences) {
-      if (currentChunk.length + sentence.length > maxLength) {
-        if (currentChunk) chunks.push(currentChunk.trim());
-        currentChunk = sentence;
+    
+    // Split by newlines, English/Arabic periods, question marks, and commas
+    const segments = text.split(/([.!?\n،؟]+)/);
+    
+    for (let i = 0; i < segments.length; i += 2) {
+      const sentence = segments[i] + (segments[i + 1] || '');
+      const trimmed = sentence.trim();
+      if (!trimmed) continue;
+
+      if (currentChunk.length + trimmed.length > maxLength) {
+        if (currentChunk) {
+          chunks.push(currentChunk.trim());
+          currentChunk = '';
+        }
+        // If a single segment is STILL longer than maxLength, forcefully split it by words
+        if (trimmed.length > maxLength) {
+          const words = trimmed.split(/\s+/);
+          for (const word of words) {
+            if (currentChunk.length + word.length > maxLength) {
+              if (currentChunk) chunks.push(currentChunk.trim());
+              currentChunk = word;
+            } else {
+              currentChunk += (currentChunk ? ' ' : '') + word;
+            }
+          }
+        } else {
+          currentChunk = trimmed;
+        }
       } else {
-        currentChunk += ' ' + sentence;
+        currentChunk += (currentChunk ? ' ' : '') + trimmed;
       }
     }
+    
     if (currentChunk) chunks.push(currentChunk.trim());
     return chunks;
   };
