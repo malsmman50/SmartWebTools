@@ -155,12 +155,17 @@ export default function ImageCompressor() {
             <div style={{ padding: '16px', background: 'var(--surface-sunken)', borderRadius: '8px', textAlign: 'center' }}>
               <h4 style={{ color: '#10b981', marginBottom: '8px' }}>Compressed Image</h4>
               <img src={compressedUrl} alt="Compressed" style={{ width: '100%', maxHeight: '200px', objectFit: 'contain', borderRadius: '4px', marginBottom: '12px' }} />
-              <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#10b981' }}>
+              <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: compressedFile.size > originalFile.size ? '#ef4444' : '#10b981' }}>
                 {formatBytes(compressedFile.size)}
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginLeft: '8px' }}>
-                  (-{Math.round(((originalFile.size - compressedFile.size) / originalFile.size) * 100)}%)
+                <span style={{ fontSize: '0.9rem', color: compressedFile.size > originalFile.size ? '#ef4444' : 'var(--text-muted)', marginLeft: '8px' }}>
+                  ({compressedFile.size > originalFile.size ? '+' : '-'}{Math.abs(Math.round(((originalFile.size - compressedFile.size) / originalFile.size) * 100))}%)
                 </span>
               </div>
+              {compressedFile.size > originalFile.size && (
+                <div style={{ fontSize: '0.8rem', color: '#ef4444', marginTop: '8px', lineHeight: '1.4' }}>
+                  Image became larger! Try lowering the quality slider.
+                </div>
+              )}
               
               <a 
                 href={compressedUrl} 
