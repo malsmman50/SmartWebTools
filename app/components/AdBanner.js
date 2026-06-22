@@ -30,7 +30,7 @@ export default function AdBanner({ dataAdSlot = "1234567890", dataAdFormat = "au
           borderRadius: '8px' 
         }}
         // TODO: Replace with your actual AdSense Publisher ID (e.g., ca-pub-1234567890)
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
+        data-ad-client="ca-pub-2077857887750518" 
         data-ad-slot={dataAdSlot}
         data-ad-format={dataAdFormat}
         data-full-width-responsive={dataFullWidthResponsive}
