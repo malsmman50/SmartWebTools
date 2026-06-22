@@ -1,58 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-// --- Zero-Dependency Tabular Islamic (Kuwaiti) Algorithm ---
-function gregorianToHijri(date) {
-  let day = date.getDate(), month = date.getMonth(), year = date.getFullYear();
-  let m = month + 1, y = year;
-  if (m < 3) { y -= 1; m += 12; }
-  
-  let a = Math.floor(y / 100);
-  let b = 2 - a + Math.floor(a / 4);
-  if (y < 1583) b = 0;
-  if (y === 1582 && (m > 10 || (m === 10 && day > 4))) b = -10;
-  else if (y === 1582 && m === 10) b = 0;
-
-  let jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
-  
-  let z = jd - 1948085;
-  let cyc = Math.floor(z / 10631);
-  z = z - 10631 * cyc;
-  let j = Math.floor((z - 0.1335) / 354.36667);
-  let iy = 30 * cyc + j;
-  z = z - Math.floor(j * 354.36667 + 0.1335);
-  let im = Math.floor((z + 28.5001) / 29.5);
-  if (im === 13) im = 12;
-  let id = z - Math.floor(29.5001 * im - 29);
-
-  return { year: iy, month: im, day: Math.floor(id) };
-}
-
-function hijriToGregorian(iy, im, id) {
-  let cyc = Math.floor((iy - 1) / 30);
-  let j = iy - 1 - 30 * cyc;
-  let y = Math.floor(j * 354.36667 + 0.1335);
-  let jd = Math.floor(29.5001 * im - 29) + id + y + 10631 * cyc + 1948085;
-
-  let zWhole = Math.floor(jd + 0.5);
-  let f = (jd + 0.5) - zWhole;
-  let a = zWhole;
-  if (zWhole >= 2299161) {
-    let alpha = Math.floor((zWhole - 1867216.25) / 36524.25);
-    a = zWhole + 1 + alpha - Math.floor(alpha / 4);
-  }
-  let b = a + 1524;
-  let c = Math.floor((b - 122.1) / 365.25);
-  let d = Math.floor(365.25 * c);
-  let e = Math.floor((b - d) / 30.6001);
-
-  let day = Math.floor(b - d - Math.floor(30.6001 * e) + f);
-  let month = e < 14 ? e - 1 : e - 13;
-  let year = month > 2 ? c - 4716 : c - 4715;
-
-  return new Date(year, month - 1, day);
-}
-
 const hijriMonthNames = [
   "Muharram", "Safar", "Rabi' I", "Rabi' II", 
   "Jumada I", "Jumada II", "Rajab", "Sha'ban", 
@@ -63,7 +11,62 @@ const gregorianMonthNames = [
   "January", "February", "March", "April", "May", "June", 
   "July", "August", "September", "October", "November", "December"
 ];
-// --------------------------------------------------------
+
+// --- Hybrid Umm al-Qura Algorithm ---
+const getExactHijriDate = (dateObj) => {
+  // Uses the browser's native Umm al-Qura calendar database (CLDR)
+  const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
+    day: 'numeric', month: 'numeric', year: 'numeric'
+  });
+  const parts = formatter.formatToParts(dateObj);
+  const hd = parseInt(parts.find(p => p.type === 'day').value, 10);
+  const hm = parseInt(parts.find(p => p.type === 'month').value, 10);
+  const hy = parseInt(parts.find(p => p.type === 'year').value.split(' ')[0], 10);
+  return { year: hy, month: hm, day: hd };
+};
+
+const exactHijriToGregorian = (targetY, targetM, targetD) => {
+  // 1. Rough estimate baseline
+  // Anchor: 1 Muharram 1446 AH = July 7, 2024 CE.
+  const anchorHijriY = 1446;
+  const anchorGregorian = new Date(2024, 6, 7, 12, 0, 0); // Noon to avoid timezone shifts
+  
+  const yearDiff = targetY - anchorHijriY;
+  const monthDiff = targetM - 1;
+  const dayDiff = targetD - 1;
+  
+  // 1 Hijri year ~ 354.36 days, 1 Hijri month ~ 29.53 days
+  const totalDaysOffset = (yearDiff * 354.36) + (monthDiff * 29.53) + dayDiff;
+  
+  // Baseline Gregorian Date
+  let estimatedDate = new Date(anchorGregorian.getTime() + (totalDaysOffset * 86400000));
+  
+  // 2. Micro-loop Correction (Hybrid approach)
+  // Search up to 20 days in both directions to find the EXACT Umm al-Qura day
+  let closestMatch = estimatedDate;
+  let minDiff = 999999;
+
+  for (let i = -20; i <= 20; i++) {
+    const testDate = new Date(estimatedDate.getTime() + (i * 86400000));
+    const testHijri = getExactHijriDate(testDate);
+    
+    if (testHijri.year === targetY && testHijri.month === targetM && testHijri.day === targetD) {
+      return testDate; // 100% Exact Umm Al-Qura Match!
+    }
+    
+    // Track closest match in case user entered a non-existent day (e.g. Day 30 in a 29-day month)
+    const diff = Math.abs(testHijri.year - targetY) * 354 + 
+                 Math.abs(testHijri.month - targetM) * 30 + 
+                 Math.abs(testHijri.day - targetD);
+                 
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestMatch = testDate;
+    }
+  }
+  
+  return closestMatch; // Fallback
+};
 
 export default function HijriConverter() {
   const [gregorianDate, setGregorianDate] = useState('');
@@ -81,8 +84,8 @@ export default function HijriConverter() {
     const today = new Date();
     setGregorianDate(today.toISOString().split('T')[0]);
     
-    // Mathematically derive today's Hijri date
-    const hToday = gregorianToHijri(today);
+    // Exactly derive today's Hijri date using Intl
+    const hToday = getExactHijriDate(today);
     setHYear(hToday.year.toString());
     setHMonth(hToday.month.toString());
     setHDay(hToday.day.toString());
@@ -93,10 +96,11 @@ export default function HijriConverter() {
       setResult(null);
       
       if (activeTab === 'g2h') {
-        const date = new Date(gregorianDate);
+        // Must use noon to avoid weird midnight UTC timezone shifts
+        const date = new Date(gregorianDate + "T12:00:00");
         if (isNaN(date.getTime())) throw new Error("Invalid date selected");
         
-        const h = gregorianToHijri(date);
+        const h = getExactHijriDate(date);
         
         setResult({
           primary: `${h.day} ${hijriMonthNames[h.month - 1]} ${h.year} AH`,
@@ -111,7 +115,7 @@ export default function HijriConverter() {
         
         if (isNaN(y) || y < 1) throw new Error("Invalid Hijri year");
         
-        const gDate = hijriToGregorian(y, m, d);
+        const gDate = exactHijriToGregorian(y, m, d);
         
         setResult({
           primary: `${gDate.getDate()} ${gregorianMonthNames[gDate.getMonth()]} ${gDate.getFullYear()}`,
@@ -138,7 +142,7 @@ export default function HijriConverter() {
       <div className="card" style={{ maxWidth: '600px', margin: '40px auto' }}>
         <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Smart Date Converter 📅</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '24px' }}>
-          Lightning fast, offline-capable conversion between Gregorian and Hijri calendars using the Kuwaiti Algorithm.
+          Lightning fast, offline-capable conversion between Gregorian and Hijri (Umm al-Qura) calendars.
         </p>
 
         <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', marginBottom: '24px' }}>
