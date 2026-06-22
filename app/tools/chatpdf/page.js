@@ -17,7 +17,7 @@ function cosineSimilarity(vecA, vecB) {
 export default function ChatPDF() {
   const [status, setStatus] = useState('Idle');
   const [progress, setProgress] = useState(0);
-  const [db, setDb] = useState([]); // Array of { text, vector }
+  const [dbLength, setDbLength] = useState(0);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   
@@ -67,7 +67,12 @@ export default function ChatPDF() {
         } else {
           // Adding document to DB
           dbRef.current.push({ id: msg.id, text: msg.text, vector: msg.vector });
-          setDb([...dbRef.current]);
+          setDbLength(dbRef.current.length);
+          
+          const percentDone = Math.round((dbRef.current.length / totalChunksRef.current) * 80);
+          setProgress(20 + percentDone);
+          setStatus(`Vectorized ${dbRef.current.length} / ${totalChunksRef.current} chunks`);
+          
           if (dbRef.current.length === totalChunksRef.current) {
             setStatus('Ready');
           }
@@ -105,7 +110,7 @@ export default function ChatPDF() {
     
     setStatus('Extracting text from PDF...');
     setProgress(0);
-    setDb([]);
+    setDbLength(0);
     dbRef.current = [];
     setResults([]);
     
@@ -117,16 +122,25 @@ export default function ChatPDF() {
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       
       setStatus(`Extracting text from ${pdf.numPages} pages...`);
-      const pagePromises = Array.from({ length: pdf.numPages }, (_, i) => 
-        pdf.getPage(i + 1).then(async (page) => {
-          const textContent = await page.getTextContent();
-          return textContent.items.map(item => item.str).join(' ');
-        })
-      );
+      
+      let pagesExtracted = 0;
+      const pagePromises = Array.from({ length: pdf.numPages }, async (_, i) => {
+        const page = await pdf.getPage(i + 1);
+        const textContent = await page.getTextContent();
+        const text = textContent.items.map(item => item.str).join(' ');
+        
+        pagesExtracted++;
+        // Update progress bar (0-20% for extraction phase)
+        setProgress(Math.round((pagesExtracted / pdf.numPages) * 20));
+        
+        return text;
+      });
+      
       const pagesData = await Promise.all(pagePromises);
       const fullText = pagesData.join(' ') + ' ';
       
       setStatus('Chunking and Vectorizing Document (Using Local GPU)...');
+      setProgress(20); // Start of vectorization phase
       const chunks = chunkText(fullText);
       totalChunksRef.current = chunks.length;
       
@@ -170,10 +184,10 @@ export default function ChatPDF() {
           </div>
         )}
         
-        <p style={{ marginTop: '8px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>Vectors Computed: {db.length}</p>
+        <p style={{ marginTop: '8px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>Vectors Computed: {dbLength}</p>
       </div>
 
-      {db.length > 0 && (
+      {dbLength > 0 && (
         <div className="card">
           <div style={{ display: 'flex', gap: '12px' }}>
             <input 
