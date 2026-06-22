@@ -9,120 +9,76 @@ export default function HijriConverter() {
   const [activeTab, setActiveTab] = useState('g2h'); // 'g2h' or 'h2g'
   
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Get today's date formatted for input on mount
   useEffect(() => {
     const today = new Date();
     setGregorianDate(today.toISOString().split('T')[0]);
     
-    // Estimate today's Hijri for default
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric', calendar: 'islamic-umalqura' };
-    const hDateStr = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', options).format(today);
-    // hDateStr format is usually M/D/YYYY
-    if (hDateStr) {
-      const parts = hDateStr.split('/');
-      if (parts.length === 3) {
-        // format to YYYY-MM-DD
-        setHYear(parts[2]);
-        setHMonth(parts[0]);
-        setHDay(parts[1]);
-      }
-    }
+    // Default Hijri to a roughly current date
+    setHDay(today.getDate().toString());
+    setHMonth(((today.getMonth() + 6) % 12 + 1).toString()); // rough approximation
+    setHYear('1446');
   }, []);
 
-  const convertGregorianToHijri = (dateString) => {
+  const convertGregorianToHijri = async (dateString) => {
     try {
+      setLoading(true);
+      setResult(null);
       const date = new Date(dateString);
       if (isNaN(date.getTime())) throw new Error("Invalid date");
-
-      // We still use 'ar-SA' locale for the primary visual display because Islamic month names 
-      // (Muharram, Safar) are best represented natively, but we can also use 'en-US'
-      const optionsAr = { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric', 
-        calendar: 'islamic-umalqura' 
-      };
       
-      const optionsEn = { 
-        year: 'numeric', 
-        month: 'numeric', 
-        day: 'numeric', 
-        calendar: 'islamic-umalqura' 
-      };
-
-      // Force English locale for the primary string to match the site language
-      const enLongFormatted = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
-      const enFormatted = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', optionsEn).format(date); // M/D/YYYY
+      const dd = String(date.getDate()).padStart(2, '0');
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const yyyy = date.getFullYear();
       
-      setResult({
-        primary: enLongFormatted,
-        secondary: `Numeric: ${enFormatted}`,
-        type: 'hijri'
-      });
+      const res = await fetch(`https://api.aladhan.com/v1/gToH?date=${dd}-${mm}-${yyyy}`);
+      const data = await res.json();
+      
+      if (data.code === 200) {
+        const h = data.data.hijri;
+        setResult({
+          primary: `${h.day} ${h.month.en} ${h.year} AH`,
+          secondary: `Numeric: ${h.date}`,
+          type: 'hijri'
+        });
+      } else {
+        throw new Error(data.data || "API Error");
+      }
     } catch (e) {
-      setResult({ error: "Please enter a valid date" });
+      setResult({ error: "Failed to convert date. Please ensure your input is valid." });
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Binary search approach to find Gregorian date from Hijri using Intl
-  const convertHijriToGregorian = (hijriStr) => {
+  const convertHijriToGregorian = async (hijriStr) => {
     try {
-      if (!hijriStr) return;
-      const [hYear, hMonth, hDay] = hijriStr.split('-').map(Number);
+      setLoading(true);
+      setResult(null);
       
-      // Estimate Gregorian year
-      const gYearEstimate = Math.floor((hYear * 0.970229) + 622.5);
+      const [hy, hm, hd] = hijriStr.split('-');
+      const dd = String(hd).padStart(2, '0');
+      const mm = String(hm).padStart(2, '0');
       
-      let currentGDate = new Date(gYearEstimate, hMonth - 1, 15); // start somewhere in the estimated month
+      const res = await fetch(`https://api.aladhan.com/v1/hToG?date=${dd}-${mm}-${hy}`);
+      const data = await res.json();
       
-      // We will step day by day until we match the Hijri date
-      // We limit to 3000 iterations (approx 8 years) to prevent infinite loops
-      let found = false;
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric', calendar: 'islamic-umalqura' };
-      const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', options);
-      
-      // Move backwards roughly to be safe
-      currentGDate.setDate(currentGDate.getDate() - 30);
-      
-      for (let i = 0; i < 2000; i++) {
-        const testStr = formatter.format(currentGDate); // M/D/YYYY
-        const [tm, td, ty] = testStr.split('/').map(Number);
-        
-        if (ty === hYear && tm === hMonth && td === hDay) {
-          found = true;
-          break;
-        }
-        
-        // Optimize search direction
-        if (ty < hYear || (ty === hYear && tm < hMonth) || (ty === hYear && tm === hMonth && td < hDay)) {
-           currentGDate.setDate(currentGDate.getDate() + 1);
-        } else {
-           currentGDate.setDate(currentGDate.getDate() - 1);
-        }
-      }
-
-      if (found) {
-        const optionsEn = { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        };
-        const enLongFormatted = new Intl.DateTimeFormat('en-US', optionsEn).format(currentGDate);
-        const iso = currentGDate.toISOString().split('T')[0];
-        
+      if (data.code === 200) {
+        const g = data.data.gregorian;
         setResult({
-          primary: enLongFormatted,
-          secondary: `ISO Format: ${iso}`,
+          primary: `${g.day} ${g.month.en} ${g.year}`,
+          secondary: `ISO Format: ${g.date.split('-').reverse().join('-')}`, // YYYY-MM-DD
           type: 'gregorian'
         });
       } else {
-        setResult({ error: "Invalid Hijri date or out of supported range" });
+        throw new Error(data.data || "API Error");
       }
     } catch (e) {
-      setResult({ error: "An error occurred during conversion" });
+      setResult({ error: "Invalid Hijri date. Please note that some Islamic months have only 29 days." });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -172,7 +128,7 @@ export default function HijriConverter() {
             </div>
           ) : (
             <div>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Enter Hijri Date:</label>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Select Hijri Date:</label>
               <div style={{ display: 'flex', gap: '12px' }}>
                 <select 
                   value={hDay}
@@ -192,7 +148,7 @@ export default function HijriConverter() {
                   type="number" 
                   value={hYear}
                   onChange={(e) => setHYear(e.target.value)}
-                  placeholder="Year (e.g. 1446)"
+                  placeholder="Year"
                   min="1350"
                   max="1500"
                   style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
@@ -204,9 +160,10 @@ export default function HijriConverter() {
 
         <button 
           onClick={handleConvert}
-          style={{ width: '100%', padding: '14px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.1rem', cursor: 'pointer', marginBottom: '24px' }}
+          disabled={loading}
+          style={{ width: '100%', padding: '14px', borderRadius: '8px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '1.1rem', cursor: loading ? 'not-allowed' : 'pointer', marginBottom: '24px', opacity: loading ? 0.7 : 1 }}
         >
-          Convert Now
+          {loading ? 'Converting...' : 'Convert Now'}
         </button>
 
         {result && (
