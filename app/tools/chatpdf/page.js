@@ -1,19 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 
-function cosineSimilarity(vecA, vecB) {
-    let dotProduct = 0;
-    let normA = 0;
-    let normB = 0;
-    for (let i = 0; i < vecA.length; i++) {
-        dotProduct += vecA[i] * vecB[i];
-        normA += vecA[i] * vecA[i];
-        normB += vecB[i] * vecB[i];
-    }
-    if (normA === 0 || normB === 0) return 0;
-    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-}
-
 export default function ChatPDF() {
   const [status, setStatus] = useState('Idle');
   const [progress, setProgress] = useState(0);
@@ -24,8 +11,6 @@ export default function ChatPDF() {
   const [results, setResults] = useState([]);
   
   const workerRef = useRef(null);
-  const totalChunksRef = useRef(0);
-  const dbRef = useRef([]);
 
   useEffect(() => {
     // Initialize Web Worker from public directory to bypass Turbopack
@@ -44,41 +29,21 @@ export default function ChatPDF() {
       } else if (msg.status === 'progress') {
         setStatus(`Loading AI Model... ${msg.data.file || ''}`);
         if (msg.data.progress) setProgress(msg.data.progress);
-      } else if (msg.status === 'complete') {
-        if (msg.id === 'query') {
-          // Perform search
-          try {
-            const queryVector = msg.vector;
-            const scored = dbRef.current.map(doc => {
-              if (!queryVector) throw new Error('queryVector is undefined');
-              if (!doc.vector) throw new Error('doc.vector is undefined for chunk ' + doc.id);
-              if (queryVector.length !== doc.vector.length) throw new Error(`Vector mismatch: ${queryVector.length} vs ${doc.vector.length}`);
-              return {
-                ...doc,
-                score: cosineSimilarity(queryVector, doc.vector)
-              };
-            });
-            scored.sort((a, b) => b.score - a.score);
-            setResults(scored.slice(0, 3));
-            setStatus('Ready');
-            setProgress(100);
-          } catch (err) {
-            console.error(err);
-            setStatus(`Search Error: ${err.message}`);
-          }
-        } else {
-          // Adding document to DB
-          dbRef.current.push({ id: msg.id, text: msg.text, vector: msg.vector });
-          setDbLength(dbRef.current.length);
-          
-          const percentDone = Math.round((dbRef.current.length / totalChunksRef.current) * 80);
-          setProgress(20 + percentDone);
-          setStatus(`Vectorized ${dbRef.current.length} / ${totalChunksRef.current} chunks`);
-          
-          if (dbRef.current.length === totalChunksRef.current) {
-            setStatus('Ready');
-          }
-        }
+      } else if (msg.status === 'batch_progress') {
+        const percentDone = Math.round((msg.processed / msg.total) * 80);
+        setProgress(20 + percentDone);
+        setDbLength(msg.dbLength);
+        setStatus(`Vectorizing: ${msg.processed} / ${msg.total} chunks...`);
+      } else if (msg.status === 'batch_complete') {
+        setDbLength(msg.dbLength);
+        setStatus('Ready');
+        setProgress(100);
+      } else if (msg.status === 'search_results') {
+        setResults(msg.results);
+        setStatus('Ready');
+        setProgress(100);
+      } else if (msg.status === 'db_cleared') {
+        setDbLength(0);
       }
     };
     
@@ -166,8 +131,8 @@ export default function ChatPDF() {
     setProgress(0);
     setDbLength(0);
     setFileInfo(null);
-    dbRef.current = [];
     setResults([]);
+    if (workerRef.current) workerRef.current.postMessage({ type: 'clear_db' });
     try {
       const pdfjsLib = await import('pdfjs-dist/build/pdf');
       pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
@@ -181,32 +146,28 @@ export default function ChatPDF() {
         pages: pdf.numPages
       });
       
-      setStatus(`Extracting text from ${pdf.numPages} pages...`);
+      setStatus(`Extracting text sequentially from ${pdf.numPages} pages...`);
       
       let pagesExtracted = 0;
-      const pagePromises = Array.from({ length: pdf.numPages }, async (_, i) => {
-        const page = await pdf.getPage(i + 1);
+      let fullText = '';
+      
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
         const text = textContent.items.map(item => item.str).join(' ');
+        fullText += text + ' ';
         
         pagesExtracted++;
         // Update progress bar (0-20% for extraction phase)
         setProgress(Math.round((pagesExtracted / pdf.numPages) * 20));
-        
-        return text;
-      });
-      
-      const pagesData = await Promise.all(pagePromises);
-      const fullText = pagesData.join(' ') + ' ';
+      }
       
       setStatus('Chunking and Vectorizing Document (Using Local GPU)...');
       setProgress(20); // Start of vectorization phase
-      const chunks = chunkText(fullText, reverseArabic);
-      totalChunksRef.current = chunks.length;
+      const chunksStr = chunkText(fullText, reverseArabic);
+      const chunks = chunksStr.map((c, i) => ({ id: i, text: c }));
       
-      chunks.forEach((chunk, i) => {
-        workerRef.current.postMessage({ type: 'embed', id: i, text: chunk });
-      });
+      workerRef.current.postMessage({ type: 'embed_batch', chunks });
       
     } catch (err) {
       setStatus(`Error: ${err.message}`);
@@ -216,9 +177,9 @@ export default function ChatPDF() {
   const handleSearch = () => {
     if (!query.trim()) return;
     if (!workerRef.current) { setStatus('Error: Worker not initialized'); return; }
-    if (dbRef.current.length === 0) { setStatus('Please upload a PDF first'); return; }
+    if (dbLength === 0) { setStatus('Please upload a PDF first'); return; }
     setStatus('Searching...');
-    workerRef.current.postMessage({ type: 'embed', id: 'query', text: query.trim() });
+    workerRef.current.postMessage({ type: 'search', text: query.trim() });
   };
 
   return (
