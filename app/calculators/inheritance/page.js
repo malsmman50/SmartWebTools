@@ -118,20 +118,23 @@ export default function InheritanceCalculator() {
 
         <div className="grid-2" style={{ gap: '24px', marginBottom: '32px' }}>
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Total Estate Value (after debts & will):</label>
+            <label htmlFor="estateValue" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Total Estate Value (after debts & will):</label>
             <input 
+              id="estateValue"
               type="number" 
               value={estateValue}
               onChange={(e) => setEstateValue(e.target.value)}
               min="0"
+              max="1000000000000"
               style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.2rem' }}
               placeholder="e.g. 100000"
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Spouse Status (of the deceased):</label>
+            <label htmlFor="spouseType" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Spouse Status (of the deceased):</label>
             <select 
+              id="spouseType"
               value={spouseType}
               onChange={(e) => setSpouseType(e.target.value)}
               style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
@@ -144,8 +147,9 @@ export default function InheritanceCalculator() {
 
           {spouseType === 'wife' && (
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Wives:</label>
+              <label htmlFor="wivesCount" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Wives:</label>
               <input 
+                id="wivesCount"
                 type="number" 
                 value={wivesCount}
                 onChange={(e) => setWivesCount(Math.max(1, Math.min(4, parseInt(e.target.value) || 1)))}
@@ -156,30 +160,35 @@ export default function InheritanceCalculator() {
           )}
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Sons:</label>
+            <label htmlFor="sonsCount" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Sons:</label>
             <input 
+              id="sonsCount"
               type="number" 
               value={sonsCount}
-              onChange={(e) => setSonsCount(Math.max(0, parseInt(e.target.value) || 0))}
+              onChange={(e) => setSonsCount(Math.max(0, Math.min(100, parseInt(e.target.value) || 0)))}
               min="0"
+              max="100"
               style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Daughters:</label>
+            <label htmlFor="daughtersCount" style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Number of Daughters:</label>
             <input 
+              id="daughtersCount"
               type="number" 
               value={daughtersCount}
-              onChange={(e) => setDaughtersCount(Math.max(0, parseInt(e.target.value) || 0))}
+              onChange={(e) => setDaughtersCount(Math.max(0, Math.min(100, parseInt(e.target.value) || 0)))}
               min="0"
+              max="100"
               style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
             />
           </div>
 
           <div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--border)', borderRadius: '8px' }}>
+            <label htmlFor="fatherAlive" style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--border)', borderRadius: '8px' }}>
               <input 
+                id="fatherAlive"
                 type="checkbox" 
                 checked={fatherAlive}
                 onChange={(e) => setFatherAlive(e.target.checked)}
@@ -190,8 +199,9 @@ export default function InheritanceCalculator() {
           </div>
 
           <div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--border)', borderRadius: '8px' }}>
+            <label htmlFor="motherAlive" style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '16px', background: 'var(--surface-sunken)', border: '1px solid var(--border)', borderRadius: '8px' }}>
               <input 
+                id="motherAlive"
                 type="checkbox" 
                 checked={motherAlive}
                 onChange={(e) => setMotherAlive(e.target.checked)}
@@ -210,7 +220,7 @@ export default function InheritanceCalculator() {
         </button>
 
         {results && (
-          <div style={{ marginTop: '32px' }}>
+          <div style={{ marginTop: '32px' }} aria-live="polite">
             <h3 style={{ marginBottom: '16px', fontSize: '1.3rem', borderBottom: '2px solid var(--border)', paddingBottom: '8px' }}>Division Results:</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {results.shares.map((share, idx) => (

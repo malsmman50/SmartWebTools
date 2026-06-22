@@ -61,26 +61,26 @@ export default function ZakatCalculator() {
         <div className="card">
           <h3 style={{ marginBottom: '16px' }}>Assets (What you own)</h3>
           <div style={{ marginBottom: '16px' }}>
-            <label className="label">Cash & Savings ($)</label>
-            <NumericFormat className="input" value={cash} onValueChange={v => setCash(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="zakat-cash" className="label">Cash & Savings ($)</label>
+            <NumericFormat id="zakat-cash" aria-label="Cash and Savings" className="input" value={cash} onValueChange={v => setCash(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
-            <label className="label">Gold Value ($)</label>
-            <NumericFormat className="input" value={gold} onValueChange={v => setGold(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="zakat-gold" className="label">Gold Value ($)</label>
+            <NumericFormat id="zakat-gold" aria-label="Gold Value" className="input" value={gold} onValueChange={v => setGold(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '16px' }}>
-            <label className="label">Silver Value ($)</label>
-            <NumericFormat className="input" value={silver} onValueChange={v => setSilver(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="zakat-silver" className="label">Silver Value ($)</label>
+            <NumericFormat id="zakat-silver" aria-label="Silver Value" className="input" value={silver} onValueChange={v => setSilver(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: '24px' }}>
-            <label className="label">Business Inventory & Shares ($)</label>
-            <NumericFormat className="input" value={business} onValueChange={v => setBusiness(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="zakat-business" className="label">Business Inventory & Shares ($)</label>
+            <NumericFormat id="zakat-business" aria-label="Business Inventory and Shares" className="input" value={business} onValueChange={v => setBusiness(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: '16px' }}>Liabilities (What you owe)</h3>
           <div style={{ marginBottom: '24px' }}>
-            <label className="label">Immediate Debts & Bills ($)</label>
-            <NumericFormat className="input" value={debts} onValueChange={v => setDebts(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="zakat-debts" className="label">Immediate Debts & Bills ($)</label>
+            <NumericFormat id="zakat-debts" aria-label="Immediate Debts and Bills" className="input" value={debts} onValueChange={v => setDebts(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: '16px' }}>Threshold (Nisab)</h3>
@@ -102,15 +102,15 @@ export default function ZakatCalculator() {
                     ⚠️ We couldn't connect to the live market API at this moment. Please enter the current Nisab value in your local currency manually below.
                   </p>
                 )}
-                <label className="label">Manual Nisab Value ($)</label>
-                <NumericFormat className="input" value={nisab} onValueChange={v => setNisab(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+                <label htmlFor="zakat-manual-nisab" className="label">Manual Nisab Value ($)</label>
+                <NumericFormat id="zakat-manual-nisab" aria-label="Manual Nisab Value" className="input" value={nisab} onValueChange={v => setNisab(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>Typically the value of 595g of silver or 85g of gold.</p>
               </div>
             )}
           </div>
         </div>
 
-        <div>
+        <div aria-live="polite">
           <div className="result-box" style={{ marginBottom: '16px' }}>
             <div className="result-label">Total Zakat Due (2.5%)</div>
             <div className="result-value" style={{ color: isEligible ? 'var(--success)' : 'var(--text-muted)' }}>
