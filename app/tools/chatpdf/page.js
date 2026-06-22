@@ -188,7 +188,7 @@ export default function ChatPDF() {
         <h1>📑 Semantic PDF Search</h1>
         <p>100% private, local-first document analysis. Search your PDFs semantically using on-device AI embeddings. No data leaves your browser.</p>
         <div style={{ marginTop: '12px', padding: '12px 16px', background: 'rgba(99,102,241,0.08)', border: '1px solid var(--primary)', borderRadius: '8px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-          ⚠️ <strong>First use:</strong> This tool downloads a ~45MB Multilingual AI model to your device to support Arabic & 50+ languages. This happens only once and is cached locally. Subsequent uses are instant.
+          ⚠️ <strong>First use:</strong> This tool downloads a ~113MB Multilingual AI model to your device to support Arabic & 50+ languages. This happens only once and is cached locally. Subsequent uses are instant.
         </div>
       </div>
 
@@ -242,7 +242,7 @@ export default function ChatPDF() {
           Traditional "Chat with PDF" tools (like ChatGPT or Claude) require you to upload your sensitive files (NDAs, tax returns, medical records) to their backend servers. This is a massive privacy risk and often violates corporate security policies.
         </p>
         <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>
-          <strong>SmartCalcTools</strong> takes a revolutionary "Zero Trust" approach. When you upload a PDF here, our website downloads a highly-optimized Multilingual AI model (around 45MB) directly into your browser cache. This AI model runs on your local machine (using WebGPU or WebAssembly).
+          <strong>SmartCalcTools</strong> takes a revolutionary "Zero Trust" approach. When you upload a PDF here, our website downloads a highly-optimized Multilingual AI model (around 113MB) directly into your browser cache. This AI model runs on your local machine (using WebGPU or WebAssembly).
         </p>
 
         <h3 style={{ marginTop: '24px' }}>The RAG Architecture (Retrieval-Augmented Generation)</h3>
@@ -271,7 +271,7 @@ export default function ChatPDF() {
             "name": "Why does it say Loading AI Model?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "On your first visit, the browser needs to download the 45MB Multilingual AI embedding model to run locally. On subsequent visits, it loads instantly from your cache."
+              "text": "On your first visit, the browser needs to download the 113MB Multilingual AI embedding model to run locally. On subsequent visits, it loads instantly from your cache."
             }
           }
         ]
