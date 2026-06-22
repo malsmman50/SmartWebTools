@@ -2,6 +2,8 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import Navbar from './components/Navbar';
 import Link from 'next/link';
+import Script from 'next/script';
+import AdBanner from './components/AdBanner';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -33,10 +35,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" 
+          crossOrigin="anonymous" 
+          strategy="afterInteractive" 
+        />
+      </head>
       <body className={inter.className}>
         <Navbar />
         <main style={{ minHeight: 'calc(100vh - 200px)' }}>
+          <AdBanner dataAdSlot="top-banner" />
           {children}
+          <AdBanner dataAdSlot="bottom-banner" />
         </main>
         <footer className="footer">
           <div className="container">
