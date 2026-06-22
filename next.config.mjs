@@ -5,7 +5,7 @@ const cspHeader = `
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src 'self' https://fonts.gstatic.com;
     img-src 'self' blob: data: https://pagead2.googlesyndication.com;
-    connect-src 'self' blob: https://data-asg.goldprice.org https://huggingface.co https://*.huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://pagead2.googlesyndication.com;
+    connect-src 'self' blob: https://data-asg.goldprice.org https://huggingface.co https://*.huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google https://*.google.com https://*.doubleclick.net;
     frame-src 'self' https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.google.com;
     worker-src 'self' blob:;
     object-src 'none';

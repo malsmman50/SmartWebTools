@@ -12,6 +12,12 @@ export default function HijriConverter() {
   const [result, setResult] = useState(null);
   const [momentLoaded, setMomentLoaded] = useState(false);
 
+  const hijriMonths = [
+    "Muharram", "Safar", "Rabi' I", "Rabi' II", 
+    "Jumada I", "Jumada II", "Rajab", "Sha'ban", 
+    "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"
+  ];
+
   // Get today's date formatted for input on mount
   useEffect(() => {
     const today = new Date();
@@ -144,7 +150,7 @@ export default function HijriConverter() {
                   onChange={(e) => setHMonth(e.target.value)}
                   style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
                 >
-                  {Array.from({length: 12}, (_, i) => i + 1).map(m => <option key={m} value={m}>Month {m}</option>)}
+                  {hijriMonths.map((name, i) => <option key={i + 1} value={i + 1}>{i + 1} - {name}</option>)}
                 </select>
                 <input 
                   type="number" 
