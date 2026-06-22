@@ -91,8 +91,8 @@ export default function HijriConverter() {
   return (
     <div className="container">
       {/* Load Moment.js and Moment-Hijri */}
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" strategy="beforeInteractive" />
-      <Script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js" strategy="beforeInteractive" onLoad={checkMomentLoaded} />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" />
+      <Script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js" onLoad={checkMomentLoaded} />
 
       <div className="card" style={{ maxWidth: '600px', margin: '40px auto' }}>
         <h1 style={{ fontSize: '1.8rem', marginBottom: '8px', textAlign: 'center' }}>Smart Date Converter 📅</h1>
