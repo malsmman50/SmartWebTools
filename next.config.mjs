@@ -25,13 +25,15 @@ const nextConfig = {
             value: cspHeader.replace(/\n/g, ''),
           },
           // Required for SharedArrayBuffer (threaded WASM / ONNX)
+          // credentialless is less strict than require-corp but still enables SharedArrayBuffer
+          // while allowing ONNX Runtime to spawn blob: proxy workers internally
           {
             key: 'Cross-Origin-Opener-Policy',
             value: 'same-origin',
           },
           {
             key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
+            value: 'credentialless',
           },
         ],
       },
