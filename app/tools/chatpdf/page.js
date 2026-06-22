@@ -88,7 +88,28 @@ export default function ChatPDF() {
     return () => workerRef.current.terminate();
   }, []);
 
+  const fixArabicPDFText = (text) => {
+    // If no Arabic characters, return as is
+    if (!/[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(text)) return text;
+    
+    // PDF.js extracts RTL languages visually (left-to-right), reversing the entire line and isolating characters
+    const lines = text.split('\n');
+    return lines.map(line => {
+      if (!/[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(line)) return line;
+      
+      // 1. Reverse the whole line char by char to fix RTL ordering
+      let reversed = line.split('').reverse().join('');
+      // 2. Fix English words and numbers that got reversed incorrectly
+      reversed = reversed.replace(/[A-Za-z0-9]+/g, match => match.split('').reverse().join(''));
+      // 3. Remove spaces between isolated Arabic letters so the AI tokenizer understands them as words
+      reversed = reversed.replace(/([\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF])\s+(?=[^\sA-Za-z0-9])/g, '$1');
+      return reversed;
+    }).join('\n');
+  };
+
   const chunkText = (text, maxLength = 500) => {
+    // Apply Arabic fix before chunking
+    text = fixArabicPDFText(text);
     const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
     const chunks = [];
     let currentChunk = '';
@@ -167,7 +188,7 @@ export default function ChatPDF() {
         <h1>📑 Semantic PDF Search</h1>
         <p>100% private, local-first document analysis. Search your PDFs semantically using on-device AI embeddings. No data leaves your browser.</p>
         <div style={{ marginTop: '12px', padding: '12px 16px', background: 'rgba(99,102,241,0.08)', border: '1px solid var(--primary)', borderRadius: '8px', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
-          ⚠️ <strong>First use:</strong> This tool downloads a ~22MB AI model to your device. This happens only once and is cached locally. Subsequent uses are instant.
+          ⚠️ <strong>First use:</strong> This tool downloads a ~45MB Multilingual AI model to your device to support Arabic & 50+ languages. This happens only once and is cached locally. Subsequent uses are instant.
         </div>
       </div>
 
@@ -221,7 +242,7 @@ export default function ChatPDF() {
           Traditional "Chat with PDF" tools (like ChatGPT or Claude) require you to upload your sensitive files (NDAs, tax returns, medical records) to their backend servers. This is a massive privacy risk and often violates corporate security policies.
         </p>
         <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>
-          <strong>SmartCalcTools</strong> takes a revolutionary "Zero Trust" approach. When you upload a PDF here, our website downloads a tiny, highly-optimized AI model (around 22MB) directly into your browser cache. This AI model runs on your local machine (using WebGPU or WebAssembly).
+          <strong>SmartCalcTools</strong> takes a revolutionary "Zero Trust" approach. When you upload a PDF here, our website downloads a highly-optimized Multilingual AI model (around 45MB) directly into your browser cache. This AI model runs on your local machine (using WebGPU or WebAssembly).
         </p>
 
         <h3 style={{ marginTop: '24px' }}>The RAG Architecture (Retrieval-Augmented Generation)</h3>
@@ -250,7 +271,7 @@ export default function ChatPDF() {
             "name": "Why does it say Loading AI Model?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "On your first visit, the browser needs to download the 22MB AI embedding model to run locally. On subsequent visits, it loads instantly from your cache."
+              "text": "On your first visit, the browser needs to download the 45MB Multilingual AI embedding model to run locally. On subsequent visits, it loads instantly from your cache."
             }
           }
         ]

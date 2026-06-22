@@ -11,7 +11,7 @@ env.backends.onnx.wasm.numThreads = 1;
 
 class PipelineSingleton {
     static task = 'feature-extraction';
-    static model = 'Xenova/all-MiniLM-L6-v2';
+    static model = 'Xenova/paraphrase-multilingual-MiniLM-L12-v2';
     static instance = null;
 
     static async getInstance(progress_callback = null) {
