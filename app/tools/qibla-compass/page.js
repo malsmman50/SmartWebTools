@@ -107,11 +107,11 @@ export default function QiblaCompass() {
   };
 
   // Calculate alignment for Visual Experience
-  const isAligned = heading !== null && qibla !== null && Math.abs((heading - qibla + 360) % 360) < 5 || Math.abs((heading - qibla - 360) % 360) < 5;
+  const isAligned = heading !== null && qibla !== null && (Math.abs((heading - qibla + 360) % 360) < 5 || Math.abs((heading - qibla - 360) % 360) < 5);
   
   // Vibrate when aligned
   useEffect(() => {
-    if (isAligned && navigator.vibrate) {
+    if (isAligned && typeof navigator !== 'undefined' && navigator.vibrate) {
       navigator.vibrate([100, 50, 100]);
     }
   }, [isAligned]);
