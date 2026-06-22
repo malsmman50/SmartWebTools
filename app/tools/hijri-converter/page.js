@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 
 export default function HijriConverter() {
   const [gregorianDate, setGregorianDate] = useState('');
-  const [hijriDate, setHijriDate] = useState('');
+  const [hDay, setHDay] = useState('1');
+  const [hMonth, setHMonth] = useState('1');
+  const [hYear, setHYear] = useState('1446');
   const [activeTab, setActiveTab] = useState('g2h'); // 'g2h' or 'h2g'
   
   const [result, setResult] = useState(null);
@@ -21,7 +23,9 @@ export default function HijriConverter() {
       const parts = hDateStr.split('/');
       if (parts.length === 3) {
         // format to YYYY-MM-DD
-        setHijriDate(`${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`);
+        setHYear(parts[2]);
+        setHMonth(parts[0]);
+        setHDay(parts[1]);
       }
     }
   }, []);
@@ -126,7 +130,7 @@ export default function HijriConverter() {
     if (activeTab === 'g2h') {
       convertGregorianToHijri(gregorianDate);
     } else {
-      convertHijriToGregorian(hijriDate);
+      convertHijriToGregorian(`${hYear}-${hMonth}-${hDay}`);
     }
   };
 
@@ -170,14 +174,30 @@ export default function HijriConverter() {
             <div>
               <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Enter Hijri Date:</label>
               <div style={{ display: 'flex', gap: '12px' }}>
+                <select 
+                  value={hDay}
+                  onChange={(e) => setHDay(e.target.value)}
+                  style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
+                >
+                  {Array.from({length: 30}, (_, i) => i + 1).map(d => <option key={d} value={d}>Day {d}</option>)}
+                </select>
+                <select 
+                  value={hMonth}
+                  onChange={(e) => setHMonth(e.target.value)}
+                  style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
+                >
+                  {Array.from({length: 12}, (_, i) => i + 1).map(m => <option key={m} value={m}>Month {m}</option>)}
+                </select>
                 <input 
-                  type="date" 
-                  value={hijriDate}
-                  onChange={(e) => setHijriDate(e.target.value)}
-                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
+                  type="number" 
+                  value={hYear}
+                  onChange={(e) => setHYear(e.target.value)}
+                  placeholder="Year (e.g. 1446)"
+                  min="1350"
+                  max="1500"
+                  style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface-sunken)', color: 'var(--text)', fontSize: '1.1rem' }}
                 />
               </div>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>Note: Some browsers lack a native Hijri picker. You can type the date manually (YYYY-MM-DD).</p>
             </div>
           )}
         </div>
