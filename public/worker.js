@@ -1,7 +1,7 @@
 import { pipeline, env } from '/transformers.min.js';
 
-// Configure local paths and disable remote fetching
-env.allowRemoteModels = false;
+// Configure local paths and fallback to remote CDN
+env.allowRemoteModels = true;
 env.allowLocalModels = true;
 env.localModelPath = '/models/';
 env.backends.onnx.wasm.wasmPaths = '/wasm/';
