@@ -365,6 +365,7 @@ input[type=number] {
 ins.adsbygoogle[data-ad-status="unfilled"] {
   display: none !important;
 }
-ins.adsbygoogle:empty {
+div:has(> ins.adsbygoogle[data-ad-status="unfilled"]) {
   display: none !important;
+  margin: 0 !important;
 }
