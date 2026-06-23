@@ -1,51 +1,67 @@
-'use client';
-import { useState } from 'react';
-import { NumericFormat } from 'react-number-format';
+import RoiCalculatorClient from "@/app/components/RoiCalculatorClient";
 
-export default function ROICalculator() {
-  const [invested, setInvested] = useState(5000);
-  const [returned, setReturned] = useState(7500);
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const isAr = lang === "ar";
+  return {
+    title: isAr ? "حاسبة العائد الاستثماري (ROI) | أدوات الحساب الذكية" : "Halal ROI Calculator | SmartCalcTools",
+    description: isAr 
+      ? "احسب نسبة العائد على الاستثمار وصافي الأرباح أو الخسائر بالإضافة للعائد السنوي المركب لمشاريعك واستثماراتك."
+      : "Calculate Return on Investment (ROI), net profit, and annualized yield for your business ventures and investments."
+  };
+}
 
-  const roi = invested > 0 ? ((returned - invested) / invested) * 100 : 0;
-  const profit = returned - invested;
+export default async function RoiCalculatorPage({ params }) {
+  const { lang } = await params;
+  const isAr = lang === "ar";
 
   return (
-    <div className="container" style={{ padding: '40px 20px' }}>
-      <div className="page-header">
-        <h1>💰 ROI Calculator</h1>
-        <p>Calculate the Return on Investment for any project, stock, or business decision.</p>
+    <>
+      <RoiCalculatorClient />
+      
+      <div className="container" style={{ padding: "0 20px 40px" }}>
+        <article className="card" style={{ marginTop: "20px", lineHeight: "1.8" }}>
+          {isAr ? (
+            <>
+              <h2>كيفية حساب العائد على الاستثمار (ROI)</h2>
+              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+                العائد على الاستثمار (ROI) هو مقياس مالي شائع الاستخدام لقياس كفاءة الاستثمار أو مقارنة كفاءة عدد من الاستثمارات المختلفة.
+                المعادلة البسيطة له هي:
+              </p>
+              <div style={{ background: "var(--bg)", padding: "12px", borderRadius: "8px", margin: "12px 0", fontFamily: "monospace", textAlign: "center" }}>
+                ROI = ((صافي الربح) / تكلفة الاستثمار) × 100
+              </div>
+              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+                العائد الإيجابي يعني أنك حققت أرباحاً، بينما العائد السلبي يعني الخسارة.
+              </p>
+              <h3 style={{ marginTop: "24px" }}>العائد السنوي المركب (Annualized ROI)</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                الـ ROI البسيط لا يأخذ في الاعتبار الفترة الزمنية للاستثمار. عائد بنسبة 50% على مدار 10 سنوات يختلف تماماً عن عائد بنسبة 50% في سنة واحدة.
+                لذلك نقوم باحتساب العائد السنوي المركب لمعرفة النمو الفعلي للاستثمار على أساس سنوي لتسهيل المقارنة بين الفرص الاستثمارية المختلفة.
+              </p>
+            </>
+          ) : (
+            <>
+              <h2>How to Calculate Return on Investment (ROI)</h2>
+              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+                Return on Investment (ROI) is one of the most widely used financial metrics to evaluate the efficiency of an investment or compare the efficiencies of several different investments.
+                The formula is simple:
+              </p>
+              <div style={{ background: "var(--bg)", padding: "12px", borderRadius: "8px", margin: "12px 0", fontFamily: "monospace", textAlign: "center" }}>
+                ROI = ((Net Profit) / Cost of Investment) × 100
+              </div>
+              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+                A positive ROI means you made money; a negative ROI means you lost money.
+              </p>
+              <h3 style={{ marginTop: "24px" }}>Annualized ROI</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                Simple ROI doesn't account for the time period of the investment. An ROI of 50% over 10 years is very different from 50% over 1 year.
+                Annualized ROI resolves this issue by calculating the average annual growth rate of the investment, making it easier to compare investments of different durations.
+              </p>
+            </>
+          )}
+        </article>
       </div>
-
-      <div className="grid-2">
-        <div className="card">
-          <div style={{ marginBottom: '20px' }}>
-            <label className="label">Amount Invested ($)</label>
-            <NumericFormat className="input" value={invested} onValueChange={v => setInvested(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
-          </div>
-          <div>
-            <label className="label">Amount Returned ($)</label>
-            <NumericFormat className="input" value={returned} onValueChange={v => setReturned(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
-          </div>
-        </div>
-
-        <div>
-          <div className="result-box" style={{ marginBottom: '16px' }}>
-            <div className="result-label">Return on Investment</div>
-            <div className="result-value" style={{ color: roi >= 0 ? 'var(--success)' : 'var(--danger)' }}>{roi.toFixed(2)}%</div>
-          </div>
-          <div className="result-box">
-            <div className="result-label">{profit >= 0 ? 'Net Profit' : 'Net Loss'}</div>
-            <div className="result-value" style={{ fontSize: '1.8rem', color: profit >= 0 ? 'var(--success)' : 'var(--danger)' }}>${profit.toLocaleString()}</div>
-          </div>
-        </div>
-      </div>
-
-      <article className="card" style={{ marginTop: '40px' }}>
-        <h2>How to Calculate ROI</h2>
-        <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', marginTop: '12px' }}>
-          Return on Investment (ROI) is one of the most widely used financial metrics. The formula is simple: ROI = ((Net Profit) / Cost of Investment) × 100. A positive ROI means you made money; a negative ROI means you lost money. While ROI is useful for quick comparisons, remember that it doesn't account for the time period of the investment. An ROI of 50% over 10 years is very different from 50% over 1 year. For time-adjusted returns, consider using annualized ROI or IRR (Internal Rate of Return).
-        </p>
-      </article>
-    </div>
+    </>
   );
 }
