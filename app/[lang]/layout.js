@@ -5,6 +5,7 @@ import Link from "next/link";
 import Script from "next/script";
 import AdBanner from "@/app/components/AdBanner";
 import { getDictionary } from "@/app/dictionaries";
+import PwaInstallPrompt from "@/app/components/PwaInstallPrompt";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -53,10 +54,9 @@ export default async function RootLayout({ children, params }) {
     <html lang={lang} dir={isAr ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#059669" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <meta name="theme-color" content="#0d1117" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <Script 
           async 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2077857887750518" 
@@ -113,6 +113,7 @@ export default async function RootLayout({ children, params }) {
               <p>{dict.common.footer_copyright}</p>
             </div>
           </footer>
+          <PwaInstallPrompt lang={lang} />
       </body>
     </html>
   );
