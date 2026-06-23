@@ -18,7 +18,9 @@ export default function ExploreTools({ lang, dict }) {
     { title: dict.utilities.currency_title, href: "/calculators/currency", icon: "💱" },
     { title: dict.utilities.compressor_title, href: "/tools/image-compressor", icon: "🖼️" },
     { title: dict.dev_tools.json_title, href: "/tools/json-formatter", icon: "{ }" },
-    { title: dict.utilities.chatpdf_title, href: "/tools/chatpdf", icon: "📄" }
+    { title: dict.utilities.chatpdf_title, href: "/tools/chatpdf", icon: "📄" },
+    { title: dict.calculators.sukuk_title, href: "/calculators/sukuk", icon: "📜" },
+    { title: dict.dev_tools.data_converter_title, href: "/tools/data-converter", icon: "🔄" }
   ];
 
   useEffect(() => {

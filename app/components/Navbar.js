@@ -66,6 +66,8 @@ export default function Navbar({ lang, dict }) {
     { name: dict.calculators.inheritance_title, path: "/calculators/inheritance" },
     { name: dict.calculators.murabaha_title, path: "/calculators/murabaha" },
     { name: dict.calculators.mudarabah_title, path: "/calculators/mudarabah" },
+    { name: dict.calculators.islamic_deposit_title, path: "/calculators/islamic-deposit" },
+    { name: dict.calculators.sukuk_title, path: "/calculators/sukuk" },
     { name: dict.calculators.roi_title, path: "/calculators/roi" },
     { name: dict.calculators.fire_title, path: "/calculators/islamic-fire" }
   ];
@@ -83,7 +85,9 @@ export default function Navbar({ lang, dict }) {
     { name: dict.dev_tools.json_title, path: "/tools/json-formatter" },
     { name: dict.dev_tools.jwt_title, path: "/tools/jwt-decoder" },
     { name: dict.dev_tools.cron_title, path: "/tools/cron-generator" },
-    { name: dict.dev_tools.prompt_title, path: "/tools/prompt-generator" }
+    { name: dict.dev_tools.prompt_title, path: "/tools/prompt-generator" },
+    { name: dict.dev_tools.data_converter_title, path: "/tools/data-converter" },
+    { name: dict.dev_tools.regex_title, path: "/tools/regex-tester" }
   ];
 
   return (

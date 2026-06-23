@@ -48,7 +48,11 @@
     "roi_title": "Halal ROI Calculator",
     "roi_desc": "Measure the profitability of your Halal investments and business ventures.",
     "fire_title": "Islamic FIRE",
-    "fire_desc": "Calculate your path to Halal Financial Independence and Early Retirement."
+    "fire_desc": "Calculate your path to Halal Financial Independence and Early Retirement.",
+    "sukuk_title": "Sukuk Calculator",
+    "sukuk_desc": "Calculate yields and periodic distributions for Islamic bonds (Sukuk).",
+    "islamic_deposit_title": "Islamic Savings",
+    "islamic_deposit_desc": "Calculate returns on Mudarabah-based Islamic savings accounts."
   },
   "utilities": {
     "qibla_title": "Live Qibla Compass",
@@ -72,7 +76,11 @@
     "cron_title": "Cron Generator",
     "cron_desc": "Build and understand cron expressions with an intuitive visual editor.",
     "prompt_title": "AI Prompt Builder",
-    "prompt_desc": "Craft optimized prompts for ChatGPT, Claude, and other AI models."
+    "prompt_desc": "Craft optimized prompts for ChatGPT, Claude, and other AI models.",
+    "data_converter_title": "Data Converter",
+    "data_converter_desc": "Convert data between JSON, XML, YAML, and CSV locally.",
+    "regex_title": "Regex Tester",
+    "regex_desc": "Test and visualize Regular Expressions instantly."
   },
   "about": {
     "title": "About SmartCalcTools",
@@ -343,5 +351,49 @@
     "good": "Good",
     "strong": "Strong",
     "click_generate": "Click Generate below"
+  },
+  "regex": {
+    "title": "🔍 Regex Tester & Visualizer",
+    "subtitle": "Test, visualize, and debug Regular Expressions instantly in your browser.",
+    "regex_pattern": "Regular Expression",
+    "test_string": "Test String",
+    "flags": "Flags (e.g. g, i, m)",
+    "matches": "Matches Found",
+    "no_matches": "No matches found.",
+    "error": "Invalid regular expression."
+  },
+  "data_converter": {
+    "title": "🔄 Data Format Converter",
+    "subtitle": "Convert between JSON, XML, YAML, and CSV formats instantly and securely.",
+    "input_data": "Input Data",
+    "output_data": "Converted Output",
+    "from_format": "From Format",
+    "to_format": "To Format",
+    "convert_btn": "Convert Data",
+    "copy_btn": "Copy to Clipboard",
+    "error_parse": "Error parsing input data.",
+    "success": "✅ Converted successfully!"
+  },
+  "sukuk": {
+    "title": "📜 Sukuk Profit Calculator",
+    "subtitle": "Calculate periodic distributions and maturity values for Islamic Sukuk.",
+    "face_value": "Face Value / Investment Amount ($)",
+    "profit_rate": "Annual Profit Rate (%)",
+    "frequency": "Distribution Frequency (per year)",
+    "duration": "Tenor / Duration (Years)",
+    "periodic_profit": "Periodic Distribution Amount",
+    "total_profit": "Total Profit Earned",
+    "total_return": "Total Maturity Value"
+  },
+  "islamic_deposit": {
+    "title": "🏦 Islamic Savings (Mudarabah) Calculator",
+    "subtitle": "Calculate expected returns on Halal savings accounts based on profit-sharing ratios.",
+    "deposit": "Initial Deposit Amount ($)",
+    "expected_rate": "Expected Annual Bank Profit Rate (%)",
+    "customer_share": "Your Profit Share (Mudarib Ratio %)",
+    "duration": "Investment Duration (Years)",
+    "net_profit": "Your Expected Net Profit",
+    "bank_profit": "Bank's Expected Share",
+    "total_balance": "Total Expected Balance"
   }
 }
