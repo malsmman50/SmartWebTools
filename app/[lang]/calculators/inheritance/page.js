@@ -13,5 +13,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function InheritanceCalculatorPage({ params }) {
-  return <InheritanceCalculatorClient  lang={lang} dict={dict} />;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return <InheritanceCalculatorClient lang={lang} dict={dict} />;
 }

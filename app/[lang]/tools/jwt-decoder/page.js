@@ -13,5 +13,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function JwtDecoderPage({ params }) {
-  return <JwtDecoderClient  lang={lang} dict={dict} />;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  return <JwtDecoderClient lang={lang} dict={dict} />;
 }
