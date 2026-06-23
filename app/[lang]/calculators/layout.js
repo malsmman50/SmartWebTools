@@ -1,9 +1,9 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import ExploreTools from '../components/ExploreTools';
+import ExploreTools from "@/app/components/ExploreTools";
 
-export default function ToolsLayout({ children }) {
+export default function CalculatorsLayout({ children }) {
   const pathname = usePathname();
   
   return (
