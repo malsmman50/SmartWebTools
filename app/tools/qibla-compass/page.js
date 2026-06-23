@@ -156,7 +156,7 @@ export default function QiblaCompass() {
               Your device does not have motion sensors (Gyroscope/Magnetometer).
             </p>
             <div style={{ background: 'var(--surface-sunken)', padding: '24px', borderRadius: '12px', border: '1px solid var(--border)' }}>
-              <h3 style={{ fontSize: '2rem', color: 'var(--primary)', marginBottom: '8px' }}>{qibla?.toFixed(2)}°</h3>
+              <h3 style={{ fontSize: '2rem', color: 'var(--primary)', marginBottom: '8px' }}>{qibla !== null ? qibla.toFixed(2) + '°' : '--'}</h3>
               <p style={{ fontWeight: 'bold' }}>Exact Qibla Direction from True North</p>
               <p style={{ color: 'var(--text-muted)', marginTop: '16px', fontSize: '0.9rem' }}>
                 Use any physical compass and point it to the degree above.
@@ -212,7 +212,7 @@ export default function QiblaCompass() {
             <div style={{ display: 'flex', justifyContent: 'space-around', background: 'var(--surface-sunken)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border)' }}>
               <div>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'block' }}>Qibla Angle</span>
-                <strong style={{ fontSize: '1.2rem' }}>{qibla?.toFixed(1)}°</strong>
+                <strong style={{ fontSize: '1.2rem' }}>{qibla !== null ? qibla.toFixed(1) + '°' : '--'}</strong>
               </div>
               <div>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'block' }}>Your Heading</span>

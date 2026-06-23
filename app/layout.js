@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
           strategy="beforeInteractive" 
         />
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <Navbar />
         <main style={{ minHeight: 'calc(100vh - 200px)' }}>
           <AdBanner dataAdSlot="top-banner" />
