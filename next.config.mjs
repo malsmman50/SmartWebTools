@@ -25,7 +25,12 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: cspHeader.replace(/\n/g, ''),
           },
-          // Required for SharedArrayBuffer (threaded WASM / ONNX)
+        ],
+      },
+      {
+        // Only apply SharedArrayBuffer isolation to the ChatPDF tool
+        source: '/(.*)/tools/chatpdf(.*)',
+        headers: [
           {
             key: 'Cross-Origin-Opener-Policy',
             value: 'same-origin',

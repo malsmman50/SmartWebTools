@@ -23,8 +23,9 @@ export default function AdBanner({ dataAdSlot = "1234567890", dataAdFormat = "au
         style={{ 
           display: 'block', 
           width: '100%',
+          minWidth: '250px',
           maxWidth: '1000px', // Prevent ad from stretching too wide on 4K screens
-          minHeight: isDev ? '90px' : 'auto', 
+          minHeight: '90px', 
           background: isDev ? 'rgba(99,102,241,0.05)' : 'transparent', 
           border: isDev ? '1px dashed rgba(99,102,241,0.3)' : 'none', 
           borderRadius: '8px' 
