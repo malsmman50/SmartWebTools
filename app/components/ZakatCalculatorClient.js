@@ -45,9 +45,16 @@ export default function ZakatCalculatorClient({ lang, dict, ...props }) {
     fetchNisab();
   }, []);
 
-  const totalWealth = cash + gold + silver + business;
-  const eligibleWealth = totalWealth - debts;
-  const isEligible = eligibleWealth >= nisab;
+  const numCash = Number(cash) || 0;
+  const numGold = Number(gold) || 0;
+  const numSilver = Number(silver) || 0;
+  const numBusiness = Number(business) || 0;
+  const numDebts = Number(debts) || 0;
+  const numNisab = Number(nisab) || 0;
+
+  const totalWealth = numCash + numGold + numSilver + numBusiness;
+  const eligibleWealth = totalWealth - numDebts;
+  const isEligible = eligibleWealth >= numNisab;
   const zakatDue = isEligible ? eligibleWealth * 0.025 : 0;
 
   const fmt = (n) => {
@@ -69,25 +76,25 @@ export default function ZakatCalculatorClient({ lang, dict, ...props }) {
           <h3 style={{ marginBottom: "16px" }}>{t.assets_title}</h3>
           <div style={{ marginBottom: "16px" }}>
             <label htmlFor="zakat-cash" className="label">{t.cash_label}</label>
-            <NumericFormat id="zakat-cash" className="input" value={cash} onValueChange={v => setCash(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
+            <NumericFormat id="zakat-cash" className="input" value={cash} onValueChange={v => setCash(v.floatValue === undefined ? '' : v.floatValue)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "16px" }}>
             <label htmlFor="zakat-gold" className="label">{t.gold_label}</label>
-            <NumericFormat id="zakat-gold" className="input" value={gold} onValueChange={v => setGold(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
+            <NumericFormat id="zakat-gold" className="input" value={gold} onValueChange={v => setGold(v.floatValue === undefined ? '' : v.floatValue)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "16px" }}>
             <label htmlFor="zakat-silver" className="label">{t.silver_label}</label>
-            <NumericFormat id="zakat-silver" className="input" value={silver} onValueChange={v => setSilver(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
+            <NumericFormat id="zakat-silver" className="input" value={silver} onValueChange={v => setSilver(v.floatValue === undefined ? '' : v.floatValue)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "24px" }}>
             <label htmlFor="zakat-business" className="label">{t.business_label}</label>
-            <NumericFormat id="zakat-business" className="input" value={business} onValueChange={v => setBusiness(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
+            <NumericFormat id="zakat-business" className="input" value={business} onValueChange={v => setBusiness(v.floatValue === undefined ? '' : v.floatValue)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: "16px" }}>{t.liabilities_title}</h3>
           <div style={{ marginBottom: "24px" }}>
             <label htmlFor="zakat-debts" className="label">{t.debts_label}</label>
-            <NumericFormat id="zakat-debts" className="input" value={debts} onValueChange={v => setDebts(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
+            <NumericFormat id="zakat-debts" className="input" value={debts} onValueChange={v => setDebts(v.floatValue === undefined ? '' : v.floatValue)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: "16px" }}>{t.threshold_title}</h3>
@@ -108,7 +115,7 @@ export default function ZakatCalculatorClient({ lang, dict, ...props }) {
                   <p style={{ color: "var(--danger)", fontSize: "0.9rem", marginBottom: "12px" }}>{t.api_failed}</p>
                 )}
                 <label htmlFor="zakat-manual-nisab" className="label">{t.manual_nisab_label}</label>
-                <NumericFormat id="zakat-manual-nisab" className="input" value={nisab} onValueChange={v => setNisab(v.floatValue || 0)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
+                <NumericFormat id="zakat-manual-nisab" className="input" value={nisab} onValueChange={v => setNisab(v.floatValue === undefined ? '' : v.floatValue)} isAllowed={(v) => v.floatValue === undefined || (v.floatValue >= 0 && v.floatValue <= 1e12)} thousandSeparator={true} prefix="$" />
                 {apiStatus === "success" && (
                   <button onClick={() => setIsManualNisab(false)} className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "4px 8px", marginTop: "12px" }}>{t.use_live_nisab_btn}</button>
                 )}

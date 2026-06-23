@@ -39,7 +39,7 @@ export default async function ContactPage({ params }) {
           </div>
         </article>
         
-        <ContactForm />
+        <ContactForm dict={dict} />
       </div>
     </div>
   );

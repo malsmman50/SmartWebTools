@@ -13,7 +13,7 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWi
       // Initialize the ad if the Google AdSense script is loaded
       // The pathname key forces this component to unmount and remount on route changes,
       // ensuring ads are refreshed properly during client-side navigation.
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
+      if (typeof window !== 'undefined') {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (e) {

@@ -37,11 +37,15 @@ self.addEventListener("activate", (event) => {
 
 // Helper function to limit cache size
 async function trimCache(cacheName, maxItems) {
-  const cache = await caches.open(cacheName);
-  const keys = await cache.keys();
-  if (keys.length > maxItems) {
-    await cache.delete(keys[0]);
-    await trimCache(cacheName, maxItems);
+  try {
+    const cache = await caches.open(cacheName);
+    const keys = await cache.keys();
+    if (keys.length > maxItems) {
+      await cache.delete(keys[0]);
+      await trimCache(cacheName, maxItems);
+    }
+  } catch (err) {
+    // Ignore cache race conditions
   }
 }
 
@@ -64,23 +68,26 @@ self.addEventListener("fetch", (event) => {
   }
 
   const isRscRequest = event.request.headers.get("RSC") === "1" || url.searchParams.has("_rsc");
+  const cacheKeyUrl = (isRscRequest && !url.searchParams.has("_rsc")) 
+    ? url.href + (url.search ? '&' : '?') + '_rsc=1' 
+    : event.request.url;
 
   // Navigation requests (HTML pages) or RSC Payload -> Network First, fallback to cache
-  if (event.request.mode === "navigate" || event.request.headers.get('accept').includes('text/html') || isRscRequest) {
+  if (event.request.mode === "navigate" || event.request.headers.get('accept')?.includes('text/html') || isRscRequest) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
           if (response && response.status === 200) {
             const responseClone = response.clone();
             caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseClone);
+              cache.put(cacheKeyUrl, responseClone);
               trimCache(DYNAMIC_CACHE_NAME, MAX_DYNAMIC_ENTRIES);
             });
           }
           return response;
         })
         .catch(() => {
-          return caches.match(event.request).then((cachedResponse) => {
+          return caches.match(cacheKeyUrl).then((cachedResponse) => {
             if (cachedResponse) {
               return cachedResponse;
             }
@@ -122,6 +129,9 @@ self.addEventListener("fetch", (event) => {
           trimCache(DYNAMIC_CACHE_NAME, MAX_DYNAMIC_ENTRIES);
         });
         return networkResponse;
+      }).catch(() => {
+        // Return 503 for static assets if offline
+        return new Response(null, { status: 503 });
       });
     })
   );

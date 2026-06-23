@@ -1,5 +1,7 @@
 "use client";
-export default function OfflinePage({ params: { lang } }) {
+import React from 'react';
+export default function OfflinePage({ params }) {
+  const { lang } = React.use(params);
   const isAr = lang === 'ar';
   
   return (

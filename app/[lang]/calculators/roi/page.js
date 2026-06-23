@@ -14,6 +14,7 @@ export async function generateMetadata({ params }) {
 
 export default async function RoiCalculatorPage({ params }) {
   const { lang } = await params;
+  const dict = await getDictionary(lang);
   const isAr = lang === "ar";
 
   return (

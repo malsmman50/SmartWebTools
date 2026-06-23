@@ -12,11 +12,16 @@ export default function MurabahaCalculatorClient({ lang, dict, ...props }) {
   const [months, setMonths] = useState(60);
   const [downPayment, setDownPayment] = useState(20000);
 
-  const financedAmount = cost - downPayment;
-  const profitAmount = financedAmount > 0 ? financedAmount * (markupPercent / 100) : 0;
+  const numCost = Number(cost) || 0;
+  const numDownPayment = Number(downPayment) || 0;
+  const numMarkup = Number(markupPercent) || 0;
+  const numMonths = Number(months) || 0;
+
+  const financedAmount = Math.max(0, numCost - numDownPayment);
+  const profitAmount = financedAmount > 0 ? financedAmount * (Math.max(0, numMarkup) / 100) : 0;
   const totalDeferredBalance = financedAmount + profitAmount;
-  const trueSellingPrice = cost + profitAmount;
-  const monthlyInstallment = months > 0 && totalDeferredBalance > 0 ? totalDeferredBalance / months : 0;
+  const trueSellingPrice = numCost + profitAmount;
+  const monthlyInstallment = numMonths > 0 && totalDeferredBalance > 0 ? totalDeferredBalance / numMonths : 0;
 
   const fmt = (n) => {
     if (lang === "ar") {
@@ -36,20 +41,20 @@ export default function MurabahaCalculatorClient({ lang, dict, ...props }) {
         <div className="card">
           <div style={{ marginBottom: "16px" }}>
             <label className="label">{t.asset_cost}</label>
-            <NumericFormat className="input" value={cost} onValueChange={v => setCost(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <NumericFormat className="input" value={cost} onValueChange={v => setCost(v.floatValue === undefined ? '' : v.floatValue)} allowNegative={false} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "16px" }}>
             <label className="label">{t.down_payment}</label>
-            <NumericFormat className="input" value={downPayment} onValueChange={v => setDownPayment(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <NumericFormat className="input" value={downPayment} onValueChange={v => setDownPayment(v.floatValue === undefined ? '' : v.floatValue)} allowNegative={false} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "16px" }}>
             <label className="label">{t.profit_margin}</label>
-            <input type="number" className="input" value={markupPercent} onChange={e => setMarkupPercent(Number(e.target.value))} />
+            <input type="number" min="0" step="0.1" className="input" value={markupPercent} onChange={e => setMarkupPercent(e.target.value)} />
             <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "4px" }}>{t.markup_note}</p>
           </div>
           <div>
             <label className="label">{t.term}</label>
-            <input type="number" className="input" value={months} onChange={e => setMonths(Number(e.target.value))} />
+            <input type="number" min="1" step="1" className="input" value={months} onChange={e => setMonths(e.target.value)} />
           </div>
         </div>
 
