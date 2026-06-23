@@ -6,6 +6,12 @@ export default function PwaInstallPrompt({ lang }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('pwa_prompt_dismissed') === 'true' || localStorage.getItem('pwa_installed') === 'true') {
+        return;
+      }
+    }
+
     const handler = (e) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
@@ -29,12 +35,17 @@ export default function PwaInstallPrompt({ lang }) {
     // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
     
+    if (outcome === 'accepted') {
+      localStorage.setItem('pwa_installed', 'true');
+    }
+    
     // We no longer need the prompt. Clear it up.
     setDeferredPrompt(null);
     setIsVisible(false);
   };
 
   const handleDismiss = () => {
+    localStorage.setItem('pwa_prompt_dismissed', 'true');
     setIsVisible(false);
   };
 
