@@ -4,7 +4,7 @@ const cspHeader = `
     script-src 'self' 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://partner.googleadservices.com https://*.adtrafficquality.google https://adservice.google.com https://www.googletagservices.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src 'self' https://fonts.gstatic.com;
-    img-src 'self' blob: data: https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net;
+    img-src 'self' blob: data: https://pagead2.googlesyndication.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google;
     connect-src 'self' blob: https://data-asg.goldprice.org https://huggingface.co https://*.huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://*.googlesyndication.com https://*.adtrafficquality.google https://*.google.com https://*.doubleclick.net https://fundingchoicesmessages.google.com;
     frame-src 'self' https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.google.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google;
     worker-src 'self' blob:;
