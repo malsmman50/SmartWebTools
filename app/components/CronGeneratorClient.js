@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react";
 import cronstrue from "cronstrue";
 import "cronstrue/locales/ar"; // Import Arabic locale for cronstrue
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function CronGeneratorClient() {
-  const { lang, dict } = useLanguage();
+export default function CronGeneratorClient({ lang, dict, ...props }) {
+  
   const t = dict.cron;
   const isAr = lang === "ar";
 

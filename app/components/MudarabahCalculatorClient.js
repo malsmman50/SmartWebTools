@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function MudarabahCalculatorClient() {
-  const { lang, dict } = useLanguage();
+export default function MudarabahCalculatorClient({ lang, dict, ...props }) {
+  
   const t = dict.mudarabah;
 
   const [capital, setCapital] = useState(50000);

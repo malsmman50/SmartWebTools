@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function PasswordGeneratorClient() {
-  const { lang, dict } = useLanguage();
+export default function PasswordGeneratorClient({ lang, dict, ...props }) {
+  
   const t = dict.password;
   const isAr = lang === "ar";
 

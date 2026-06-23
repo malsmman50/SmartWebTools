@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
 const hijriMonthNamesEn = [
   "Muharram", "Safar", "Rabi' I", "Rabi' II", 
@@ -72,8 +71,8 @@ const exactHijriToGregorian = (targetY, targetM, targetD) => {
   return closestMatch;
 };
 
-export default function HijriConverterClient() {
-  const { lang, dict } = useLanguage();
+export default function HijriConverterClient({ lang, dict, ...props }) {
+  
   const t = dict.hijri;
   const isAr = lang === "ar";
 

@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useLanguage } from "./LanguageProvider";
+import { usePathname } from "next/navigation";
 
-export default function ExploreTools({ currentPath }) {
-  const { lang, dict, localizePath } = useLanguage();
+export default function ExploreTools({ lang, dict }) {
+  const currentPath = usePathname();
+  const localizePath = (path) => `/${lang}${path}`;
   const [selectedTools, setSelectedTools] = useState([]);
 
   // Array of all major tools for cross-linking (translated dynamically)

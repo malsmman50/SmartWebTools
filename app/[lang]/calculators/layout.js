@@ -1,16 +1,15 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
 import ExploreTools from "@/app/components/ExploreTools";
+import { getDictionary } from "@/app/dictionaries";
 
-export default function CalculatorsLayout({ children }) {
-  const pathname = usePathname();
+export default async function CalculatorsLayout({ children, params }) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
   
   return (
     <>
       {children}
       <div className="container" style={{ paddingBottom: '40px' }}>
-        <ExploreTools currentPath={pathname} />
+        <ExploreTools lang={lang} dict={dict} />
       </div>
     </>
   );

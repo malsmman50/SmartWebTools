@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import CronGeneratorClient from "@/app/components/CronGeneratorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function CronGeneratorPage() {
-  return <CronGeneratorClient />;
+export default async function CronGeneratorPage({ params }) {
+  return <CronGeneratorClient  lang={lang} dict={dict} />;
 }

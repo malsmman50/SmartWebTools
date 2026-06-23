@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
 // Institutional Native Qibla Math (No dependencies)
 const getQiblaDirection = (lat, lng) => {
@@ -18,8 +17,8 @@ const getQiblaDirection = (lat, lng) => {
   return (qibla + 360) % 360;
 };
 
-export default function QiblaCompassClient() {
-  const { lang, dict } = useLanguage();
+export default function QiblaCompassClient({ lang, dict, ...props }) {
+  
   const t = dict.qibla;
   const isAr = lang === "ar";
 

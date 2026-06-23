@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function RoiCalculatorClient() {
-  const { lang, dict } = useLanguage();
+export default function RoiCalculatorClient({ lang, dict, ...props }) {
+  
   const t = dict.roi;
   const isAr = lang === "ar";
 

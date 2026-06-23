@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function MurabahaCalculatorClient() {
-  const { lang, dict } = useLanguage();
+export default function MurabahaCalculatorClient({ lang, dict, ...props }) {
+  
   const t = dict.murabaha;
 
   const [cost, setCost] = useState(100000);

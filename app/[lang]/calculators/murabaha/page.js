@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import MurabahaCalculatorClient from "@/app/components/MurabahaCalculatorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function MurabahaCalculatorPage() {
-  return <MurabahaCalculatorClient />;
+export default async function MurabahaCalculatorPage({ params }) {
+  return <MurabahaCalculatorClient  lang={lang} dict={dict} />;
 }

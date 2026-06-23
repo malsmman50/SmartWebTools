@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import ImageCompressorClient from "@/app/components/ImageCompressorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ImageCompressorPage() {
-  return <ImageCompressorClient />;
+export default async function ImageCompressorPage({ params }) {
+  return <ImageCompressorClient  lang={lang} dict={dict} />;
 }

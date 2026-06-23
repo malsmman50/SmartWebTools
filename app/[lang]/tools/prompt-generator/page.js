@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import PromptGeneratorClient from "@/app/components/PromptGeneratorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function PromptGeneratorPage() {
-  return <PromptGeneratorClient />;
+export default async function PromptGeneratorPage({ params }) {
+  return <PromptGeneratorClient  lang={lang} dict={dict} />;
 }

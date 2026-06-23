@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function JsonFormatterClient() {
-  const { lang, dict } = useLanguage();
+export default function JsonFormatterClient({ lang, dict, ...props }) {
+  
   const t = dict.json;
   const isAr = lang === "ar";
 

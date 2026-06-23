@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import PasswordGeneratorClient from "@/app/components/PasswordGeneratorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function PasswordGeneratorPage() {
-  return <PasswordGeneratorClient />;
+export default async function PasswordGeneratorPage({ params }) {
+  return <PasswordGeneratorClient  lang={lang} dict={dict} />;
 }

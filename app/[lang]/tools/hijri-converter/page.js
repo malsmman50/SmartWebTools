@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import HijriConverterClient from "@/app/components/HijriConverterClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function HijriConverterPage() {
-  return <HijriConverterClient />;
+export default async function HijriConverterPage({ params }) {
+  return <HijriConverterClient  lang={lang} dict={dict} />;
 }

@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function IslamicFireCalculatorClient() {
-  const { lang, dict } = useLanguage();
+export default function IslamicFireCalculatorClient({ lang, dict, ...props }) {
+  
   const t = dict.fire;
   const isAr = lang === "ar";
 

@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import CurrencyConverterClient from "@/app/components/CurrencyConverterClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function CurrencyConverterPage() {
-  return <CurrencyConverterClient />;
+export default async function CurrencyConverterPage({ params }) {
+  return <CurrencyConverterClient  lang={lang} dict={dict} />;
 }

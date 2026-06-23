@@ -2,8 +2,7 @@
 
 import { useLanguage } from "./LanguageProvider";
 
-export default function ContactForm() {
-  const { dict } = useLanguage();
+export default function ContactForm({ lang, dict, ...props }) {
   const t = dict.contact;
 
   return (

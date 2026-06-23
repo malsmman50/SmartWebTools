@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import InheritanceCalculatorClient from "@/app/components/InheritanceCalculatorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function InheritanceCalculatorPage() {
-  return <InheritanceCalculatorClient />;
+export default async function InheritanceCalculatorPage({ params }) {
+  return <InheritanceCalculatorClient  lang={lang} dict={dict} />;
 }

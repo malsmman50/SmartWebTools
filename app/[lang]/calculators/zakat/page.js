@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import ZakatCalculatorClient from "@/app/components/ZakatCalculatorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ZakatCalculatorPage() {
-  return <ZakatCalculatorClient />;
+export default async function ZakatCalculatorPage({ params }) {
+  return <ZakatCalculatorClient  lang={lang} dict={dict} />;
 }

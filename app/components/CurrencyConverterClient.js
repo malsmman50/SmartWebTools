@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
 const COMMON_CURRENCIES = ["USD", "EUR", "GBP", "SAR", "AED", "KWD", "QAR", "BHD", "OMR", "EGP", "JOD"];
 
-export default function CurrencyConverterClient() {
-  const { lang, dict } = useLanguage();
+export default function CurrencyConverterClient({ lang, dict, ...props }) {
+  
   const t = dict.currency;
   const isAr = lang === "ar";
 

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function ChatPdfClient() {
-  const { lang, dict } = useLanguage();
+export default function ChatPdfClient({ lang, dict, ...props }) {
+  
   const t = dict.chatpdf;
   const isAr = lang === "ar";
 

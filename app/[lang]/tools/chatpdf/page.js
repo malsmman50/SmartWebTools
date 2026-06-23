@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import ChatPdfClient from "@/app/components/ChatPdfClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ChatPdfPage() {
-  return <ChatPdfClient />;
+export default async function ChatPdfPage({ params }) {
+  return <ChatPdfClient  lang={lang} dict={dict} />;
 }

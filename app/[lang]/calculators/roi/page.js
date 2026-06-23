@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import RoiCalculatorClient from "@/app/components/RoiCalculatorClient";
 
 export async function generateMetadata({ params }) {
@@ -17,7 +18,7 @@ export default async function RoiCalculatorPage({ params }) {
 
   return (
     <>
-      <RoiCalculatorClient />
+      <RoiCalculatorClient  lang={lang} dict={dict} />
       
       <div className="container" style={{ padding: "0 20px 40px" }}>
         <article className="card" style={{ marginTop: "20px", lineHeight: "1.8" }}>

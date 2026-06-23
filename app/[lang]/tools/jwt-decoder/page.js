@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import JwtDecoderClient from "@/app/components/JwtDecoderClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function JwtDecoderPage() {
-  return <JwtDecoderClient />;
+export default async function JwtDecoderPage({ params }) {
+  return <JwtDecoderClient  lang={lang} dict={dict} />;
 }

@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { decodeJwt, decodeProtectedHeader } from "jose";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function JwtDecoderClient() {
-  const { lang, dict } = useLanguage();
+export default function JwtDecoderClient({ lang, dict, ...props }) {
+  
   const t = dict.jwt;
   const isAr = lang === "ar";
 

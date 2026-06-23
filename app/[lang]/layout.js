@@ -5,7 +5,6 @@ import Link from "next/link";
 import Script from "next/script";
 import AdBanner from "@/app/components/AdBanner";
 import { getDictionary } from "@/app/dictionaries";
-import LanguageProvider from "@/app/components/LanguageProvider";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -30,7 +29,6 @@ export async function generateMetadata({ params }) {
       description: isAr 
         ? "أدوات مجانية وتعمل دون اتصال للمطورين وحاسبات مالية متوافقة مع الشريعة الإسلامية. آمنة وخاصة."
         : "Free, offline-first developer tools and Sharia-compliant financial calculators. Private and secure.",
-      url: `https://smartcalctools.xyz/${lang}`,
       siteName: "SmartCalcTools",
       type: "website",
       locale: isAr ? "ar_AR" : "en_US",
@@ -42,14 +40,7 @@ export async function generateMetadata({ params }) {
         ? "استكشف حاسبة الزكاة، حاسبة التقاعد الإسلامي، وأدوات المطورين فائقة الأمان دون اتصال بالإنترنت."
         : "Explore our Zakat Calculator, Islamic FIRE tool, and ultra-secure offline developer utilities.",
     },
-    robots: { index: true, follow: true },
-    alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}`,
-      languages: {
-        en: "https://smartcalctools.xyz/en",
-        ar: "https://smartcalctools.xyz/ar"
-      }
-    }
+    robots: { index: true, follow: true }
   };
 }
 
@@ -64,7 +55,7 @@ export default async function RootLayout({ children, params }) {
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#059669" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <Script 
           async 
@@ -92,8 +83,7 @@ export default async function RootLayout({ children, params }) {
         />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <LanguageProvider lang={lang} dict={dict}>
-          <Navbar />
+          <Navbar lang={lang} dict={dict} />
           <main style={{ minHeight: "calc(100vh - 200px)" }}>
             <AdBanner dataAdSlot="top-banner" />
             {children}
@@ -123,7 +113,6 @@ export default async function RootLayout({ children, params }) {
               <p>{dict.common.footer_copyright}</p>
             </div>
           </footer>
-        </LanguageProvider>
       </body>
     </html>
   );

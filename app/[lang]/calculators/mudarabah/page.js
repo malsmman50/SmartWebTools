@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import MudarabahCalculatorClient from "@/app/components/MudarabahCalculatorClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function MudarabahCalculatorPage() {
-  return <MudarabahCalculatorClient />;
+export default async function MudarabahCalculatorPage({ params }) {
+  return <MudarabahCalculatorClient  lang={lang} dict={dict} />;
 }

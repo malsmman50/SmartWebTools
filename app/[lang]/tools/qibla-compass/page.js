@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import QiblaCompassClient from "@/app/components/QiblaCompassClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function QiblaCompassPage() {
-  return <QiblaCompassClient />;
+export default async function QiblaCompassPage({ params }) {
+  return <QiblaCompassClient  lang={lang} dict={dict} />;
 }

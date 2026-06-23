@@ -2,43 +2,54 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useLanguage } from "./LanguageProvider";
+import { usePathname, useRouter } from "next/navigation";
 
-export default function Navbar() {
+export default function Navbar({ lang, dict }) {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState("light");
   const pathname = usePathname();
+  const router = useRouter();
   
-  const { lang, dict, localizePath, switchLanguage } = useLanguage();
+  const localizePath = (path) => {
+    if (!path) return "/";
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+    if (cleanPath.startsWith("/en") || cleanPath.startsWith("/ar")) return cleanPath;
+    return `/${lang}${cleanPath}`;
+  };
+
+  const switchLanguage = (newLang) => {
+    if (newLang === lang) return;
+    const segments = pathname.split("/");
+    if (segments[1] === "en" || segments[1] === "ar") {
+      segments[1] = newLang;
+    } else {
+      segments.splice(1, 0, newLang);
+    }
+    const newPath = segments.join("/") || "/";
+    router.push(newPath);
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    // Theme hydration
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+  }, []);
 
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
   };
 
   useEffect(() => {
     setIsOpen(false);
-    
-    const bar = document.getElementById("top-progress-bar");
-    if (bar) {
-      bar.style.transition = "none";
-      bar.style.width = "0%";
-      bar.style.opacity = "1";
-      setTimeout(() => {
-        bar.style.transition = "width 0.4s ease";
-        bar.style.width = "70%";
-        setTimeout(() => {
-          bar.style.width = "100%";
-          setTimeout(() => {
-            bar.style.opacity = "0";
-          }, 300);
-        }, 200);
-      }, 10);
-    }
   }, [pathname]);
 
   useEffect(() => {
@@ -78,7 +89,6 @@ export default function Navbar() {
   return (
     <>
       <header className="navbar">
-        <div id="top-progress-bar" style={{ position: "fixed", top: 0, left: 0, height: "3px", background: "var(--primary)", width: "0%", zIndex: 9999, pointerEvents: "none" }}></div>
 
         <div className="container navbar-inner">
           <Link href={localizePath("/")} className="navbar-logo">

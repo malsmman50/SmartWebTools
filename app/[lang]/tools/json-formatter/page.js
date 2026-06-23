@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/dictionaries";
 import JsonFormatterClient from "@/app/components/JsonFormatterClient";
 
 export async function generateMetadata({ params }) {
@@ -11,6 +12,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function JsonFormatterPage() {
-  return <JsonFormatterClient />;
+export default async function JsonFormatterPage({ params }) {
+  return <JsonFormatterClient  lang={lang} dict={dict} />;
 }

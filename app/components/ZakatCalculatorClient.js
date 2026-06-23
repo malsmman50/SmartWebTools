@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { NumericFormat } from "react-number-format";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function ZakatCalculatorClient() {
-  const { lang, dict } = useLanguage();
+export default function ZakatCalculatorClient({ lang, dict, ...props }) {
+  
   const t = dict.zakat;
 
   const [cash, setCash] = useState(5000);

@@ -1,5 +1,6 @@
-const CACHE_NAME = "smartcalctools-cache-v1";
-const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v1";
+const CACHE_NAME = "smartcalctools-cache-v2";
+const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v2";
+const MAX_DYNAMIC_ENTRIES = 50;
 
 // Static assets to cache immediately on install
 const PRECACHE_ASSETS = [
@@ -7,7 +8,8 @@ const PRECACHE_ASSETS = [
   "/icon-192.png",
   "/icon-512.png",
   "/favicon.ico",
-  "/robots.txt"
+  "/robots.txt",
+  "/offline"
 ];
 
 self.addEventListener("install", (event) => {
@@ -32,15 +34,30 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+// Helper function to limit cache size
+async function trimCache(cacheName, maxItems) {
+  const cache = await caches.open(cacheName);
+  const keys = await cache.keys();
+  if (keys.length > maxItems) {
+    await cache.delete(keys[0]);
+    trimCache(cacheName, maxItems);
+  }
+}
+
 self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+
   // Only handle GET requests and exclude external / chrome extension requests
   if (event.request.method !== "GET" || !event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  const url = new URL(event.request.url);
+  // Next.js RSC Interception: Do not cache RSC data as HTML
+  if (event.request.headers.get("RSC") === "1" || url.searchParams.has("_rsc")) {
+    return;
+  }
 
-  // Exclude API routes and Google AdSense / third-party analytics
+  // Exclude API routes and Google AdSense
   if (
     url.pathname.startsWith("/api") || 
     url.hostname.includes("googlesyndication") || 
@@ -51,7 +68,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   // Navigation requests (HTML pages) -> Network First, fallback to cache
-  if (event.request.mode === "navigate") {
+  if (event.request.mode === "navigate" || event.request.headers.get('accept').includes('text/html')) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -59,6 +76,7 @@ self.addEventListener("fetch", (event) => {
             const responseClone = response.clone();
             caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
               cache.put(event.request, responseClone);
+              trimCache(DYNAMIC_CACHE_NAME, MAX_DYNAMIC_ENTRIES);
             });
           }
           return response;
@@ -68,27 +86,26 @@ self.addEventListener("fetch", (event) => {
             if (cachedResponse) {
               return cachedResponse;
             }
-            // Fallback to cache root if page is not specifically cached
-            return caches.match("/");
+            // Strict offline fallback
+            return caches.match("/offline") || new Response("Offline Mode", { status: 503, statusText: "Service Unavailable" });
           });
         })
     );
     return;
   }
 
-  // Static Assets (JS, CSS, images, WASM, workers) -> Stale-While-Revalidate / Cache-First
+  // Static Assets -> Stale-While-Revalidate / Cache-First
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch in background to update cache for next load
         fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
               cache.put(event.request, networkResponse);
+              trimCache(DYNAMIC_CACHE_NAME, MAX_DYNAMIC_ENTRIES);
             });
           }
-        }).catch(() => {/* Ignore network errors during background update */});
-        
+        }).catch(() => {});
         return cachedResponse;
       }
 
@@ -99,6 +116,7 @@ self.addEventListener("fetch", (event) => {
         const responseClone = networkResponse.clone();
         caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
           cache.put(event.request, responseClone);
+          trimCache(DYNAMIC_CACHE_NAME, MAX_DYNAMIC_ENTRIES);
         });
         return networkResponse;
       });

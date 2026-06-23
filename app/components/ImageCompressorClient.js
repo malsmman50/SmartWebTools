@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useLanguage } from "@/app/components/LanguageProvider";
 
-export default function ImageCompressorClient() {
-  const { lang, dict } = useLanguage();
+export default function ImageCompressorClient({ lang, dict, ...props }) {
+  
   const t = dict.compressor;
   const isAr = lang === "ar";
 
