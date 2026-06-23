@@ -1,5 +1,5 @@
-const CACHE_NAME = "smartcalctools-cache-v2";
-const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v2";
+const CACHE_NAME = "smartcalctools-cache-v3";
+const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v3";
 const MAX_DYNAMIC_ENTRIES = 50;
 
 // Static assets to cache immediately on install
@@ -8,8 +8,7 @@ const PRECACHE_ASSETS = [
   "/icon-192.png",
   "/icon-512.png",
   "/favicon.ico",
-  "/robots.txt",
-  "/offline"
+  "/robots.txt"
 ];
 
 self.addEventListener("install", (event) => {
