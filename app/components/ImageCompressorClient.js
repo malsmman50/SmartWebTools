@@ -192,6 +192,92 @@ export default function ImageCompressorClient({ lang, dict, ...props }) {
             : "Privacy Note: This tool utilizes the Canvas API built into your browser. Your images are never sent or uploaded to any server, ensuring 100% privacy as all processing happens locally on your device."}
         </div>
       </div>
+
+      {/* SEO Content Expansion */}
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        {lang === "ar" ? (
+          <>
+            <h2>أداة ضغط الصور وتقليل حجمها (بدون إنترنت)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              أداة ضغط الصور هي الحل الأمثل والمجاني لتقليل حجم صورك بنسبة تصل إلى 80% دون فقدان ملحوظ في الجودة. تعتمد هذه الأداة على تقنيات المتصفح المدمجة (Canvas API) لمعالجة الصور محلياً. هذا يعني أن صورك الشخصية، أو وثائقك الحساسة، أو صور منتجاتك لا تغادر جهازك أبداً ولا تُرفع إلى أي سيرفر أو خادم تخزين خارجي، مما يوفر لك أقصى درجات الخصوصية والأمان.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>تسريع مواقع الويب (SEO):</strong> إذا كنت مطور ويب أو تمتلك مدونة، فإن رفع صور بحجم 5 ميجابايت سيبطئ موقعك بشدة. يمكنك ضغطها هنا إلى أقل من 200 كيلوبايت لتحسين سرعة التحميل وتصدر نتائج جوجل.</li>
+              <li style={{ marginBottom: "8px" }}><strong>رفع الوثائق للجهات الحكومية:</strong> الكثير من المنصات الحكومية والبنوك ترفض استقبال صور الهوية أو المستندات إذا تجاوز حجمها 2 ميجابايت. باستخدام شريط الجودة، يمكنك تقليل حجم الوثيقة لتُقبل فوراً.</li>
+              <li style={{ marginBottom: "8px" }}><strong>تطبيقات المراسلة والبريد الإلكتروني:</strong> في حال رغبتك بإرسال ألبوم صور عبر البريد الإلكتروني الذي يحدك بـ 25 ميجابايت، أو إرسال صور عبر واتساب دون استهلاك باقة الإنترنت، فإن الضغط المسبق يوفر الكثير من البيانات.</li>
+              <li style={{ marginBottom: "8px" }}><strong>توفير مساحة التخزين:</strong> تقليص حجم الصور الكبيرة المأخوذة بكاميرات عالية الدقة قبل أرشفتها في قرصك الصلب أو رفعها للسحابة (Google Drive).</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>نصائح للوصول لأفضل جودة وحجم</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              إذا كانت الصورة تحتوي على نصوص دقيقة (مثل تصوير شاشة لمستند)، يُفضل إبقاء الجودة بين 70% إلى 80% لضمان وضوح النص. أما إذا كانت صورة طبيعية أو فوتوغرافية، فيمكنك تقليل الجودة حتى 40% للحصول على حجم صغير جداً دون أن تلاحظ العين البشرية فرقاً كبيراً في الألوان.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Free Image Compressor & Optimizer (Offline-First)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              The Free Image Compressor is your perfect tool to reduce image file sizes by up to 80% without noticeable quality loss. Unlike traditional websites that require you to upload your files, this tool leverages your browser's built-in Canvas API to process images locally. This means your personal photos, sensitive documents, and proprietary product shots never leave your device, ensuring 100% privacy and blazing-fast performance.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Web Development & SEO:</strong> Uploading heavy 5MB images drastically slows down website loading speeds. Use this tool to compress banner images to under 200KB, drastically improving your Google Lighthouse scores.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Government & Banking Portals:</strong> Many official portals restrict document uploads to a maximum of 1MB or 2MB. Use the quality slider to quickly shrink a high-res photo of your passport or ID to meet these strict limits.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Email Attachments:</strong> When sending a batch of photos to clients via email (which typically has a 25MB limit), pre-compressing the images allows you to attach significantly more photos in a single email.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Storage Optimization:</strong> Shrink large photos taken with high-end smartphone cameras before archiving them on your hard drive or Google Drive to save gigabytes of cloud storage space.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Tips for Optimal Compression</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              If your image contains fine text (like a screenshot of a document), we recommend keeping the quality slider between 70% to 80% to maintain legibility. For landscape or portrait photography, you can aggressively slide down to 40% or 50% to achieve massive file size reductions while keeping the visual fidelity largely intact to the human eye.
+            </p>
+          </>
+        )}
+      </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": lang === "ar" ? [
+          {
+            "@type": "Question",
+            "name": "هل يتم الاحتفاظ بنسخة من صوري الشخصية؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا، صورك لا تُرفع إلى أي خادم. عملية الضغط تتم برمجياً داخل متصفحك (Google Chrome أو Safari) على جهازك الشخصي فقط."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "ما هي صيغ الصور التي يدعمها المحول؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "الأداة تدعم حالياً جميع الصيغ الشائعة مثل JPG و PNG و WebP، وتقوم بتصدير النتيجة كملف JPG محسن."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Are my personal photos kept or stored anywhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, your photos are never uploaded to any server. The compression process is executed programmatically inside your browser (Chrome/Safari) exclusively on your local machine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The tool supports all common web formats including JPG, PNG, and WebP, and exports the optimized result as a JPG file."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

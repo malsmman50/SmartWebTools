@@ -24,9 +24,5 @@ export default async function DataConverterPage({ params }) {
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
 
-  return (
-    <div className="py-10 px-4">
-      <DataConverterClient dict={dict} lang={lang} />
-    </div>
-  );
+  return <DataConverterClient dict={dict} lang={lang} />;
 }

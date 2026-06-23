@@ -154,6 +154,47 @@ export default function MudarabahCalculatorClient({ lang, dict, ...props }) {
           </>
         )}
       </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": lang === "ar" ? [
+          {
+            "@type": "Question",
+            "name": "هل يمكن ضمان رأس المال في عقد المضاربة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا يجوز شرعاً ضمان رأس المال للمستثمر في عقد المضاربة، لأن ضمان رأس المال يحول العقد تلقائياً إلى قرض ربوي مضمون بالفائدة. يجب أن يكون رأس المال معرضاً للمخاطر لتصح أرباحه. ومع ذلك، تتبع المصارف الإسلامية سياسات حذرة للغاية وتقتطع احتياطيات خاصة للحد من مخاطر الخسارة للمودعين."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "ماذا لو ثبت تقصير أو إهمال المضارب (مدير الاستثمار)؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "حكم أن المستثمر يتحمل كامل الخسارة مقيد بكون الخسارة ناتجة عن تقلبات السوق الطبيعية. أما إذا ثبت بالدليل ارتكاب المضارب لخطأ فادح، أو إهمال متعمد، أو مخالفة لشروط التعاقد المحددة، فإنه يصبح ضامناً لرأس المال وملزماً برده بالكامل للمستثمر."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Is the principal amount guaranteed in Mudarabah?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Guaranteeing the principal amount would turn the contract into a conventional loan (Riba). In a true Mudarabah, your capital is at risk."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if the Mudarib (Working Partner) is negligent?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If it is proven that the Mudarib committed fraud, negligence, or breached the contract terms, the Mudarib becomes liable to refund the capital to the investor."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

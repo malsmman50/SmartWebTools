@@ -187,6 +187,47 @@ export default function CronGeneratorClient({ lang, dict, ...props }) {
           </>
         )}
       </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": isAr ? [
+          {
+            "@type": "Question",
+            "name": "ما هو تعبير كرون (Cron Expression)؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "هو سلسلة نصية تتكون من 5 أو 6 حقول زمنية لبرمجة وجدولة المهام على أنظمة التشغيل والخوادم ليتم تنفيذها في أوقات متكررة تلقائياً."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "كيف أقوم بجدولة مهمة كل دقيقة باستخدام كرون؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "استخدم التعبير * * * * * حيث يشير كل نجمة إلى كل فترة زمنية ممكنة للحقل المقابل."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "What is a Cron Expression?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is a string comprising five or six fields separated by spaces that schedules recurring tasks to execute automatically on servers and operating systems."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I schedule a task every minute using cron?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use the expression * * * * * where each asterisk means every possible time unit for that field."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

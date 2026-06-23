@@ -24,9 +24,5 @@ export default async function IslamicDepositPage({ params }) {
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
 
-  return (
-    <div className="py-10 px-4">
-      <IslamicDepositCalculatorClient dict={dict} lang={lang} />
-    </div>
-  );
+  return <IslamicDepositCalculatorClient dict={dict} lang={lang} />;
 }

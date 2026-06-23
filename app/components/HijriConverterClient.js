@@ -248,6 +248,92 @@ export default function HijriConverterClient({ lang, dict, ...props }) {
           </div>
         )}
       </div>
+
+      {/* SEO Content Expansion */}
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        {lang === "ar" ? (
+          <>
+            <h2>محول التاريخ الهجري والميلادي الدقيق (أم القرى)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              توفر هذه الأداة تحويلاً دقيقاً ولحظياً بين التقويمين الهجري (الإسلامي) والميلادي (الجريجوري) بالاعتماد على خوارزمية "تقويم أم القرى" المعتمدة رسمياً في المملكة العربية السعودية ومعظم العالم الإسلامي. تعمل الأداة بشكل كامل داخل متصفحك لضمان أقصى درجات السرعة والخصوصية.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>المناسبات الدينية:</strong> معرفة متى يوافق الأول من رمضان، أو يوم عرفة (9 ذو الحجة)، أو عيد الفطر بالتاريخ الميلادي لترتيب الإجازات المسبقة.</li>
+              <li style={{ marginBottom: "8px" }}><strong>الوثائق الرسمية الحكومية:</strong> في العديد من الدول العربية كالسعودية، تُستخدم التواريخ الهجرية في العقود والوثائق. يمكنك استخدام المحول لمعرفة تاريخ ميلادك الهجري المطابق للميلادي لتعبئة النماذج الحكومية.</li>
+              <li style={{ marginBottom: "8px" }}><strong>الحسابات الشرعية:</strong> حساب حول الزكاة (الذي يعتمد على السنة القمرية 354 يوماً) بدقة تامة دون الاعتماد على السنة الشمسية.</li>
+              <li style={{ marginBottom: "8px" }}><strong>عقود الإيجار والموظفين:</strong> مطابقة تواريخ بدء وانتهاء العقود للمؤسسات التي تعتمد التقويمين معاً لتجنب أي إشكالات قانونية.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>لماذا "أم القرى"؟</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              التقويم الهجري يعتمد على دورة القمر، مما يجعل الأطوال الشهرية تتراوح بين 29 و 30 يوماً. خوارزمية "أم القرى" تقوم بحساب ولادة الهلال فلكياً فوق خط طول مكة المكرمة، مما يعطي دقة رياضية وموحدة تتفوق على التقويم الهجري الجدولي (الاصطلاحي) البسيط.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Accurate Hijri & Gregorian Date Converter (Umm al-Qura)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              This tool provides instantaneous, high-precision conversion between the Islamic (Hijri) and Gregorian calendars based on the globally recognized "Umm al-Qura" astronomical algorithm. The entire conversion engine runs securely in your web browser, ensuring zero delays and total offline compatibility.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Religious Observances:</strong> Calculate exactly when the 1st of Ramadan, the Day of Arafah (9 Dhu al-Hijjah), or Eid al-Fitr will occur in the Gregorian calendar to plan vacations.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Official Documentation:</strong> If you are working or living in the Middle East (like Saudi Arabia), you often need your exact Hijri birth date to fill out residency or visa applications.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Zakat Calculation:</strong> Zakat is paid annually based on the lunar Hijri year (roughly 354 days). This converter helps you accurately track your Zakat due date.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Contract Management:</strong> Easily align start and end dates for employment or rental contracts that legally require Hijri dates alongside Gregorian dates.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Why Umm al-Qura?</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              The Hijri calendar is lunar, meaning months are 29 or 30 days based on the moon's sighting. The Umm al-Qura algorithm uses complex astronomical calculations based on the coordinates of Mecca to predict the new moon, providing a standardized and mathematically precise calendar compared to simple tabular Hijri approximations.
+            </p>
+          </>
+        )}
+      </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": lang === "ar" ? [
+          {
+            "@type": "Question",
+            "name": "هل هذا المحول دقيق ومطابق لتقويم السعودية؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم، نستخدم خوارزمية أم القرى الفلكية المعتمدة رسمياً في المملكة العربية السعودية للحصول على أدق نتيجة ممكنة."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل تعمل الأداة بدون إنترنت؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم، بمجرد تحميل الصفحة، تتم جميع العمليات الحسابية والمعادلات الفلكية داخل متصفحك مباشرة بدون الحاجة للاتصال بالإنترنت."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Is this converter accurate and aligned with the Saudi calendar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, it uses the official Umm al-Qura astronomical algorithm which is the standard utilized by the government of Saudi Arabia."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool work offline?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, once the page loads, all astronomical math is executed directly inside your local web browser."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

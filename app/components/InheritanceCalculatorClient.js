@@ -288,6 +288,92 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
           </div>
         )}
       </div>
+
+      {/* SEO Content Expansion */}
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        {lang === "ar" ? (
+          <>
+            <h2>حاسبة المواريث الشرعية (تبسيط وتقريب)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              حاسبة المواريث الذكية مصممة لتزويدك بتوزيع أولي تقريبي للتركة بين الورثة الأساسيين من الدرجة الأولى (الزوجين، الأبناء، والبنات، والأبوين) وفقاً لأحكام الشريعة الإسلامية الثابتة في القرآن الكريم. تعمل الأداة بشكل كامل داخل متصفحك للحفاظ على سرية الأرقام المالية المدخلة.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>وفاة رجل وترك زوجة وأبناء:</strong> لنفترض أن رجلاً توفي وترك تركة بقيمة 100,000 دولار، ولديه زوجة واحدة، وولدين، وبنت واحدة، والأبوان متوفيان. عند الإدخال: تحصل الزوجة على الثمن (1/8) لوجود الفرع الوارث، والباقي يوزع للذكر مثل حظ الأنثيين (للولدين ضعف البنت).</li>
+              <li style={{ marginBottom: "8px" }}><strong>وفاة امرأة وترك زوج وأبوين بدون أبناء:</strong> تركت الزوجة 50,000 دولار. يحصل الزوج على النصف (1/2)، والأم على الثلث (1/3)، والأب يحصل على الباقي تعصيباً.</li>
+              <li style={{ marginBottom: "8px" }}><strong>الحجب:</strong> تلاحظ في الحاسبة أن نصيب الزوج أو الزوجة يتغير فوراً بمجرد إضافة أبناء (ينقص من النصف للربع، أو من الربع للثمن) وهو ما يُسمى في علم الفرائض بـ "حجب النقصان".</li>
+              <li style={{ marginBottom: "8px" }}><strong>التعلم والتفقه:</strong> يمكن لطلاب العلم الشرعي استخدام الأداة لتأكيد صحة حلولهم للمسائل الفرضية الأساسية المبسطة.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px", color: "var(--danger)" }}>تنبيه فقهي وقانوني</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              علم الفرائض هو من أعقد العلوم الشرعية. هذه الحاسبة تقتصر على "أصحاب الفروض والعصبات" من الدرجة الأولى فقط. لا تشمل الأداة: الأجداد والجدات، الإخوة والأخوات، ذوي الأرحام، مسألة العول، مسألة الرد، الجد مع الإخوة، والمناسخات. لذا <strong>لا تعتمد على هذه الحاسبة لتقسيم ميراث حقيقي</strong>، بل هي لغرض الاستئناس المعرفي. يجب إحالة أي تركة حقيقية إلى المحكمة الشرعية المتخصصة.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Islamic Inheritance (Mawarith) Calculator</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              The smart Islamic Inheritance Calculator is designed to provide you with an approximate preliminary distribution of an estate among first-degree primary heirs (spouses, sons, daughters, and parents) in accordance with the fixed rulings of Islamic Sharia (Quran). The tool runs entirely within your browser to maintain the absolute confidentiality of the financial figures entered.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Deceased Husband leaving a Wife and Children:</strong> Suppose a man dies leaving a $100,000 estate, one wife, two sons, and one daughter (parents are deceased). The wife receives 1/8th due to the presence of children, and the remainder is distributed so that the male receives the share of two females.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Deceased Wife leaving a Husband and Parents (No Children):</strong> A woman leaves $50,000. The husband gets 1/2, the mother gets 1/3, and the father gets the remainder as an 'Asib (agnate).</li>
+              <li style={{ marginBottom: "8px" }}><strong>Partial Exclusion (Hajb Nuqsan):</strong> You will notice the spouse's share instantly drops (from 1/2 to 1/4, or from 1/4 to 1/8) the moment you add children to the equation.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Educational Purposes:</strong> Islamic studies students can use this tool to quickly verify their manual calculations for basic inheritance test questions.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px", color: "var(--danger)" }}>Legal & Fiqh Disclaimer</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              The science of Islamic inheritance (Fara'id) is highly complex. This calculator is strictly limited to first-degree "Ashab al-Furud" (quota-heirs) and 'Asabat (residuaries). It DOES NOT cover: Grandparents, Siblings, Distant kindred (Dhawu al-Arham), Awl (proportional reduction), Radd (return), or complex multi-generational deaths (Munasakhat). <strong>Never rely on this tool to divide an actual estate.</strong> Real estates must be referred to specialized Sharia courts or authorized Muftis.
+            </p>
+          </>
+        )}
+      </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": lang === "ar" ? [
+          {
+            "@type": "Question",
+            "name": "هل يمكنني تقسيم التركة نهائياً باستخدام هذه الحاسبة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا، هذه الحاسبة تعليمية ومبسطة للورثة من الدرجة الأولى. لتقسيم التركة الفعلي يجب مراجعة المحاكم الشرعية."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "لماذا لا توجد خانة للإخوة والأخوات؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "توريث الإخوة والأخوات يتأثر بالحجب (حيث يحجبهم الأب أو الابن الذكر)، وله قواعد معقدة جداً تم استبعادها من هذه النسخة المبسطة تجنباً للأخطاء."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Can I use this calculator to finally divide an actual estate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, this is an educational tool limited to first-degree heirs. Actual estate division must be conducted by official Sharia courts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why are there no inputs for brothers and sisters?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The inheritance of siblings is subject to complex exclusion rules (e.g., they are excluded by the father or son). These advanced rules are omitted here to prevent incorrect assumptions."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

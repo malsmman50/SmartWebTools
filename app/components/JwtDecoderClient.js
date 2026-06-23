@@ -142,6 +142,47 @@ export default function JwtDecoderClient({ lang, dict, ...props }) {
           </>
         )}
       </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": isAr ? [
+          {
+            "@type": "Question",
+            "name": "هل يمكنني تعديل الرمز (JWT) واستخدامه مجدداً؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا، بمجرد فك تشفير الـ JWT وتغيير أي جزء منه، سيفشل اختبار التوقيع الرقمي ولن تقبله الخوادم."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل الأداة تخزن رموز الـ JWT الخاصة بي؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا، تتم جميع عمليات فك التشفير محلياً داخل متصفحك باستخدام مكتبة jose ولا يتم إرسال أي بيانات إلى أي خوادم."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Can I modify the decoded JWT and use it again?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. If you modify any part of the JWT payload or header, the cryptographic signature will become invalid and the server will reject it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool store my JWTs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. All decoding is performed locally in your browser using the jose library. We do not store or transmit any of your tokens."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

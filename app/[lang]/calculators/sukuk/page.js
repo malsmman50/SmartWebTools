@@ -24,9 +24,5 @@ export default async function SukukPage({ params }) {
   const lang = resolvedParams.lang;
   const dict = await getDictionary(lang);
 
-  return (
-    <div className="py-10 px-4">
-      <SukukCalculatorClient dict={dict} lang={lang} />
-    </div>
-  );
+  return <SukukCalculatorClient dict={dict} lang={lang} />;
 }

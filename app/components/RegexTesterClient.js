@@ -162,6 +162,92 @@ export default function RegexTesterClient({ dict, lang }) {
 
         </div>
       </div>
+
+      {/* SEO Content Expansion */}
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        {lang === "ar" ? (
+          <>
+            <h2>مختبر التعابير النمطية (Regex Tester) والمطابقة الفورية</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              التعابير النمطية (Regular Expressions) هي أداة قوية للغاية تستخدم للبحث، والمطابقة، ومعالجة النصوص المتقدمة في البرمجة. يتيح لك "مختبر التعابير النمطية" كتابة أنماط Regex وتجربتها فورياً على نصوص حية. تدعم الأداة تسليط الضوء المباشر (Syntax Highlighting) على التطابقات، مع استخراج وفصل مجموعات الالتقاط (Capture Groups) لتبسيط عملية تصحيح أخطاء الأنماط المعقدة.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة جاهزة للتعابير النمطية (Common Regex Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px", direction: "ltr", textAlign: "left" }}>
+              <li style={{ marginBottom: "8px" }}><strong>استخراج الإيميلات (Email Match):</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;</code></li>
+              <li style={{ marginBottom: "8px" }}><strong>مطابقة أرقام الهواتف (Phone Numbers):</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>\+?[0-9]&#123;1,3&#125;?[-.\s]?\?[0-9]&#123;1,4&#125;?\)?[-.\s]?[0-9]&#123;1,4&#125;[-.\s]?[0-9]&#123;1,9&#125;</code></li>
+              <li style={{ marginBottom: "8px" }}><strong>استخراج الروابط (URL Match):</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]&#123;1,256&#125;\.[a-zA-Z0-9()]&#123;1,6&#125;\b([-a-zA-Z0-9()!@:%_\+.~#?&//=]*)</code></li>
+              <li style={{ marginBottom: "8px" }}><strong>كلمة مرور قوية (Strong Password):</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]&#123;8,&#125;$</code></li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px", textAlign: "right" }}>علامات البحث الشائعة (Regex Flags)</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px", textAlign: "right" }}>
+              تُستخدم العلامات (Flags) لتعديل سلوك البحث. <strong>(g)</strong>: للبحث الشامل (Global) لاستخراج جميع التطابقات وليس الأول فقط. <strong>(i)</strong>: تجاهل حالة الأحرف الكبيرة والصغيرة (Case-insensitive). <strong>(m)</strong>: البحث متعدد الأسطر (Multiline)، مفيد عند استخدام `^` و `$`.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Real-Time Regular Expression (Regex) Tester</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              Regular Expressions (Regex) are an incredibly powerful tool for searching, matching, and manipulating text in programming. This live Regex Tester allows you to write patterns and instantly evaluate them against test strings. It features real-time syntax highlighting of matches and elegantly separates capture groups, making debugging complex patterns a breeze.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Common Regex Examples to Try</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Match Email Addresses:</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;</code></li>
+              <li style={{ marginBottom: "8px" }}><strong>Match Phone Numbers:</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>\+?[0-9]&#123;1,3&#125;?[-.\s]?\(?[0-9]&#123;1,4&#125;?\)?[-.\s]?[0-9]&#123;1,4&#125;[-.\s]?[0-9]&#123;1,9&#125;</code></li>
+              <li style={{ marginBottom: "8px" }}><strong>Match URLs:</strong><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]&#123;1,256&#125;\.[a-zA-Z0-9()]&#123;1,6&#125;\b([-a-zA-Z0-9()!@:%_\+.~#?&//=]*)</code></li>
+              <li style={{ marginBottom: "8px" }}><strong>Validate Strong Password:</strong><br/><span style={{ fontSize: "0.85rem" }}>(Min 8 chars, 1 letter, 1 number, 1 special char)</span><br/><code style={{ background: "var(--bg-card)", padding: "2px 6px", borderRadius: "4px" }}>^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]&#123;8,&#125;$</code></li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Understanding Common Flags</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              Regex flags modify how the search behaves. <strong>(g) Global</strong>: Finds all matches rather than stopping after the first one. <strong>(i) Ignore Case</strong>: Makes the match case-insensitive. <strong>(m) Multiline</strong>: Causes the start `^` and end `$` anchors to match the start and end of a line, rather than the whole string.
+            </p>
+          </>
+        )}
+      </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": lang === "ar" ? [
+          {
+            "@type": "Question",
+            "name": "ما هي مجموعات الالتقاط (Capture Groups) في الريجكس؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "مجموعات الالتقاط تسمح لك باستخراج جزء معين من النص المطابق. يتم إنشاؤها بوضع أقواس () حول جزء من التعبير النمطي. أداتنا تقوم بفصل وعرض هذه المجموعات تلقائياً لتسهيل فحصها."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "لماذا تظهر رسالة خطأ عند كتابة نمط Regex الخاص بي؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "عادة ما يحدث هذا بسبب وجود خطأ في الصياغة، مثل قوس مفتوح غير مغلق أو استخدام رموز غير مدعومة في محرك JavaScript للتعابير النمطية."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "What are Capture Groups in Regex?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Capture groups allow you to isolate and extract a specific portion of the matched text. They are created by placing parentheses () around a part of the regex pattern. Our tool automatically separates and displays these groups for easy debugging."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do I see an error when writing my Regex pattern?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "This usually happens due to a syntax error, such as an unclosed parenthesis/bracket or using lookbehind assertions that might not be fully supported depending on the exact JavaScript engine variant."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

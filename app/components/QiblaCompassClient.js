@@ -227,6 +227,90 @@ export default function QiblaCompassClient({ lang, dict, ...props }) {
         )}
       </div>
 
+      {/* SEO Content Expansion */}
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        {lang === "ar" ? (
+          <>
+            <h2>محدد اتجاه القبلة الذكي (بوصلة مكة)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              أداة تحديد القبلة تعتمد على حساسات التوجيه (Gyroscope/Magnetometer) المدمجة في هاتفك الذكي بالإضافة إلى موقعك الجغرافي (GPS) لحساب الزاوية الدقيقة للكعبة المشرفة في مكة المكرمة. تم تصميم هذه الأداة لتعمل باحترافية عالية مع تقديم تجربة مرئية مميزة حيث تنبض الشاشة ويهتز الهاتف عند محاذاة الجهاز مع الاتجاه الصحيح للقبلة.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>السفر والفنادق:</strong> عندما تكون مسافراً وتقيم في غرفة فندق جديدة ولا تعرف اتجاه الصلاة، ببساطة افتح الأداة من متصفحك وسيعمل الـ GPS على تحديد موقعك وتوجيهك فوراً للقبلة.</li>
+              <li style={{ marginBottom: "8px" }}><strong>الرحلات البرية والتخييم:</strong> في البراري المفتوحة والصحراء، قد يصعب تحديد الاتجاهات. بوصلة القبلة الذكية لا تحتاج لاتصال قوي بالإنترنت بمجرد تحميل الصفحة، مما يجعلها مثالية للمناطق النائية.</li>
+              <li style={{ marginBottom: "8px" }}><strong>تحديد اتجاه المحاريب للمساجد الجديدة:</strong> رغم أن المهندسين يستخدمون أجهزة متخصصة، يمكن الاستئناس بهذه الأداة (بفضل حساباتها الفلكية الدقيقة) كمرجع سريع للتحقق المبدئي من اتجاه الجدار القبلي.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>الخصوصية وحساب المسار</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              لحساب القبلة، نستخدم خوارزمية (Great-circle distance) الرياضية التي تحسب أقصر مسار على سطح الكرة الأرضية بين إحداثياتك الحالية وإحداثيات مكة المكرمة (21.4225° شمالاً، 39.8262° شرقاً). تتم هذه العملية الحسابية <strong>محلياً على جهازك</strong> دون إرسال إحداثياتك الدقيقة إلى أي خوادم خارجية، مما يضمن أمان وخصوصية تامة لتحركاتك.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Smart Qibla Finder & Mecca Compass</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              The Qibla Finder tool utilizes your smartphone's built-in orientation sensors (gyroscope and magnetometer) along with your GPS location to calculate the precise angle to the Kaaba in Mecca. Designed with a sleek visual interface, the screen pulses and your device gently vibrates the moment you align perfectly with the correct prayer direction.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Travel & Hotel Stays:</strong> When traveling abroad and checking into a new hotel room, you might not know the prayer direction. Simply open this tool, allow location access, and it will instantly point you to Mecca.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Outdoor Camping:</strong> Out in the wilderness or desert, landmarks are scarce. Once the page is loaded, the compass logic can function smoothly, making it perfect for remote outdoor prayers.</li>
+              <li style={{ marginBottom: "8px" }}><strong>New Prayer Rooms (Musallahs):</strong> If you are setting up a prayer room in your office or university, you can use this accurate mathematical compass as a reliable reference to lay out the prayer rugs correctly.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Privacy & Path Calculation</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              To calculate the Qibla, we use the mathematical "Great-Circle Distance" algorithm. It computes the shortest path across the Earth's sphere from your current coordinates to Mecca (21.4225° N, 39.8262° E). This calculation is performed <strong>100% locally on your device</strong>. Your precise location data is never logged, stored, or transmitted to any external servers.
+            </p>
+          </>
+        )}
+      </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": lang === "ar" ? [
+          {
+            "@type": "Question",
+            "name": "لماذا تطلب الأداة صلاحيات الموقع (GPS) وحساس الحركة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "تحديد القبلة يتطلب معرفة موقعك الجغرافي لحساب الزاوية الصحيحة بالنسبة لمكة. أما حساس الحركة فيستخدم لربط هذه الزاوية مع اتجاه هاتفك الفعلي."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "الأداة لا تعمل على جهاز الكمبيوتر المكتبي الخاص بي، لماذا؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "أجهزة الكمبيوتر المكتبية والمحمولة لا تحتوي غالباً على بوصلة مغناطيسية أو حساسات حركة. في هذه الحالة، ستعرض الأداة درجة القبلة كرقم (مثلاً 135 درجة من الشمال) لتستخدمها مع بوصلة يدوية."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Why does the tool ask for Location and Motion sensor permissions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Location (GPS) is required to calculate the mathematical angle to Mecca based on where you are. The motion sensor is needed to map that angle to your phone's physical orientation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "The compass isn't moving on my Desktop/Laptop. Why?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most desktop computers and laptops lack internal magnetic compasses or gyroscopes. If accessed from a PC, the tool falls back to showing you the exact numerical degree (e.g., 135° from North) so you can use a physical compass."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
+
       <style jsx global>{`
         .pulse-aligned-kaaba {
           animation: pulse-kf 2s infinite;

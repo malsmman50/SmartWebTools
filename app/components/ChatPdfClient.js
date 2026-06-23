@@ -284,6 +284,47 @@ export default function ChatPdfClient({ lang, dict, ...props }) {
           </>
         )}
       </article>
+
+      {/* JSON-LD Schema for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": isAr ? [
+          {
+            "@type": "Question",
+            "name": "هل بيانات ملفي آمنة؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم، 100%. تتم المعالجة بالكامل محلياً عبر المتصفح باستخدام نموذج ذكاء اصطناعي محلي ولا يتم رفع أي ملف إلى أي خادم خارجي."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "كيف يعمل البحث السيمانتيكي؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "يعتمد على تحويل النصوص إلى متجهات رياضية لمقارنة المعنى بدلاً من التطابق الحرفي للكلمات، مما يحسن دقة نتائج البحث حتى مع اختلاف الصيغ."
+            }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Is my PDF file and data secure?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, absolutely 100%. The processing is done entirely locally within your browser using a local AI model. No files are uploaded to any external servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Semantic Search work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It converts text into mathematical vectors to compare meaning rather than exact keyword matches, significantly improving search accuracy even with different wordings."
+            }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }
