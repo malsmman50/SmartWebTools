@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
 
 export default function ExploreTools({ currentPath }) {
   const { lang, dict, localizePath } = useLanguage();
+  const [selectedTools, setSelectedTools] = useState([]);
 
   // Array of all major tools for cross-linking (translated dynamically)
   const ALL_TOOLS = [
@@ -18,12 +20,21 @@ export default function ExploreTools({ currentPath }) {
     { title: dict.utilities.chatpdf_title, href: "/tools/chatpdf", icon: "📄" }
   ];
 
-  // Filter out the current tool to prevent linking to itself
-  const availableTools = ALL_TOOLS.filter(t => localizePath(t.href) !== currentPath && t.href !== currentPath);
-  
-  // Randomly select 3 tools
-  const shuffled = [...availableTools].sort(() => 0.5 - Math.random());
-  const selectedTools = shuffled.slice(0, 3);
+  useEffect(() => {
+    // Filter out the current tool to prevent linking to itself
+    const availableTools = ALL_TOOLS.filter(
+      (t) => localizePath(t.href) !== currentPath && t.href !== currentPath
+    );
+    
+    // Randomly select 3 tools
+    const shuffled = [...availableTools].sort(() => 0.5 - Math.random());
+    setSelectedTools(shuffled.slice(0, 3));
+  }, [currentPath]);
+
+  // Server renders null, client mounts and loads tools. This prevents any hydration mismatch.
+  if (selectedTools.length === 0) {
+    return null;
+  }
 
   return (
     <div style={{ marginTop: "80px", paddingTop: "40px", borderTop: "1px solid var(--border)" }}>

@@ -140,18 +140,27 @@ export default function Navbar() {
               aria-label="Switch Language"
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid var(--border)",
+                background: "rgba(16, 185, 129, 0.1)",
+                border: "1px solid rgba(16, 185, 129, 0.3)",
                 borderRadius: "8px",
-                padding: "6px 12px",
+                padding: "8px 16px",
                 fontSize: "0.85rem",
-                fontWeight: 600,
-                color: "var(--text)",
+                fontWeight: 700,
+                color: "var(--primary)",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
-                transition: "all 0.2s ease"
+                transition: "all 0.2s ease",
+                boxShadow: "0 2px 8px rgba(16, 185, 129, 0.1)"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(16, 185, 129, 0.2)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(16, 185, 129, 0.1)";
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
               🌐 {lang === "en" ? "العربية" : "English"}
@@ -175,17 +184,20 @@ export default function Navbar() {
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
               aria-label="Toggle language"
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid var(--border)",
+                background: "rgba(16, 185, 129, 0.1)",
+                border: "1px solid rgba(16, 185, 129, 0.3)",
                 borderRadius: "8px",
-                padding: "6px 10px",
+                padding: "6px 12px",
                 fontSize: "0.8rem",
-                fontWeight: 600,
-                color: "var(--text)",
-                cursor: "pointer"
+                fontWeight: 700,
+                color: "var(--primary)",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "4px"
               }}
             >
-              {lang === "en" ? "عربي" : "En"}
+              🌐 {lang === "en" ? "عربي" : "En"}
             </button>
             
             <button
