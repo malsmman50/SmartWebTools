@@ -11,7 +11,6 @@ export default function ChatPdfClient({ lang, dict, ...props }) {
   const [progress, setProgress] = useState(0);
   const [dbLength, setDbLength] = useState(0);
   const [fileInfo, setFileInfo] = useState(null);
-  const [reverseArabic, setReverseArabic] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   
@@ -63,23 +62,8 @@ export default function ChatPdfClient({ lang, dict, ...props }) {
     return () => workerRef.current.terminate();
   }, [isAr]);
 
-  const fixArabicPDFText = (text) => {
-    if (!/[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(text)) return text;
-    const lines = text.split("\n");
-    return lines.map(line => {
-      if (!/[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(line)) return line;
-      let reversed = line.split("").reverse().join("");
-      reversed = reversed.replace(/[A-Za-z0-9]+/g, match => match.split("").reverse().join(""));
-      reversed = reversed.replace(/([\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF])\s+(?=[^\sA-Za-z0-9])/g, "$1");
-      return reversed;
-    }).join("\n");
-  };
-
-  const chunkText = (text, shouldReverse, maxLength = 500) => {
+  const chunkText = (text, maxLength = 500) => {
     text = text.normalize("NFKC");
-    if (shouldReverse) {
-      text = fixArabicPDFText(text);
-    }
     const chunks = [];
     let currentChunk = "";
     const segments = text.split(/([.!?\n،؟]+)/);
@@ -159,7 +143,7 @@ export default function ChatPdfClient({ lang, dict, ...props }) {
         ? "جاري تهيئة المتجهات وبناء الفهرس المحلي (باستخدام معالج جهازك)..." 
         : "Chunking and Vectorizing Document (Using Local GPU/CPU)...");
       setProgress(20);
-      const chunksStr = chunkText(fullText, reverseArabic);
+      const chunksStr = chunkText(fullText);
       const chunks = chunksStr.map((c, i) => ({ id: i, text: c }));
       
       workerRef.current.postMessage({ type: "embed_batch", chunks });
@@ -201,19 +185,7 @@ export default function ChatPdfClient({ lang, dict, ...props }) {
         <label htmlFor="pdf-upload" className="btn btn-primary" style={{ cursor: "pointer", fontSize: "1.2rem", padding: "12px 24px", background: "var(--success)" }}>
           {isAr ? "📄 اختر ملف PDF (خصوصية تامة)" : "📄 Upload PDF (Max Security)"}
         </label>
-        
-        <div style={{ marginTop: "20px", display: "flex", justifyContent: "center", alignItems: "center", gap: "8px" }}>
-          <input 
-            type="checkbox" 
-            id="reverseArabic" 
-            checked={reverseArabic} 
-            onChange={(e) => setReverseArabic(e.target.checked)} 
-            style={{ cursor: "pointer", width: "16px", height: "16px" }}
-          />
-          <label htmlFor="reverseArabic" style={{ fontSize: "0.9rem", color: "var(--text-muted)", cursor: "pointer" }}>
-            {isAr ? "إصلاح الحروف العربية المعكوسة (حدد هذا إذا ظهرت الحروف المستخرجة مقلوبة)" : "Fix Garbled Arabic (Check this if extracted Arabic text appears backwards)"}
-          </label>
-        </div>
+
 
         {fileInfo && (
           <div style={{ marginTop: "24px", textAlign: isAr ? "right" : "left", padding: "16px", background: "rgba(99,102,241,0.05)", borderRadius: "8px", border: "1px solid var(--border)" }}>

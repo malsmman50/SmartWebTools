@@ -1,6 +1,6 @@
-const CACHE_NAME = "smartcalctools-cache-v3";
-const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v3";
-const MAX_DYNAMIC_ENTRIES = 50;
+const CACHE_NAME = "smartcalctools-cache-v4";
+const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v4";
+const MAX_DYNAMIC_ENTRIES = 150;
 
 // Static assets to cache immediately on install
 const PRECACHE_ASSETS = [
@@ -8,7 +8,9 @@ const PRECACHE_ASSETS = [
   "/icon-192.png",
   "/icon-512.png",
   "/favicon.ico",
-  "/robots.txt"
+  "/robots.txt",
+  "/en/offline",
+  "/ar/offline"
 ];
 
 self.addEventListener("install", (event) => {
@@ -39,7 +41,7 @@ async function trimCache(cacheName, maxItems) {
   const keys = await cache.keys();
   if (keys.length > maxItems) {
     await cache.delete(keys[0]);
-    trimCache(cacheName, maxItems);
+    await trimCache(cacheName, maxItems);
   }
 }
 
@@ -48,11 +50,6 @@ self.addEventListener("fetch", (event) => {
 
   // Only handle GET requests and exclude external / chrome extension requests
   if (event.request.method !== "GET" || !event.request.url.startsWith(self.location.origin)) {
-    return;
-  }
-
-  // Next.js RSC Interception: Do not cache RSC data as HTML
-  if (event.request.headers.get("RSC") === "1" || url.searchParams.has("_rsc")) {
     return;
   }
 
@@ -66,8 +63,10 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Navigation requests (HTML pages) -> Network First, fallback to cache
-  if (event.request.mode === "navigate" || event.request.headers.get('accept').includes('text/html')) {
+  const isRscRequest = event.request.headers.get("RSC") === "1" || url.searchParams.has("_rsc");
+
+  // Navigation requests (HTML pages) or RSC Payload -> Network First, fallback to cache
+  if (event.request.mode === "navigate" || event.request.headers.get('accept').includes('text/html') || isRscRequest) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -86,7 +85,12 @@ self.addEventListener("fetch", (event) => {
               return cachedResponse;
             }
             // Strict offline fallback
-            return caches.match("/offline") || new Response("Offline Mode", { status: 503, statusText: "Service Unavailable" });
+            if (isRscRequest) {
+              // RSC requests should fail if not cached, so Next.js falls back to hard navigation
+              return new Response(null, { status: 503 });
+            }
+            const lang = url.pathname.startsWith("/ar") ? "ar" : "en";
+            return caches.match(`/${lang}/offline`) || new Response("Offline Mode", { status: 503, statusText: "Service Unavailable" });
           });
         })
     );

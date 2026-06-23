@@ -1,23 +1,28 @@
 'use client';
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
-export default function AdBanner({ dataAdSlot = "1234567890", dataAdFormat = "auto", dataFullWidthResponsive = "true" }) {
+export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWidthResponsive = "true" }) {
+  const pathname = usePathname();
+
+  // Show a subtle placeholder during development or before approval so you can see where ads will be
+  const isDev = process.env.NODE_ENV === 'development';
+
   useEffect(() => {
     try {
       // Initialize the ad if the Google AdSense script is loaded
+      // The pathname key forces this component to unmount and remount on route changes,
+      // ensuring ads are refreshed properly during client-side navigation.
       if (typeof window !== 'undefined' && window.adsbygoogle) {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (e) {
       console.error('AdSense initialization error:', e);
     }
-  }, []);
-
-  // Show a subtle placeholder during development or before approval so you can see where ads will be
-  const isDev = process.env.NODE_ENV === 'development';
+  }, [pathname]); // Re-run when pathname changes
 
   return (
-    <div style={{ width: '100%', margin: '24px 0', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+    <div key={pathname} style={{ width: '100%', margin: '24px 0', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
       <ins
         className="adsbygoogle"
         style={{ 
@@ -30,7 +35,6 @@ export default function AdBanner({ dataAdSlot = "1234567890", dataAdFormat = "au
           border: isDev ? '1px dashed rgba(99,102,241,0.3)' : 'none', 
           borderRadius: '8px' 
         }}
-        // TODO: Replace with your actual AdSense Publisher ID (e.g., ca-pub-1234567890)
         data-ad-client="ca-pub-2077857887750518" 
         data-ad-slot={dataAdSlot}
         data-ad-format={dataAdFormat}

@@ -39,7 +39,7 @@ export function middleware(request) {
     "/wasm/"
   ];
 
-  if (excludePaths.some((path) => pathname.startsWith(path) || pathname === path)) {
+  if (excludePaths.some((path) => pathname.startsWith(path) || pathname === path.slice(0, -1))) {
     return NextResponse.next();
   }
 
