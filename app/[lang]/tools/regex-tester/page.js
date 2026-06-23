@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const dict = await getDictionary(lang);
 
   return {
-    title: `${dict.regex.title} | SmartCalcTools`,
+    title: `${dict.regex.title}`,
     description: dict.regex.subtitle,
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/regex-tester`,
@@ -16,6 +16,16 @@ export async function generateMetadata({ params }) {
         "ar": "https://smartcalctools.xyz/ar/tools/regex-tester",
       },
     },
+    openGraph: {
+      title: `${dict.regex.title}`,
+      description: dict.regex.subtitle,
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: `${dict.regex.title}`,
+      description: dict.regex.subtitle,
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

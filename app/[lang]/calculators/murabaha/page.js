@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "حاسبة المرابحة الإسلامية | أدوات الحساب الذكية" : "Murabaha Calculator (Islamic Financing) | SmartCalcTools",
+    title: isAr ? "حاسبة المرابحة الإسلامية" : "Murabaha Calculator (Islamic Financing)",
     description: isAr 
       ? "احسب أقساط تمويل المرابحة بهامش الربح الثابت. البديل الشرعي الخالي من الفوائد للقروض الربوية بالتوافق مع معايير AAOIFI."
-      : "Calculate cost-plus financing installments. A strictly Halal, interest-free alternative to traditional loans."
+      : "Calculate cost-plus financing installments. A strictly Halal, interest-free alternative to traditional loans.",
+    openGraph: {
+      title: isAr ? "حاسبة المرابحة الإسلامية" : "Murabaha Calculator (Islamic Financing)",
+      description: isAr 
+      ? "احسب أقساط تمويل المرابحة بهامش الربح الثابت. البديل الشرعي الخالي من الفوائد للقروض الربوية بالتوافق مع معايير AAOIFI."
+      : "Calculate cost-plus financing installments. A strictly Halal, interest-free alternative to traditional loans.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "حاسبة المرابحة الإسلامية" : "Murabaha Calculator (Islamic Financing)",
+      description: isAr 
+      ? "احسب أقساط تمويل المرابحة بهامش الربح الثابت. البديل الشرعي الخالي من الفوائد للقروض الربوية بالتوافق مع معايير AAOIFI."
+      : "Calculate cost-plus financing installments. A strictly Halal, interest-free alternative to traditional loans.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

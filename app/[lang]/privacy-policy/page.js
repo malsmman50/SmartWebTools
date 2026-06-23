@@ -37,6 +37,15 @@ export default async function PrivacyPolicyPage({ params }) {
         <h2>{t.section3_title}</h2>
         <p>{t.section3_desc}</p>
       </section>
+
+      <section className="card" style={{ marginBottom: "32px" }}>
+        <h2>{lang === "ar" ? "الإعلانات وملفات تعريف الارتباط (Cookies)" : "Advertising and Cookies"}</h2>
+        <p>
+          {lang === "ar" 
+            ? "العمليات الحسابية ومعالجة الملفات تتم 100% داخل جهازك بخصوصية تامة ولا نرى أي بيانات مدخلة. ومع ذلك، لكي نتمكن من إبقاء الموقع مجانياً، نحن نستخدم خدمة Google AdSense لعرض الإعلانات. قد تستخدم شبكة Google ملفات تعريف الارتباط (Cookies) لتقديم إعلانات مخصصة بناءً على زياراتك السابقة لهذا الموقع أو مواقع أخرى على الإنترنت."
+            : "Your calculations and file processing occur 100% locally on your device with complete privacy; we do not see any of your input data. However, to keep this site free, we use Google AdSense to display advertisements. Google and its partners may use cookies to serve ads based on your prior visits to our site or other websites."}
+        </p>
+      </section>
     </div>
   );
 }

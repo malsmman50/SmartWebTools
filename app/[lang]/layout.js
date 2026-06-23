@@ -33,6 +33,14 @@ export async function generateMetadata({ params }) {
       siteName: "SmartCalcTools",
       type: "website",
       locale: isAr ? "ar_AR" : "en_US",
+      images: [
+        {
+          url: "/opengraph-image.png",
+          width: 1200,
+          height: 630,
+          alt: isAr ? "أدوات الحساب الذكية" : "SmartCalcTools",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -40,6 +48,7 @@ export async function generateMetadata({ params }) {
       description: isAr
         ? "استكشف حاسبة الزكاة، حاسبة التقاعد الإسلامي، وأدوات المطورين فائقة الأمان دون اتصال بالإنترنت."
         : "Explore our Zakat Calculator, Islamic FIRE tool, and ultra-secure offline developer utilities.",
+      images: ["/twitter-image.png"],
     },
     robots: { index: true, follow: true }
   };

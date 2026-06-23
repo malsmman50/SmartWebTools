@@ -37,9 +37,9 @@ export default async function Home({ params }) {
       <section className="hero">
         <h1>
           {lang === "ar" ? (
-            <>أدوات مالية إسلامية <span className="hero-gradient">مجانية</span> وأدوات للمطورين</>
+            <>حاسبات مالية إسلامية <span className="hero-gradient">مجانية</span> وأدوات يومية ذكية</>
           ) : (
-            <>Free <span className="hero-gradient">Islamic Finance</span> & Pro Dev Tools</>
+            <>Halal <span className="hero-gradient">Islamic Finance</span> & Smart Calculators</>
           )}
         </h1>
         <p>{dict.home.hero_subtitle}</p>

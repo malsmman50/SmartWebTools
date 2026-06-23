@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "حاسبة العائد الاستثماري (ROI) | أدوات الحساب الذكية" : "Halal ROI Calculator | SmartCalcTools",
+    title: isAr ? "حاسبة العائد الاستثماري (ROI)" : "Halal ROI Calculator",
     description: isAr 
       ? "احسب نسبة العائد على الاستثمار وصافي الأرباح أو الخسائر بالإضافة للعائد السنوي المركب لمشاريعك واستثماراتك."
-      : "Calculate Return on Investment (ROI), net profit, and annualized yield for your business ventures and investments."
+      : "Calculate Return on Investment (ROI), net profit, and annualized yield for your business ventures and investments.",
+    openGraph: {
+      title: isAr ? "حاسبة العائد الاستثماري (ROI)" : "Halal ROI Calculator",
+      description: isAr 
+      ? "احسب نسبة العائد على الاستثمار وصافي الأرباح أو الخسائر بالإضافة للعائد السنوي المركب لمشاريعك واستثماراتك."
+      : "Calculate Return on Investment (ROI), net profit, and annualized yield for your business ventures and investments.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "حاسبة العائد الاستثماري (ROI)" : "Halal ROI Calculator",
+      description: isAr 
+      ? "احسب نسبة العائد على الاستثمار وصافي الأرباح أو الخسائر بالإضافة للعائد السنوي المركب لمشاريعك واستثماراتك."
+      : "Calculate Return on Investment (ROI), net profit, and annualized yield for your business ventures and investments.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

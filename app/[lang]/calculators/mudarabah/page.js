@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "حاسبة شراكة المضاربة | أدوات الحساب الذكية" : "Mudarabah Profit Calculator | SmartCalcTools",
+    title: isAr ? "حاسبة شراكة المضاربة" : "Mudarabah Profit Calculator",
     description: isAr 
       ? "احسب نسب توزيع الأرباح وتخصيص الخسائر المالية لشراكات المضاربة الاستثمارية المتوافقة مع الشريعة الإسلامية."
-      : "Calculate capital returns and profit-split ratios for Sharia-compliant partnerships between investors and entrepreneurs."
+      : "Calculate capital returns and profit-split ratios for Sharia-compliant partnerships between investors and entrepreneurs.",
+    openGraph: {
+      title: isAr ? "حاسبة شراكة المضاربة" : "Mudarabah Profit Calculator",
+      description: isAr 
+      ? "احسب نسب توزيع الأرباح وتخصيص الخسائر المالية لشراكات المضاربة الاستثمارية المتوافقة مع الشريعة الإسلامية."
+      : "Calculate capital returns and profit-split ratios for Sharia-compliant partnerships between investors and entrepreneurs.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "حاسبة شراكة المضاربة" : "Mudarabah Profit Calculator",
+      description: isAr 
+      ? "احسب نسب توزيع الأرباح وتخصيص الخسائر المالية لشراكات المضاربة الاستثمارية المتوافقة مع الشريعة الإسلامية."
+      : "Calculate capital returns and profit-split ratios for Sharia-compliant partnerships between investors and entrepreneurs.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

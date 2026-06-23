@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "البحث الذكي والمحادثة الآمنة مع الـ PDF محلياً | أدوات الحساب الذكية" : "Secure Local Semantic PDF Chat & Search | SmartCalcTools",
+    title: isAr ? "البحث الذكي والمحادثة الآمنة مع الـ PDF محلياً" : "Secure Local Semantic PDF Chat & Search",
     description: isAr 
       ? "تفاعل وابحث في مستندات الـ PDF الخاصة بك بشكل آمن وسري تماماً 100% داخل متصفحك باستخدام الذكاء الاصطناعي المحلي."
-      : "Chat directly with your PDF documents securely in your browser using secure on-device AI embeddings."
+      : "Chat directly with your PDF documents securely in your browser using secure on-device AI embeddings.",
+    openGraph: {
+      title: isAr ? "البحث الذكي والمحادثة الآمنة مع الـ PDF محلياً" : "Secure Local Semantic PDF Chat & Search",
+      description: isAr 
+      ? "تفاعل وابحث في مستندات الـ PDF الخاصة بك بشكل آمن وسري تماماً 100% داخل متصفحك باستخدام الذكاء الاصطناعي المحلي."
+      : "Chat directly with your PDF documents securely in your browser using secure on-device AI embeddings.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "البحث الذكي والمحادثة الآمنة مع الـ PDF محلياً" : "Secure Local Semantic PDF Chat & Search",
+      description: isAr 
+      ? "تفاعل وابحث في مستندات الـ PDF الخاصة بك بشكل آمن وسري تماماً 100% داخل متصفحك باستخدام الذكاء الاصطناعي المحلي."
+      : "Chat directly with your PDF documents securely in your browser using secure on-device AI embeddings.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

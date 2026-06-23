@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "محول أسعار العملات المباشر | أدوات الحساب الذكية" : "Live Currency Converter | SmartCalcTools",
+    title: isAr ? "محول أسعار العملات المباشر" : "Live Currency Converter",
     description: isAr 
       ? "حول العملات العالمية فورياً وبأسعار الصرف المحدثة يومياً مع دعم أكثر من 150 عملة."
-      : "Convert global currencies instantly with live market exchange rates supporting over 150 currencies."
+      : "Convert global currencies instantly with live market exchange rates supporting over 150 currencies.",
+    openGraph: {
+      title: isAr ? "محول أسعار العملات المباشر" : "Live Currency Converter",
+      description: isAr 
+      ? "حول العملات العالمية فورياً وبأسعار الصرف المحدثة يومياً مع دعم أكثر من 150 عملة."
+      : "Convert global currencies instantly with live market exchange rates supporting over 150 currencies.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "محول أسعار العملات المباشر" : "Live Currency Converter",
+      description: isAr 
+      ? "حول العملات العالمية فورياً وبأسعار الصرف المحدثة يومياً مع دعم أكثر من 150 عملة."
+      : "Convert global currencies instantly with live market exchange rates supporting over 150 currencies.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

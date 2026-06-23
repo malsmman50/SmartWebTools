@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const dict = await getDictionary(lang);
 
   return {
-    title: `${dict.sukuk.title} | SmartCalcTools`,
+    title: `${dict.sukuk.title}`,
     description: dict.sukuk.subtitle,
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk`,
@@ -16,6 +16,16 @@ export async function generateMetadata({ params }) {
         "ar": "https://smartcalctools.xyz/ar/calculators/sukuk",
       },
     },
+    openGraph: {
+      title: `${dict.sukuk.title}`,
+      description: dict.sukuk.subtitle,
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: `${dict.sukuk.title}`,
+      description: dict.sukuk.subtitle,
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "حاسبة التقاعد المبكر الإسلامي (FIRE) | أدوات الحساب الذكية" : "Islamic FIRE Calculator | SmartCalcTools",
+    title: isAr ? "حاسبة التقاعد المبكر الإسلامي (FIRE)" : "Islamic FIRE Calculator",
     description: isAr 
       ? "احسب رقم الاستقلال المالي والتقاعد المبكر المتوافق مع الشريعة الإسلامية مع احتساب فريضة الزكاة السنوية وفجوة الزكاة."
-      : "Calculate your Financial Independence, Retire Early (FIRE) number while accounting for the annual Zakat obligation and the Zakat Gap."
+      : "Calculate your Financial Independence, Retire Early (FIRE) number while accounting for the annual Zakat obligation and the Zakat Gap.",
+    openGraph: {
+      title: isAr ? "حاسبة التقاعد المبكر الإسلامي (FIRE)" : "Islamic FIRE Calculator",
+      description: isAr 
+      ? "احسب رقم الاستقلال المالي والتقاعد المبكر المتوافق مع الشريعة الإسلامية مع احتساب فريضة الزكاة السنوية وفجوة الزكاة."
+      : "Calculate your Financial Independence, Retire Early (FIRE) number while accounting for the annual Zakat obligation and the Zakat Gap.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "حاسبة التقاعد المبكر الإسلامي (FIRE)" : "Islamic FIRE Calculator",
+      description: isAr 
+      ? "احسب رقم الاستقلال المالي والتقاعد المبكر المتوافق مع الشريعة الإسلامية مع احتساب فريضة الزكاة السنوية وفجوة الزكاة."
+      : "Calculate your Financial Independence, Retire Early (FIRE) number while accounting for the annual Zakat obligation and the Zakat Gap.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "مفكك وفاحص رموز JWT آمن دون اتصال | أدوات الحساب الذكية" : "Secure Offline JWT Decoder | SmartCalcTools",
+    title: isAr ? "مفكك وفاحص رموز JWT آمن دون اتصال" : "Secure Offline JWT Decoder",
     description: isAr 
       ? "قم بفك وتدقيق ومراجعة أكواد الـ JSON Web Tokens (JWT) بأمان تام محلياً وبخصوصية مطلقة داخل متصفحك."
-      : "Decode and inspect JSON Web Tokens (JWT) entirely offline and securely in your browser."
+      : "Decode and inspect JSON Web Tokens (JWT) entirely offline and securely in your browser.",
+    openGraph: {
+      title: isAr ? "مفكك وفاحص رموز JWT آمن دون اتصال" : "Secure Offline JWT Decoder",
+      description: isAr 
+      ? "قم بفك وتدقيق ومراجعة أكواد الـ JSON Web Tokens (JWT) بأمان تام محلياً وبخصوصية مطلقة داخل متصفحك."
+      : "Decode and inspect JSON Web Tokens (JWT) entirely offline and securely in your browser.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "مفكك وفاحص رموز JWT آمن دون اتصال" : "Secure Offline JWT Decoder",
+      description: isAr 
+      ? "قم بفك وتدقيق ومراجعة أكواد الـ JSON Web Tokens (JWT) بأمان تام محلياً وبخصوصية مطلقة داخل متصفحك."
+      : "Decode and inspect JSON Web Tokens (JWT) entirely offline and securely in your browser.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

@@ -5,10 +5,24 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
-    title: isAr ? "مولد كلمة المرور المعقدة والآمنة محلياً | أدوات الحساب الذكية" : "Secure Password Generator | SmartCalcTools",
+    title: isAr ? "مولد كلمة المرور المعقدة والآمنة محلياً" : "Secure Password Generator",
     description: isAr 
       ? "أنشئ كلمات مرور عشوائية معقدة ومحمية تشفيرياً بالكامل في متصفحك دون إرسال أي بيانات أو الاتصال بالخادم."
-      : "Generate cryptographically secure random passwords in your browser entirely offline and securely."
+      : "Generate cryptographically secure random passwords in your browser entirely offline and securely.",
+    openGraph: {
+      title: isAr ? "مولد كلمة المرور المعقدة والآمنة محلياً" : "Secure Password Generator",
+      description: isAr 
+      ? "أنشئ كلمات مرور عشوائية معقدة ومحمية تشفيرياً بالكامل في متصفحك دون إرسال أي بيانات أو الاتصال بالخادم."
+      : "Generate cryptographically secure random passwords in your browser entirely offline and securely.",
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: isAr ? "مولد كلمة المرور المعقدة والآمنة محلياً" : "Secure Password Generator",
+      description: isAr 
+      ? "أنشئ كلمات مرور عشوائية معقدة ومحمية تشفيرياً بالكامل في متصفحك دون إرسال أي بيانات أو الاتصال بالخادم."
+      : "Generate cryptographically secure random passwords in your browser entirely offline and securely.",
+      images: ["/twitter-image.png"]
+    }
   };
 }
 

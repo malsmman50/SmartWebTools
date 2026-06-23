@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const dict = await getDictionary(lang);
 
   return {
-    title: `${dict.islamic_deposit.title} | SmartCalcTools`,
+    title: `${dict.islamic_deposit.title}`,
     description: dict.islamic_deposit.subtitle,
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit`,
@@ -16,6 +16,16 @@ export async function generateMetadata({ params }) {
         "ar": "https://smartcalctools.xyz/ar/calculators/islamic-deposit",
       },
     },
+    openGraph: {
+      title: `${dict.islamic_deposit.title}`,
+      description: dict.islamic_deposit.subtitle,
+      images: ["/opengraph-image.png"]
+    },
+    twitter: {
+      title: `${dict.islamic_deposit.title}`,
+      description: dict.islamic_deposit.subtitle,
+      images: ["/twitter-image.png"]
+    }
   };
 }
 
