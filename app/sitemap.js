@@ -1,3 +1,7 @@
+import { getAllSeoArticles } from '@/lib/seo-generator';
+import fs from 'fs';
+import path from 'path';
+
 export default function sitemap() {
   const baseUrl = 'https://smartcalctools.xyz';
   const locales = ['en', 'ar'];
@@ -19,7 +23,34 @@ export default function sitemap() {
     { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.4 },
     { path: '/terms-of-service', changeFrequency: 'yearly', priority: 0.4 },
     { path: '/contact', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/blog', changeFrequency: 'daily', priority: 0.9 },
   ];
+
+  // Dynamically inject Programmatic SEO routes
+  const pSeoArticles = getAllSeoArticles();
+  pSeoArticles.forEach(article => {
+    routes.push({
+      path: `/articles/${article.slug}`,
+      changeFrequency: 'weekly',
+      priority: 0.8
+    });
+  });
+
+  // Dynamically inject Blog routes
+  try {
+    const dataPath = path.join(process.cwd(), "lib", "blog-data.json");
+    const fileContent = fs.readFileSync(dataPath, "utf-8");
+    const blogPosts = JSON.parse(fileContent);
+    blogPosts.forEach(post => {
+      routes.push({
+        path: `/blog/${post.slug}`,
+        changeFrequency: 'weekly',
+        priority: 0.8
+      });
+    });
+  } catch (err) {
+    console.error("Error loading blog data for sitemap:", err);
+  }
 
   const sitemapData = [];
   
