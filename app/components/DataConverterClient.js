@@ -7,6 +7,8 @@ import YAML from "yaml";
 import { js2xml, xml2js } from "xml-js";
 
 export default function DataConverterClient({ dict, lang }) {
+  const t = dict.data_converter;
+
   const [inputData, setInputData] = useState("");
   const [outputData, setOutputData] = useState("");
   const [fromFormat, setFromFormat] = useState("json");
@@ -15,44 +17,32 @@ export default function DataConverterClient({ dict, lang }) {
   const [success, setSuccess] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Re-run conversion when inputs change
   useEffect(() => {
     convertData();
   }, [inputData, fromFormat, toFormat]);
 
   const parseInput = () => {
     if (!inputData.trim()) return null;
-    
     switch (fromFormat) {
-      case "json":
-        return JSON.parse(inputData);
-      case "yaml":
-        return YAML.parse(inputData);
+      case "json": return JSON.parse(inputData);
+      case "yaml": return YAML.parse(inputData);
       case "csv":
         const parsed = Papa.parse(inputData, { header: true, skipEmptyLines: true });
         if (parsed.errors.length > 0) throw new Error(parsed.errors[0].message);
         return parsed.data;
-      case "xml":
-        return xml2js(inputData, { compact: true, spaces: 4 });
-      default:
-        throw new Error("Unknown input format");
+      case "xml": return xml2js(inputData, { compact: true, spaces: 4 });
+      default: throw new Error("Unknown input format");
     }
   };
 
   const formatOutput = (parsedObj) => {
     if (!parsedObj) return "";
-    
     switch (toFormat) {
-      case "json":
-        return JSON.stringify(parsedObj, null, 2);
-      case "yaml":
-        return YAML.stringify(parsedObj);
+      case "json": return JSON.stringify(parsedObj, null, 2);
+      case "yaml": return YAML.stringify(parsedObj);
       case "csv":
-        // Papa.unparse expects an array of objects
         if (!Array.isArray(parsedObj)) {
-            // Try to make it an array
             if (typeof parsedObj === "object" && parsedObj !== null) {
-                // If it's an object with one key that contains an array (like XML often parses)
                 const keys = Object.keys(parsedObj);
                 if (keys.length === 1 && Array.isArray(parsedObj[keys[0]])) {
                     parsedObj = parsedObj[keys[0]];
@@ -65,7 +55,6 @@ export default function DataConverterClient({ dict, lang }) {
         }
         return Papa.unparse(parsedObj);
       case "xml":
-        // xml-js expects a specific structure or wrapper if it's an array
         let xmlObj = parsedObj;
         if (Array.isArray(parsedObj)) {
             xmlObj = { root: { item: parsedObj } };
@@ -73,27 +62,24 @@ export default function DataConverterClient({ dict, lang }) {
             xmlObj = { root: parsedObj };
         }
         return js2xml(xmlObj, { compact: true, spaces: 2 });
-      default:
-        throw new Error("Unknown output format");
+      default: throw new Error("Unknown output format");
     }
   };
 
   const convertData = () => {
     setError("");
     setSuccess(false);
-    
     if (!inputData.trim()) {
       setOutputData("");
       return;
     }
-
     try {
       const parsedObj = parseInput();
       const result = formatOutput(parsedObj);
       setOutputData(result);
       setSuccess(true);
     } catch (err) {
-      setError(dict.data_converter.error_parse + " (" + err.message + ")");
+      setError(t.error_parse + " (" + err.message + ")");
       setOutputData("");
     }
   };
@@ -106,7 +92,6 @@ export default function DataConverterClient({ dict, lang }) {
     }
   };
 
-  const isRtl = lang === "ar";
   const getLanguageForEditor = (format) => {
     switch(format) {
         case 'json': return 'json';
@@ -117,30 +102,19 @@ export default function DataConverterClient({ dict, lang }) {
   };
 
   return (
-    <div className={`max-w-6xl mx-auto ${isRtl ? "text-right" : "text-left"}`}>
-      <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-4">
-          {dict.data_converter.title}
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {dict.data_converter.subtitle}
-        </p>
+    <div className="container" style={{ padding: "40px 20px" }}>
+      <div className="page-header" style={{ textAlign: "center" }}>
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 dark:border-gray-700">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="card">
+        <div className="grid-2">
           
-          {/* Input Section */}
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-                <label className="font-semibold text-gray-700 dark:text-gray-300">
-                    {dict.data_converter.from_format}
-                </label>
-                <select
-                    className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white"
-                    value={fromFormat}
-                    onChange={(e) => setFromFormat(e.target.value)}
-                >
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <label className="label" style={{ marginBottom: 0 }}>{t.from_format}</label>
+                <select className="input" style={{ width: "auto", padding: "6px 12px" }} value={fromFormat} onChange={(e) => setFromFormat(e.target.value)}>
                     <option value="json">JSON</option>
                     <option value="yaml">YAML</option>
                     <option value="xml">XML</option>
@@ -148,39 +122,23 @@ export default function DataConverterClient({ dict, lang }) {
                 </select>
             </div>
             
-            <div className="border border-gray-200 dark:border-gray-600 rounded-xl overflow-hidden shadow-inner h-96" dir="ltr">
+            <div style={{ border: "1px solid var(--border)", borderRadius: "8px", overflow: "hidden", height: "400px" }} dir="ltr">
               <Editor
                 height="100%"
                 language={getLanguageForEditor(fromFormat)}
                 theme="vs-dark"
                 value={inputData}
                 onChange={(val) => setInputData(val || "")}
-                options={{
-                  minimap: { enabled: false },
-                  fontSize: 14,
-                  wordWrap: "on",
-                  scrollBeyondLastLine: false,
-                }}
+                options={{ minimap: { enabled: false }, fontSize: 14 }}
               />
             </div>
-            {error && (
-              <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm">
-                {error}
-              </div>
-            )}
+            {error && <div style={{ color: "var(--danger)", background: "rgba(220, 38, 38, 0.1)", padding: "12px", borderRadius: "8px", fontSize: "0.9rem" }}>{error}</div>}
           </div>
 
-          {/* Output Section */}
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-                <label className="font-semibold text-gray-700 dark:text-gray-300">
-                    {dict.data_converter.to_format}
-                </label>
-                <select
-                    className="p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white"
-                    value={toFormat}
-                    onChange={(e) => setToFormat(e.target.value)}
-                >
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <label className="label" style={{ marginBottom: 0 }}>{t.to_format}</label>
+                <select className="input" style={{ width: "auto", padding: "6px 12px" }} value={toFormat} onChange={(e) => setToFormat(e.target.value)}>
                     <option value="json">JSON</option>
                     <option value="yaml">YAML</option>
                     <option value="xml">XML</option>
@@ -188,35 +146,22 @@ export default function DataConverterClient({ dict, lang }) {
                 </select>
             </div>
             
-            <div className="border border-gray-200 dark:border-gray-600 rounded-xl overflow-hidden shadow-inner h-96 relative" dir="ltr">
+            <div style={{ border: "1px solid var(--border)", borderRadius: "8px", overflow: "hidden", height: "400px" }} dir="ltr">
               <Editor
                 height="100%"
                 language={getLanguageForEditor(toFormat)}
                 theme="vs-dark"
                 value={outputData}
-                options={{
-                  readOnly: true,
-                  minimap: { enabled: false },
-                  fontSize: 14,
-                  wordWrap: "on",
-                  scrollBeyondLastLine: false,
-                }}
+                options={{ readOnly: true, minimap: { enabled: false }, fontSize: 14 }}
               />
             </div>
-            <div className="flex justify-between items-center">
-                {success && !error && inputData.trim() ? (
-                    <span className="text-green-600 dark:text-green-400 text-sm font-medium">
-                        {dict.data_converter.success}
-                    </span>
-                ) : (
-                    <span></span>
-                )}
-                <button
-                    onClick={handleCopy}
-                    disabled={!outputData}
-                    className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition-colors disabled:opacity-50"
-                >
-                    {copied ? "✓" : dict.data_converter.copy_btn}
+            
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "4px" }}>
+                <span style={{ color: "var(--success)", fontSize: "0.9rem", fontWeight: 500 }}>
+                    {success && !error && inputData.trim() ? t.success : ""}
+                </span>
+                <button onClick={handleCopy} disabled={!outputData} className="btn btn-primary" style={{ opacity: outputData ? 1 : 0.5 }}>
+                    {copied ? "✓" : t.copy_btn}
                 </button>
             </div>
           </div>

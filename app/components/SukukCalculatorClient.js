@@ -4,19 +4,18 @@ import React, { useState } from "react";
 import { NumericFormat } from "react-number-format";
 
 export default function SukukCalculatorClient({ dict, lang }) {
+  const t = dict.sukuk;
+
   const [faceValue, setFaceValue] = useState("");
   const [profitRate, setProfitRate] = useState("");
   const [frequency, setFrequency] = useState("2");
   const [duration, setDuration] = useState("");
-
-  const isRtl = lang === "ar";
 
   const numFaceValue = Number(faceValue) || 0;
   const numProfitRate = Number(profitRate) || 0;
   const numFrequency = Number(frequency) || 1;
   const numDuration = Number(duration) || 0;
 
-  // Math logic
   // Periodic Profit = Face Value * (Profit Rate / 100) / Frequency
   const periodicProfit = numFaceValue * (numProfitRate / 100) / numFrequency;
   
@@ -26,108 +25,96 @@ export default function SukukCalculatorClient({ dict, lang }) {
   // Total Maturity Value
   const totalReturn = numFaceValue + totalProfit;
 
+  const fmt = (n) => {
+    if (lang === "ar") {
+      return `${n.toLocaleString("en-US", { maximumFractionDigits: 2 })} $`;
+    }
+    return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
+  };
+
   return (
-    <div className={`max-w-4xl mx-auto ${isRtl ? "text-right" : "text-left"}`}>
-      <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600 mb-4">
-          {dict.sukuk.title}
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {dict.sukuk.subtitle}
-        </p>
+    <div className="container" style={{ padding: "40px 20px" }}>
+      <div className="page-header" style={{ textAlign: "center" }}>
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 dark:border-gray-700">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Inputs */}
-          <div className="flex flex-col gap-6">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                {dict.sukuk.face_value}
-              </label>
-              <NumericFormat
-                value={faceValue}
-                onValueChange={(v) => setFaceValue(v.floatValue ?? "")}
-                thousandSeparator={true}
-                allowNegative={false}
-                className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none text-gray-800 dark:text-white"
-                placeholder="100,000"
-              />
-            </div>
+      <div className="grid-2">
+        <div className="card">
+          <div style={{ marginBottom: "16px" }}>
+            <label htmlFor="sukuk-face" className="label">{t.face_value}</label>
+            <NumericFormat 
+              id="sukuk-face" 
+              className="input" 
+              value={faceValue} 
+              onValueChange={v => setFaceValue(v.floatValue ?? '')} 
+              thousandSeparator={true} 
+              allowNegative={false} 
+              prefix="$" 
+            />
+          </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                {dict.sukuk.profit_rate}
-              </label>
-              <NumericFormat
-                value={profitRate}
-                onValueChange={(v) => setProfitRate(v.floatValue ?? "")}
-                allowNegative={false}
-                decimalScale={2}
-                className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none text-gray-800 dark:text-white"
-                placeholder="6.5"
-              />
-            </div>
+          <div style={{ marginBottom: "16px" }}>
+            <label htmlFor="sukuk-rate" className="label">{t.profit_rate}</label>
+            <NumericFormat 
+              id="sukuk-rate" 
+              className="input" 
+              value={profitRate} 
+              onValueChange={v => setProfitRate(v.floatValue ?? '')} 
+              allowNegative={false} 
+              decimalScale={2} 
+            />
+          </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                {dict.sukuk.frequency}
-              </label>
-              <select
-                value={frequency}
-                onChange={(e) => setFrequency(e.target.value)}
-                className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none text-gray-800 dark:text-white"
-              >
-                <option value="1">{isRtl ? "سنوياً (1 مرة)" : "Annually (1 time)"}</option>
-                <option value="2">{isRtl ? "نصف سنوي (مرتين)" : "Semi-Annually (2 times)"}</option>
-                <option value="4">{isRtl ? "ربع سنوي (4 مرات)" : "Quarterly (4 times)"}</option>
-                <option value="12">{isRtl ? "شهرياً (12 مرة)" : "Monthly (12 times)"}</option>
-              </select>
-            </div>
+          <div style={{ marginBottom: "16px" }}>
+            <label htmlFor="sukuk-freq" className="label">{t.frequency}</label>
+            <select 
+              id="sukuk-freq" 
+              className="input" 
+              value={frequency} 
+              onChange={e => setFrequency(e.target.value)}
+            >
+              <option value="1">{lang === "ar" ? "سنوياً (1 مرة)" : "Annually (1 time)"}</option>
+              <option value="2">{lang === "ar" ? "نصف سنوي (مرتين)" : "Semi-Annually (2 times)"}</option>
+              <option value="4">{lang === "ar" ? "ربع سنوي (4 مرات)" : "Quarterly (4 times)"}</option>
+              <option value="12">{lang === "ar" ? "شهرياً (12 مرة)" : "Monthly (12 times)"}</option>
+            </select>
+          </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                {dict.sukuk.duration}
-              </label>
-              <NumericFormat
-                value={duration}
-                onValueChange={(v) => setDuration(v.floatValue ?? "")}
-                allowNegative={false}
-                decimalScale={1}
-                className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none text-gray-800 dark:text-white"
-                placeholder="5"
-              />
+          <div style={{ marginBottom: "24px" }}>
+            <label htmlFor="sukuk-dur" className="label">{t.duration}</label>
+            <NumericFormat 
+              id="sukuk-dur" 
+              className="input" 
+              value={duration} 
+              onValueChange={v => setDuration(v.floatValue ?? '')} 
+              allowNegative={false} 
+              decimalScale={1} 
+            />
+          </div>
+        </div>
+
+        <div aria-live="polite" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <div className="grid-2">
+            <div className="result-box" style={{ padding: "20px" }}>
+              <div className="result-label">{t.periodic_profit}</div>
+              <div className="result-value" style={{ fontSize: "1.4rem", color: "var(--text)" }}>
+                {fmt(periodicProfit)}
+              </div>
+            </div>
+            
+            <div className="result-box" style={{ padding: "20px" }}>
+              <div className="result-label">{t.total_profit}</div>
+              <div className="result-value" style={{ fontSize: "1.4rem", color: "var(--success)" }}>
+                + {fmt(totalProfit)}
+              </div>
             </div>
           </div>
 
-          {/* Results */}
-          <div className="bg-teal-50 dark:bg-teal-900/20 p-6 rounded-2xl border border-teal-100 dark:border-teal-800/30 flex flex-col justify-center">
-            <h3 className="text-xl font-bold text-teal-800 dark:text-teal-300 mb-6 border-b border-teal-200 dark:border-teal-800/50 pb-4">
-              {dict.zakat.summary_title}
-            </h3>
-
-            <div className="space-y-4">
-              <div className="flex justify-between items-center pb-3 border-b border-teal-100 dark:border-teal-800/30">
-                <span className="text-gray-600 dark:text-gray-400">{dict.sukuk.periodic_profit}:</span>
-                <span className="font-semibold text-gray-800 dark:text-gray-200">
-                  <NumericFormat value={periodicProfit} displayType="text" thousandSeparator={true} prefix="$" decimalScale={2} fixedDecimalScale />
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center pb-3 border-b border-teal-100 dark:border-teal-800/30">
-                <span className="text-gray-600 dark:text-gray-400">{dict.sukuk.total_profit}:</span>
-                <span className="font-semibold text-teal-600 dark:text-teal-400">
-                  + <NumericFormat value={totalProfit} displayType="text" thousandSeparator={true} prefix="$" decimalScale={2} fixedDecimalScale />
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center pt-2">
-                <span className="text-lg font-bold text-gray-800 dark:text-white">{dict.sukuk.total_return}:</span>
-                <span className="text-2xl font-bold text-teal-600 dark:text-teal-400">
-                  <NumericFormat value={totalReturn} displayType="text" thousandSeparator={true} prefix="$" decimalScale={2} fixedDecimalScale />
-                </span>
-              </div>
+          <div className="result-box" style={{ background: "var(--primary)", color: "#fff", borderColor: "var(--primary)", marginTop: "auto" }}>
+            <div className="result-label" style={{ color: "rgba(255,255,255,0.8)" }}>{t.total_return}</div>
+            <div className="result-value">
+              {fmt(totalReturn)}
             </div>
           </div>
         </div>

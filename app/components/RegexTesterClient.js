@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 
 export default function RegexTesterClient({ dict, lang }) {
+  const t = dict.regex;
+
   const [pattern, setPattern] = useState("");
   const [flags, setFlags] = useState("g");
   const [testString, setTestString] = useState("");
@@ -16,41 +18,29 @@ export default function RegexTesterClient({ dict, lang }) {
   const evaluateRegex = () => {
     setError("");
     setMatches([]);
-
     if (!pattern) return;
 
     try {
       const regex = new RegExp(pattern, flags);
-      
       if (!testString) return;
 
       const results = [];
       let match;
-      
       if (regex.global) {
         while ((match = regex.exec(testString)) !== null) {
-          // Prevent infinite loops on zero-length matches
-          if (match.index === regex.lastIndex) {
-            regex.lastIndex++;
-          }
+          if (match.index === regex.lastIndex) regex.lastIndex++;
           results.push(match);
         }
       } else {
         match = regex.exec(testString);
-        if (match) {
-          results.push(match);
-        }
+        if (match) results.push(match);
       }
-      
       setMatches(results);
     } catch (err) {
-      setError(dict.regex.error + " (" + err.message + ")");
+      setError(t.error + " (" + err.message + ")");
     }
   };
 
-  const isRtl = lang === "ar";
-
-  // Function to highlight matches in the text
   const getHighlightedText = () => {
     if (!pattern || error || matches.length === 0) return testString;
 
@@ -60,122 +50,102 @@ export default function RegexTesterClient({ dict, lang }) {
     matches.forEach((match, index) => {
       const start = match.index;
       const end = start + match[0].length;
-
-      // Add text before the match
       if (start > lastIndex) {
         highlighted.push(<span key={`text-${index}`}>{testString.substring(lastIndex, start)}</span>);
       }
-
-      // Add the matched text
       highlighted.push(
-        <span key={`match-${index}`} className="bg-indigo-300 dark:bg-indigo-600 text-indigo-900 dark:text-white rounded px-0.5">
+        <span key={`match-${index}`} style={{ background: "rgba(37, 99, 235, 0.3)", borderRadius: "2px" }}>
           {match[0]}
         </span>
       );
-
       lastIndex = end;
     });
 
-    // Add remaining text
     if (lastIndex < testString.length) {
       highlighted.push(<span key="text-end">{testString.substring(lastIndex)}</span>);
     }
-
     return highlighted;
   };
 
   return (
-    <div className={`max-w-4xl mx-auto ${isRtl ? "text-right" : "text-left"}`}>
-      <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4">
-          {dict.regex.title}
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {dict.regex.subtitle}
-        </p>
+    <div className="container" style={{ padding: "40px 20px" }}>
+      <div className="page-header" style={{ textAlign: "center" }}>
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 dark:border-gray-700">
-        <div className="flex flex-col gap-6">
+      <div className="card">
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
           
-          {/* Regex Input */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-              {dict.regex.regex_pattern}
-            </label>
-            <div className="flex flex-col sm:flex-row gap-4" dir="ltr">
-              <div className="flex-grow flex items-center bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-600 overflow-hidden focus-within:ring-2 focus-within:ring-indigo-500">
-                <span className="px-4 text-gray-500 font-mono text-lg">/</span>
+            <label className="label">{t.regex_pattern}</label>
+            <div style={{ display: "flex", gap: "12px", alignItems: "stretch" }} dir="ltr">
+              <div style={{ flexGrow: 1, display: "flex", alignItems: "center", background: "var(--bg)", border: "1px solid var(--border)", borderRadius: "8px", overflow: "hidden" }}>
+                <span style={{ padding: "0 16px", color: "var(--text-muted)", fontFamily: "monospace", fontSize: "1.2rem" }}>/</span>
                 <input
                   type="text"
                   value={pattern}
                   onChange={(e) => setPattern(e.target.value)}
-                  className="w-full py-3 bg-transparent outline-none font-mono text-gray-800 dark:text-white"
+                  style={{ width: "100%", padding: "12px 0", background: "transparent", border: "none", outline: "none", color: "var(--text)", fontFamily: "monospace", fontSize: "1.1rem" }}
                   placeholder="[a-zA-Z0-9]+"
                 />
-                <span className="px-4 text-gray-500 font-mono text-lg">/</span>
+                <span style={{ padding: "0 16px", color: "var(--text-muted)", fontFamily: "monospace", fontSize: "1.2rem" }}>/</span>
               </div>
-              <div className="w-full sm:w-32">
-                <input
-                  type="text"
-                  value={flags}
-                  onChange={(e) => setFlags(e.target.value)}
-                  className="w-full py-3 px-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-600 outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-gray-800 dark:text-white"
-                  placeholder="gim"
-                  title={dict.regex.flags}
-                />
-              </div>
+              <input
+                type="text"
+                value={flags}
+                onChange={(e) => setFlags(e.target.value)}
+                className="input"
+                style={{ width: "100px", fontFamily: "monospace", fontSize: "1.1rem" }}
+                placeholder="gim"
+                title={t.flags}
+              />
             </div>
-            {error && <p className="mt-2 text-red-600 dark:text-red-400 text-sm">{error}</p>}
+            {error && <p style={{ marginTop: "8px", color: "var(--danger)", fontSize: "0.9rem" }}>{error}</p>}
           </div>
 
-          {/* Test String Input */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-              {dict.regex.test_string}
-            </label>
-            <div className="relative border border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900" dir="ltr">
-                {/* Highlighted text behind */}
+            <label className="label">{t.test_string}</label>
+            <div style={{ position: "relative", border: "1px solid var(--border)", borderRadius: "8px", overflow: "hidden", background: "var(--bg)" }} dir="ltr">
                 <div 
-                    className="absolute inset-0 p-4 font-mono text-transparent whitespace-pre-wrap break-words pointer-events-none z-0"
+                    style={{ position: "absolute", inset: 0, padding: "16px", fontFamily: "monospace", color: "transparent", whiteSpace: "pre-wrap", wordBreak: "break-word", pointerEvents: "none", zIndex: 0 }}
                     aria-hidden="true"
                 >
                     {getHighlightedText()}
                 </div>
-                {/* Transparent textarea in front */}
                 <textarea
                     value={testString}
                     onChange={(e) => setTestString(e.target.value)}
-                    className="w-full h-48 p-4 bg-transparent outline-none font-mono text-gray-800 dark:text-gray-100 resize-y relative z-10 whitespace-pre-wrap"
+                    className="input"
+                    style={{ width: "100%", height: "200px", padding: "16px", background: "transparent", border: "none", fontFamily: "monospace", color: "var(--text)", resize: "vertical", position: "relative", zIndex: 1, whiteSpace: "pre-wrap", wordBreak: "break-word" }}
                     placeholder="Enter string to test..."
                     spellCheck="false"
                 />
             </div>
           </div>
 
-          {/* Matches Output */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-              {dict.regex.matches} ({matches.length})
+            <h3 style={{ fontSize: "1.1rem", borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "16px" }}>
+              {t.matches} ({matches.length})
             </h3>
             
             {matches.length > 0 ? (
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-4 max-h-64 overflow-y-auto" dir="ltr">
+              <div style={{ background: "var(--bg)", borderRadius: "8px", border: "1px solid var(--border)", padding: "16px", maxHeight: "300px", overflowY: "auto" }} dir="ltr">
                 {matches.map((match, i) => (
-                  <div key={i} className="mb-4 last:mb-0">
-                    <div className="font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+                  <div key={i} style={{ marginBottom: i === matches.length - 1 ? 0 : "16px" }}>
+                    <div style={{ fontWeight: 600, color: "var(--primary)", marginBottom: "4px", fontSize: "0.9rem" }}>
                       Match {i + 1} (Index: {match.index})
                     </div>
-                    <div className="bg-white dark:bg-gray-800 p-2 rounded border border-gray-200 dark:border-gray-700 font-mono text-sm break-words text-gray-800 dark:text-gray-200">
+                    <div style={{ background: "var(--bg-card)", padding: "8px", borderRadius: "4px", border: "1px solid var(--border)", fontFamily: "monospace", fontSize: "0.95rem", wordBreak: "break-word" }}>
                       {match[0]}
                     </div>
                     {match.length > 1 && (
-                      <div className="mt-2 pl-4 border-l-2 border-indigo-200 dark:border-indigo-800">
-                        <div className="text-xs text-gray-500 mb-1">Capture Groups:</div>
+                      <div style={{ marginTop: "8px", paddingLeft: "16px", borderLeft: "2px solid var(--border)" }}>
+                        <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "4px" }}>Capture Groups:</div>
                         {Array.from(match).slice(1).map((group, groupIndex) => (
-                          <div key={groupIndex} className="text-sm font-mono text-gray-700 dark:text-gray-300">
-                            <span className="text-gray-400 mr-2">{groupIndex + 1}:</span> 
-                            {group === undefined ? <span className="italic opacity-50">undefined</span> : group}
+                          <div key={groupIndex} style={{ fontSize: "0.9rem", fontFamily: "monospace", color: "var(--text)" }}>
+                            <span style={{ color: "var(--text-muted)", marginRight: "8px" }}>{groupIndex + 1}:</span> 
+                            {group === undefined ? <span style={{ fontStyle: "italic", opacity: 0.5 }}>undefined</span> : group}
                           </div>
                         ))}
                       </div>
@@ -184,8 +154,8 @@ export default function RegexTesterClient({ dict, lang }) {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 italic">
-                {pattern ? dict.regex.no_matches : "Enter a pattern to see results."}
+              <p style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
+                {pattern ? t.no_matches : "Enter a pattern to see results."}
               </p>
             )}
           </div>
