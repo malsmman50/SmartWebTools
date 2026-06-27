@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 import { NumericFormat } from "react-number-format";
 
-export default function ZakatCalculatorClient({ lang, dict, ...props }) {
+export default function ZakatCalculatorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.zakat;
 
-  const [cash, setCash] = useState(5000);
-  const [gold, setGold] = useState(0);
+  const [cash, setCash] = useState(0);
+  const [gold, setGold] = useState(initialValues?.gold ? parseFloat(initialValues.gold) * 80 : 0); // Approx: gold grams * $80/g
   const [silver, setSilver] = useState(0);
   const [business, setBusiness] = useState(0);
   const [debts, setDebts] = useState(0);

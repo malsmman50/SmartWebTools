@@ -1,0 +1,1002 @@
+[
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "usd",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "eur",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "gbp",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "sar",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "aed",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "kwd",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "qar",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "bhd",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "omr",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "egp"
+  },
+  {
+    "amount": "1",
+    "from": "jod",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "egp",
+    "to": "try"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "usd"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "eur"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "gbp"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "sar"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "aed"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "kwd"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "qar"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "bhd"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "omr"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "jod"
+  },
+  {
+    "amount": "1",
+    "from": "try",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "eur"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "gbp"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "sar"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "aed"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "kwd"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "qar"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "bhd"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "omr"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "jod"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "usd",
+    "to": "try"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "usd"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "gbp"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "sar"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "aed"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "kwd"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "qar"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "bhd"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "omr"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "jod"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "eur",
+    "to": "try"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "usd"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "eur"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "sar"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "aed"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "kwd"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "qar"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "bhd"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "omr"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "jod"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "gbp",
+    "to": "try"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "usd"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "eur"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "gbp"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "aed"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "kwd"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "qar"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "bhd"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "omr"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "jod"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "sar",
+    "to": "try"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "usd"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "eur"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "gbp"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "sar"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "kwd"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "qar"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "bhd"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "omr"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "jod"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "aed",
+    "to": "try"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "usd"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "eur"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "gbp"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "sar"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "aed"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "qar"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "bhd"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "omr"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "jod"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "egp"
+  },
+  {
+    "amount": "10",
+    "from": "kwd",
+    "to": "try"
+  },
+  {
+    "amount": "10",
+    "from": "qar",
+    "to": "usd"
+  },
+  {
+    "amount": "10",
+    "from": "qar",
+    "to": "eur"
+  }
+]

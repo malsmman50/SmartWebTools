@@ -4,15 +4,15 @@ import { useState, useEffect, useMemo } from "react";
 
 const COMMON_CURRENCIES = ["USD", "EUR", "GBP", "SAR", "AED", "KWD", "QAR", "BHD", "OMR", "EGP", "JOD"];
 
-export default function CurrencyConverterClient({ lang, dict, ...props }) {
+export default function CurrencyConverterClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.currency;
   const isAr = lang === "ar";
 
   const [rates, setRates] = useState(null);
-  const [amount, setAmount] = useState("1");
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("SAR");
+  const [amount, setAmount] = useState(initialValues?.amount || "1");
+  const [fromCurrency, setFromCurrency] = useState(initialValues?.from ? initialValues.from.toUpperCase() : "USD");
+  const [toCurrency, setToCurrency] = useState(initialValues?.to ? initialValues.to.toUpperCase() : "SAR");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

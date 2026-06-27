@@ -39,18 +39,53 @@ export default function sitemap() {
   // Dynamically inject Blog routes
   try {
     const dataPath = path.join(process.cwd(), "lib", "blog-data.json");
-    const fileContent = fs.readFileSync(dataPath, "utf-8");
-    const blogPosts = JSON.parse(fileContent);
-    blogPosts.forEach(post => {
-      routes.push({
-        path: `/blog/${post.slug}`,
-        changeFrequency: 'weekly',
-        priority: 0.8
+    if (fs.existsSync(dataPath)) {
+      const fileContent = fs.readFileSync(dataPath, "utf-8");
+      const blogPosts = JSON.parse(fileContent);
+      blogPosts.forEach(post => {
+        routes.push({
+          path: `/blog/${post.slug}`,
+          changeFrequency: 'weekly',
+          priority: 0.8
+        });
       });
-    });
+    }
   } catch (err) {
     console.error("Error loading blog data for sitemap:", err);
   }
+
+  // Inject PSEO Hijri Routes
+  try {
+    const hijriPath = path.join(process.cwd(), "lib", "pseo-hijri.json");
+    if (fs.existsSync(hijriPath)) {
+      const hData = JSON.parse(fs.readFileSync(hijriPath, "utf-8"));
+      hData.forEach(c => {
+        routes.push({ path: `/tools/hijri-converter/convert-${c.day}-${c.month}-${c.year}`, changeFrequency: 'monthly', priority: 0.6 });
+      });
+    }
+  } catch(e) {}
+
+  // Inject PSEO Currency Routes
+  try {
+    const currPath = path.join(process.cwd(), "lib", "pseo-currency.json");
+    if (fs.existsSync(currPath)) {
+      const cData = JSON.parse(fs.readFileSync(currPath, "utf-8"));
+      cData.forEach(c => {
+        routes.push({ path: `/calculators/currency/convert-${c.amount}-${c.from}-to-${c.to}`, changeFrequency: 'daily', priority: 0.6 });
+      });
+    }
+  } catch(e) {}
+
+  // Inject PSEO Zakat Routes
+  try {
+    const zakatPath = path.join(process.cwd(), "lib", "pseo-zakat.json");
+    if (fs.existsSync(zakatPath)) {
+      const zData = JSON.parse(fs.readFileSync(zakatPath, "utf-8"));
+      zData.forEach(c => {
+        routes.push({ path: `/calculators/zakat/zakat-on-${c.grams}-grams-of-${c.karat}-gold`, changeFrequency: 'monthly', priority: 0.6 });
+      });
+    }
+  } catch(e) {}
 
   const sitemapData = [];
   

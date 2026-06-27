@@ -71,7 +71,7 @@ const exactHijriToGregorian = (targetY, targetM, targetD) => {
   return closestMatch;
 };
 
-export default function HijriConverterClient({ lang, dict, ...props }) {
+export default function HijriConverterClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.hijri;
   const isAr = lang === "ar";
@@ -80,24 +80,32 @@ export default function HijriConverterClient({ lang, dict, ...props }) {
   const gregorianMonthNames = isAr ? gregorianMonthNamesAr : gregorianMonthNamesEn;
 
   const [gregorianDate, setGregorianDate] = useState("");
-  const [hDay, setHDay] = useState("1");
-  const [hMonth, setHMonth] = useState("1");
-  const [hYear, setHYear] = useState("1446");
-  const [activeTab, setActiveTab] = useState("g2h"); 
+  const [hDay, setHDay] = useState(initialValues?.day || "1");
+  const [hMonth, setHMonth] = useState(initialValues?.month || "1");
+  const [hYear, setHYear] = useState(initialValues?.year || "1446");
+  const [activeTab, setActiveTab] = useState(initialValues ? "h2g" : "g2h"); 
   
   const [result, setResult] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    const today = new Date();
-    setGregorianDate(today.toISOString().split("T")[0]);
-    
-    const hToday = getExactHijriDate(today);
-    setHYear(hToday.year.toString());
-    setHMonth(hToday.month.toString());
-    setHDay(hToday.day.toString());
-  }, []);
+    if (!initialValues) {
+      const today = new Date();
+      setGregorianDate(today.toISOString().split("T")[0]);
+      
+      const hToday = getExactHijriDate(today);
+      setHYear(hToday.year.toString());
+      setHMonth(hToday.month.toString());
+      setHDay(hToday.day.toString());
+    } else {
+      // Trigger conversion automatically if initialValues are provided
+      setTimeout(() => {
+        const convertBtn = document.getElementById('auto-convert-btn');
+        if (convertBtn) convertBtn.click();
+      }, 100);
+    }
+  }, [initialValues]);
 
   const handleConvert = () => {
     try {
@@ -228,6 +236,7 @@ export default function HijriConverterClient({ lang, dict, ...props }) {
         </div>
 
         <button 
+          id="auto-convert-btn"
           onClick={handleConvert}
           className="btn btn-primary"
           style={{ width: "100%", padding: "14px", borderRadius: "8px", background: "var(--success)", color: "white", border: "none", fontWeight: "bold", fontSize: "1.1rem", cursor: "pointer", marginBottom: "24px", justifyContent: "center" }}
