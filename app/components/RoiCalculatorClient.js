@@ -3,13 +3,16 @@
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
 
-export default function RoiCalculatorClient({ lang, dict, ...props }) {
+export default function RoiCalculatorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.roi;
   const isAr = lang === "ar";
 
-  const [invested, setInvested] = useState(5000);
-  const [returned, setReturned] = useState(7500);
+  const initInvested = initialValues?.investment ? parseFloat(initialValues.investment) : 5000;
+  const initReturned = initialValues?.returnAmt ? initInvested + parseFloat(initialValues.returnAmt) : 7500;
+
+  const [invested, setInvested] = useState(initInvested);
+  const [returned, setReturned] = useState(initReturned);
   const [duration, setDuration] = useState(2); // default 2 years
 
   const profit = returned - invested;

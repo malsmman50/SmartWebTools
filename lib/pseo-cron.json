@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "every-5-minutes"
+  },
+  {
+    "slug": "every-hour"
+  },
+  {
+    "slug": "every-day-at-midnight"
+  },
+  {
+    "slug": "every-monday"
+  }
+]

@@ -17,7 +17,7 @@ const getQiblaDirection = (lat, lng) => {
   return (qibla + 360) % 360;
 };
 
-export default function QiblaCompassClient({ lang, dict, ...props }) {
+export default function QiblaCompassClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.qibla;
   const isAr = lang === "ar";
@@ -38,45 +38,73 @@ export default function QiblaCompassClient({ lang, dict, ...props }) {
     const handleOrientation = (e) => {
       let currentHeading = null;
       
-      if (typeof e.webkitCompassHeading === "number") {
+      if (e.webkitCompassHeading) {
         currentHeading = e.webkitCompassHeading;
-        hasSensor = true;
-      } else if (e.type === "deviceorientationabsolute" || e.absolute === true) {
-        if (typeof e.alpha === "number") {
-          currentHeading = 360 - e.alpha;
-          hasSensor = true;
-        }
+      } else if (e.alpha !== null) {
+        currentHeading = 360 - e.alpha;
       }
-      
+
       if (currentHeading !== null) {
+        hasSensor = true;
         setHeading(currentHeading);
       }
     };
 
-    window.addEventListener("deviceorientationabsolute", handleOrientation);
-    window.addEventListener("deviceorientation", handleOrientation);
+    const handleDeviceOrientationAbsolute = (e) => {
+      if (e.alpha !== null) {
+        hasSensor = true;
+        setHeading(360 - e.alpha);
+      }
+    };
 
-    // Fallback for Desktop/Laptops without motion sensors
-    const sensorTimeout = setTimeout(() => {
-      if (!hasSensor && heading === null) {
+    if (window.DeviceOrientationEvent) {
+      if ('ondeviceorientationabsolute' in window) {
+        window.addEventListener("deviceorientationabsolute", handleDeviceOrientationAbsolute, true);
+      } else {
+        window.addEventListener("deviceorientation", handleOrientation, true);
+      }
+    }
+
+    const fallbackTimeout = setTimeout(() => {
+      if (!hasSensor) {
         setStatus("no_sensor");
       }
     }, 3000);
 
     return () => {
-      window.removeEventListener("deviceorientationabsolute", handleOrientation);
-      window.removeEventListener("deviceorientation", handleOrientation);
-      clearTimeout(sensorTimeout);
+      window.removeEventListener("deviceorientationabsolute", handleDeviceOrientationAbsolute, true);
+      window.removeEventListener("deviceorientation", handleOrientation, true);
+      clearTimeout(fallbackTimeout);
     };
-  }, [status, heading]);
+  }, [status]);
 
-  const startCompass = async () => {
+  const requestAccess = () => {
     setStatus("requesting");
     setErrorMsg("");
-    
+
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            getLocation();
+          } else {
+            setStatus("error");
+            setErrorMsg(t.error_denied);
+          }
+        })
+        .catch(() => {
+          setStatus("error");
+          setErrorMsg(t.error_unsupported);
+        });
+    } else {
+      getLocation();
+    }
+  };
+
+  const getLocation = () => {
     if (!navigator.geolocation) {
-      setErrorMsg(t.geolocation_unsupported);
       setStatus("error");
+      setErrorMsg(t.error_unsupported);
       return;
     }
 
@@ -84,29 +112,16 @@ export default function QiblaCompassClient({ lang, dict, ...props }) {
       (position) => {
         const { latitude, longitude } = position.coords;
         setCoords({ lat: latitude, lng: longitude });
-        
-        const qiblaAngle = getQiblaDirection(latitude, longitude);
-        setQibla(qiblaAngle);
-        
-        // iOS 13+ requires explicit permission
-        if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
-          DeviceOrientationEvent.requestPermission()
-            .then(permissionState => {
-              if (permissionState === "granted") {
-                setStatus("active");
-              } else {
-                setErrorMsg(t.permission_denied);
-                setStatus("error");
-              }
-            })
-            .catch(console.error);
-        } else {
-          setStatus("active");
-        }
+        setQibla(getQiblaDirection(latitude, longitude));
+        setStatus("active");
       },
-      (error) => {
-        setErrorMsg(t.location_denied);
+      (err) => {
         setStatus("error");
+        if (err.code === err.PERMISSION_DENIED) {
+          setErrorMsg(t.error_location_denied);
+        } else {
+          setErrorMsg(t.error_general);
+        }
       }
     );
   };
@@ -120,11 +135,13 @@ export default function QiblaCompassClient({ lang, dict, ...props }) {
     }
   }, [isAligned]);
 
+  const displayCity = initialValues?.city ? initialValues.city.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase()) : "";
+
   return (
     <div className="container" style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
       <div className="page-header" style={{ textAlign: "center" }}>
-        <h1>{t.title}</h1>
-        <p>{t.subtitle}</p>
+        <h1>{displayCity ? `${t.title} - ${displayCity}` : t.title}</h1>
+        <p>{displayCity ? (isAr ? `تحديد القبلة للصلاة من ${displayCity}` : `Find Qibla Direction from ${displayCity}`) : t.subtitle}</p>
       </div>
 
       <div className="card" style={{ 

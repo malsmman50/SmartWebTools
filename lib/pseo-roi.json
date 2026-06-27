@@ -1,0 +1,66 @@
+[
+  {
+    "amount": "1000",
+    "returnAmt": "100"
+  },
+  {
+    "amount": "1000",
+    "returnAmt": "500"
+  },
+  {
+    "amount": "1000",
+    "returnAmt": "1000"
+  },
+  {
+    "amount": "1000",
+    "returnAmt": "5000"
+  },
+  {
+    "amount": "5000",
+    "returnAmt": "100"
+  },
+  {
+    "amount": "5000",
+    "returnAmt": "500"
+  },
+  {
+    "amount": "5000",
+    "returnAmt": "1000"
+  },
+  {
+    "amount": "5000",
+    "returnAmt": "5000"
+  },
+  {
+    "amount": "10000",
+    "returnAmt": "100"
+  },
+  {
+    "amount": "10000",
+    "returnAmt": "500"
+  },
+  {
+    "amount": "10000",
+    "returnAmt": "1000"
+  },
+  {
+    "amount": "10000",
+    "returnAmt": "5000"
+  },
+  {
+    "amount": "50000",
+    "returnAmt": "100"
+  },
+  {
+    "amount": "50000",
+    "returnAmt": "500"
+  },
+  {
+    "amount": "50000",
+    "returnAmt": "1000"
+  },
+  {
+    "amount": "50000",
+    "returnAmt": "5000"
+  }
+]

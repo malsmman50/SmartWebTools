@@ -54,38 +54,35 @@ export default function sitemap() {
     console.error("Error loading blog data for sitemap:", err);
   }
 
-  // Inject PSEO Hijri Routes
-  try {
-    const hijriPath = path.join(process.cwd(), "lib", "pseo-hijri.json");
-    if (fs.existsSync(hijriPath)) {
-      const hData = JSON.parse(fs.readFileSync(hijriPath, "utf-8"));
-      hData.forEach(c => {
-        routes.push({ path: `/tools/hijri-converter/convert-${c.day}-${c.month}-${c.year}`, changeFrequency: 'monthly', priority: 0.6 });
-      });
-    }
-  } catch(e) {}
+  // Array of PSEO definitions
+  const pseoConfigs = [
+    { file: 'pseo-hijri.json', pathFn: c => `/tools/hijri-converter/convert-${c.day}-${c.month}-${c.year}`, freq: 'monthly' },
+    { file: 'pseo-currency.json', pathFn: c => `/calculators/currency/convert-${c.amount}-${c.from}-to-${c.to}`, freq: 'daily' },
+    { file: 'pseo-zakat.json', pathFn: c => `/calculators/zakat/zakat-on-${c.grams}-grams-of-${c.karat}-gold`, freq: 'monthly' },
+    { file: 'pseo-murabaha.json', pathFn: c => `/calculators/murabaha/murabaha-for-${c.amount}-usd-over-${c.years}-years`, freq: 'monthly' },
+    { file: 'pseo-mudarabah.json', pathFn: c => `/calculators/mudarabah/mudarabah-profit-for-${c.amount}-usd-at-${c.roi}-percent`, freq: 'monthly' },
+    { file: 'pseo-islamic-deposit.json', pathFn: c => `/calculators/islamic-deposit/islamic-deposit-for-${c.amount}-usd-over-${c.months}-months`, freq: 'monthly' },
+    { file: 'pseo-sukuk.json', pathFn: c => `/calculators/sukuk/sukuk-yield-for-${c.amount}-usd-at-${c.rate}-percent-over-${c.years}-years`, freq: 'monthly' },
+    { file: 'pseo-roi.json', pathFn: c => `/calculators/roi/roi-for-${c.amount}-usd-with-${c.returnAmt}-usd-profit`, freq: 'monthly' },
+    { file: 'pseo-data-converter.json', pathFn: c => `/tools/data-converter/convert-${c.from}-to-${c.to}`, freq: 'monthly' },
+    { file: 'pseo-password.json', pathFn: c => `/tools/password-generator/generate-${c.length}-character-secure-password`, freq: 'monthly' },
+    { file: 'pseo-qibla.json', pathFn: c => `/tools/qibla-compass/qibla-direction-from-${c.city}`, freq: 'monthly' },
+    { file: 'pseo-cron.json', pathFn: c => `/tools/cron-generator/${c.slug}`, freq: 'monthly' }
+  ];
 
-  // Inject PSEO Currency Routes
-  try {
-    const currPath = path.join(process.cwd(), "lib", "pseo-currency.json");
-    if (fs.existsSync(currPath)) {
-      const cData = JSON.parse(fs.readFileSync(currPath, "utf-8"));
-      cData.forEach(c => {
-        routes.push({ path: `/calculators/currency/convert-${c.amount}-${c.from}-to-${c.to}`, changeFrequency: 'daily', priority: 0.6 });
-      });
+  pseoConfigs.forEach(config => {
+    try {
+      const dataPath = path.join(process.cwd(), "lib", config.file);
+      if (fs.existsSync(dataPath)) {
+        const data = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+        data.forEach(c => {
+          routes.push({ path: config.pathFn(c), changeFrequency: config.freq, priority: 0.6 });
+        });
+      }
+    } catch(e) {
+      console.error(`Error loading PSEO config ${config.file}:`, e);
     }
-  } catch(e) {}
-
-  // Inject PSEO Zakat Routes
-  try {
-    const zakatPath = path.join(process.cwd(), "lib", "pseo-zakat.json");
-    if (fs.existsSync(zakatPath)) {
-      const zData = JSON.parse(fs.readFileSync(zakatPath, "utf-8"));
-      zData.forEach(c => {
-        routes.push({ path: `/calculators/zakat/zakat-on-${c.grams}-grams-of-${c.karat}-gold`, changeFrequency: 'monthly', priority: 0.6 });
-      });
-    }
-  } catch(e) {}
+  });
 
   const sitemapData = [];
   

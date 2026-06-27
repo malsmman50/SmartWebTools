@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
 
-export default function MurabahaCalculatorClient({ lang, dict, ...props }) {
+export default function MurabahaCalculatorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.murabaha;
 
-  const [cost, setCost] = useState(100000);
+  const [cost, setCost] = useState(initialValues?.principal ? parseFloat(initialValues.principal) : 100000);
   const [markupPercent, setMarkupPercent] = useState(15);
-  const [months, setMonths] = useState(60);
-  const [downPayment, setDownPayment] = useState(20000);
+  const [months, setMonths] = useState(initialValues?.years ? parseInt(initialValues.years) * 12 : 60);
+  const [downPayment, setDownPayment] = useState(0);
 
   const numCost = Number(cost) || 0;
   const numDownPayment = Number(downPayment) || 0;

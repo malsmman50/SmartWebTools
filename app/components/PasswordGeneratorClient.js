@@ -1,18 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function PasswordGeneratorClient({ lang, dict, ...props }) {
+export default function PasswordGeneratorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.password;
   const isAr = lang === "ar";
 
-  const [length, setLength] = useState(20);
+  const [length, setLength] = useState(initialValues?.length ? parseInt(initialValues.length) : 20);
   const [useUpper, setUseUpper] = useState(true);
   const [useNumbers, setUseNumbers] = useState(true);
   const [useSymbols, setUseSymbols] = useState(true);
   const [password, setPassword] = useState("");
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (initialValues?.length) {
+      // Auto-generate on load for PSEO
+      generate();
+    }
+  }, []);
 
   const generate = () => {
     let charSets = [];

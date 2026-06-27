@@ -1,0 +1,92 @@
+[
+  {
+    "amount": "10000",
+    "rate": "3",
+    "years": "5"
+  },
+  {
+    "amount": "10000",
+    "rate": "3",
+    "years": "10"
+  },
+  {
+    "amount": "10000",
+    "rate": "5",
+    "years": "5"
+  },
+  {
+    "amount": "10000",
+    "rate": "5",
+    "years": "10"
+  },
+  {
+    "amount": "10000",
+    "rate": "7",
+    "years": "5"
+  },
+  {
+    "amount": "10000",
+    "rate": "7",
+    "years": "10"
+  },
+  {
+    "amount": "50000",
+    "rate": "3",
+    "years": "5"
+  },
+  {
+    "amount": "50000",
+    "rate": "3",
+    "years": "10"
+  },
+  {
+    "amount": "50000",
+    "rate": "5",
+    "years": "5"
+  },
+  {
+    "amount": "50000",
+    "rate": "5",
+    "years": "10"
+  },
+  {
+    "amount": "50000",
+    "rate": "7",
+    "years": "5"
+  },
+  {
+    "amount": "50000",
+    "rate": "7",
+    "years": "10"
+  },
+  {
+    "amount": "100000",
+    "rate": "3",
+    "years": "5"
+  },
+  {
+    "amount": "100000",
+    "rate": "3",
+    "years": "10"
+  },
+  {
+    "amount": "100000",
+    "rate": "5",
+    "years": "5"
+  },
+  {
+    "amount": "100000",
+    "rate": "5",
+    "years": "10"
+  },
+  {
+    "amount": "100000",
+    "rate": "7",
+    "years": "5"
+  },
+  {
+    "amount": "100000",
+    "rate": "7",
+    "years": "10"
+  }
+]

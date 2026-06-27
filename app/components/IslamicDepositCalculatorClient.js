@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { NumericFormat } from "react-number-format";
 
-export default function IslamicDepositCalculatorClient({ dict, lang }) {
+export default function IslamicDepositCalculatorClient({ dict, lang, initialValues }) {
   const t = dict.islamic_deposit;
 
-  const [deposit, setDeposit] = useState("");
-  const [expectedRate, setExpectedRate] = useState("");
-  const [customerShare, setCustomerShare] = useState("");
-  const [duration, setDuration] = useState("");
+  const [deposit, setDeposit] = useState(initialValues?.depositAmount ? parseFloat(initialValues.depositAmount) : 10000);
+  const [expectedRate, setExpectedRate] = useState(initialValues?.depositAmount ? 5 : "");
+  const [customerShare, setCustomerShare] = useState(initialValues?.depositAmount ? 80 : "");
+  const [duration, setDuration] = useState(initialValues?.durationMonths ? parseFloat(initialValues.durationMonths) / 12 : 1);
 
   const numDeposit = Number(deposit) || 0;
   const numExpectedRate = Number(expectedRate) || 0;

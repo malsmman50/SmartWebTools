@@ -1,0 +1,82 @@
+[
+  {
+    "amount": "5000",
+    "months": "3"
+  },
+  {
+    "amount": "5000",
+    "months": "6"
+  },
+  {
+    "amount": "5000",
+    "months": "12"
+  },
+  {
+    "amount": "5000",
+    "months": "24"
+  },
+  {
+    "amount": "5000",
+    "months": "60"
+  },
+  {
+    "amount": "10000",
+    "months": "3"
+  },
+  {
+    "amount": "10000",
+    "months": "6"
+  },
+  {
+    "amount": "10000",
+    "months": "12"
+  },
+  {
+    "amount": "10000",
+    "months": "24"
+  },
+  {
+    "amount": "10000",
+    "months": "60"
+  },
+  {
+    "amount": "50000",
+    "months": "3"
+  },
+  {
+    "amount": "50000",
+    "months": "6"
+  },
+  {
+    "amount": "50000",
+    "months": "12"
+  },
+  {
+    "amount": "50000",
+    "months": "24"
+  },
+  {
+    "amount": "50000",
+    "months": "60"
+  },
+  {
+    "amount": "100000",
+    "months": "3"
+  },
+  {
+    "amount": "100000",
+    "months": "6"
+  },
+  {
+    "amount": "100000",
+    "months": "12"
+  },
+  {
+    "amount": "100000",
+    "months": "24"
+  },
+  {
+    "amount": "100000",
+    "months": "60"
+  }
+]

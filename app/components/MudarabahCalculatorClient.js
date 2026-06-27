@@ -3,13 +3,17 @@
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
 
-export default function MudarabahCalculatorClient({ lang, dict, ...props }) {
+export default function MudarabahCalculatorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.mudarabah;
 
-  const [capital, setCapital] = useState(50000);
-  const [revenue, setRevenue] = useState(80000);
-  const [expenses, setExpenses] = useState(20000);
+  const initCapital = initialValues?.capital ? parseFloat(initialValues.capital) : 50000;
+  const initRoi = initialValues?.expectedRoi ? parseFloat(initialValues.expectedRoi) : null;
+  const initRevenue = initRoi ? initCapital + (initCapital * (initRoi / 100)) : 80000;
+
+  const [capital, setCapital] = useState(initCapital);
+  const [revenue, setRevenue] = useState(initRevenue);
+  const [expenses, setExpenses] = useState(initRoi ? 0 : 20000);
   const [investorShare, setInvestorShare] = useState(60); 
 
   const netProfit = revenue - expenses;

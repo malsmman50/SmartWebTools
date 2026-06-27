@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { NumericFormat } from "react-number-format";
 
-export default function SukukCalculatorClient({ dict, lang }) {
+export default function SukukCalculatorClient({ dict, lang, initialValues }) {
   const t = dict.sukuk;
 
-  const [faceValue, setFaceValue] = useState("");
-  const [profitRate, setProfitRate] = useState("");
+  const [faceValue, setFaceValue] = useState(initialValues?.sukukAmount ? parseFloat(initialValues.sukukAmount) : 10000);
+  const [profitRate, setProfitRate] = useState(initialValues?.expectedYield ? parseFloat(initialValues.expectedYield) : 5);
   const [frequency, setFrequency] = useState("2");
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState(initialValues?.maturityYears ? parseInt(initialValues.maturityYears) : 5);
 
   const numFaceValue = Number(faceValue) || 0;
   const numProfitRate = Number(profitRate) || 0;

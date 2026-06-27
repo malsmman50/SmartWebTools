@@ -1,0 +1,50 @@
+[
+  {
+    "from": "json",
+    "to": "xml"
+  },
+  {
+    "from": "json",
+    "to": "csv"
+  },
+  {
+    "from": "json",
+    "to": "yaml"
+  },
+  {
+    "from": "xml",
+    "to": "json"
+  },
+  {
+    "from": "xml",
+    "to": "csv"
+  },
+  {
+    "from": "xml",
+    "to": "yaml"
+  },
+  {
+    "from": "csv",
+    "to": "json"
+  },
+  {
+    "from": "csv",
+    "to": "xml"
+  },
+  {
+    "from": "csv",
+    "to": "yaml"
+  },
+  {
+    "from": "yaml",
+    "to": "json"
+  },
+  {
+    "from": "yaml",
+    "to": "xml"
+  },
+  {
+    "from": "yaml",
+    "to": "csv"
+  }
+]

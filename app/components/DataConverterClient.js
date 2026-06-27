@@ -6,13 +6,13 @@ import Papa from "papaparse";
 import YAML from "yaml";
 import { js2xml, xml2js } from "xml-js";
 
-export default function DataConverterClient({ dict, lang }) {
+export default function DataConverterClient({ dict, lang, initialValues }) {
   const t = dict.data_converter;
 
   const [inputData, setInputData] = useState("");
   const [outputData, setOutputData] = useState("");
-  const [fromFormat, setFromFormat] = useState("json");
-  const [toFormat, setToFormat] = useState("yaml");
+  const [fromFormat, setFromFormat] = useState(initialValues?.fromFormat ? initialValues.fromFormat : "json");
+  const [toFormat, setToFormat] = useState(initialValues?.toFormat ? initialValues.toFormat : "yaml");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [copied, setCopied] = useState(false);

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import cronstrue from "cronstrue";
 import "cronstrue/locales/ar"; // Import Arabic locale for cronstrue
 
-export default function CronGeneratorClient({ lang, dict, ...props }) {
+export default function CronGeneratorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.cron;
   const isAr = lang === "ar";
@@ -14,6 +14,15 @@ export default function CronGeneratorClient({ lang, dict, ...props }) {
   const [dayOfMonth, setDayOfMonth] = useState("*");
   const [month, setMonth] = useState("*");
   const [dayOfWeek, setDayOfWeek] = useState("*");
+
+  useEffect(() => {
+    if (initialValues?.preset) {
+      if (initialValues.preset === "every-5-minutes") { setMinute("*/5"); }
+      if (initialValues.preset === "every-hour") { setMinute("0"); }
+      if (initialValues.preset === "every-day-at-midnight") { setMinute("0"); setHour("0"); }
+      if (initialValues.preset === "every-monday") { setMinute("0"); setHour("0"); setDayOfWeek("1"); }
+    }
+  }, []);
   const [copied, setCopied] = useState(false);
 
   const [humanReadable, setHumanReadable] = useState("");
