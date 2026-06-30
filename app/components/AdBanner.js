@@ -1,9 +1,10 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWidthResponsive = "true" }) {
   const pathname = usePathname();
+  const adRef = useRef(null);
 
   // Show a subtle placeholder during development or before approval so you can see where ads will be
   const isDev = process.env.NODE_ENV === 'development';
@@ -11,10 +12,11 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWi
   useEffect(() => {
     try {
       // Initialize the ad if the Google AdSense script is loaded
-      // The pathname key forces this component to unmount and remount on route changes,
-      // ensuring ads are refreshed properly during client-side navigation.
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (typeof window !== 'undefined' && adRef.current) {
+        // Prevent pushing multiple times to the same element in SPA navigation
+        if (!adRef.current.hasAttribute('data-adsbygoogle-status')) {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }
       }
     } catch (e) {
       console.error('AdSense initialization error:', e);
@@ -22,8 +24,9 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWi
   }, [pathname]); // Re-run when pathname changes
 
   return (
-    <div key={pathname} style={{ width: '100%', margin: '24px 0', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ width: '100%', margin: '24px 0', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={{ 
           display: 'block', 

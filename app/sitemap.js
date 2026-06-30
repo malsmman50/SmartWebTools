@@ -70,6 +70,8 @@ export default function sitemap() {
     { file: 'pseo-cron.json', pathFn: c => `/tools/cron-generator/${c.slug}`, freq: 'monthly' }
   ];
 
+  /* 
+  DISABLED: PSEO Doorway Pages are temporarily disabled to prevent Google AdSense "Low Value Content" rejection.
   pseoConfigs.forEach(config => {
     try {
       const dataPath = path.join(process.cwd(), "lib", config.file);
@@ -83,6 +85,7 @@ export default function sitemap() {
       console.error(`Error loading PSEO config ${config.file}:`, e);
     }
   });
+  */
 
   const sitemapData = [];
   

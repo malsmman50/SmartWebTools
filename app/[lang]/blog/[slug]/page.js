@@ -15,19 +15,7 @@ function getBlogData() {
   }
 }
 
-// Generate static params for SSG
-export async function generateStaticParams() {
-  const posts = getBlogData();
-  const params = [];
-  
-  for (const post of posts) {
-    params.push({ lang: "en", slug: post.slug });
-    params.push({ lang: "ar", slug: post.slug });
-  }
-  
-  return params;
-}
-
+// dynamicParams = true is default, meaning paths not generated at build time will be generated on demand.
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang;
