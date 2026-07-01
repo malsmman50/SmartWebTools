@@ -155,7 +155,7 @@ export default function Navbar({ lang, dict }) {
             <button
               className="lang-toggle"
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
-              aria-label="Switch Language"
+              aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
               style={{
                 background: "rgba(16, 185, 129, 0.1)",
@@ -194,13 +194,12 @@ export default function Navbar({ lang, dict }) {
             </button>
           </nav>
 
-          {/* Mobile Hamburger Icon */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }} className="mobile-only-controls">
             {/* Mobile Language Switcher */}
             <button
               className="lang-toggle"
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
-              aria-label="Toggle language"
+              aria-label={lang === "en" ? "Toggle language عربي" : "Toggle language En"}
               style={{
                 background: "rgba(16, 185, 129, 0.1)",
                 border: "1px solid rgba(16, 185, 129, 0.3)",

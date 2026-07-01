@@ -82,9 +82,9 @@ export default function CookieBanner({ lang }) {
       textAlign: isAr ? "right" : "left"
     }}>
       <div style={{ flex: "1 1 600px", display: "flex", flexDirection: "column", gap: "8px" }}>
-        <h4 style={{ margin: 0, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "8px" }}>
+        <strong style={{ margin: 0, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "8px" }}>
           {content.title}
-        </h4>
+        </strong>
         <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.6", maxWidth: "1000px" }}>
           {content.text}
           {" "}
