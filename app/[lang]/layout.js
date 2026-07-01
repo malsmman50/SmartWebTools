@@ -46,18 +46,8 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: isAr ? "أدوات الحساب الذكية — التمويل الإسلامي وأدوات المطورين" : "SmartCalcTools — Halal Finance & Pro Dev Tools",
-      description: isAr
-        ? "استكشف حاسبة الزكاة، حاسبة التقاعد الإسلامي، وأدوات المطورين فائقة الأمان دون اتصال بالإنترنت."
-        : "Explore our Zakat Calculator, Islamic FIRE tool, and ultra-secure offline developer utilities.",
+      description: isAr ? "مجموعة من الأدوات الخاصة بالتمويل الإسلامي والمطورين. حساب الزكاة والمواريث، وتحويل العملات والمزيد بخصوصية تامة." : "A complete suite of Halal finance calculators and developer tools. Compute Zakat, Inheritance, format JSON, and decode JWT safely offline.",
       images: ["/twitter-image.png"],
-    },
-    alternates: {
-      canonical: isAr ? 'https://smartcalctools.xyz/ar' : 'https://smartcalctools.xyz/en',
-      languages: {
-        'en': 'https://smartcalctools.xyz/en',
-        'ar': 'https://smartcalctools.xyz/ar',
-        'x-default': 'https://smartcalctools.xyz/en',
-      },
     },
     robots: { index: true, follow: true }
   };
@@ -85,6 +75,24 @@ export default async function RootLayout({ children, params }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2077857887750518" 
           crossOrigin="anonymous" 
           strategy="lazyOnload" 
+        />
+        {/* Google Consent Mode v2 - Default State */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              
+              if (!localStorage.getItem('cookie_consent')) {
+                gtag('consent', 'default', {
+                  'ad_storage': 'denied',
+                  'ad_user_data': 'denied',
+                  'ad_personalization': 'denied',
+                  'analytics_storage': 'denied'
+                });
+              }
+            `
+          }}
         />
         <script
           dangerouslySetInnerHTML={{

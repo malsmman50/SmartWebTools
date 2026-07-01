@@ -1,5 +1,19 @@
 import Link from "next/link";
 import { getDictionary } from "@/app/dictionaries";
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const isAr = lang === "ar";
+  return {
+    alternates: {
+      canonical: isAr ? 'https://smartcalctools.xyz/ar' : 'https://smartcalctools.xyz/en',
+      languages: {
+        'en': 'https://smartcalctools.xyz/en',
+        'ar': 'https://smartcalctools.xyz/ar',
+        'x-default': 'https://smartcalctools.xyz/en',
+      },
+    },
+  };
+}
 
 export default async function Home({ params }) {
   const { lang } = await params;
