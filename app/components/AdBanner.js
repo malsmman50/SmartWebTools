@@ -32,7 +32,7 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWi
   }
 
   return (
-    <div style={{ width: '100%', margin: '24px 0', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ width: '100%', margin: '24px 0', minHeight: '90px', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
       <ins
         ref={adRef}
         className="adsbygoogle"

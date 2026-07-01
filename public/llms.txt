@@ -1,0 +1,17 @@
+# SmartCalcTools
+
+> Free, private, and 100% client-side offline tools for developers and Islamic finance.
+
+## About Us
+SmartCalcTools is a suite of zero-trust web applications. All calculations and data processing occur entirely locally within your browser.
+
+## Key Features & Tools
+
+- [Zakat Calculator](https://smartcalctools.xyz/en/calculators/zakat)
+- [Murabaha Calculator](https://smartcalctools.xyz/en/calculators/murabaha)
+- [Mudarabah Calculator](https://smartcalctools.xyz/en/calculators/mudarabah)
+- [JSON Formatter](https://smartcalctools.xyz/en/tools/json-formatter)
+- [JWT Decoder](https://smartcalctools.xyz/en/tools/jwt-decoder)
+
+## Privacy
+We do not track, collect, or store any of your inputs. You can read our full [Privacy Policy](https://smartcalctools.xyz/en/privacy-policy).

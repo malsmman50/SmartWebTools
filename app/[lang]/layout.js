@@ -52,6 +52,7 @@ export async function generateMetadata({ params }) {
       images: ["/twitter-image.png"],
     },
     alternates: {
+      canonical: isAr ? 'https://smartcalctools.xyz/ar' : 'https://smartcalctools.xyz/en',
       languages: {
         'en': 'https://smartcalctools.xyz/en',
         'ar': 'https://smartcalctools.xyz/ar',
