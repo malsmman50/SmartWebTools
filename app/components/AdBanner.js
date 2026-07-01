@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
-export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWidthResponsive = "true" }) {
+export default function AdBanner({ dataAdSlot, dataAdFormat = "horizontal", dataFullWidthResponsive = "false" }) {
   const pathname = usePathname();
   const adRef = useRef(null);
 

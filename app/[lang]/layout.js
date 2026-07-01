@@ -76,10 +76,9 @@ export default async function RootLayout({ children, params }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <Script 
-          async 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2077857887750518" 
           crossOrigin="anonymous" 
-          strategy="beforeInteractive" 
+          strategy="afterInteractive" 
         />
         <script
           dangerouslySetInnerHTML={{
