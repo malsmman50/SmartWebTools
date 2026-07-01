@@ -147,6 +147,10 @@ export default function Navbar({ lang, dict }) {
               {lang === "ar" ? "المدونة" : "Blog"}
             </Link>
 
+            <Link href={localizePath("/developers")} className="nav-link" style={{ fontWeight: 600, color: "var(--primary)" }}>
+              {lang === "ar" ? "المطورين (API)" : "Developers (API)"}
+            </Link>
+
             <Link href={localizePath("/about")} className="nav-link">
               {dict.common.nav_about}
             </Link>
@@ -278,6 +282,7 @@ export default function Navbar({ lang, dict }) {
 
           <div className="mobile-menu-section">
             <h4>🏢 {dict.common.nav_company}</h4>
+            <Link href={localizePath("/developers")} onClick={toggleMenu}>{lang === "ar" ? "المطورين (API)" : "Developers (API)"}</Link>
             <Link href={localizePath("/blog")} onClick={toggleMenu}>{lang === "ar" ? "المدونة" : "Blog"}</Link>
             <Link href={localizePath("/about")} onClick={toggleMenu}>{dict.common.nav_about_us}</Link>
             <Link href={localizePath("/privacy-policy")} onClick={toggleMenu}>{dict.common.nav_privacy}</Link>

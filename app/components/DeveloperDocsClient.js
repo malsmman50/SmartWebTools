@@ -284,14 +284,12 @@ export default function DeveloperDocsClient({ lang }) {
           </div>
 
           {/* Live Response Card */}
-          {apiResponse && (
-            <div className="card" style={{ padding: "20px", background: "#272822", color: "#f8f8f2", border: "none" }}>
-              <span style={{ fontSize: "0.75rem", fontWeight: "bold", color: "#a6e22e", display: "block", marginBottom: "8px" }}>HTTP RESPONSE</span>
-              <pre style={{ margin: 0, overflowX: "auto", fontSize: "0.8rem", fontFamily: "monospace", color: "#66d9ef" }}>
-                {apiResponse}
-              </pre>
-            </div>
-          )}
+          <div className="card" style={{ padding: "20px", background: "#272822", color: "#f8f8f2", border: "none", minHeight: "180px", display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: "bold", color: "#a6e22e", display: "block", marginBottom: "8px" }}>HTTP RESPONSE</span>
+            <pre style={{ margin: 0, overflow: "auto", flex: 1, fontSize: "0.8rem", fontFamily: "monospace", color: apiResponse ? "#66d9ef" : "#888", whiteSpace: "pre-wrap" }}>
+              {apiResponse || (lang === "ar" ? "// اضغط على زر الإرسال لمشاهدة الاستجابة هنا..." : "// Click 'Send Live Request' to see response output here...")}
+            </pre>
+          </div>
         </section>
       </div>
     </div>
