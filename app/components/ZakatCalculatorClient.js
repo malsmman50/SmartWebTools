@@ -18,6 +18,47 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
   const [apiStatus, setApiStatus] = useState("loading"); // 'loading', 'success', 'error'
   const [isManualNisab, setIsManualNisab] = useState(false);
 
+  // Zakat Reminder States
+  const [reminderEmail, setReminderEmail] = useState("");
+  const [reminderMonth, setReminderMonth] = useState("ramadan");
+  const [reminderLoading, setReminderLoading] = useState(false);
+  const [reminderSuccess, setReminderSuccess] = useState(false);
+  const [reminderMessage, setReminderMessage] = useState("");
+
+  const handleReminderSubmit = async (e) => {
+    e.preventDefault();
+    setReminderLoading(true);
+    setReminderMessage("");
+    try {
+      const res = await fetch("/api/reminder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: reminderEmail, month: reminderMonth })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setReminderSuccess(true);
+        setReminderMessage(
+          lang === "ar"
+            ? "تم تفعيل التذكير بنجاح! تفقد بريدك الإلكتروني لتأكيد الاشتراك."
+            : "Reminder activated successfully! Check your email to confirm subscription."
+        );
+        setReminderEmail("");
+      } else {
+        throw new Error(data.error || "Failed to activate reminder");
+      }
+    } catch (err) {
+      setReminderSuccess(false);
+      setReminderMessage(
+        lang === "ar"
+          ? `عذراً، حدث خطأ: ${err.message}`
+          : `Sorry, an error occurred: ${err.message}`
+      );
+    } finally {
+      setReminderLoading(false);
+    }
+  };
+
   useEffect(() => {
     const fetchNisab = async () => {
       try {
@@ -142,6 +183,89 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
               <p style={{ color: "var(--danger)", marginTop: "8px", fontSize: "0.9rem" }}>{t.status_not_eligible}</p>
             )}
           </div>
+
+          {/* Ehsan Platform direct donation card without commission */}
+          {isEligible && (
+            <div className="card" style={{ marginTop: "16px", border: "1px solid rgba(16, 185, 129, 0.3)", background: "rgba(16, 185, 129, 0.05)", padding: "16px" }}>
+              <h4 style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                <span>🕊️</span> {lang === "ar" ? "دفع الزكاة للجهات الرسمية" : "Pay Zakat to Official Channels"}
+              </h4>
+              <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.5", marginBottom: "12px" }}>
+                {lang === "ar" 
+                  ? "يمكنك دفع زكاتك مباشرة وبشكل آمن 100% دون أي عمولات عبر المنصات الحكومية والرسمية المعتمدة:"
+                  : "You can pay your Zakat directly and 100% securely without any commissions via officially approved government portals:"}
+              </p>
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
+                  {lang === "ar" ? "منصة إحسان (السعودية)" : "Ehsan Platform (KSA)"}
+                </a>
+                <a href="https://zakaty.gov.sa" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", textDecoration: "none" }}>
+                  {lang === "ar" ? "بوابة زكاتي (رسمي)" : "Zakaty Portal (Official)"}
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Zakat Reminder Subscription Card */}
+          <div className="card" style={{ marginTop: "16px", padding: "20px" }}>
+            <h4 style={{ marginBottom: "8px", fontSize: "1rem" }}>{lang === "ar" ? "🔔 تذكير الزكاة السنوي" : "🔔 Annual Zakat Reminder"}</h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "12px", lineHeight: "1.5" }}>
+              {lang === "ar" 
+                ? "احصل على تذكير تلقائي عبر البريد الإلكتروني قبل حلول موعد زكاتك السنوية بـ 30 يوماً."
+                : "Receive an automated email reminder 30 days before your annual Zakat due date."}
+            </p>
+            <form onSubmit={handleReminderSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <input 
+                type="email" 
+                placeholder={lang === "ar" ? "بريدك الإلكتروني" : "Your email address"}
+                value={reminderEmail} 
+                onChange={(e) => setReminderEmail(e.target.value)}
+                required
+                style={{ padding: "10px", borderRadius: "6px", border: "1px solid var(--border)", background: "var(--surface-sunken)", color: "var(--text)", fontSize: "0.9rem" }}
+              />
+              <div style={{ display: "flex", gap: "10px" }}>
+                <select 
+                  value={reminderMonth} 
+                  onChange={(e) => setReminderMonth(e.target.value)}
+                  style={{ flex: 1, padding: "10px", borderRadius: "6px", border: "1px solid var(--border)", background: "var(--surface-sunken)", color: "var(--text)", fontSize: "0.9rem" }}
+                  aria-label={lang === "ar" ? "الشهر المفضل للتذكير" : "Preferred month for reminder"}
+                >
+                  <option value="ramadan">{lang === "ar" ? "قبل رمضان بـ 30 يوماً" : "30 days before Ramadan"}</option>
+                  <option value="muharram">{lang === "ar" ? "بداية العام الهجري (محرم)" : "Beginning of Hijri Year (Muharram)"}</option>
+                  <option value="shawwal">{lang === "ar" ? "شوال" : "Shawwal"}</option>
+                  <option value="dhul-hijjah">{lang === "ar" ? "ذو الحجة" : "Dhul-Hijjah"}</option>
+                </select>
+                <button type="submit" className="btn btn-primary" style={{ padding: "10px 16px", fontSize: "0.9rem" }} disabled={reminderLoading}>
+                  {reminderLoading ? (lang === "ar" ? "..." : "...") : (lang === "ar" ? "تفعيل" : "Set")}
+                </button>
+              </div>
+              {reminderMessage && (
+                <p style={{ fontSize: "0.85rem", color: reminderSuccess ? "var(--success)" : "var(--danger)", marginTop: "4px" }}>
+                  {reminderMessage}
+                </p>
+              )}
+            </form>
+          </div>
+
+          {/* Embed Code Box Card */}
+          <div className="card" style={{ marginTop: "16px", padding: "20px" }}>
+            <h4 style={{ marginBottom: "8px", fontSize: "1rem" }}>{lang === "ar" ? "💻 تضمين الحاسبة في موقعك" : "💻 Embed this Calculator"}</h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "12px", lineHeight: "1.5" }}>
+              {lang === "ar" 
+                ? "انسخ الكود أدناه لتضمين حاسبة الزكاة مباشرة في موقعك الإلكتروني أو مدونتك:"
+                : "Copy the code below to embed the Zakat Calculator directly on your website or blog:"}
+            </p>
+            <textarea 
+              readOnly 
+              value={`<iframe src="https://smartcalctools.xyz/${lang}/embed/zakat" width="100%" height="600" style="border:1px solid #ccc; border-radius:8px;" frameborder="0"></iframe>`}
+              onClick={(e) => e.target.select()}
+              style={{ width: "100%", height: "80px", padding: "8px", borderRadius: "6px", border: "1px solid var(--border)", background: "var(--bg)", color: "var(--text-muted)", fontSize: "0.8rem", fontFamily: "monospace", resize: "none", cursor: "pointer" }}
+            />
+            <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "4px", textAlign: "center" }}>
+              {lang === "ar" ? "اضغط داخل الصندوق لتحديد الكود بالكامل" : "Click inside the box to select all code"}
+            </p>
+          </div>
+
           <div className="grid-2">
             <div className="result-box">
               <div className="result-label">{t.total_wealth}</div>
