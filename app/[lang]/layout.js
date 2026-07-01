@@ -149,6 +149,15 @@ export default async function RootLayout({ children, params }) {
                 <Link href={`/${lang}/methodology`} style={{ color: "var(--text-muted)" }}>
                   {dict.common.nav_methodology}
                 </Link>
+                <Link href={`/${lang}/developers`} style={{ color: "var(--text-muted)" }}>
+                  {isAr ? "المطورين (API)" : "Developers (API)"}
+                </Link>
+                <Link href={`/${lang}/compare/murabaha-vs-conventional-loan`} style={{ color: "var(--text-muted)" }}>
+                  {isAr ? "المرابحة ضد القرض" : "Murabaha vs Loan"}
+                </Link>
+                <Link href={`/${lang}/compare/sukuk-vs-bonds`} style={{ color: "var(--text-muted)" }}>
+                  {isAr ? "الصكوك ضد السندات" : "Sukuk vs Bonds"}
+                </Link>
               </div>
               
               <SmartFooter dict={dict} />
