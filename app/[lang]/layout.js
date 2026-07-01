@@ -127,7 +127,6 @@ export default async function RootLayout({ children, params }) {
       <body className={inter.className} suppressHydrationWarning>
           <Navbar lang={lang} dict={dict} />
           <main style={{ minHeight: "calc(100vh - 200px)" }}>
-            <AdBanner dataAdSlot="3706969387" />
             {children}
             <AdBanner dataAdSlot="5257110382" />
           </main>
