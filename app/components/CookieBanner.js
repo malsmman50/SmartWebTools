@@ -69,7 +69,7 @@ export default function CookieBanner({ lang }) {
       transform: "translateX(-50%)",
       width: "calc(100% - 40px)",
       maxWidth: "600px",
-      backgroundColor: "var(--surface)",
+      backgroundColor: "var(--bg-card)",
       border: "1px solid var(--border)",
       borderRadius: "12px",
       padding: "20px",
