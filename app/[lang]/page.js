@@ -46,8 +46,28 @@ export default async function Home({ params }) {
     { title: dict.dev_tools.prompt_title, desc: dict.dev_tools.prompt_desc, href: localize("/tools/prompt-generator"), icon: "✨", color: "#f59e0b" }
   ];
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": lang === "ar" ? "SmartCalcTools - أدوات الحساب الذكية" : "SmartCalcTools",
+    "url": `https://smartcalctools.xyz/${lang}`,
+    "description": lang === "ar" ? "مجموعة من الأدوات الخاصة بالتمويل الإسلامي والمطورين." : "A complete suite of Halal finance calculators and developer tools.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SmartCalcTools",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://smartcalctools.xyz/icon-512.png"
+      }
+    }
+  };
+
   return (
     <div className="container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <section className="hero">
         <h1>
           {lang === "ar" ? (
