@@ -161,7 +161,7 @@ export default function QiblaCompassClient({ lang, dict, initialValues, ...props
               {t.location_permission_desc}
             </p>
             <button 
-              onClick={startCompass} 
+              onClick={requestAccess} 
               disabled={status === "requesting"}
               className="btn btn-primary"
               style={{ padding: "16px 32px", background: "linear-gradient(135deg, var(--success), #10b981)", color: "white", border: "none", borderRadius: "12px", fontSize: "1.2rem", fontWeight: "bold", cursor: "pointer", boxShadow: "0 8px 24px rgba(16,185,129,0.3)", transition: "transform 0.2s", margin: "0 auto" }}
