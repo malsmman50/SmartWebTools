@@ -33,7 +33,7 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "horizontal", data
   }
 
   return (
-    <div style={{ width: '100%', margin: '24px 0', minHeight: '90px', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+    <div className="ad-banner-container">
       <ins
         key={pathname}
         ref={adRef}
@@ -43,7 +43,6 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "horizontal", data
           width: '100%',
           minWidth: '250px',
           maxWidth: '1000px', // Prevent ad from stretching too wide on 4K screens
-          minHeight: '90px', 
           background: isDev ? 'rgba(99,102,241,0.05)' : 'transparent', 
           border: isDev ? '1px dashed rgba(99,102,241,0.3)' : 'none', 
           borderRadius: '8px' 
