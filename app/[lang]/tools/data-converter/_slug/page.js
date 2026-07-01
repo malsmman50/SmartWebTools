@@ -24,7 +24,14 @@ export async function generateMetadata({ params }) {
 
   const match = slug.match(/^convert-([a-z]+)-to-([a-z]+)$/);
   if (!match) {
-    return { title: "SmartCalcTools Tool" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/data-converter/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/tools/data-converter/_slug`,
+      },
+    }, title: "SmartCalcTools Tool" };
   }
 
   const [_, p1, p2, p3] = match;
@@ -33,6 +40,13 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `أداة مجانية وسريعة لتحويل البيانات من صيغة ${p1.toUpperCase()} إلى ${p2.toUpperCase()} بأمان تام داخل المتصفح.` : `Free online tool to instantly convert ${p1.toUpperCase()} format to ${p2.toUpperCase()} securely in your browser.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/data-converter/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/tools/data-converter/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

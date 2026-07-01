@@ -42,29 +42,29 @@ export default function MudarabahCalculatorClient({ lang, dict, initialValues, .
         <div className="card">
           <h3 style={{ marginBottom: "16px" }}>{lang === "ar" ? "تفاصيل المشروع" : "Project Details"}</h3>
           <div style={{ marginBottom: "16px" }}>
-            <label className="label">{t.capital}</label>
-            <NumericFormat className="input" value={capital} onValueChange={v => setCapital(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="capital" className="label">{t.capital}</label>
+            <NumericFormat id="capital" className="input" value={capital} onValueChange={v => setCapital(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "16px" }}>
-            <label className="label">{lang === "ar" ? "إجمالي إيرادات المشروع ($)" : "Total Project Revenue ($)"}</label>
-            <NumericFormat className="input" value={revenue} onValueChange={v => setRevenue(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="revenue" className="label">{lang === "ar" ? "إجمالي إيرادات المشروع ($)" : "Total Project Revenue ($)"}</label>
+            <NumericFormat id="revenue" className="input" value={revenue} onValueChange={v => setRevenue(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
           <div style={{ marginBottom: "24px" }}>
-            <label className="label">{lang === "ar" ? "إجمالي مصروفات المشروع ($)" : "Total Project Expenses ($)"}</label>
-            <NumericFormat className="input" value={expenses} onValueChange={v => setExpenses(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
+            <label htmlFor="expenses" className="label">{lang === "ar" ? "إجمالي مصروفات المشروع ($)" : "Total Project Expenses ($)"}</label>
+            <NumericFormat id="expenses" className="input" value={expenses} onValueChange={v => setExpenses(v.floatValue || 0)} thousandSeparator={true} prefix="$" />
           </div>
 
           <h3 style={{ marginBottom: "16px" }}>{lang === "ar" ? "نسبة توزيع الأرباح المتفق عليها" : "Agreed Profit Sharing Ratio"}</h3>
           <div>
-            <label className="label">{lang === "ar" ? `نسبة المستثمر (رب المال): ${investorShare}%` : `Investor (Rabb-ul-Mal) Share: ${investorShare}%`}</label>
-            <input type="range" min="1" max="99" value={investorShare} onChange={e => setInvestorShare(Number(e.target.value))} style={{ width: "100%" }} />
+            <label htmlFor="investorShare" className="label">{lang === "ar" ? `نسبة المستثمر (رب المال): ${investorShare}%` : `Investor (Rabb-ul-Mal) Share: ${investorShare}%`}</label>
+            <input id="investorShare" type="range" min="1" max="99" value={investorShare} onChange={e => setInvestorShare(Number(e.target.value))} style={{ width: "100%" }} aria-label={lang === "ar" ? "نسبة المستثمر" : "Investor Share"} />
             <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "4px" }}>
               {lang === "ar" ? `نسبة المضارب (مدير المشروع): ${100 - investorShare}%` : `Manager (Mudarib) Share: ${100 - investorShare}%`}
             </p>
           </div>
         </div>
 
-        <div>
+        <div aria-live="polite">
           <div className="result-box" style={{ marginBottom: "16px" }}>
             <div className="result-label">{lang === "ar" ? "النتيجة الصافية للمشروع" : "Net Project Result"}</div>
             <div className="result-value" style={{ color: isLoss ? "var(--danger)" : "var(--success)" }}>
@@ -110,7 +110,7 @@ export default function MudarabahCalculatorClient({ lang, dict, initialValues, .
             <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
               على عكس حسابات الادخار أو القروض التقليدية التي تضمن عائداً ثابتاً بغض النظر عن نجاح أو خسارة المشروع، تعتمد المضاربة بشكل كامل على النتائج الفعلية للاستثمار:
             </p>
-            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+            <ul style={{ paddingInlineStart: "20px", color: "var(--text-muted)", marginTop: "8px" }}>
               <li><strong>رأس المال:</strong> يقدم المستثمر 100% من السيولة المالية. ولا يساهم الشريك العامل (المضارب) بأي نقد، بل يقتصر دوره على تقديم وقته وجهده وإدارته الفنية للمشروع.</li>
               <li><strong>نسبة توزيع الأرباح:</strong> يتفق الطرفان قبل بدء العمل على نسبة توزيع الأرباح الصافية (مثلاً: 60% للمستثمر، 40% للمضارب). وتطبق هذه النسبة على الأرباح الصافية المحققة فقط، وليس على إجمالي الإيرادات أو رأس المال.</li>
               <li><strong>توزيع الخسائر:</strong> في حال وقوع خسارة مالية (خارجة عن إرادة المضارب ودون تقصير منه)، يتحمل المستثمر 100% من الخسارة المالية من رأس ماله. بينما يخسر المضارب جهده ووقته ولا يطالب بتعويض رأس المال الضائع للطرف الأول.</li>

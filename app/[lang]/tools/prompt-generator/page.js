@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/prompt-generator`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/prompt-generator`,
+        "ar": `https://smartcalctools.xyz/ar/tools/prompt-generator`,
+      },
+    },
     title: isAr ? "مهندس ومولد أوامر الذكاء الاصطناعي" : "AI Prompt Builder & Generator",
     description: isAr 
       ? "صمم وهندس الأوامر البرمجية المثالية بدقة لـ ChatGPT و Claude و Gemini للحصول على أفضل النتائج بأقل مجهود."

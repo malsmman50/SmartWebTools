@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/image-compressor`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/image-compressor`,
+        "ar": `https://smartcalctools.xyz/ar/tools/image-compressor`,
+      },
+    },
     title: isAr ? "أداة ضغط الصور المحلية الآمنة" : "Secure Local Image Compressor",
     description: isAr 
       ? "اضغط صورك بصيغ JPG و PNG و WebP محلياً بالكامل داخل متصفحك دون رفعها إلى أي سيرفر، للحفاظ على الخصوصية."

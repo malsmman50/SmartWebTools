@@ -24,7 +24,14 @@ export async function generateMetadata({ params }) {
 
   const match = slug.match(/^islamic-deposit-for-(\d+)-usd-over-(\d+)-months$/);
   if (!match) {
-    return { title: "SmartCalcTools Tool" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/islamic-deposit/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-deposit/_slug`,
+      },
+    }, title: "SmartCalcTools Tool" };
   }
 
   const [_, p1, p2, p3] = match;
@@ -33,6 +40,13 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب أرباح الوديعة الاستثمارية الإسلامية لمبلغ ${p1} دولار على فترة ${p2} شهراً.` : `Calculate returns on an Islamic Bank Deposit of ${p1} USD over a period of ${p2} months.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/islamic-deposit/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-deposit/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

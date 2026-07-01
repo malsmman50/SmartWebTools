@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/roi`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/roi`,
+      },
+    },
     title: isAr ? "حاسبة العائد الاستثماري (ROI)" : "Halal ROI Calculator",
     description: isAr 
       ? "احسب نسبة العائد على الاستثمار وصافي الأرباح أو الخسائر بالإضافة للعائد السنوي المركب لمشاريعك واستثماراتك."

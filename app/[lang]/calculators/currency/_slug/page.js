@@ -28,7 +28,14 @@ export async function generateMetadata({ params }) {
   // Parse the slug: e.g. "convert-100-usd-to-eur"
   const match = slug.match(/^convert-(\d+)-([a-z]+)-to-([a-z]+)$/);
   if (!match) {
-    return { title: "Live Currency Converter" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/currency/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/currency/_slug`,
+      },
+    }, title: "Live Currency Converter" };
   }
 
   const [_, amount, from, to] = match;
@@ -45,6 +52,13 @@ export async function generateMetadata({ params }) {
     : `Calculate exactly how much ${amount} ${fromUpper} is in ${toUpper} using today's live exchange rates.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/currency/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/currency/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

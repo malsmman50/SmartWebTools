@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/zakat`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/zakat`,
+      },
+    },
     title: isAr ? "حاسبة الزكاة الدقيقة" : "Comprehensive Zakat Calculator",
     description: isAr 
       ? "احسب زكاتك السنوية (2.5%) بدقة تامة وبخصوصية كاملة 100% وفقاً للضوابط الفقهية الشرعية ونصاب الذهب المباشر."

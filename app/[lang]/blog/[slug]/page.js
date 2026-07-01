@@ -3,8 +3,10 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 
+import { cache } from "react";
+
 // Read the blog data
-function getBlogData() {
+const getBlogData = cache(() => {
   try {
     const dataPath = path.join(process.cwd(), "lib", "blog-data.json");
     const fileContent = fs.readFileSync(dataPath, "utf-8");
@@ -13,6 +15,18 @@ function getBlogData() {
     console.error("Error reading blog data:", error);
     return [];
   }
+});
+
+export async function generateStaticParams() {
+  const posts = getBlogData();
+  const params = [];
+  
+  for (const post of posts) {
+    params.push({ lang: "en", slug: post.slug });
+    params.push({ lang: "ar", slug: post.slug });
+  }
+  
+  return params;
 }
 
 // dynamicParams = true is default, meaning paths not generated at build time will be generated on demand.
@@ -104,12 +118,30 @@ export default async function BlogPostPage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://smartcalctools.xyz/${lang}/blog/${slug}`
+        },
         "headline": title,
-        "datePublished": post.date,
+        "image": [
+          "https://smartcalctools.xyz/opengraph-image.png"
+        ],
+        "datePublished": `${post.date}T08:00:00+03:00`,
+        "dateModified": `${post.date}T08:00:00+03:00`,
         "author": {
           "@type": "Organization",
-          "name": "SmartCalcTools"
-        }
+          "name": "SmartCalcTools",
+          "url": "https://smartcalctools.xyz"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "SmartCalcTools",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://smartcalctools.xyz/icon.png"
+          }
+        },
+        "inLanguage": lang === "ar" ? "ar" : "en"
       }).replace(/</g, '\\u003c')}} />
     </div>
   );

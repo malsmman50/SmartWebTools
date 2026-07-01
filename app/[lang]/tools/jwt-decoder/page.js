@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/jwt-decoder`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/jwt-decoder`,
+        "ar": `https://smartcalctools.xyz/ar/tools/jwt-decoder`,
+      },
+    },
     title: isAr ? "مفكك وفاحص رموز JWT آمن دون اتصال" : "Secure Offline JWT Decoder",
     description: isAr 
       ? "قم بفك وتدقيق ومراجعة أكواد الـ JSON Web Tokens (JWT) بأمان تام محلياً وبخصوصية مطلقة داخل متصفحك."

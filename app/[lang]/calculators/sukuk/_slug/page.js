@@ -24,7 +24,14 @@ export async function generateMetadata({ params }) {
 
   const match = slug.match(/^sukuk-yield-for-(\d+)-usd-at-(\d+)-percent-over-(\d+)-years$/);
   if (!match) {
-    return { title: "SmartCalcTools Tool" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/sukuk/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/sukuk/_slug`,
+      },
+    }, title: "SmartCalcTools Tool" };
   }
 
   const [_, p1, p2, p3] = match;
@@ -33,6 +40,13 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب العوائد الدورية للصكوك الإسلامية لاستثمار ${p1} دولار بعائد ${p2}% لمدة ${p3} سنوات.` : `Calculate periodic returns on Islamic Sukuk for an investment of ${p1} USD at ${p2}% over ${p3} years.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/sukuk/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/sukuk/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

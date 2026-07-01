@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/mudarabah`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/mudarabah`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/mudarabah`,
+      },
+    },
     title: isAr ? "حاسبة شراكة المضاربة" : "Mudarabah Profit Calculator",
     description: isAr 
       ? "احسب نسب توزيع الأرباح وتخصيص الخسائر المالية لشراكات المضاربة الاستثمارية المتوافقة مع الشريعة الإسلامية."

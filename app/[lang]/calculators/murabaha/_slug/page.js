@@ -24,7 +24,14 @@ export async function generateMetadata({ params }) {
 
   const match = slug.match(/^murabaha-for-(\d+)-usd-over-(\d+)-years$/);
   if (!match) {
-    return { title: "SmartCalcTools Tool" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/murabaha/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha/_slug`,
+      },
+    }, title: "SmartCalcTools Tool" };
   }
 
   const [_, p1, p2, p3] = match;
@@ -33,6 +40,13 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب أقساط وأرباح تمويل المرابحة الإسلامي لمبلغ ${p1} دولار على فترة ${p2} سنوات بدقة.` : `Calculate Islamic Murabaha financing for ${p1} USD over ${p2} years.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/murabaha/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

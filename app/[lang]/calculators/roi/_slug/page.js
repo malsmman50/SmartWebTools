@@ -24,7 +24,14 @@ export async function generateMetadata({ params }) {
 
   const match = slug.match(/^roi-for-(\d+)-usd-with-(\d+)-usd-profit$/);
   if (!match) {
-    return { title: "SmartCalcTools Tool" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/roi/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/roi/_slug`,
+      },
+    }, title: "SmartCalcTools Tool" };
   }
 
   const [_, p1, p2, p3] = match;
@@ -33,6 +40,13 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب النسبة المئوية للعائد على الاستثمار (ROI) لاستثمار ${p1} دولار بربح ${p2} دولار.` : `Calculate the Return on Investment (ROI) percentage for a ${p1} USD investment yielding ${p2} USD profit.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/roi/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/roi/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

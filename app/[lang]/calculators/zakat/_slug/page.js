@@ -28,7 +28,14 @@ export async function generateMetadata({ params }) {
   // Parse the slug: e.g. "zakat-on-100-grams-of-21k-gold"
   const match = slug.match(/^zakat-on-(\d+)-grams-of-(24k|22k|21k|18k)-gold$/);
   if (!match) {
-    return { title: "Zakat Calculator" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/zakat/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/zakat/_slug`,
+      },
+    }, title: "Zakat Calculator" };
   }
 
   const [_, grams, karat] = match;
@@ -42,6 +49,13 @@ export async function generateMetadata({ params }) {
     : `Find out exactly how much Zakat you owe on ${grams} grams of ${karat} gold using today's live market prices.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/zakat/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/zakat/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },

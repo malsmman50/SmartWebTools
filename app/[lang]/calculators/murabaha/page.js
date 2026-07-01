@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/murabaha`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha`,
+      },
+    },
     title: isAr ? "حاسبة المرابحة الإسلامية" : "Murabaha Calculator (Islamic Financing)",
     description: isAr 
       ? "احسب أقساط تمويل المرابحة بهامش الربح الثابت. البديل الشرعي الخالي من الفوائد للقروض الربوية بالتوافق مع معايير AAOIFI."

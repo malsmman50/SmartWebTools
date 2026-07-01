@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/json-formatter`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/json-formatter`,
+        "ar": `https://smartcalctools.xyz/ar/tools/json-formatter`,
+      },
+    },
     title: isAr ? "منسق ومصحح كود JSON آمن دون اتصال" : "Secure Offline JSON Formatter & Validator",
     description: isAr 
       ? "نسّق، تحقق من صحة، واضغط نصوص الـ JSON الخاصة بك فوراً وبخصوصية تامة 100% داخل جهازك دون رفع أي بيانات للخارج."

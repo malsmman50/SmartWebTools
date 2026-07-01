@@ -76,19 +76,29 @@ export default async function RootLayout({ children, params }) {
           crossOrigin="anonymous" 
           strategy="lazyOnload" 
         />
-        {/* Google Consent Mode v2 - Default State */}
+        {/* Google Consent Mode v2 */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               
-              if (!localStorage.getItem('cookie_consent')) {
-                gtag('consent', 'default', {
-                  'ad_storage': 'denied',
-                  'ad_user_data': 'denied',
-                  'ad_personalization': 'denied',
-                  'analytics_storage': 'denied'
+              // Unconditionally set default state
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+              });
+
+              // Update based on saved preference
+              var consent = localStorage.getItem('cookie_consent');
+              if (consent === 'accepted') {
+                gtag('consent', 'update', {
+                  'ad_storage': 'granted',
+                  'ad_user_data': 'granted',
+                  'ad_personalization': 'granted',
+                  'analytics_storage': 'granted'
                 });
               }
             `

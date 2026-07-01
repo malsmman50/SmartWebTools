@@ -14,8 +14,9 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "horizontal", data
       // Initialize the ad if the Google AdSense script is loaded
       if (typeof window !== 'undefined' && adRef.current) {
         // Prevent pushing multiple times to the same element in SPA navigation
-        if (!adRef.current.hasAttribute('data-adsbygoogle-status')) {
+        if (!adRef.current.hasAttribute('data-pushed')) {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
+          adRef.current.setAttribute('data-pushed', 'true');
         }
       }
     } catch (e) {
@@ -34,6 +35,7 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "horizontal", data
   return (
     <div style={{ width: '100%', margin: '24px 0', minHeight: '90px', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
       <ins
+        key={pathname}
         ref={adRef}
         className="adsbygoogle"
         style={{ 

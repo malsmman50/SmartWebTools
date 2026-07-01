@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/hijri-converter`,
+        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter`,
+      },
+    },
     title: isAr ? "محول التاريخ الهجري والميلادي الدقيق" : "Hijri Date Converter (Umm al-Qura)",
     description: isAr 
       ? "حول التواريخ فورياً وبدقة بالغة بين التقويم الهجري (أم القرى) والتقويم الميلادي CE دون اتصال بالإنترنت."

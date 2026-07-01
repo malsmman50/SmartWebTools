@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/cron-generator`,
+        "ar": `https://smartcalctools.xyz/ar/tools/cron-generator`,
+      },
+    },
     title: isAr ? "مولد ومفسر تعبيرات جدولة المهام Cron آمن" : "Secure Cron Expression Generator & Explainer",
     description: isAr 
       ? "قم بإنشاء وتفسير تعبيرات جدولة المهام (cron) بأسلوب مرئي تفاعلي مع ترجمة معانيها للغة العربية فورياً."

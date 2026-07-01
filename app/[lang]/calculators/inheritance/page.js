@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/inheritance`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/inheritance`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/inheritance`,
+      },
+    },
     title: isAr ? "حاسبة المواريث والتركات الشرعية" : "Islamic Inheritance Calculator (Mawarith)",
     description: isAr 
       ? "احسب أنصبة الورثة الشرعيين والتركات وفقاً لقواعد علم الفرائض والفقه الإسلامي المعتمدة."

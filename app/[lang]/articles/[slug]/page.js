@@ -102,11 +102,30 @@ export default async function SeoArticlePage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Article",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://smartcalctools.xyz/${lang}/articles/${slug}`
+        },
         "headline": title,
+        "image": [
+          "https://smartcalctools.xyz/opengraph-image.png"
+        ],
+        "datePublished": article.date ? `${article.date}T08:00:00+03:00` : "2026-06-01T08:00:00+03:00",
+        "dateModified": article.date ? `${article.date}T08:00:00+03:00` : "2026-06-01T08:00:00+03:00",
         "author": {
           "@type": "Organization",
-          "name": "SmartCalcTools"
-        }
+          "name": "SmartCalcTools",
+          "url": "https://smartcalctools.xyz"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "SmartCalcTools",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://smartcalctools.xyz/icon.png"
+          }
+        },
+        "inLanguage": lang === "ar" ? "ar" : "en"
       }).replace(/</g, '\\u003c')}} />
     </div>
   );

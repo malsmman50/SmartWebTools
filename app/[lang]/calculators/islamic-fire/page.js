@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-fire`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/islamic-fire`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-fire`,
+      },
+    },
     title: isAr ? "حاسبة التقاعد المبكر الإسلامي (FIRE)" : "Islamic FIRE Calculator",
     description: isAr 
       ? "احسب رقم الاستقلال المالي والتقاعد المبكر المتوافق مع الشريعة الإسلامية مع احتساب فريضة الزكاة السنوية وفجوة الزكاة."

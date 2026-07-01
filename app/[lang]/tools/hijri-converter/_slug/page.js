@@ -28,7 +28,14 @@ export async function generateMetadata({ params }) {
   // Parse the slug: e.g. "convert-1-ramadan-1445"
   const match = slug.match(/^convert-(\d+)-([a-z-]+)-(\d+)$/);
   if (!match) {
-    return { title: "Hijri Date Converter" };
+    return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/hijri-converter/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter/_slug`,
+      },
+    }, title: "Hijri Date Converter" };
   }
 
   const [_, day, month, year] = match;
@@ -56,6 +63,13 @@ export async function generateMetadata({ params }) {
     : `Find out the exact Gregorian equivalent for ${day} ${mName} ${year} AH. Offline and highly accurate conversion.`;
 
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/_slug`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/tools/hijri-converter/_slug`,
+        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter/_slug`,
+      },
+    },
     title,
     description,
     openGraph: { title, description },
