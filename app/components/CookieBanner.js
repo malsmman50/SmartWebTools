@@ -82,7 +82,16 @@ export default function CookieBanner({ lang }) {
       textAlign: isAr ? "right" : "left"
     }}>
       <div>
-        <h4 style={{ margin: "0 0 8px 0", fontSize: "1.1rem" }}>{content.title}</h4>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+          <h4 style={{ margin: 0, fontSize: "1.1rem" }}>{content.title}</h4>
+          <button 
+            onClick={() => setShowBanner(false)} 
+            style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--text-muted)", padding: "4px" }}
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
         <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.5" }}>
           {content.text}
           {" "}
