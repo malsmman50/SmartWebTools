@@ -126,10 +126,18 @@ export default async function RootLayout({ children, params }) {
       </head>
       <body className={inter.className} suppressHydrationWarning>
           <Navbar lang={lang} dict={dict} />
-          <main style={{ minHeight: "calc(100vh - 200px)" }}>
-            {children}
-            <AdBanner dataAdSlot="5257110382" />
-          </main>
+          <div className="page-wrapper">
+            <aside className="side-ad">
+              <AdBanner dataAdSlot="LEFT_SIDE_SLOT" dataAdFormat="vertical" />
+            </aside>
+            <main className="main-content">
+              {children}
+              <AdBanner dataAdSlot="5257110382" />
+            </main>
+            <aside className="side-ad">
+              <AdBanner dataAdSlot="RIGHT_SIDE_SLOT" dataAdFormat="vertical" />
+            </aside>
+          </div>
           <footer className="footer">
             <div className="container">
               <div style={{ display: "flex", gap: "24px", justifyContent: "center", marginBottom: "16px", flexWrap: "wrap" }}>
