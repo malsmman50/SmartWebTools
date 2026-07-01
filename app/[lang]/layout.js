@@ -6,6 +6,7 @@ import Script from "next/script";
 import AdBanner from "@/app/components/AdBanner";
 import { getDictionary } from "@/app/dictionaries";
 import PwaInstallPrompt from "@/app/components/PwaInstallPrompt";
+import CookieBanner from "@/app/components/CookieBanner";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -123,6 +124,7 @@ export default async function RootLayout({ children, params }) {
             </div>
           </footer>
           <PwaInstallPrompt lang={lang} />
+          <CookieBanner lang={lang} />
       </body>
     </html>
   );
