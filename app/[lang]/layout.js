@@ -51,6 +51,13 @@ export async function generateMetadata({ params }) {
         : "Explore our Zakat Calculator, Islamic FIRE tool, and ultra-secure offline developer utilities.",
       images: ["/twitter-image.png"],
     },
+    alternates: {
+      languages: {
+        'en': 'https://smartcalctools.xyz/en',
+        'ar': 'https://smartcalctools.xyz/ar',
+        'x-default': 'https://smartcalctools.xyz/en',
+      },
+    },
     robots: { index: true, follow: true }
   };
 }

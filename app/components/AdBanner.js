@@ -23,6 +23,14 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = "auto", dataFullWi
     }
   }, [pathname]); // Re-run when pathname changes
 
+  // Do not render ads on legal and contact pages (AdSense best practices)
+  const noAdsPages = ['/privacy-policy', '/terms-of-service', '/contact'];
+  const shouldHideAds = noAdsPages.some(page => pathname.includes(page));
+  
+  if (shouldHideAds) {
+    return null;
+  }
+
   return (
     <div style={{ width: '100%', margin: '24px 0', textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
       <ins
