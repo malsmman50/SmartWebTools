@@ -16,6 +16,11 @@ const cspHeader = `
 `
 
 const nextConfig = {
+  compress: true,
+  poweredByHeader: false,
+  experimental: {
+    optimizePackageImports: ['react', 'react-dom'],
+  },
   async headers() {
     return [
       {
