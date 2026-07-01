@@ -64,56 +64,70 @@ export default function CookieBanner({ lang }) {
   return (
     <div style={{
       position: "fixed",
-      bottom: "20px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "calc(100% - 40px)",
-      maxWidth: "600px",
+      bottom: "0",
+      left: "0",
+      width: "100%",
       backgroundColor: "var(--bg-card)",
-      border: "1px solid var(--border)",
-      borderRadius: "12px",
-      padding: "20px",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+      borderTop: "1px solid var(--border)",
+      padding: "16px 20px",
+      boxShadow: "0 -10px 30px rgba(0,0,0,0.15)",
       zIndex: 9999,
       display: "flex",
-      flexDirection: "column",
-      gap: "16px",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      gap: "20px",
       direction: isAr ? "rtl" : "ltr",
       textAlign: isAr ? "right" : "left"
     }}>
-      <div>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-          <h4 style={{ margin: 0, fontSize: "1.1rem" }}>{content.title}</h4>
-          <button 
-            onClick={() => setShowBanner(false)} 
-            style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--text-muted)", padding: "4px" }}
-            aria-label="Close"
-          >
-            ✕
-          </button>
-        </div>
-        <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.5" }}>
+      <div style={{ flex: "1 1 600px", display: "flex", flexDirection: "column", gap: "8px" }}>
+        <h4 style={{ margin: 0, fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "8px" }}>
+          {content.title}
+        </h4>
+        <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.6", maxWidth: "1000px" }}>
           {content.text}
           {" "}
-          <a href={`/${lang}/privacy-policy`} style={{ color: "var(--primary)", textDecoration: "underline" }}>
+          <a href={`/${lang}/privacy-policy`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600" }}>
             {content.privacy}
           </a>
         </p>
       </div>
-      <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end", flexWrap: "wrap" }}>
+      
+      <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
         <button 
           onClick={handleDecline} 
           className="btn btn-outline" 
-          style={{ padding: "8px 16px", fontSize: "0.85rem", flex: "1 1 auto", justifyContent: "center" }}
+          style={{ padding: "10px 16px", fontSize: "0.85rem", whiteSpace: "nowrap" }}
         >
           {content.decline}
         </button>
         <button 
           onClick={handleAccept} 
           className="btn btn-primary" 
-          style={{ padding: "8px 24px", fontSize: "0.85rem", flex: "1 1 auto", justifyContent: "center" }}
+          style={{ padding: "10px 24px", fontSize: "0.85rem", whiteSpace: "nowrap" }}
         >
           {content.accept}
+        </button>
+        <button 
+          onClick={() => setShowBanner(false)} 
+          style={{ 
+            background: "transparent", 
+            border: "none", 
+            cursor: "pointer", 
+            fontSize: "1.2rem", 
+            color: "var(--text-muted)", 
+            padding: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "50%",
+            marginLeft: isAr ? "0" : "8px",
+            marginRight: isAr ? "8px" : "0"
+          }}
+          aria-label="Close"
+        >
+          ✕
         </button>
       </div>
     </div>
