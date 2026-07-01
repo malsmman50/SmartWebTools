@@ -124,12 +124,25 @@ export default function ZakatEmbedClient({ lang, dict }) {
                 {lang === "ar" ? "ادفع زكاتك مباشرة ودون أي عمولة عبر:" : "Pay directly without any commission via:"}
               </p>
               <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
-                <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--success)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
-                  {lang === "ar" ? "منصة إحسان" : "Ehsan"}
-                </a>
-                <a href="https://zakaty.gov.sa" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--primary)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
-                  {lang === "ar" ? "بوابة زكاتي" : "Zakaty"}
-                </a>
+                {lang === "ar" ? (
+                  <>
+                    <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--success)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
+                      منصة إحسان
+                    </a>
+                    <a href="https://zakaty.gov.sa/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--primary)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
+                      بوابة زكاتي
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <a href="https://www.islamic-relief.org/zakat/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--success)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
+                      Islamic Relief
+                    </a>
+                    <a href="https://www.zakat.org/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--primary)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
+                      Zakat Foundation
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           )}

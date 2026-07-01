@@ -33,7 +33,7 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
       const res = await fetch("/api/reminder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: reminderEmail, month: reminderMonth })
+        body: JSON.stringify({ email: reminderEmail, month: reminderMonth, lang: lang })
       });
       const data = await res.json();
       if (res.ok && data.success) {
@@ -188,20 +188,33 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
           {isEligible && (
             <div className="card" style={{ marginTop: "16px", border: "1px solid rgba(16, 185, 129, 0.3)", background: "rgba(16, 185, 129, 0.05)", padding: "16px" }}>
               <h4 style={{ color: "var(--success)", display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                <span>🕊️</span> {lang === "ar" ? "دفع الزكاة للجهات الرسمية" : "Pay Zakat to Official Channels"}
+                <span>🕊️</span> {lang === "ar" ? "دفع الزكاة للجهات الرسمية" : "Pay Zakat directly"}
               </h4>
               <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.5", marginBottom: "12px" }}>
                 {lang === "ar" 
                   ? "يمكنك دفع زكاتك مباشرة وبشكل آمن 100% دون أي عمولات عبر المنصات الحكومية والرسمية المعتمدة:"
-                  : "You can pay your Zakat directly and 100% securely without any commissions via officially approved government portals:"}
+                  : "You can pay your Zakat directly and 100% securely without any commissions via globally trusted and official channels:"}
               </p>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
-                  {lang === "ar" ? "منصة إحسان (السعودية)" : "Ehsan Platform (KSA)"}
-                </a>
-                <a href="https://zakaty.gov.sa" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", textDecoration: "none" }}>
-                  {lang === "ar" ? "بوابة زكاتي (رسمي)" : "Zakaty Portal (Official)"}
-                </a>
+                {lang === "ar" ? (
+                  <>
+                    <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
+                      منصة إحسان (السعودية)
+                    </a>
+                    <a href="https://zakaty.gov.sa/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", textDecoration: "none" }}>
+                      بوابة زكاتي (رسمي)
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <a href="https://www.islamic-relief.org/zakat/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
+                      Islamic Relief Worldwide
+                    </a>
+                    <a href="https://www.zakat.org/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", textDecoration: "none" }}>
+                      Zakat Foundation
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           )}
