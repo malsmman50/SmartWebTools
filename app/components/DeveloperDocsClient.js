@@ -93,7 +93,7 @@ export default function DeveloperDocsClient({ lang }) {
       </div>
 
       {/* Stripe-like 3-Column Layout */}
-      <div style={{ display: "grid", gridTemplateColumns: "240px 1fr 1fr", gap: "32px", alignItems: "start" }}>
+      <div className="dev-docs-grid">
         
         {/* Column 1: Navigation Sidebar */}
         <aside style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -284,9 +284,9 @@ export default function DeveloperDocsClient({ lang }) {
           </div>
 
           {/* Live Response Card */}
-          <div className="card" style={{ padding: "20px", background: "#272822", color: "#f8f8f2", border: "none", minHeight: "180px", display: "flex", flexDirection: "column" }}>
+          <div className="card" style={{ padding: "20px", background: "#272822", color: "#f8f8f2", border: "none", height: "300px", display: "flex", flexDirection: "column" }}>
             <span style={{ fontSize: "0.75rem", fontWeight: "bold", color: "#a6e22e", display: "block", marginBottom: "8px" }}>HTTP RESPONSE</span>
-            <pre style={{ margin: 0, overflow: "auto", flex: 1, fontSize: "0.8rem", fontFamily: "monospace", color: apiResponse ? "#66d9ef" : "#888", whiteSpace: "pre-wrap" }}>
+            <pre style={{ margin: 0, overflow: "auto", flex: 1, fontSize: "0.8rem", fontFamily: "monospace", color: apiResponse ? "#66d9ef" : "#888", whiteSpace: "pre-wrap", maxHeight: "100%" }}>
               {apiResponse || (lang === "ar" ? "// اضغط على زر الإرسال لمشاهدة الاستجابة هنا..." : "// Click 'Send Live Request' to see response output here...")}
             </pre>
           </div>

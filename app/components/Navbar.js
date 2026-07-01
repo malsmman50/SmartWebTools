@@ -162,8 +162,8 @@ export default function Navbar({ lang, dict }) {
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
               style={{
-                background: "rgba(16, 185, 129, 0.1)",
-                border: "1px solid rgba(16, 185, 129, 0.3)",
+                background: "rgba(var(--primary-rgb), 0.08)",
+                border: "1px solid rgba(var(--primary-rgb), 0.2)",
                 borderRadius: "8px",
                 padding: "8px 16px",
                 fontSize: "0.85rem",
@@ -174,14 +174,14 @@ export default function Navbar({ lang, dict }) {
                 alignItems: "center",
                 gap: "6px",
                 transition: "all 0.2s ease",
-                boxShadow: "0 2px 8px rgba(16, 185, 129, 0.1)"
+                boxShadow: "0 2px 8px rgba(var(--primary-rgb), 0.05)"
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(16, 185, 129, 0.2)";
+                e.currentTarget.style.background = "rgba(var(--primary-rgb), 0.15)";
                 e.currentTarget.style.transform = "translateY(-1px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(16, 185, 129, 0.1)";
+                e.currentTarget.style.background = "rgba(var(--primary-rgb), 0.08)";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
@@ -205,8 +205,8 @@ export default function Navbar({ lang, dict }) {
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               style={{
-                background: "rgba(16, 185, 129, 0.1)",
-                border: "1px solid rgba(16, 185, 129, 0.3)",
+                background: "rgba(var(--primary-rgb), 0.08)",
+                border: "1px solid rgba(var(--primary-rgb), 0.2)",
                 borderRadius: "8px",
                 padding: "6px 12px",
                 fontSize: "0.8rem",

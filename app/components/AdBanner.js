@@ -23,12 +23,15 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = 'auto', dataFullWi
     const insEl = containerRef.current?.querySelector('.adsbygoogle');
     if (!insEl) return;
 
+    let observer;
+    let timer;
+
     try {
       // Push ad to Google
       (window.adsbygoogle = window.adsbygoogle || []).push({});
 
       // Watch for Google setting data-ad-status="unfilled"
-      const observer = new MutationObserver(() => {
+      observer = new MutationObserver(() => {
         const status = insEl.getAttribute('data-ad-status');
         if (status === 'unfilled') {
           setIsUnfilled(true);
@@ -37,16 +40,45 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = 'auto', dataFullWi
       });
       observer.observe(insEl, { attributes: true, attributeFilter: ['data-ad-status'] });
 
-      return () => observer.disconnect();
+      // Robust fallback: if after 1.5 seconds the ad hasn't successfully loaded ('filled'),
+      // we assume it is blocked by an AdBlocker, unfilled, or failing, and we show the fallback.
+      timer = setTimeout(() => {
+        const status = insEl.getAttribute('data-ad-status');
+        if (status !== 'filled') {
+          setIsUnfilled(true);
+        }
+      }, 1500);
+
     } catch (e) {
-      // Fail silently in production, log in development
       if (isDev) console.error('AdSense error:', e);
+      setIsUnfilled(true);
     }
+
+    return () => {
+      if (observer) observer.disconnect();
+      if (timer) clearTimeout(timer);
+    };
   }, [adKey]); // depends on adKey — runs each time ins remounts
 
   // Do not render ads on legal / contact pages (AdSense policy)
   const noAdsPages = ['/privacy-policy', '/terms-of-service', '/contact'];
   if (noAdsPages.some((p) => pathname.includes(p))) return null;
+
+  // Exclude marketing/landing pages from the top ad slot to keep a premium, uncluttered layout
+  const isLandingPage = 
+    pathname === '/' || 
+    pathname === '/ar' || 
+    pathname === '/en' || 
+    pathname === '/ar/' || 
+    pathname === '/en/' ||
+    pathname.includes('/about') ||
+    pathname.includes('/methodology') ||
+    pathname.includes('/developers') ||
+    pathname.includes('/compare');
+
+  if (isLandingPage && dataAdSlot === '3706969387') {
+    return null;
+  }
 
   const isAr = pathname?.startsWith('/ar');
 
