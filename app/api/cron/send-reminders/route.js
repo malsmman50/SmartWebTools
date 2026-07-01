@@ -108,7 +108,7 @@ export async function GET(request) {
 
       try {
         await resend.emails.send({
-          from: 'SmartCalcTools <onboarding@resend.dev>',
+          from: 'SmartCalcTools <no-reply@smartcalctools.xyz>',
           to: email,
           subject: subject,
           html: html,
