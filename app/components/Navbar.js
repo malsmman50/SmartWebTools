@@ -199,7 +199,7 @@ export default function Navbar({ lang, dict }) {
             <button
               className="lang-toggle"
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
-              aria-label={lang === "en" ? "Toggle language عربي" : "Toggle language En"}
+              aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               style={{
                 background: "rgba(16, 185, 129, 0.1)",
                 border: "1px solid rgba(16, 185, 129, 0.3)",
@@ -214,7 +214,7 @@ export default function Navbar({ lang, dict }) {
                 gap: "4px"
               }}
             >
-              🌐 {lang === "en" ? "عربي" : "En"}
+              🌐 {lang === "en" ? "العربية" : "English"}
             </button>
             
             <button

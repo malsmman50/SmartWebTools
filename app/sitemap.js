@@ -23,6 +23,7 @@ export default function sitemap() {
     { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.4 },
     { path: '/terms-of-service', changeFrequency: 'yearly', priority: 0.4 },
     { path: '/contact', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/methodology', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/blog', changeFrequency: 'daily', priority: 0.9 },
   ];
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { NumericFormat } from "react-number-format";
+import Link from "next/link";
 
 export default function ZakatCalculatorClient({ lang, dict, initialValues, ...props }) {
   
@@ -69,6 +70,11 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
       <div className="page-header">
         <h1>{t.title}</h1>
         <p>{t.subtitle}</p>
+        <div style={{ marginTop: "12px" }}>
+          <Link href={`/${lang}/methodology#zakat`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
+            {lang === "ar" ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
+          </Link>
+        </div>
       </div>
 
       <div className="grid-2">

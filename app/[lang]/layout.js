@@ -7,6 +7,7 @@ import AdBanner from "@/app/components/AdBanner";
 import { getDictionary } from "@/app/dictionaries";
 import PwaInstallPrompt from "@/app/components/PwaInstallPrompt";
 import CookieBanner from "@/app/components/CookieBanner";
+import SmartFooter from "@/app/components/SmartFooter";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -145,11 +146,12 @@ export default async function RootLayout({ children, params }) {
                 <Link href={`/${lang}/contact`} style={{ color: "var(--text-muted)" }}>
                   {dict.common.nav_contact}
                 </Link>
+                <Link href={`/${lang}/methodology`} style={{ color: "var(--text-muted)" }}>
+                  {dict.common.nav_methodology}
+                </Link>
               </div>
               
-              <div className="footer-disclaimer" style={{ maxWidth: "800px", margin: "0 auto 20px", fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: "1.6", textAlign: "center" }}>
-                <strong>{dict.common.footer_disclaimer_title}</strong> {dict.common.footer_disclaimer_text}
-              </div>
+              <SmartFooter dict={dict} />
 
               <p>{dict.common.footer_copyright}</p>
             </div>

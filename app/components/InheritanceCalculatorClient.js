@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateFaraid } from "@/lib/faraid";
+import Link from "next/link";
 
 export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
   
@@ -98,9 +99,14 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
     <div className="container">
       <div className="card" style={{ maxWidth: "800px", margin: "40px auto" }}>
         <h1 style={{ fontSize: "1.8rem", marginBottom: "8px", textAlign: "center" }}>{t.title}</h1>
-        <p style={{ textAlign: "center", color: "var(--text-muted)", marginBottom: "24px" }}>
+        <p style={{ textAlign: "center", color: "var(--text-muted)", marginBottom: "12px" }}>
           {t.subtitle}
         </p>
+        <div style={{ textAlign: "center", marginBottom: "24px" }}>
+          <Link href={`/${lang}/methodology#inheritance`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
+            {lang === "ar" ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
+          </Link>
+        </div>
 
         <div style={{ background: "rgba(16, 185, 129, 0.1)", color: "var(--primary)", padding: "16px", borderRadius: "8px", marginBottom: "24px", fontSize: "0.9rem", lineHeight: "1.5" }}>
           {lang === "ar" ? (
