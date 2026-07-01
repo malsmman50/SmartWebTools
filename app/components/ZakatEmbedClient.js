@@ -125,14 +125,9 @@ export default function ZakatEmbedClient({ lang, dict }) {
               </p>
               <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
                 {lang === "ar" ? (
-                  <>
-                    <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--success)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
-                      منصة إحسان
-                    </a>
-                    <a href="https://zakaty.gov.sa/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--primary)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
-                      بوابة زكاتي
-                    </a>
-                  </>
+                  <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--success)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>
+                    منصة إحسان
+                  </a>
                 ) : (
                   <>
                     <a href="https://www.islamic-relief.org/zakat/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", padding: "4px 8px", background: "var(--success)", color: "white", borderRadius: "4px", textDecoration: "none", fontWeight: "bold" }}>

@@ -99,7 +99,6 @@ export async function GET(request) {
             </p>
             <ul style="margin: 0; padding-right: 20px; font-size: 0.9rem; color: #166534;">
               <li><a href="https://ehsan.sa/zakat" style="color: #15803d; font-weight: bold; text-decoration: underline;">منصة إحسان الخيرية (اضغط هنا لدفع زكاتك)</a></li>
-              <li><a href="https://zakaty.gov.sa/" style="color: #15803d; font-weight: bold; text-decoration: underline;">بوابة زكاتي الحكومية للزكاة والدخل</a></li>
             </ul>
           </div>
 

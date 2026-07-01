@@ -197,14 +197,9 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
               </p>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 {lang === "ar" ? (
-                  <>
-                    <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
-                      منصة إحسان (السعودية)
-                    </a>
-                    <a href="https://zakaty.gov.sa/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", textDecoration: "none" }}>
-                      بوابة زكاتي (رسمي)
-                    </a>
-                  </>
+                  <a href="https://ehsan.sa/zakat" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
+                    منصة إحسان (السعودية)
+                  </a>
                 ) : (
                   <>
                     <a href="https://www.islamic-relief.org/zakat/" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.8rem", padding: "6px 12px", borderColor: "var(--success)", color: "var(--success)", textDecoration: "none" }}>
