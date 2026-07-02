@@ -13,36 +13,29 @@ export default function ContactForm({ lang, dict, ...props }) {
     const form = e.target;
     const data = new FormData(form);
     
-    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || "xjkvdovv"; // Defaulting to a generic placeholder or user's ID
-    
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      const dataObj = {
+        name: data.get("name"),
+        email: data.get("email"),
+        message: data.get("message")
+      };
+
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: data,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataObj)
       });
       
       if (response.ok) {
         setStatus("success");
         form.reset();
       } else {
-        // If it's a dummy ID, Formspree returns an error, let's simulate success for UX if no ID is set
-        if (!process.env.NEXT_PUBLIC_FORMSPREE_ID) {
-          setStatus("success");
-          form.reset();
-        } else {
-          setStatus("error");
-        }
-      }
-    } catch (error) {
-      if (!process.env.NEXT_PUBLIC_FORMSPREE_ID) {
-        setStatus("success");
-        form.reset();
-      } else {
         setStatus("error");
       }
+    } catch (error) {
+      setStatus("error");
     }
   };
 
