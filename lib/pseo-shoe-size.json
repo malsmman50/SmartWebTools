@@ -1,0 +1,16 @@
+[
+  { "slug": "eu-40-to-us-men", "from": "EU", "to": "US", "gender": "men", "fromSize": 40, "toSize": 7.5 },
+  { "slug": "eu-41-to-us-men", "from": "EU", "to": "US", "gender": "men", "fromSize": 41, "toSize": 8 },
+  { "slug": "eu-42-to-us-men", "from": "EU", "to": "US", "gender": "men", "fromSize": 42, "toSize": 8.5 },
+  { "slug": "eu-43-to-us-men", "from": "EU", "to": "US", "gender": "men", "fromSize": 43, "toSize": 9 },
+  { "slug": "eu-44-to-us-men", "from": "EU", "to": "US", "gender": "men", "fromSize": 44, "toSize": 10 },
+  { "slug": "eu-45-to-us-men", "from": "EU", "to": "US", "gender": "men", "fromSize": 45, "toSize": 11 },
+  { "slug": "uk-8-to-us-men", "from": "UK", "to": "US", "gender": "men", "fromSize": 8, "toSize": 9 },
+  { "slug": "uk-9-to-us-men", "from": "UK", "to": "US", "gender": "men", "fromSize": 9, "toSize": 10 },
+  { "slug": "eu-37-to-us-women", "from": "EU", "to": "US", "gender": "women", "fromSize": 37, "toSize": 6.5 },
+  { "slug": "eu-38-to-us-women", "from": "EU", "to": "US", "gender": "women", "fromSize": 38, "toSize": 7.5 },
+  { "slug": "eu-39-to-us-women", "from": "EU", "to": "US", "gender": "women", "fromSize": 39, "toSize": 8 },
+  { "slug": "eu-40-to-us-women", "from": "EU", "to": "US", "gender": "women", "fromSize": 40, "toSize": 9 },
+  { "slug": "uk-5-to-us-women", "from": "UK", "to": "US", "gender": "women", "fromSize": 5, "toSize": 7 },
+  { "slug": "uk-6-to-us-women", "from": "UK", "to": "US", "gender": "women", "fromSize": 6, "toSize": 8 }
+]

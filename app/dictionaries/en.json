@@ -23,18 +23,20 @@
     "footer_copyright": "© 2026 SmartCalcTools. Free tools built for speed, privacy, and ethics."
   },
   "home": {
-    "hero_title": "Free Islamic Finance & Pro Dev Tools",
-    "hero_span": "Islamic Finance",
-    "hero_subtitle": "Professional-grade calculators built on Halal principles and offline-first developer utilities. Run entirely in your browser. No signups, no data tracking, 100% private.",
+    "hero_title": "What do you want to calculate today?",
+    "hero_span": "Calculators & Tools",
+    "hero_subtitle": "100% Free, Private, and Lightning Fast Calculators for Everyday Life, Health, Finance, and Developers.",
     "badge_private_title": "100% Private",
     "badge_private_desc": "Data never leaves your device",
     "badge_sharia_title": "Sharia Compliant",
     "badge_sharia_desc": "Based on standard Fiqh rules",
     "badge_speed_title": "Lightning Fast",
     "badge_speed_desc": "No server roundtrips",
-    "section_islamic": "🕌 Islamic Financial Tools (100% Halal)",
+    "section_shopping": "🛒 Shopping & Savings",
+    "section_health": "❤️ Health & Fitness",
+    "section_islamic": "💰 Islamic Finance",
+    "section_dev": "💻 Developer Tools",
     "section_utilities": "✨ Smart Utilities",
-    "section_dev": "👨‍💻 Developer Tools",
     "why_title": "Why SmartCalcTools?",
     "why_halal_title": "☪️ Halal First",
     "why_halal_desc": "We refuse to build tools for Riba (Usury). All our financial calculators follow Islamic guidelines.",
@@ -60,6 +62,10 @@
     "sukuk_desc": "Calculate yields and periodic distributions for Islamic bonds (Sukuk).",
     "islamic_deposit_title": "Islamic Savings",
     "islamic_deposit_desc": "Calculate returns on Mudarabah-based Islamic savings accounts."
+  },
+  "everyday": {
+    "shoe_size_title": "🌍 Global Shoe Size Converter",
+    "shoe_size_desc": "Convert shoe sizes instantly between US, UK, EU, and CM for men, women, and kids."
   },
   "utilities": {
     "qibla_title": "Live Qibla Compass",

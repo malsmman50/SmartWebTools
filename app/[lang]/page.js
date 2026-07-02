@@ -62,23 +62,43 @@ export default async function Home({ params }) {
     }
   };
 
+  const mainCategories = [
+    { title: dict.home.section_shopping, href: localize("/calculators/everyday/shoe-size"), icon: "🛒", color: "#ec4899", desc: lang === "ar" ? "خصومات، مقاسات عالمية، يوميات" : "Discounts, Sizes, Everyday" },
+    { title: dict.home.section_health, href: localize("/calculators/health/body-calculator"), icon: "❤️", color: "#ef4444", desc: lang === "ar" ? "كتلة الجسم، السعرات، الدايت" : "BMI, Calories, Fitness" },
+    { title: dict.home.section_islamic, href: localize("/calculators/zakat"), icon: "💰", color: "#059669", desc: lang === "ar" ? "الزكاة، المواريث، المرابحة" : "Zakat, Inheritance, Murabaha" },
+    { title: dict.home.section_dev, href: localize("/tools/json-formatter"), icon: "💻", color: "#2563eb", desc: lang === "ar" ? "أدوات وتشفير بدون سيرفر" : "Zero-trust local tools" }
+  ];
+
+  const popularTools = [
+    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/everyday/shoe-size"), icon: "🌍", color: "#ec4899" },
+    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲", color: "#059669" },
+    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱", color: "#10b981" },
+    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }", color: "#2563eb" }
+  ];
+
+  const allTools = [
+    ...calculators,
+    ...utilities,
+    ...tools
+  ];
+
   return (
     <div className="container">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <section className="hero">
-        <h1>
-          {lang === "ar" ? (
-            <>حاسبات مالية إسلامية <span className="hero-gradient">مجانية</span> وأدوات يومية ذكية</>
-          ) : (
-            <>Halal <span className="hero-gradient">Islamic Finance</span> & Smart Calculators</>
-          )}
+      
+      {/* Hero Section */}
+      <section className="hero" style={{ paddingBottom: "30px" }}>
+        <h1 style={{ fontSize: "3.5rem" }}>
+          {dict.home.hero_title}
         </h1>
-        <p>{dict.home.hero_subtitle}</p>
+        <p style={{ fontSize: "1.2rem", maxWidth: "800px", margin: "0 auto", color: "var(--text-muted)" }}>
+          {dict.home.hero_subtitle}
+        </p>
         
-        <div className="trust-badges">
+        <div className="trust-badges" style={{ marginTop: "40px" }}>
           <div className="trust-badge">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -86,15 +106,6 @@ export default async function Home({ params }) {
             <div>
               <strong>{dict.home.badge_private_title}</strong>
               <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>{dict.home.badge_private_desc}</div>
-            </div>
-          </div>
-          <div className="trust-badge">
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <div>
-              <strong>{dict.home.badge_sharia_title}</strong>
-              <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>{dict.home.badge_sharia_desc}</div>
             </div>
           </div>
           <div className="trust-badge">
@@ -109,45 +120,54 @@ export default async function Home({ params }) {
         </div>
       </section>
 
-      <section style={{ marginBottom: "48px" }}>
-        <h2 style={{ fontSize: "1.5rem", marginBottom: "20px" }}>{dict.home.section_islamic}</h2>
-        <div className="grid-4">
-          {calculators.map(c => (
-            <Link key={c.href} href={c.href} className="card card-link">
-              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{c.icon}</div>
-              <h3 style={{ fontSize: "1.1rem", marginBottom: "8px" }}>{c.title}</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: "1.5" }}>{c.desc}</p>
+      {/* Main Categories / Portal */}
+      <section style={{ marginBottom: "60px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "24px" }}>
+          {mainCategories.map(cat => (
+            <Link key={cat.href} href={cat.href} className="card card-link" style={{ textAlign: "center", padding: "40px 20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", borderTop: `4px solid ${cat.color}` }}>
+              <div style={{ fontSize: "3.5rem", marginBottom: "16px" }}>{cat.icon}</div>
+              <h2 style={{ fontSize: "1.4rem", marginBottom: "8px", color: "var(--text)" }}>{cat.title}</h2>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0 }}>{cat.desc}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section style={{ marginBottom: "48px" }}>
-        <h2 style={{ fontSize: "1.5rem", marginBottom: "20px" }}>{dict.home.section_utilities}</h2>
+      {/* Popular Tools */}
+      <section style={{ marginBottom: "60px" }}>
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", textAlign: "center" }}>
+          {lang === "ar" ? "🔥 الأكثر استخداماً اليوم" : "🔥 Most Popular Today"}
+        </h2>
         <div className="grid-4">
-          {utilities.map(u => (
-            <Link key={u.href} href={u.href} className="card card-link">
-              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{u.icon}</div>
-              <h3 style={{ fontSize: "1.1rem", marginBottom: "8px" }}>{u.title}</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: "1.5" }}>{u.desc}</p>
+          {popularTools.map(tool => (
+            <Link key={tool.href} href={tool.href} className="card card-link">
+              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{tool.icon}</div>
+              <h3 style={{ fontSize: "1.1rem", marginBottom: "8px" }}>{tool.title}</h3>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: "1.5" }}>{tool.desc}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section style={{ marginBottom: "48px" }}>
-        <h2 style={{ fontSize: "1.5rem", marginBottom: "20px" }}>{dict.home.section_dev}</h2>
-        <div className="grid-4">
-          {tools.map(t => (
-            <Link key={t.href} href={t.href} className="card card-link">
-              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{t.icon}</div>
-              <h3 style={{ fontSize: "1.1rem", marginBottom: "8px" }}>{t.title}</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: "1.5" }}>{t.desc}</p>
+      {/* Discover More Tools */}
+      <section style={{ marginBottom: "60px" }}>
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", textAlign: "center" }}>
+          {lang === "ar" ? "📚 استكشف جميع الأدوات" : "📚 Discover All Tools"}
+        </h2>
+        <div className="grid-4" style={{ opacity: 0.9 }}>
+          {allTools.map(tool => (
+            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
+                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
             </Link>
           ))}
         </div>
       </section>
 
+      {/* Why Choose Us */}
       <section className="card" style={{ textAlign: "center", padding: "48px 32px", marginBottom: "40px" }}>
         <h2 style={{ marginBottom: "12px" }}>{dict.home.why_title}</h2>
         <div className="grid-3" style={{ marginTop: "24px", textAlign: lang === "ar" ? "right" : "left" }}>

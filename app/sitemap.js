@@ -25,7 +25,21 @@ export default function sitemap() {
     { path: '/contact', changeFrequency: 'yearly', priority: 0.4 },
     { path: '/methodology', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/blog', changeFrequency: 'daily', priority: 0.9 },
+    { path: '/calculators/everyday/shoe-size', changeFrequency: 'monthly', priority: 0.9 },
   ];
+
+  // Inject Curated PSEO (High Intent)
+  try {
+    const pseoPath = path.join(process.cwd(), "lib", "pseo-shoe-size.json");
+    if (fs.existsSync(pseoPath)) {
+      const data = JSON.parse(fs.readFileSync(pseoPath, "utf-8"));
+      data.forEach(c => {
+        routes.push({ path: `/calculators/everyday/shoe-size/${c.slug}`, changeFrequency: 'monthly', priority: 0.8 });
+      });
+    }
+  } catch(e) {
+    console.error("Error loading shoe size PSEO config", e);
+  }
 
   // Dynamically inject Programmatic SEO routes
   const pSeoArticles = getAllSeoArticles();
