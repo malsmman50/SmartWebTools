@@ -13,13 +13,13 @@ export async function generateMetadata({ params }) {
     title,
     description,
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/everyday/split-bill`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/lifestyle/split-bill`,
       languages: {
-        'en': 'https://smartcalctools.xyz/en/calculators/everyday/split-bill',
-        'ar': 'https://smartcalctools.xyz/ar/calculators/everyday/split-bill',
+        'en': 'https://smartcalctools.xyz/en/calculators/lifestyle/split-bill',
+        'ar': 'https://smartcalctools.xyz/ar/calculators/lifestyle/split-bill',
       },
     },
-    openGraph: { title, description, url: `https://smartcalctools.xyz/${lang}/calculators/everyday/split-bill` }
+    openGraph: { title, description, url: `https://smartcalctools.xyz/${lang}/calculators/lifestyle/split-bill` }
   };
 }
 

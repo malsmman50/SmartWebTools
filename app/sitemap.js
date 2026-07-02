@@ -25,7 +25,9 @@ export default function sitemap() {
     { path: '/contact', changeFrequency: 'yearly', priority: 0.4 },
     { path: '/methodology', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/blog', changeFrequency: 'daily', priority: 0.9 },
-    { path: '/calculators/everyday/shoe-size', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/calculators/shopping/shoe-size', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/calculators/shopping/discount', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/calculators/lifestyle/split-bill', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/calculators/health/body-calculator', changeFrequency: 'monthly', priority: 0.9 },
   ];
 
@@ -35,7 +37,7 @@ export default function sitemap() {
     if (fs.existsSync(pseoPath)) {
       const data = JSON.parse(fs.readFileSync(pseoPath, "utf-8"));
       data.forEach(c => {
-        routes.push({ path: `/calculators/everyday/shoe-size/${c.slug}`, changeFrequency: 'monthly', priority: 0.8 });
+        routes.push({ path: `/calculators/shopping/shoe-size/${c.slug}`, changeFrequency: 'monthly', priority: 0.8 });
       });
     }
   } catch(e) {

@@ -60,7 +60,7 @@ export default async function ShoeSizePage({ params }) {
             {pseoLinks.map((link) => (
               <Link 
                 key={link.slug} 
-                href={`/${lang}/calculators/everyday/shoe-size/${link.slug}`}
+                href={`/${lang}/calculators/shopping/shoe-size/${link.slug}`}
                 className="btn btn-secondary"
                 style={{ fontSize: "0.9rem" }}
               >

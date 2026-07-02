@@ -31,9 +31,9 @@ export default async function Home({ params }) {
   ];
 
   const everydayTools = [
-    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/everyday/shoe-size"), icon: "🌍", color: "#ec4899" },
-    { title: dict.everyday?.discount_title || "Smart Discount & VAT", desc: dict.everyday?.discount_desc || "Calculate final prices with tax.", href: localize("/calculators/everyday/discount"), icon: "🏷️", color: "#f59e0b" },
-    { title: dict.everyday?.split_bill_title || "Split the Bill", desc: dict.everyday?.split_bill_desc || "Divide restaurant bills.", href: localize("/calculators/everyday/split-bill"), icon: "🍕", color: "#10b981" },
+    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍", color: "#ec4899" },
+    { title: dict.everyday?.discount_title || "Smart Discount & VAT", desc: dict.everyday?.discount_desc || "Calculate final prices with tax.", href: localize("/calculators/shopping/discount"), icon: "🏷️", color: "#f59e0b" },
+    { title: dict.everyday?.split_bill_title || "Split the Bill", desc: dict.everyday?.split_bill_desc || "Divide restaurant bills.", href: localize("/calculators/lifestyle/split-bill"), icon: "🍕", color: "#10b981" },
     { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" }
   ];
 
@@ -70,7 +70,7 @@ export default async function Home({ params }) {
   };
 
   const popularTools = [
-    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/everyday/shoe-size"), icon: "🌍", color: "#ec4899" },
+    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍", color: "#ec4899" },
     { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲", color: "#059669" },
     { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱", color: "#10b981" },
     { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }", color: "#2563eb" }

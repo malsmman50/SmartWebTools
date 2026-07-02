@@ -69,7 +69,7 @@ export default async function PseoShoeSizePage({ params }) {
 
   return (
     <div className="container" style={{ padding: "40px 20px" }}>
-      <Link href={`/${lang}/calculators/everyday/shoe-size`} style={{ display: "inline-block", marginBottom: "20px", color: "var(--primary)", textDecoration: "none" }}>
+      <Link href={`/${lang}/calculators/shopping/shoe-size`} style={{ display: "inline-block", marginBottom: "20px", color: "var(--primary)", textDecoration: "none" }}>
         {isAr ? "← العودة لجميع المقاسات" : "← Back to all sizes"}
       </Link>
 

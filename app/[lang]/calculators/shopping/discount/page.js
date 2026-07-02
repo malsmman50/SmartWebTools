@@ -13,13 +13,13 @@ export async function generateMetadata({ params }) {
     title,
     description,
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/everyday/discount`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/shopping/discount`,
       languages: {
-        'en': 'https://smartcalctools.xyz/en/calculators/everyday/discount',
-        'ar': 'https://smartcalctools.xyz/ar/calculators/everyday/discount',
+        'en': 'https://smartcalctools.xyz/en/calculators/shopping/discount',
+        'ar': 'https://smartcalctools.xyz/ar/calculators/shopping/discount',
       },
     },
-    openGraph: { title, description, url: `https://smartcalctools.xyz/${lang}/calculators/everyday/discount` }
+    openGraph: { title, description, url: `https://smartcalctools.xyz/${lang}/calculators/shopping/discount` }
   };
 }
 
