@@ -70,18 +70,18 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
       </div>
 
       <div className="grid-2">
-        <div className="form-group">
-          <label className="form-label">{isAr ? "من نظام" : "From System"}</label>
-          <select className="form-input" value={fromSystem} onChange={(e) => setFromSystem(e.target.value)}>
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{isAr ? "من نظام" : "From System"}</label>
+          <select className="input" value={fromSystem} onChange={(e) => setFromSystem(e.target.value)}>
             <option value="EU">EU (Europe)</option>
             <option value="US">US (United States)</option>
             <option value="UK">UK (United Kingdom)</option>
             <option value="CM">CM (Centimeters)</option>
           </select>
         </div>
-        <div className="form-group">
-          <label className="form-label">{isAr ? "إلى نظام" : "To System"}</label>
-          <select className="form-input" value={toSystem} onChange={(e) => setToSystem(e.target.value)}>
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{isAr ? "إلى نظام" : "To System"}</label>
+          <select className="input" value={toSystem} onChange={(e) => setToSystem(e.target.value)}>
             <option value="US">US (United States)</option>
             <option value="EU">EU (Europe)</option>
             <option value="UK">UK (United Kingdom)</option>
@@ -90,22 +90,22 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
         </div>
       </div>
 
-      <div className="form-group" style={{ marginTop: "16px" }}>
-        <label className="form-label">{isAr ? `المقاس (${fromSystem})` : `Size (${fromSystem})`}</label>
+      <div style={{ marginBottom: "24px", marginTop: "8px" }}>
+        <label className="label">{isAr ? `المقاس (${fromSystem})` : `Size (${fromSystem})`}</label>
         <input 
           type="number" 
-          className="form-input" 
+          className="input" 
           value={inputValue} 
           onChange={(e) => setInputValue(e.target.value)} 
           step="0.5"
         />
       </div>
 
-      <div style={{ marginTop: "32px", padding: "24px", background: "var(--bg)", borderRadius: "8px", textAlign: "center", border: "1px solid var(--border)" }}>
-        <div style={{ fontSize: "1rem", color: "var(--text-muted)", marginBottom: "8px" }}>
+      <div className="result-box" style={{ marginTop: "16px", textAlign: "center" }}>
+        <div className="result-label" style={{ marginBottom: "8px", fontSize: "1.1rem" }}>
           {isAr ? `النتيجة بنظام ${toSystem}` : `Result in ${toSystem}`}
         </div>
-        <div style={{ fontSize: "3rem", fontWeight: "bold", color: "var(--primary)" }}>
+        <div className="result-value" style={{ fontSize: "3rem", color: "var(--primary)" }}>
           {result || "-"}
         </div>
       </div>
