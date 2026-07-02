@@ -88,6 +88,10 @@ export default async function Home({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      <style dangerouslySetInnerHTML={{ __html: `
+        .side-ad { display: none !important; }
+        .main-content { max-width: 1300px !important; margin: 0 auto; }
+      ` }} />
       
       {/* Hero Section */}
       <section className="hero" style={{ paddingBottom: "30px" }}>
