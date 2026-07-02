@@ -29,17 +29,16 @@ export default async function ContactPage({ params }) {
           <p style={{ marginBottom: "24px", color: "var(--text-muted)" }}>
             {t.desc}
           </p>
-          <div style={{ marginBottom: "16px" }}>
-            <h4 style={{ marginBottom: "4px" }}>{t.email}</h4>
-            <a href="mailto:support@smartcalctools.xyz" style={{ fontWeight: "600" }}>support@smartcalctools.xyz</a>
-          </div>
-          <div>
-            <h4 style={{ marginBottom: "4px" }}>{t.business}</h4>
-            <a href="mailto:business@smartcalctools.xyz" style={{ fontWeight: "600" }}>business@smartcalctools.xyz</a>
+          <div style={{ padding: "16px", background: "var(--surface-sunken)", borderRadius: "8px", border: "1px solid var(--border)" }}>
+            <p style={{ margin: 0, fontWeight: "500", fontSize: "0.95rem" }}>
+              {lang === "ar" 
+                ? "💡 نفضل التواصل عبر النموذج المرفق لضمان وصول رسالتك للقسم المختص بأسرع وقت، وللحفاظ على مستوى عالٍ من الأمان (Zero-Trust)."
+                : "💡 We prefer communication via the attached form to ensure your message reaches the right department quickly and to maintain a high level of security (Zero-Trust)."}
+            </p>
           </div>
         </article>
         
-        <ContactForm dict={dict} />
+        <ContactForm lang={lang} dict={dict} />
       </div>
     </div>
   );
