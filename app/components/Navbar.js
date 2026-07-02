@@ -73,6 +73,8 @@ export default function Navbar({ lang, dict }) {
   ];
 
   const utilities = [
+    { name: dict.everyday?.shoe_size_title || "Shoe Size Converter", path: "/calculators/everyday/shoe-size" },
+    { name: dict.health?.body_calc_title || "Body Calculator", path: "/calculators/health/body-calculator" },
     { name: dict.utilities.qibla_title, path: "/tools/qibla-compass" },
     { name: dict.utilities.hijri_title, path: "/tools/hijri-converter" },
     { name: dict.utilities.currency_title, path: "/calculators/currency" },

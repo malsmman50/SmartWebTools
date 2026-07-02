@@ -31,6 +31,8 @@ export default async function Home({ params }) {
   ];
 
   const utilities = [
+    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/everyday/shoe-size"), icon: "🌍", color: "#ec4899" },
+    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" },
     { title: dict.utilities.qibla_title, desc: dict.utilities.qibla_desc, href: localize("/tools/qibla-compass"), icon: "🕋", color: "#10b981" },
     { title: dict.utilities.hijri_title, desc: dict.utilities.hijri_desc, href: localize("/tools/hijri-converter"), icon: "📅", color: "#059669" },
     { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱", color: "#10b981" },
@@ -76,11 +78,7 @@ export default async function Home({ params }) {
     { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }", color: "#2563eb" }
   ];
 
-  const allTools = [
-    ...calculators,
-    ...utilities,
-    ...tools
-  ];
+  const allToolsCount = calculators.length + utilities.length + tools.length;
 
   return (
     <div className="container">
@@ -153,13 +151,54 @@ export default async function Home({ params }) {
         </div>
       </section>
 
-      {/* Discover More Tools */}
-      <section style={{ marginBottom: "60px" }}>
-        <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", textAlign: "center" }}>
-          {lang === "ar" ? "📚 استكشف جميع الأدوات" : "📚 Discover All Tools"}
-        </h2>
+      {/* Categorized Tools directory */}
+      
+      {/* Islamic Finance */}
+      <section style={{ marginBottom: "40px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
+          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>🕌 {dict.common.nav_islamic_finance}</h2>
+          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
+        </div>
         <div className="grid-4" style={{ opacity: 0.9 }}>
-          {allTools.map(tool => (
+          {calculators.map(tool => (
+            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
+                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Smart Utilities */}
+      <section style={{ marginBottom: "40px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
+          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>✨ {dict.common.nav_smart_utilities}</h2>
+          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
+        </div>
+        <div className="grid-4" style={{ opacity: 0.9 }}>
+          {utilities.map(tool => (
+            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
+                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Developer Tools */}
+      <section style={{ marginBottom: "60px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
+          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>💻 {dict.common.nav_dev_tools}</h2>
+          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
+        </div>
+        <div className="grid-4" style={{ opacity: 0.9 }}>
+          {tools.map(tool => (
             <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
                 <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
