@@ -14,8 +14,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function BlogIndexPage({ params }) {
+export default async function BlogIndexPage({ params, searchParams }) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  
   const lang = resolvedParams.lang;
   const isAr = lang === "ar";
   const dict = await getDictionary(lang);
@@ -32,19 +34,26 @@ export default async function BlogIndexPage({ params }) {
     console.error("Error loading blog data:", error);
   }
 
+  // Pagination Logic
+  const ITEMS_PER_PAGE = 20;
+  const currentPage = Math.max(1, parseInt(resolvedSearchParams?.page || "1", 10));
+  const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedPosts = posts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   return (
     <div className="container" style={{ padding: "40px 20px" }}>
       <h1 style={{ textAlign: "center", marginBottom: "40px", fontSize: "2.5rem", color: "var(--primary)" }}>
         {isAr ? "مدونة الموقع" : "Our Blog"}
       </h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "24px" }}>
-        {posts.length === 0 ? (
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "24px", marginBottom: "40px" }}>
+        {paginatedPosts.length === 0 ? (
           <p style={{ textAlign: "center", gridColumn: "1 / -1", color: "var(--text-muted)" }}>
-            {isAr ? "لا توجد مقالات حالياً." : "No articles found."}
+            {isAr ? "لا توجد مقالات في هذه الصفحة." : "No articles found on this page."}
           </p>
         ) : (
-          posts.map((post) => {
+          paginatedPosts.map((post) => {
             const title = isAr ? post.titleAr : post.titleEn;
             const desc = isAr ? post.descAr : post.descEn;
             const dateStr = new Date(post.date).toLocaleDateString(isAr ? "ar-EG" : "en-US", {
@@ -75,6 +84,35 @@ export default async function BlogIndexPage({ params }) {
           })
         )}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+          {currentPage > 1 ? (
+            <Link href={`/${lang}/blog?page=${currentPage - 1}`} className="btn btn-secondary">
+              {isAr ? "← الصفحة السابقة" : "← Previous"}
+            </Link>
+          ) : (
+            <span className="btn btn-secondary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+              {isAr ? "← الصفحة السابقة" : "← Previous"}
+            </span>
+          )}
+
+          <div style={{ fontWeight: "bold", color: "var(--text-muted)", fontSize: "1.1rem" }}>
+            {isAr ? `صفحة ${currentPage} من ${totalPages}` : `Page ${currentPage} of ${totalPages}`}
+          </div>
+
+          {currentPage < totalPages ? (
+            <Link href={`/${lang}/blog?page=${currentPage + 1}`} className="btn btn-secondary">
+              {isAr ? "الصفحة التالية →" : "Next →"}
+            </Link>
+          ) : (
+            <span className="btn btn-secondary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+              {isAr ? "الصفحة التالية →" : "Next →"}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }
