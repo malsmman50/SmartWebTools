@@ -114,7 +114,27 @@
     "bmi_normal": "Normal Weight",
     "bmi_overweight": "Overweight",
     "bmi_obese": "Obese",
-    "calories_per_day": "kcal/day"
+    "calories_per_day": "kcal/day",
+    "pregnancy_title": "👶 Pregnancy Due Date Tracker",
+    "pregnancy_desc": "Calculate your exact due date, current week, and track your baby's development."
+  },
+  "pregnancy": {
+    "title": "👶 Pregnancy Due Date & Weekly Tracker",
+    "subtitle": "Track your pregnancy journey: calculate your due date, current week, and your baby's weekly growth.",
+    "disclaimer": "Medical Disclaimer: The results provided by this calculator are estimates based on standard averages. This tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with your doctor or healthcare provider for medical decisions.",
+    "select_method": "Calculate Based On:",
+    "method_lmp": "First Day of Last Period (LMP)",
+    "method_conception": "Date of Conception",
+    "date_label": "Select Date",
+    "calculate": "Calculate Due Date",
+    "due_date": "Estimated Due Date",
+    "current_week": "Current Week",
+    "trimester": "Trimester",
+    "trimester_1": "1st Trimester",
+    "trimester_2": "2nd Trimester",
+    "trimester_3": "3rd Trimester",
+    "baby_size": "Baby's Size",
+    "weekly_tip": "Weekly Tip"
   },
   "utilities": {
     "qibla_title": "Live Qibla Compass",

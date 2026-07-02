@@ -29,6 +29,7 @@ export default function sitemap() {
     { path: '/calculators/shopping/discount', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/calculators/lifestyle/split-bill', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/calculators/health/body-calculator', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/calculators/health/pregnancy', changeFrequency: 'monthly', priority: 0.9 },
   ];
 
   // Inject Curated PSEO (High Intent)

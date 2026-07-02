@@ -34,7 +34,8 @@ export default async function Home({ params }) {
     { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍", color: "#ec4899" },
     { title: dict.everyday?.discount_title || "Smart Discount & VAT", desc: dict.everyday?.discount_desc || "Calculate final prices with tax.", href: localize("/calculators/shopping/discount"), icon: "🏷️", color: "#f59e0b" },
     { title: dict.everyday?.split_bill_title || "Split the Bill", desc: dict.everyday?.split_bill_desc || "Divide restaurant bills.", href: localize("/calculators/lifestyle/split-bill"), icon: "🍕", color: "#10b981" },
-    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" }
+    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" },
+    { title: dict.health?.pregnancy_title || "Pregnancy Tracker", desc: dict.health?.pregnancy_desc || "Calculate due date and track your baby's growth.", href: localize("/calculators/health/pregnancy"), icon: "👶", color: "#f43f5e" }
   ];
 
   const utilities = [
