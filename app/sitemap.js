@@ -26,6 +26,7 @@ export default function sitemap() {
     { path: '/methodology', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/blog', changeFrequency: 'daily', priority: 0.9 },
     { path: '/calculators/everyday/shoe-size', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/calculators/health/body-calculator', changeFrequency: 'monthly', priority: 0.9 },
   ];
 
   // Inject Curated PSEO (High Intent)
