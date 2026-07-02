@@ -30,9 +30,12 @@ export default async function Home({ params }) {
     { title: dict.calculators.fire_title, desc: dict.calculators.fire_desc, href: localize("/calculators/islamic-fire"), icon: "🔥", color: "#dc2626" }
   ];
 
-  const utilities = [
+  const everydayTools = [
     { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/everyday/shoe-size"), icon: "🌍", color: "#ec4899" },
-    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" },
+    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" }
+  ];
+
+  const utilities = [
     { title: dict.utilities.qibla_title, desc: dict.utilities.qibla_desc, href: localize("/tools/qibla-compass"), icon: "🕋", color: "#10b981" },
     { title: dict.utilities.hijri_title, desc: dict.utilities.hijri_desc, href: localize("/tools/hijri-converter"), icon: "📅", color: "#059669" },
     { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱", color: "#10b981" },
@@ -63,13 +66,6 @@ export default async function Home({ params }) {
       }
     }
   };
-
-  const mainCategories = [
-    { title: dict.home.section_shopping, href: localize("/calculators/everyday/shoe-size"), icon: "🛒", color: "#ec4899", desc: lang === "ar" ? "خصومات، مقاسات عالمية، يوميات" : "Discounts, Sizes, Everyday" },
-    { title: dict.home.section_health, href: localize("/calculators/health/body-calculator"), icon: "❤️", color: "#ef4444", desc: lang === "ar" ? "كتلة الجسم، السعرات، الدايت" : "BMI, Calories, Fitness" },
-    { title: dict.home.section_islamic, href: localize("/calculators/zakat"), icon: "💰", color: "#059669", desc: lang === "ar" ? "الزكاة، المواريث، المرابحة" : "Zakat, Inheritance, Murabaha" },
-    { title: dict.home.section_dev, href: localize("/tools/json-formatter"), icon: "💻", color: "#2563eb", desc: lang === "ar" ? "أدوات وتشفير بدون سيرفر" : "Zero-trust local tools" }
-  ];
 
   const popularTools = [
     { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/everyday/shoe-size"), icon: "🌍", color: "#ec4899" },
@@ -122,19 +118,6 @@ export default async function Home({ params }) {
         </div>
       </section>
 
-      {/* Main Categories / Portal */}
-      <section style={{ marginBottom: "60px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "24px" }}>
-          {mainCategories.map(cat => (
-            <Link key={cat.href} href={cat.href} className="card card-link" style={{ textAlign: "center", padding: "40px 20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", borderTop: `4px solid ${cat.color}` }}>
-              <div style={{ fontSize: "3.5rem", marginBottom: "16px" }}>{cat.icon}</div>
-              <h2 style={{ fontSize: "1.4rem", marginBottom: "8px", color: "var(--text)" }}>{cat.title}</h2>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", margin: 0 }}>{cat.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       {/* Popular Tools */}
       <section style={{ marginBottom: "60px" }}>
         <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", textAlign: "center" }}>
@@ -154,13 +137,32 @@ export default async function Home({ params }) {
       {/* Categorized Tools directory */}
       
       {/* Islamic Finance */}
-      <section style={{ marginBottom: "40px" }}>
+      <section id="islamic" style={{ marginBottom: "40px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
           <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>🕌 {dict.common.nav_islamic_finance}</h2>
           <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
         </div>
         <div className="grid-4" style={{ opacity: 0.9 }}>
           {calculators.map(tool => (
+            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
+                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
+                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Everyday Life & Health */}
+      <section id="everyday" style={{ marginBottom: "40px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
+          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>❤️ {lang === "ar" ? "يوميات وصحة" : "Life & Health"}</h2>
+          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
+        </div>
+        <div className="grid-4" style={{ opacity: 0.9 }}>
+          {everydayTools.map(tool => (
             <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
                 <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>

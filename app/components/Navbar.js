@@ -72,9 +72,12 @@ export default function Navbar({ lang, dict }) {
     { name: dict.calculators.fire_title, path: "/calculators/islamic-fire" }
   ];
 
-  const utilities = [
+  const everydayTools = [
     { name: dict.everyday?.shoe_size_title || "Shoe Size Converter", path: "/calculators/everyday/shoe-size" },
-    { name: dict.health?.body_calc_title || "Body Calculator", path: "/calculators/health/body-calculator" },
+    { name: dict.health?.body_calc_title || "Body Calculator", path: "/calculators/health/body-calculator" }
+  ];
+
+  const utilities = [
     { name: dict.utilities.qibla_title, path: "/tools/qibla-compass" },
     { name: dict.utilities.hijri_title, path: "/tools/hijri-converter" },
     { name: dict.utilities.currency_title, path: "/calculators/currency" },
@@ -110,6 +113,20 @@ export default function Navbar({ lang, dict }) {
               </span>
               <div className="dropdown-content">
                 {calculators.map((item) => (
+                  <Link key={item.path} href={localizePath(item.path)} className="dropdown-item">
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="premium-dropdown">
+              <span className="nav-link" style={{ cursor: "pointer" }}>
+                {lang === "ar" ? "يوميات وصحة" : "Life & Health"}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+              <div className="dropdown-content">
+                {everydayTools.map((item) => (
                   <Link key={item.path} href={localizePath(item.path)} className="dropdown-item">
                     {item.name}
                   </Link>
@@ -268,6 +285,13 @@ export default function Navbar({ lang, dict }) {
             ))}
           </div>
           
+          <div className="mobile-menu-section">
+            <h4>❤️ {lang === "ar" ? "يوميات وصحة" : "Life & Health"}</h4>
+            {everydayTools.map(u => (
+              <Link key={u.path} href={localizePath(u.path)} onClick={toggleMenu}>{u.name}</Link>
+            ))}
+          </div>
+
           <div className="mobile-menu-section">
             <h4>✨ {dict.common.nav_smart_utilities}</h4>
             {utilities.map(u => (
