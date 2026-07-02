@@ -431,6 +431,7 @@ input[type=number] {
   border-radius: var(--radius);
   color: var(--text-muted);
   animation: fadeUp 0.5s ease forwards;
+  text-align: center;
 }
 
 /* Page Wrapper for Side Ads */
@@ -459,6 +460,18 @@ input[type=number] {
   min-height: 600px;
   border-radius: var(--radius);
   overflow: hidden;
+}
+
+.side-ad .ad-banner-container {
+  height: 100%;
+  margin: 0;
+}
+
+.side-ad .house-ad {
+  justify-content: flex-start;
+  padding-top: 40px;
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0.01) 100%);
+  border: 1px solid rgba(var(--border));
 }
 
 @media (min-width: 1450px) {
