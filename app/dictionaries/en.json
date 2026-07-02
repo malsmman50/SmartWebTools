@@ -65,7 +65,32 @@
   },
   "everyday": {
     "shoe_size_title": "🌍 Global Shoe Size Converter",
-    "shoe_size_desc": "Convert shoe sizes instantly between US, UK, EU, and CM for men, women, and kids."
+    "shoe_size_desc": "Convert shoe sizes instantly between US, UK, EU, and CM for men, women, and kids.",
+    "discount_title": "🏷️ Smart Discount & VAT Calculator",
+    "discount_desc": "Calculate final prices instantly after discounts and taxes.",
+    "split_bill_title": "🍕 Split the Bill Calculator",
+    "split_bill_desc": "Split restaurant bills quickly including tips and service charges."
+  },
+  "discount": {
+    "title": "🏷️ Smart Discount & VAT Calculator",
+    "subtitle": "Calculate final prices, savings, and taxes instantly before you pay.",
+    "original_price": "Original Price",
+    "discount_percent": "Discount (%)",
+    "vat_percent": "VAT / Tax (%)",
+    "additional_discount": "Additional Coupon (%)",
+    "amount_saved": "Total Saved",
+    "vat_amount": "Tax Amount",
+    "final_price": "Final Price to Pay"
+  },
+  "split_bill": {
+    "title": "🍕 Split the Bill Calculator",
+    "subtitle": "Quickly divide restaurant bills and calculate tips fairly.",
+    "total_bill": "Total Bill Amount",
+    "number_of_people": "Number of People",
+    "tip_percent": "Tip / Service Charge (%)",
+    "tip_amount": "Total Tip",
+    "total_with_tip": "Total with Tip",
+    "amount_per_person": "Amount per Person"
   },
   "health": {
     "body_calc_title": "Comprehensive Body Calculator",

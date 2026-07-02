@@ -74,6 +74,8 @@ export default function Navbar({ lang, dict }) {
 
   const everydayTools = [
     { name: dict.everyday?.shoe_size_title || "Shoe Size Converter", path: "/calculators/everyday/shoe-size" },
+    { name: dict.everyday?.discount_title || "Discount & VAT", path: "/calculators/everyday/discount" },
+    { name: dict.everyday?.split_bill_title || "Split the Bill", path: "/calculators/everyday/split-bill" },
     { name: dict.health?.body_calc_title || "Body Calculator", path: "/calculators/health/body-calculator" }
   ];
 
