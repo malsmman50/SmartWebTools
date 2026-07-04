@@ -8,7 +8,7 @@ import { getDictionary } from "@/app/dictionaries";
 import PwaInstallPrompt from "@/app/components/PwaInstallPrompt";
 import CookieBanner from "@/app/components/CookieBanner";
 import SmartFooter from "@/app/components/SmartFooter";
-
+import { GoogleAnalytics } from '@next/third-parties/google';
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export async function generateMetadata({ params }) {
@@ -174,6 +174,7 @@ export default async function RootLayout({ children, params }) {
           </footer>
           <PwaInstallPrompt lang={lang} />
           <CookieBanner lang={lang} />
+          <GoogleAnalytics gaId="G-K47NWRZTHJ" />
       </body>
     </html>
   );
