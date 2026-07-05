@@ -37,14 +37,15 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Helper function to limit cache size
 async function trimCache(cacheName, maxItems) {
   try {
     const cache = await caches.open(cacheName);
     const keys = await cache.keys();
     if (keys.length > maxItems) {
-      await cache.delete(keys[0]);
-      await trimCache(cacheName, maxItems);
+      const itemsToDelete = keys.slice(0, keys.length - maxItems);
+      for (const key of itemsToDelete) {
+        await cache.delete(key);
+      }
     }
   } catch (err) {
     // Ignore cache race conditions
