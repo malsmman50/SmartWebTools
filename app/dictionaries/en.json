@@ -20,7 +20,11 @@
     "footer_disclaimer_content_title": "Content Disclaimer:",
     "footer_disclaimer_content_text": "The articles and blog posts on SmartCalcTools are for educational and informational purposes only. They do not constitute financial, legal, or religious advice. Always verify information with qualified professionals before making decisions.",
     "nav_methodology": "Methodology",
-    "footer_copyright": "© 2026 SmartCalcTools. Free tools built for speed, privacy, and ethics."
+    "footer_copyright": "© 2026 SmartCalcTools. Free tools built for speed, privacy, and ethics.",
+    "nav_blog": "Blog",
+    "nav_developers": "Developers (API)",
+    "menu": "Menu",
+    "smart_calc": "SmartCalc"
   },
   "home": {
     "hero_title": "What do you want to calculate today?",
@@ -38,12 +42,16 @@
     "section_dev": "💻 Developer Tools",
     "section_utilities": "✨ Smart Utilities",
     "why_title": "Why SmartCalcTools?",
-    "why_halal_title": "☪️ Halal First",
+    "why_halal_title": "️ Halal First",
     "why_halal_desc": "We refuse to build tools for Riba (Usury). All our financial calculators follow Islamic guidelines.",
-    "why_private_title": "🔒 100% Private",
+    "why_private_title": "100% Private",
     "why_private_desc": "All calculations run locally in your browser. Your financial data never leaves your device.",
-    "why_speed_title": "⚡ Lightning Fast",
-    "why_speed_desc": "No server roundtrips. Get instant results as you type with modern web technologies."
+    "why_speed_title": "Lightning Fast",
+    "why_speed_desc": "No server roundtrips. Get instant results as you type with modern web technologies.",
+    "popular_tools": "🔥 Most Popular Today",
+    "life_and_health": "Life & Health",
+    "discover_more": "🔥 Discover More Free Tools",
+    "explore_other": "Explore our other privacy-first calculators designed to boost your productivity and manage your finances."
   },
   "calculators": {
     "zakat_title": "Zakat Calculator",
@@ -64,15 +72,15 @@
     "islamic_deposit_desc": "Calculate returns on Mudarabah-based Islamic savings accounts."
   },
   "everyday": {
-    "shoe_size_title": "🌍 Global Shoe Size Converter",
+    "shoe_size_title": "Global Shoe Size Converter",
     "shoe_size_desc": "Convert shoe sizes instantly between US, UK, EU, and CM for men, women, and kids.",
-    "discount_title": "🏷️ Smart Discount & VAT Calculator",
+    "discount_title": "️ Smart Discount & VAT Calculator",
     "discount_desc": "Calculate final prices instantly after discounts and taxes.",
-    "split_bill_title": "🍕 Split the Bill Calculator",
+    "split_bill_title": "Split the Bill Calculator",
     "split_bill_desc": "Split restaurant bills quickly including tips and service charges."
   },
   "discount": {
-    "title": "🏷️ Smart Discount & VAT Calculator",
+    "title": "️ Smart Discount & VAT Calculator",
     "subtitle": "Calculate final prices, savings, and taxes instantly before you pay.",
     "original_price": "Original Price",
     "discount_percent": "Discount (%)",
@@ -83,7 +91,7 @@
     "final_price": "Final Price to Pay"
   },
   "split_bill": {
-    "title": "🍕 Halal Bill Splitter",
+    "title": "Halal Bill Splitter",
     "subtitle": "Quickly and fairly divide restaurant bills. Exclude haram or special items so their tax is calculated separately, protecting your Halal share.",
     "total_bill": "Bill Subtotal (Before Tax)",
     "excluded_items": "Excluded Items (Haram/Special)",
@@ -117,11 +125,15 @@
     "bmi_overweight": "Overweight",
     "bmi_obese": "Obese",
     "calories_per_day": "kcal/day",
-    "pregnancy_title": "👶 Pregnancy Due Date Tracker",
-    "pregnancy_desc": "Calculate your exact due date, current week, and track your baby's development."
+    "pregnancy_title": "Pregnancy Due Date Tracker",
+    "pregnancy_desc": "Calculate your exact due date, current week, and track your baby's development.",
+    "gender_man": "Man 👨",
+    "gender_woman": "Woman 👩",
+    "placeholder": "Enter your data to see results...",
+    "ramadan_title": "Ramadan Hydration"
   },
   "pregnancy": {
-    "title": "👶 Pregnancy Due Date & Weekly Tracker",
+    "title": "Pregnancy Due Date & Weekly Tracker",
     "subtitle": "Track your pregnancy journey: calculate your due date, current week, and your baby's weekly growth.",
     "disclaimer": "Medical Disclaimer: The results provided by this calculator are estimates based on standard averages. This tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with your doctor or healthcare provider for medical decisions.",
     "select_method": "Calculate Based On:",
@@ -221,7 +233,7 @@
     "section3_desc": "Our services are provided 'as is' without warranty of any kind, either express or implied, including without limitation warranties of merchantability, fitness for a particular purpose, or non-infringement. We are not liable for any calculation errors or direct/indirect damages arising from the use of our tools."
   },
   "zakat": {
-    "title": "🤲 Zakat Calculator",
+    "title": "Zakat Calculator",
     "subtitle": "Calculate your annual Zakat (2.5%) easily and accurately according to Islamic guidelines. No data is saved.",
     "assets_title": "Assets (What you own)",
     "cash_label": "Cash & Savings ($)",
@@ -248,14 +260,14 @@
     "zakat_due": "Zakat Due",
     "status_eligible": "🎉 Your net assets exceed the Nisab threshold. You are eligible to pay Zakat.",
     "status_not_eligible": "ℹ️ Your net assets are below the Nisab threshold. You are not required to pay Zakat.",
-    "notes_title": "💡 Important Rules & Notes",
+    "notes_title": "Important Rules & Notes",
     "note1": "Nisab is the minimum amount of wealth a Muslim must possess for a full lunar year (Hawl) before Zakat becomes due.",
     "note2": "Nisab is equivalent to 85 grams of gold or 595 grams of silver. This calculator uses 85g of gold as the default standard.",
     "note3": "Zakat is calculated at 2.5% of your net cumulative wealth above the Nisab.",
     "note4": "Debts and immediate expenses should be deducted from your total assets before calculating Zakat."
   },
   "qibla": {
-    "title": "Live Qibla Tracker 🕋",
+    "title": "Live Qibla Tracker",
     "subtitle": "100% Native, Institutional-Grade Qibla Direction (Zero Third-Party Scripts).",
     "find_qibla": "Find the Qibla",
     "location_permission_desc": "We need access to your device's location to calculate the exact direction of the Kaaba mathematically.",
@@ -274,7 +286,7 @@
     "heading_label": "Your Heading"
   },
   "murabaha": {
-    "title": "🤝 Murabaha Calculator (Islamic Financing)",
+    "title": "Murabaha Calculator (Islamic Financing)",
     "subtitle": "Calculate cost-plus financing installments. A strictly Halal, interest-free alternative to traditional loans.",
     "asset_cost": "Asset Cost / Purchase Price ($)",
     "down_payment": "Down Payment ($)",
@@ -287,18 +299,18 @@
     "fixed_profit": "Financier's Fixed Profit"
   },
   "mudarabah": {
-    "title": "📈 Mudarabah Profit Calculator",
+    "title": "Mudarabah Profit Calculator",
     "subtitle": "Calculate capital returns and profit-split ratios for Sharia-compliant partnerships.",
     "capital": "Total Investment Capital ($)",
     "expected_profit": "Projected Venture Profit ($)",
     "split_ratio": "Profit Sharing Ratio (Manager % / Investor %)",
     "partner_profit": "Investor Share of Profit",
     "manager_profit": "Manager (Mudarib) Share",
-    "loss_warning_title": "⚠️ Important Loss Condition:",
+    "loss_warning_title": "️ Important Loss Condition:",
     "loss_warning_desc": "In a Mudarabah contract, financial losses must be borne entirely by the Capital Provider (Rab-al-Mal). The Manager (Mudarib) loses their time and effort, unless negligence or breach of contract is proven."
   },
   "inheritance": {
-    "title": "⚖️ Islamic Inheritance (Mawarith)",
+    "title": "️ Islamic Inheritance (Mawarith)",
     "subtitle": "Determine primary heirs' Sharia-compliant shares according to standard Fiqh rules.",
     "estate": "Total Estate Value ($)",
     "heirs": "Select Surviving Heirs",
@@ -319,7 +331,7 @@
     "blocked": "Blocked (No Share)"
   },
   "fire": {
-    "title": "🔥 Islamic FIRE Calculator",
+    "title": "Islamic FIRE Calculator",
     "subtitle": "Determine your path to Halal Financial Independence and Early Retirement.",
     "expenses": "Estimated Monthly Expenses ($)",
     "assets": "Current Halal Investment Assets ($)",
@@ -331,7 +343,7 @@
     "status_progress": "Keep going! You are on the path to financial freedom."
   },
   "roi": {
-    "title": "💰 Halal ROI Calculator",
+    "title": "Halal ROI Calculator",
     "subtitle": "Measure the net profit and annualized yield of your business ventures and investments.",
     "investment": "Initial Capital / Investment ($)",
     "final_value": "Final Asset Value / Revenue ($)",
@@ -341,7 +353,7 @@
     "annualized": "Annualized ROI"
   },
   "currency": {
-    "title": "💱 Live Currency Converter",
+    "title": "Live Currency Converter",
     "subtitle": "Convert over 150 global currencies instantly with live market exchange rates.",
     "amount": "Amount",
     "from": "From Currency",
@@ -351,7 +363,7 @@
     "result": "Converted Amount"
   },
   "hijri": {
-    "title": "📅 Hijri Date Converter",
+    "title": "Hijri Date Converter",
     "subtitle": "Convert instantly between Gregorian and Hijri (Umm al-Qura) calendars.",
     "gregorian_title": "Gregorian to Hijri",
     "hijri_title": "Hijri to Gregorian",
@@ -362,7 +374,7 @@
     "result": "Converted Date"
   },
   "compressor": {
-    "title": "🖼️ Image Compressor",
+    "title": "️ Image Compressor",
     "subtitle": "Compress JPG, PNG, and WebP images locally. 100% private, no server uploads.",
     "drag_drop": "Drag & drop your images here or click to browse",
     "quality": "Compression Quality",
@@ -373,7 +385,7 @@
     "download": "Download Compressed Image"
   },
   "chatpdf": {
-    "title": "📄 Semantic PDF Chat",
+    "title": "Semantic PDF Chat",
     "subtitle": "Securely chat with your local PDF documents. Runs entirely in your browser using local AI.",
     "drop_pdf": "Drop your PDF file here, or click to browse",
     "loading_model": "🔄 Loading localized AI model (runs locally on your device)...",
@@ -394,7 +406,7 @@
     "status_invalid": "❌ Invalid JSON:"
   },
   "jwt": {
-    "title": "🔑 Offline JWT Decoder",
+    "title": "Offline JWT Decoder",
     "subtitle": "Decode, inspect, and analyze JSON Web Tokens safely entirely in your browser.",
     "input_placeholder": "Paste your encoded JWT token here...",
     "header": "Header (Algorithm & Type)",
@@ -402,7 +414,7 @@
     "signature": "Signature Verification"
   },
   "cron": {
-    "title": "⏰ Cron Expression Generator",
+    "title": "Cron Expression Generator",
     "subtitle": "Build, format, and translate cron schedules into plain English visually.",
     "minutes": "Minutes",
     "hours": "Hours",
@@ -413,7 +425,7 @@
     "desc_label": "Human Readable Schedule"
   },
   "prompt": {
-    "title": "✨ AI Prompt Builder",
+    "title": "AI Prompt Builder",
     "subtitle": "Structure, optimize, and engineer rich prompts for ChatGPT, Claude, and Gemini.",
     "role": "Role / Persona",
     "role_placeholder": "e.g., Senior Software Architect",
@@ -427,7 +439,7 @@
     "copy": "Copy Prompt"
   },
   "password": {
-    "title": "🔐 Secure Password Generator",
+    "title": "Secure Password Generator",
     "subtitle": "Generate cryptographically secure passwords locally in your browser. Nothing is sent to any server.",
     "length": "Length",
     "uppercase": "Uppercase Letters",
@@ -441,7 +453,7 @@
     "click_generate": "Click Generate below"
   },
   "regex": {
-    "title": "🔍 Regex Tester & Visualizer",
+    "title": "Regex Tester & Visualizer",
     "subtitle": "Test, visualize, and debug Regular Expressions instantly in your browser.",
     "regex_pattern": "Regular Expression",
     "test_string": "Test String",
@@ -451,7 +463,7 @@
     "error": "Invalid regular expression."
   },
   "data_converter": {
-    "title": "🔄 Data Format Converter",
+    "title": "Data Format Converter",
     "subtitle": "Convert between JSON, XML, YAML, and CSV formats instantly and securely.",
     "input_data": "Input Data",
     "output_data": "Converted Output",
@@ -463,7 +475,7 @@
     "success": "✅ Converted successfully!"
   },
   "sukuk": {
-    "title": "📜 Sukuk Profit Calculator",
+    "title": "Sukuk Profit Calculator",
     "subtitle": "Calculate periodic distributions and maturity values for Islamic Sukuk.",
     "face_value": "Face Value / Investment Amount ($)",
     "profit_rate": "Annual Profit Rate (%)",
@@ -474,7 +486,7 @@
     "total_return": "Total Maturity Value"
   },
   "islamic_deposit": {
-    "title": "🏦 Islamic Savings (Mudarabah) Calculator",
+    "title": "Islamic Savings (Mudarabah) Calculator",
     "subtitle": "Calculate expected returns on Halal savings accounts based on profit-sharing ratios.",
     "deposit": "Initial Deposit Amount ($)",
     "expected_rate": "Expected Annual Bank Profit Rate (%)",
@@ -483,5 +495,67 @@
     "net_profit": "Your Expected Net Profit",
     "bank_profit": "Bank's Expected Share",
     "total_balance": "Total Expected Balance"
+  },
+  "cookie_banner": {
+    "title": "We use cookies",
+    "body": "We use cookies and similar tracking technologies to enhance your browsing experience, analyze traffic, and provide personalized content. By using this website, you agree to our Privacy Policy.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "privacy_policy": "Privacy Policy"
+  },
+  "pwa_prompt": {
+    "title": "Install App",
+    "body": "Install SmartCalcTools on your device for quick access and offline use!",
+    "install": "Install",
+    "not_now": "Not now"
+  },
+  "shoe_size": {
+    "men": "Men",
+    "women": "Women",
+    "from_system": "From System",
+    "to_system": "To System",
+    "size": "Size"
+  },
+  "ramadan": {
+    "title": "Ramadan Hydration Calculator",
+    "desc": "Calculate exactly how much water you need between Iftar and Suhoor to avoid dehydration without overdrinking.",
+    "weight": "Your Weight (kg)",
+    "activity": "Activity Level",
+    "fasting_hours": "Fasting Hours",
+    "sedentary": "Sedentary (Little to no exercise)",
+    "light": "Light (Light exercise/sports 1-3 days/week)",
+    "moderate": "Moderate (Moderate exercise/sports 3-5 days/week)",
+    "active": "Active (Hard exercise/sports 6-7 days a week)",
+    "calculate": "Calculate Hydration",
+    "result_title": "Water Needed Between Iftar and Suhoor",
+    "result_liters": "Liters",
+    "result_cups": "Cups (250ml each)",
+    "tip_title": "Hydration Strategy:",
+    "tip_desc": "Do not drink it all at once! Spread it out by drinking 1-2 cups every hour from Iftar until Suhoor."
+  },
+  "fuel": {
+    "title": "Fuel Cost Calculator",
+    "desc": "Calculate the total fuel cost for your trip based on distance, fuel efficiency, and price per liter.",
+    "distance": "Trip Distance (km)",
+    "efficiency": "Fuel Efficiency (L/100km)",
+    "price": "Price per Liter",
+    "calculate": "Calculate Cost",
+    "result_title": "Total Trip Cost",
+    "result_currency": "Currency Units",
+    "fuel_needed": "Fuel Needed",
+    "liters": "Liters"
+  },
+  "customs": {
+    "title": "Customs Duty & VAT Calculator",
+    "desc": "Calculate the total import duty and VAT for your online shopping shipments.",
+    "item_value": "Item Value",
+    "shipping_cost": "Shipping Cost",
+    "duty_rate": "Customs Duty Rate (%)",
+    "vat_rate": "VAT Rate (%)",
+    "calculate": "Calculate Total",
+    "result_title": "Total Landed Cost",
+    "duty_amount": "Duty Amount",
+    "vat_amount": "VAT Amount",
+    "total_taxes": "Total Taxes"
   }
 }
