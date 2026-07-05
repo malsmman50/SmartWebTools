@@ -28,51 +28,141 @@ export default async function BodyCalculatorPage({ params }) {
 
       <HealthCalculator dict={dict} isAr={isAr} />
 
-      <div className="card" style={{ marginTop: "60px", padding: "32px", lineHeight: "1.8" }}>
-        <h2>{isAr ? "ما هي المؤشرات الصحية التي نحسبها؟" : "What Health Metrics Are We Calculating?"}</h2>
-        
-        <div style={{ marginTop: "24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
-          <div>
-            <h3>{dict.health?.bmi_title || "Body Mass Index (BMI)"}</h3>
-            <p style={{ color: "var(--text-muted)" }}>
-              {isAr 
-                ? "مؤشر كتلة الجسم هو مقياس للدهون في الجسم يعتمد على الطول والوزن ويطبق على البالغين من الرجال والنساء."
-                : "Body Mass Index is a measure of body fat based on height and weight that applies to adult men and women."}
+      {/* Massive AdSense SEO Content - Below the Fold */}
+      <article className="card" style={{ marginTop: "60px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+        {isAr ? (
+          <>
+            <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>حاسبة مقاييس الجسم المتقدمة: مؤشر الكتلة والأيض واحتياج السعرات</h2>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              لا يمكن قياس الصحة الفسيولوجية واللياقة الأيضية الحقيقية بدقة بمجرد الوقوف على ميزان تقليدي. توفر حاسبتنا المتقدمة تحليلاً علمياً شاملاً لتكوين جسمك. من خلال حساب مؤشر كتلة الجسم (BMI)، ومعدل الأيض الأساسي (BMR)، وإجمالي استهلاك الطاقة اليومي (TDEE)، ونسبة الدهون المقدرة في الجسم (BFP) في وقت واحد، تمنحك هذه الأداة البيانات الفسيولوجية الدقيقة التي تحتاجها لبناء استراتيجيات تغذية وتضخيم أو خسارة دهون فعالة ومبنية على أسس رياضية.
             </p>
-          </div>
-          <div>
-            <h3>{dict.health?.bmr_title || "Basal Metabolic Rate (BMR)"}</h3>
-            <p style={{ color: "var(--text-muted)" }}>
-              {isAr 
-                ? "معدل الأيض الأساسي هو عدد السعرات الحرارية التي يحتاجها جسمك للقيام بالوظائف الأساسية (مثل التنفس وضخ الدم) أثناء الراحة التامة. نستخدم معادلة (Mifflin-St Jeor) الحديثة والدقيقة."
-                : "BMR is the number of calories required to keep your body functioning at rest. We use the modern and highly accurate Mifflin-St Jeor equation."}
-            </p>
-          </div>
-          <div>
-            <h3>{dict.health?.tdee_title || "Total Daily Energy Expenditure (TDEE)"}</h3>
-            <p style={{ color: "var(--text-muted)" }}>
-              {isAr 
-                ? "احتياج السعرات اليومي هو تقدير لعدد السعرات الحرارية التي تحرقها يومياً، ويتم حسابه بضرب BMR في مستوى نشاطك البدني. للحفاظ على وزنك، تناول هذا العدد؛ لفقدان الوزن، قلل منه؛ ولزيادة الوزن، زد عليه."
-                : "TDEE is an estimation of how many calories you burn per day when exercise is taken into account. Eat this amount to maintain weight, less to lose, or more to gain."}
-            </p>
-          </div>
-          <div>
-            <h3>{dict.health?.ideal_weight_title || "Ideal Weight Range"}</h3>
-            <p style={{ color: "var(--text-muted)" }}>
-              {isAr 
-                ? "نطاق الوزن المثالي هو النطاق الذي يعتبر فيه وزنك طبيعياً بناءً على طولك ومؤشر كتلة الجسم الصحي (بين 18.5 و 24.9)."
-                : "The ideal weight range indicates the span of weights considered normal and healthy for your height based on the World Health Organization's BMI standards (18.5 - 24.9)."}
-            </p>
-          </div>
-        </div>
 
-        <div style={{ marginTop: "40px", padding: "20px", background: "var(--bg)", borderRadius: "8px", borderLeft: "4px solid var(--primary)" }}>
-          <strong>{isAr ? "💡 ملاحظة هامة: " : "💡 Important Note: "}</strong>
-          {isAr 
-            ? "هذه الحاسبة مصممة للبالغين وتوفر معلومات إرشادية عامة. الرياضيون الذين يمتلكون كتلة عضلية كبيرة قد يحصلون على مؤشر BMI مرتفع (سمنة) رغم أن نسبة الدهون لديهم منخفضة جداً. يُفضل دائماً استشارة أخصائي التغذية للحصول على خطة مخصصة."
-            : "This calculator provides general guidance for adults. Highly muscular athletes may get a high BMI (Obese) even if their body fat percentage is very low. Always consult a nutritionist for a personalized plan."}
-        </div>
-      </div>
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem" }}>المنهجية العلمية والرياضيات لتكوين الجسم</h3>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              لا تعتمد حاسبتنا على مقياس واحد معيب. بل تجمع عدة معادلات معتمدة سريرياً لبناء ملف كامل لمحركك الأيضي:
+            </p>
+            
+            <h4 style={{ fontSize: "1.2rem", marginTop: "16px" }}>1. مؤشر كتلة الجسم (BMI) وسياقه السريري</h4>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              تم تطوير الـ BMI في ثلاثينيات القرن التاسع عشر، وهو أداة فحص إحصائية صُممت في الأصل لتقييم الصحة العامة للسكان، وليس الأفراد. المعادلة بسيطة: <code>الوزن (كجم) / الطول (م)²</code>. على الرغم من أنه يظل أداة فرز مفيدة، إلا أننا نوضح حدوده بشدة: هو مجرد مقياس للكتلة. لا يمكنه رياضياً التمييز بين العظام الكثيفة، والكتلة العضلية المخططة، والدهون الحشوية. ولهذا السبب غالباً ما يصنف الرياضيين بشكل خاطئ على أنهم يعانون من السمنة.
+            </p>
+
+            <h4 style={{ fontSize: "1.2rem", marginTop: "16px" }}>2. معادلات معدل الأيض الأساسي (BMR)</h4>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              يمثل BMR الحد الأدنى الدقيق لعدد السعرات الحرارية التي يحرقها جسمك أثناء الراحة التامة للحفاظ على الوظائف الحيوية. نحن نستخدم بدقة معادلة <strong>Mifflin-St Jeor</strong> (1990)، والتي أثبتت الدراسات الحديثة أنها أدق بنسبة 5٪ من معادلة هاريس-بنديكت القديمة (1919).
+            </p>
+
+            <h4 style={{ fontSize: "1.2rem", marginTop: "16px" }}>3. إجمالي استهلاك الطاقة اليومي (TDEE)</h4>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              نظراً لأنك لست في غيبوبة طوال اليوم، يجب تعديل BMR الخاص بك ليتناسب مع حركتك البدنية. يطبق TDEE مضاعف نشاط بدني مستمد علمياً (مضاعفات كاتش-مكاردل). يحدد هذا الرقم النهائي مستوى "المحافظة" (Maintenance) الدقيق لك—وهي كمية الطعام التي يجب أن تتناولها لتبقى بنفس الوزن بالضبط.
+            </p>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem" }}>سيناريوهات واقعية وتطبيقات عملية للياقة البدنية</h3>
+            <ul style={{ color: "var(--text-muted)", marginBottom: "16px", paddingInlineStart: "20px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>مفارقة الرياضي (BMI مرتفع، دهون منخفضة):</strong> تخيل رباعاً يزن 100 كجم. وفقاً لمقياس BMI القديم، سيُصنف طبياً كـ "سمنة مفرطة". ولكن عبر إدخال قياسات الخصر والرقبة في حاسبة دهون الجسم الخاصة بنا (بطريقة البحرية الأمريكية)، قد يُظهر نسبة دهون 10٪—مما يضعه في فئة "الرياضيين" النخبة. تمنع أداتنا الذعر غير المبرر.</li>
+              <li style={{ marginBottom: "8px" }}><strong>فقدان الوزن المضمون رياضياً:</strong> إذا كان TDEE الخاص بك هو 2500 سعرة حرارية، فلديك البيانات لهندسة خسارة الدهون. نظراً لأن رطل الدهون يحتوي على حوالي 3500 سعرة، فإن فقدان رطل أسبوعياً يتطلب عجزاً يومياً قدره 500 سعرة. بتحديد هدفك عند 2000 سعرة، تضمن نزول الوزن بشكل رياضي قابل للتنبؤ.</li>
+              <li style={{ marginBottom: "8px" }}><strong>التضخيم العضلي الصافي (Lean Bulking):</strong> لتجنب تخزين الدهون أثناء التضخيم، يمكن إضافة فائض بسيط يبلغ 200 إلى 300 سعرة حرارية فوق الـ TDEE لدعم تخليق البروتين العضلي.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem" }}>الأسئلة الشائعة (FAQ)</h3>
+            <div style={{ marginTop: "16px" }}>
+              <h4 style={{ fontSize: "1.2rem", color: "var(--primary)" }}>أي مقياس هو الأهم لصحتي على المدى الطويل؟</h4>
+              <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>نسبة الدهون في الجسم هي بلا شك المؤشر الأفضل. الدهون العالية (خاصة الحشوية) مرتبطة بأمراض القلب. أما مؤشر كتلة الجسم المرتفع فقد يعني فقط أنك تمتلك عضلات كثيفة.</p>
+
+              <h4 style={{ fontSize: "1.2rem", color: "var(--primary)" }}>هل يقل معدل الأيض (BMR) مع تقدم العمر؟</h4>
+              <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>نعم. كما توضح معادلة Mifflin-St Jeor، ينخفض BMR بشكل مطرد مع تقدم العمر (حوالي 1-2٪ لكل عقد بعد سن العشرين) بسبب فقدان الكتلة العضلية الطبيعي (Sarcopenia).</p>
+
+              <h4 style={{ fontSize: "1.2rem", color: "var(--primary)" }}>لماذا توقف نزول وزني رغم أنني مستمر على نفس النظام الغذائي؟</h4>
+              <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>مع فقدان الوزن، يصبح جسمك أصغر فعلياً، مما يعني أنه يحتاج إلى طاقة (سعرات) أقل للحركة والبقاء. سعرات الـ "عجز" القديمة تصبح الآن سعرات "محافظة". يجب عليك إعادة حساب أرقامك باستخدام هذه الأداة بشكل دوري.</p>
+            </div>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem", color: "var(--accent)" }}>إخلاء مسؤولية طبي صارم</h3>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              <strong>تحذير:</strong> المقاييس الفسيولوجية، وحسابات السعرات، والمعلومات المقدمة في هذه الأداة مخصصة للأغراض التعليمية والتقديرية فقط. هي لا تشكل بأي حال من الأحوال نصيحة طبية أو تشخيصاً سريرياً. استشر دائماً طبيباً مرخصاً أو أخصائي تغذية قبل البدء في أي برنامج لإنقاص الوزن أو ممارسة تمارين عالية الكثافة.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>Advanced Body Metrics Calculator: BMI, BMR, TDEE & Body Fat</h2>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              True physiological health and metabolic fitness cannot be accurately measured by stepping onto a generic bathroom scale. Our Advanced Body Metrics Calculator provides a holistic, science-based analysis of your physical composition. By simultaneously calculating your Body Mass Index (BMI), Basal Metabolic Rate (BMR), Total Daily Energy Expenditure (TDEE), and estimated Body Fat Percentage, this tool equips you with the exact physiological data you need.
+            </p>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem" }}>The Underlying Methodology & Mathematics</h3>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              Our calculator does not rely on a single, flawed metric. It aggregates multiple peer-reviewed equations:
+            </p>
+            
+            <h4 style={{ fontSize: "1.2rem", marginTop: "16px" }}>1. Body Mass Index (BMI) & Its Limitations</h4>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              The mathematical formula is simple: <code>BMI = Weight (kg) / Height (m)²</code>. While it remains a useful screening tool for populations, it is purely a measure of mass. It cannot mathematically distinguish between dense bone, lean striated muscle mass, and visceral adipose tissue (fat).
+            </p>
+
+            <h4 style={{ fontSize: "1.2rem", marginTop: "16px" }}>2. Basal Metabolic Rate (BMR)</h4>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              Your BMR represents the precise minimum number of calories your body burns at absolute rest just to maintain vital autonomic functions. We strictly utilize the <strong>Mifflin-St Jeor Equation</strong> (1990), proven to be roughly 5% more accurate than the antiquated Harris-Benedict equation.
+            </p>
+
+            <h4 style={{ fontSize: "1.2rem", marginTop: "16px" }}>3. Total Daily Energy Expenditure (TDEE)</h4>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              Your TDEE applies a scientifically derived physical activity multiplier to your BMR. This final number establishes your exact daily caloric maintenance level—the exact amount of food you must eat to stay the exact same weight.
+            </p>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem" }}>Real-World Scenarios and Practical Fitness Applications</h3>
+            <ul style={{ color: "var(--text-muted)", marginBottom: "16px", paddingInlineStart: "20px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>The Athlete's Paradox:</strong> A dedicated weightlifter might trigger a BMI score of 31.6 (Obese Class I). However, their actual Body Fat Percentage may be 10% (Elite Athlete). Our comprehensive tool prevents unnecessary panic by contextualizing raw weight with actual lean mass metrics.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Mathematically Guaranteed Sustainable Weight Loss:</strong> If your TDEE is exactly 2,500 calories per day, losing one pound of fat per week requires a daily energy deficit of 500 calories. Setting your target to 2,000 calories ensures predictable, sustainable weight loss.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Lean Bulking:</strong> By adding just 200 to 300 calories above their TDEE, individuals can construct a precise surplus to fuel muscle protein synthesis while mitigating unnecessary lipid (fat) storage.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem" }}>Frequently Asked Questions (FAQ)</h3>
+            <div style={{ marginTop: "16px" }}>
+              <h4 style={{ fontSize: "1.2rem", color: "var(--primary)" }}>Which metric is more important for my long-term health?</h4>
+              <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>Body Fat Percentage is universally considered a vastly superior indicator of true metabolic health compared to BMI. High visceral fat is strongly linked to cardiovascular disease, whereas a high BMI might just indicate heavy musculature.</p>
+
+              <h4 style={{ fontSize: "1.2rem", color: "var(--primary)" }}>Does my biological age significantly decrease my BMR?</h4>
+              <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>Yes. BMR decreases steadily with age (roughly 1% to 2% per decade after the age of 20) primarily due to the natural, progressive loss of metabolically active lean muscle mass (sarcopenia).</p>
+
+              <h4 style={{ fontSize: "1.2rem", color: "var(--primary)" }}>Why did my TDEE and weight loss suddenly stall?</h4>
+              <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>As you lose physical mass, your body becomes smaller. It requires significantly less kinetic energy to move and maintain its smaller cellular footprint. Your old "deficit" calories have become your new "maintenance" calories.</p>
+            </div>
+
+            <h3 style={{ marginTop: "32px", fontSize: "1.5rem", color: "var(--accent)" }}>Strict Medical Disclaimer</h3>
+            <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
+              <strong>WARNING:</strong> The physiological body metrics, caloric calculations, algorithms, and information provided by this digital tool are strictly intended for educational, informational, and general estimation purposes only. This tool unequivocally does not constitute professional medical advice, clinical diagnosis, or specialized treatment recommendations. Always consult with a licensed physician or registered clinical dietitian.
+            </p>
+          </>
+        )}
+      </article>
+
+      {/* JSON-LD Structured Data for AdSense SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": isAr ? [
+          {
+            "@type": "Question",
+            "name": "أي مقياس هو الأهم لصحتي على المدى الطويل؟",
+            "acceptedAnswer": { "@type": "Answer", "text": "نسبة الدهون في الجسم هي المؤشر الأفضل. الدهون العالية مرتبطة بأمراض القلب، بينما مؤشر كتلة الجسم المرتفع قد يعني فقط أنك تمتلك عضلات كثيفة." }
+          },
+          {
+            "@type": "Question",
+            "name": "لماذا توقف نزول وزني رغم أنني مستمر على نفس النظام الغذائي؟",
+            "acceptedAnswer": { "@type": "Answer", "text": "مع فقدان الوزن، يحتاج جسمك طاقة (سعرات) أقل. سعرات العجز القديمة تصبح سعرات المحافظة الجديدة." }
+          }
+        ] : [
+          {
+            "@type": "Question",
+            "name": "Which metric is more important for my long-term health?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Body Fat Percentage is a vastly superior indicator of true metabolic health compared to BMI." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why did my TDEE and weight loss suddenly stall?",
+            "acceptedAnswer": { "@type": "Answer", "text": "As you lose physical mass, your body requires less energy to move. Your old deficit calories have become your new maintenance calories." }
+          }
+        ]
+      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }
