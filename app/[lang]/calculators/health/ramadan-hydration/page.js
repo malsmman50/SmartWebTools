@@ -5,8 +5,9 @@ import FAQSchema from "@/app/components/SEO/FAQSchema";
 import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
-  const dict = await getDictionary(params.lang);
-  const url = `https://smartcalctools.xyz/${params.lang}/calculators/health/ramadan-hydration`;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  const url = `https://smartcalctools.xyz/${lang}/calculators/health/ramadan-hydration`;
   
   return {
     title: `${dict.ramadan.title} | SmartCalcTools`,
@@ -42,9 +43,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function RamadanHydrationPage({ params }) {
-  const dict = await getDictionary(params.lang);
-  const isAr = params.lang === "ar";
-  const url = `https://smartcalctools.xyz/${params.lang}/calculators/health/ramadan-hydration`;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  const isAr = lang === "ar";
+  const url = `https://smartcalctools.xyz/${lang}/calculators/health/ramadan-hydration`;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -54,13 +56,13 @@ export default async function RamadanHydrationPage({ params }) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://smartcalctools.xyz/${params.lang}`
+        "item": `https://smartcalctools.xyz/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Health Calculators",
-        "item": `https://smartcalctools.xyz/${params.lang}#health`
+        "item": `https://smartcalctools.xyz/${lang}#health`
       },
       {
         "@type": "ListItem",
@@ -99,7 +101,7 @@ export default async function RamadanHydrationPage({ params }) {
       </div>
 
       <div className="calc-container" style={{ maxWidth: "900px", margin: "0 auto 3rem" }}>
-        <RamadanHydration dict={dict} lang={params.lang} />
+        <RamadanHydration dict={dict} lang={lang} />
       </div>
 
       {/* SEO Article Wrapper */}

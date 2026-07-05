@@ -5,8 +5,9 @@ import FAQSchema from "@/app/components/SEO/FAQSchema";
 import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
-  const dict = await getDictionary(params.lang);
-  const url = `https://smartcalctools.xyz/${params.lang}/calculators/lifestyle/fuel-cost`;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  const url = `https://smartcalctools.xyz/${lang}/calculators/lifestyle/fuel-cost`;
   
   return {
     title: `${dict.fuel.title} | SmartCalcTools`,
@@ -42,9 +43,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function FuelCostPage({ params }) {
-  const dict = await getDictionary(params.lang);
-  const isAr = params.lang === "ar";
-  const url = `https://smartcalctools.xyz/${params.lang}/calculators/lifestyle/fuel-cost`;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  const isAr = lang === "ar";
+  const url = `https://smartcalctools.xyz/${lang}/calculators/lifestyle/fuel-cost`;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -54,13 +56,13 @@ export default async function FuelCostPage({ params }) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://smartcalctools.xyz/${params.lang}`
+        "item": `https://smartcalctools.xyz/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Lifestyle Calculators",
-        "item": `https://smartcalctools.xyz/${params.lang}#lifestyle`
+        "item": `https://smartcalctools.xyz/${lang}#lifestyle`
       },
       {
         "@type": "ListItem",

@@ -5,8 +5,9 @@ import FAQSchema from "@/app/components/SEO/FAQSchema";
 import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
-  const dict = await getDictionary(params.lang);
-  const url = `https://smartcalctools.xyz/${params.lang}/calculators/shopping/customs-duty`;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  const url = `https://smartcalctools.xyz/${lang}/calculators/shopping/customs-duty`;
   
   return {
     title: `${dict.customs.title} | SmartCalcTools`,
@@ -42,9 +43,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CustomsDutyPage({ params }) {
-  const dict = await getDictionary(params.lang);
-  const isAr = params.lang === "ar";
-  const url = `https://smartcalctools.xyz/${params.lang}/calculators/shopping/customs-duty`;
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+  const isAr = lang === "ar";
+  const url = `https://smartcalctools.xyz/${lang}/calculators/shopping/customs-duty`;
 
   // JSON-LD structured data
   const breadcrumbSchema = {
@@ -55,13 +57,13 @@ export default async function CustomsDutyPage({ params }) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `https://smartcalctools.xyz/${params.lang}`
+        "item": `https://smartcalctools.xyz/${lang}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Shopping Calculators",
-        "item": `https://smartcalctools.xyz/${params.lang}#shopping`
+        "item": `https://smartcalctools.xyz/${lang}#shopping`
       },
       {
         "@type": "ListItem",
@@ -99,7 +101,7 @@ export default async function CustomsDutyPage({ params }) {
       
       {/* Disclaimer Block */}
       <div style={{ maxWidth: "900px", margin: "0 auto 24px" }}>
-        <DisclaimerBox type="financial" lang={params.lang} />
+        <DisclaimerBox type="financial" lang={lang} />
       </div>
 
       <div className="calc-container" style={{ maxWidth: "900px", margin: "0 auto 3rem" }}>
