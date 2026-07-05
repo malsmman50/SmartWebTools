@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Navbar({ lang, dict }) {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState("light");
   const pathname = usePathname();
-  const router = useRouter();
   
   const localizePath = (path) => {
     if (!path) return "/";
@@ -18,16 +17,14 @@ export default function Navbar({ lang, dict }) {
     return `/${lang}${cleanPath}`;
   };
 
-  const switchLanguage = (newLang) => {
-    if (newLang === lang) return;
+  const getSwitchedPath = (newLang) => {
     const segments = pathname.split("/");
     if (segments[1] === "en" || segments[1] === "ar") {
       segments[1] = newLang;
     } else {
       segments.splice(1, 0, newLang);
     }
-    const newPath = segments.join("/") || "/";
-    router.push(newPath);
+    return segments.join("/") || "/";
   };
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -181,24 +178,13 @@ export default function Navbar({ lang, dict }) {
               {dict.common.nav_about}
             </Link>
 
-            {/* Desktop Language Switcher */}
+            {/* Desktop Language Switcher - real <Link> so it's crawlable and works without JS */}
             <Link
-              href={localizePath(lang === "en" ? "ar" : "en")}
+              href={getSwitchedPath(lang === "en" ? "ar" : "en")}
               className="lang-toggle"
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
-              style={{ textDecoration: 'none' }}
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  const segments = window.location.pathname.split('/');
-                  if (segments[1] === "en" || segments[1] === "ar") {
-                    segments[1] = lang === "en" ? "ar" : "en";
-                  } else {
-                    segments.splice(1, 0, lang === "en" ? "ar" : "en");
-                  }
-                  window.history.pushState(null, '', segments.join('/') || '/');
-                }
-              }}
+              hrefLang={lang === "en" ? "ar" : "en"}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
               <span>{lang === "en" ? "العربية" : "English"}</span>
@@ -219,23 +205,13 @@ export default function Navbar({ lang, dict }) {
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }} className="mobile-only-controls">
-            {/* Mobile Language Switcher */}
+            {/* Mobile Language Switcher - same label as desktop for consistency; only the CSS makes it compact */}
             <Link
-              href={localizePath(lang === "en" ? "ar" : "en")}
+              href={getSwitchedPath(lang === "en" ? "ar" : "en")}
               className="lang-toggle"
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
-              style={{ padding: "6px 12px", fontSize: "0.8rem", textDecoration: 'none' }}
-              onClick={() => {
-                if (typeof window !== 'undefined') {
-                  const segments = window.location.pathname.split('/');
-                  if (segments[1] === "en" || segments[1] === "ar") {
-                    segments[1] = lang === "en" ? "ar" : "en";
-                  } else {
-                    segments.splice(1, 0, lang === "en" ? "ar" : "en");
-                  }
-                  window.history.pushState(null, '', segments.join('/') || '/');
-                }
-              }}
+              style={{ padding: "6px 12px", fontSize: "0.8rem" }}
+              hrefLang={lang === "en" ? "ar" : "en"}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
               <span>{lang === "en" ? "العربية" : "English"}</span>
