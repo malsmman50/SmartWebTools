@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/murabaha/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/murabaha/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/murabaha/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/murabaha/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/murabaha/`,
       },
     },
     title,

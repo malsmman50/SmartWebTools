@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/data-converter/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/data-converter/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/data-converter/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/data-converter/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/data-converter/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/data-converter/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/data-converter/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/data-converter/`,
       },
     },
     title,

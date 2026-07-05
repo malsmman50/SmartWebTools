@@ -30,10 +30,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/hijri-converter/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/hijri-converter/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter/`,
       },
     }, title: "Hijri Date Converter" };
   }
@@ -64,10 +64,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/hijri-converter/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/hijri-converter/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/hijri-converter/`,
       },
     },
     title,

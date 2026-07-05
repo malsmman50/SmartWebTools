@@ -30,6 +30,21 @@ export default function sitemap() {
     { path: '/calculators/lifestyle/split-bill', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/calculators/health/body-calculator', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/calculators/health/pregnancy', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/calculators/health/ramadan-hydration', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/calculators/inheritance', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/calculators/sukuk', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/calculators/islamic-deposit', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/calculators/currency', changeFrequency: 'daily', priority: 0.9 },
+    { path: '/calculators/lifestyle/fuel-cost', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/calculators/shopping/customs-duty', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/tools/data-converter', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/tools/hijri-converter', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/tools/image-compressor', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/tools/qibla-compass', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/tools/regex-tester', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/compare', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/developers', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/embed', changeFrequency: 'monthly', priority: 0.5 },
   ];
 
   // Inject Curated PSEO (High Intent)

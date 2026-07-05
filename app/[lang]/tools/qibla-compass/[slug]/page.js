@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/qibla-compass/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/qibla-compass/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/qibla-compass/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/qibla-compass/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/qibla-compass/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/qibla-compass/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/qibla-compass/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/qibla-compass/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/qibla-compass/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/qibla-compass/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/qibla-compass/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/qibla-compass/`,
       },
     },
     title,

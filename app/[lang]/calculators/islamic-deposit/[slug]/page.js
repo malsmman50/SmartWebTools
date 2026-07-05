@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/islamic-deposit/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-deposit/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/islamic-deposit/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-deposit/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/islamic-deposit/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/islamic-deposit/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-deposit/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/islamic-deposit/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/islamic-deposit/`,
       },
     },
     title,

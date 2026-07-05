@@ -30,10 +30,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/zakat/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/zakat/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/zakat/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/zakat/`,
       },
     }, title: "Zakat Calculator" };
   }
@@ -50,10 +50,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/zakat/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/zakat/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/zakat/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/zakat/`,
       },
     },
     title,

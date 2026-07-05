@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/cron-generator/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/cron-generator/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/cron-generator/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/cron-generator/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/cron-generator/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/cron-generator/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/cron-generator/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/cron-generator/`,
       },
     },
     title,

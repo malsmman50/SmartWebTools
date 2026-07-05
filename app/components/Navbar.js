@@ -182,15 +182,27 @@ export default function Navbar({ lang, dict }) {
             </Link>
 
             {/* Desktop Language Switcher */}
-            <button
+            <Link
+              href={localizePath(lang === "en" ? "ar" : "en")}
               className="lang-toggle"
-              onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
+              style={{ textDecoration: 'none' }}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  const segments = window.location.pathname.split('/');
+                  if (segments[1] === "en" || segments[1] === "ar") {
+                    segments[1] = lang === "en" ? "ar" : "en";
+                  } else {
+                    segments.splice(1, 0, lang === "en" ? "ar" : "en");
+                  }
+                  window.history.pushState(null, '', segments.join('/') || '/');
+                }
+              }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
               <span>{lang === "en" ? "العربية" : "English"}</span>
-            </button>
+            </Link>
 
             <button
               className="theme-toggle"
@@ -208,15 +220,26 @@ export default function Navbar({ lang, dict }) {
 
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }} className="mobile-only-controls">
             {/* Mobile Language Switcher */}
-            <button
+            <Link
+              href={localizePath(lang === "en" ? "ar" : "en")}
               className="lang-toggle"
-              onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
-              style={{ padding: "6px 12px", fontSize: "0.8rem" }}
+              style={{ padding: "6px 12px", fontSize: "0.8rem", textDecoration: 'none' }}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  const segments = window.location.pathname.split('/');
+                  if (segments[1] === "en" || segments[1] === "ar") {
+                    segments[1] = lang === "en" ? "ar" : "en";
+                  } else {
+                    segments.splice(1, 0, lang === "en" ? "ar" : "en");
+                  }
+                  window.history.pushState(null, '', segments.join('/') || '/');
+                }
+              }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-              <span>{lang === "en" ? "AR" : "EN"}</span>
-            </button>
+              <span>{lang === "en" ? "العربية" : "English"}</span>
+            </Link>
             
             <button
               className="theme-toggle"

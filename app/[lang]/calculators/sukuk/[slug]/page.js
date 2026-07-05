@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/sukuk/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/sukuk/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/sukuk/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/sukuk/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/sukuk/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/sukuk/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/sukuk/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/sukuk/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/sukuk/`,
       },
     },
     title,

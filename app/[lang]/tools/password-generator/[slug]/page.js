@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/password-generator/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/password-generator/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/password-generator/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/password-generator/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/password-generator/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/password-generator/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/tools/password-generator/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/tools/password-generator/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/tools/password-generator/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/tools/password-generator/_slug`,
+        "en": `https://smartcalctools.xyz/en/tools/password-generator/`,
+        "ar": `https://smartcalctools.xyz/ar/tools/password-generator/`,
       },
     },
     title,

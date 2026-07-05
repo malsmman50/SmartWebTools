@@ -26,10 +26,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/roi/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/roi/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/roi/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/roi/`,
       },
     }, title: "SmartCalcTools Tool" };
   }
@@ -41,10 +41,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/roi/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/roi/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/roi/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/roi/`,
       },
     },
     title,

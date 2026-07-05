@@ -30,10 +30,10 @@ export async function generateMetadata({ params }) {
   if (!match) {
     return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/currency/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/currency/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/currency/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/currency/`,
       },
     }, title: "Live Currency Converter" };
   }
@@ -53,10 +53,10 @@ export async function generateMetadata({ params }) {
 
   return {
     alternates: {
-      canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/_slug`,
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/`,
       languages: {
-        "en": `https://smartcalctools.xyz/en/calculators/currency/_slug`,
-        "ar": `https://smartcalctools.xyz/ar/calculators/currency/_slug`,
+        "en": `https://smartcalctools.xyz/en/calculators/currency/`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/currency/`,
       },
     },
     title,
