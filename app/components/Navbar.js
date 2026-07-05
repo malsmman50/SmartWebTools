@@ -37,7 +37,8 @@ export default function Navbar({ lang, dict }) {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme("dark");
     }
   }, []);
 
@@ -75,9 +76,12 @@ export default function Navbar({ lang, dict }) {
   const everydayTools = [
     { name: dict.everyday?.shoe_size_title || "Shoe Size Converter", path: "/calculators/shopping/shoe-size" },
     { name: dict.everyday?.discount_title || "Discount & VAT", path: "/calculators/shopping/discount" },
+    { name: dict.customs?.title || "Customs Duty", path: "/calculators/shopping/customs-duty" },
     { name: dict.everyday?.split_bill_title || "Split the Bill", path: "/calculators/lifestyle/split-bill" },
     { name: dict.health?.body_calc_title || "Body Calculator", path: "/calculators/health/body-calculator" },
-    { name: dict.health?.pregnancy_title || "Pregnancy Tracker", path: "/calculators/health/pregnancy" }
+    { name: dict.health?.pregnancy_title || "Pregnancy Tracker", path: "/calculators/health/pregnancy" },
+    { name: dict.health?.ramadan_title || "Ramadan Hydration", path: "/calculators/health/ramadan-hydration" },
+    { name: dict.fuel?.title || "Fuel Cost", path: "/calculators/lifestyle/fuel-cost" }
   ];
 
   const utilities = [
@@ -104,7 +108,7 @@ export default function Navbar({ lang, dict }) {
 
         <div className="container navbar-inner">
           <Link href={localizePath("/")} className="navbar-logo">
-            📐 {lang === "ar" ? <span>أدوات الحساب</span> : <>Smart<span>CalcTools</span></>}
+            📐 {lang === "ar" ? (dict.common.nav_logo_short || "أدوات الحساب") : <>Smart<span>CalcTools</span></>}
           </Link>
 
           {/* Desktop Menu - Premium Hover Dropdowns */}
@@ -184,7 +188,8 @@ export default function Navbar({ lang, dict }) {
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
             >
-              🌐 {lang === "en" ? "العربية" : "English"}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span>{lang === "en" ? "العربية" : "English"}</span>
             </button>
 
             <button
@@ -193,7 +198,11 @@ export default function Navbar({ lang, dict }) {
               aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
               title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
             >
-              {theme === "light" ? "🌙" : "☀️"}
+              {theme === "light" ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              )}
             </button>
           </nav>
 
@@ -205,7 +214,8 @@ export default function Navbar({ lang, dict }) {
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               style={{ padding: "6px 12px", fontSize: "0.8rem" }}
             >
-              🌐 {lang === "en" ? "العربية" : "English"}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span>{lang === "en" ? "AR" : "EN"}</span>
             </button>
             
             <button
@@ -214,7 +224,11 @@ export default function Navbar({ lang, dict }) {
               aria-label="Toggle theme"
               id="mobile-theme-btn"
             >
-              {theme === "light" ? "🌙" : "☀️"}
+              {theme === "light" ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              )}
             </button>
             <button 
               className={`hamburger ${isOpen ? "active" : ""}`} 
