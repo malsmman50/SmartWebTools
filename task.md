@@ -28,4 +28,8 @@
 - `[x]` Build Fuel Cost Calculator with 800+ words SEO content.
 - `[x]` Build Customs Duty & VAT Calculator with 800+ words SEO content.
 - `[x]` Add tools to navigation menus.
+- `[x]` Inject SEO components (SoftwareSchema, FAQSchema, DisclaimerBox) into target calculators.
+- `[x]` Inject SEO components to prompt-generator, qibla-compass, regex-tester, currency, inheritance.
 - `[x]` Run `npm run build` to verify.
+- `[x]` Add SEO schemas and long-form articles to remaining pages (chatpdf, cron-generator, data-converter, hijri-converter, json-formatter)
+- `[x]` Inject SEO schemas, DisclaimerBox, and long-form articles to islamic calculators (islamic-deposit, mudarabah, murabaha, sukuk, roi)

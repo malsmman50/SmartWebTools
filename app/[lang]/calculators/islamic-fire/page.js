@@ -1,5 +1,8 @@
 import { getDictionary } from "@/app/dictionaries";
 import IslamicFireCalculatorClient from "@/app/components/IslamicFireCalculatorClient";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -40,9 +43,47 @@ export default async function IslamicFireCalculatorPage({ params }) {
 
   return (
     <>
+      <SoftwareSchema
+        name={isAr ? "حاسبة التقاعد المبكر الإسلامي (FIRE)" : "Islamic FIRE Calculator"}
+        description={isAr ? "احسب رقم الاستقلال المالي والتقاعد المبكر المتوافق مع الشريعة الإسلامية مع احتساب فريضة الزكاة السنوية وفجوة الزكاة." : "Calculate your Financial Independence, Retire Early (FIRE) number while accounting for the annual Zakat obligation and the Zakat Gap."}
+        url={`https://smartcalctools.xyz/${lang}/calculators/islamic-fire`}
+      />
+      <FAQSchema
+        faqData={isAr ? [
+          {
+            q: "كيف يمكنني تقليل فجوة الزكاة؟",
+            a: "يمكنك تنويع استثماراتك في العقارات المؤجرة حيث لا تجب الزكاة على أصل العقار بل على الإيجار الصافي فقط."
+          },
+          {
+            q: "هل يمكن الاستثمار في صناديق التقاعد التقليدية؟",
+            a: "نعم، بشرط اختيار الصناديق المتوافقة مع الشريعة وتجنب السندات الربوية."
+          },
+          {
+            q: "هل عوائد الاستثمارات الإسلامية أقل من التقليدية؟",
+            a: "تاريخياً، أداؤها متقارب جداً وأحياناً أفضل بسب استبعاد البنوك والشركات ذات الديون العالية."
+          }
+        ] : [
+          {
+            q: "How can I reduce the Zakat Gap?",
+            a: "You can invest in non-Zakatable assets like rental properties. Zakat is generally paid on the rental income, not the property value itself, lowering the overall obligation."
+          },
+          {
+            q: "Can I use a regular 401(k) for Halal FIRE?",
+            a: "Yes, if you use a brokerage link to buy Shariah-compliant mutual funds or ETFs. You must avoid default target-date funds which rely on interest-bearing bonds."
+          },
+          {
+            q: "Are Islamic investments less profitable?",
+            a: "Not necessarily. Historically, Shariah-compliant index funds perform very similarly to the broader market, and sometimes outperform during financial crises by excluding highly leveraged companies."
+          }
+        ]}
+      />
       <IslamicFireCalculatorClient  lang={lang} dict={dict} />
       
       <div className="container" style={{ padding: "0 20px 40px" }}>
+        <div style={{ marginTop: "24px" }}>
+          <DisclaimerBox type="financial" lang={lang} />
+          <DisclaimerBox type="religious" lang={lang} />
+        </div>
         <article className="card" style={{ marginTop: "20px", lineHeight: "1.8" }}>
           {isAr ? (
             <>
@@ -117,62 +158,6 @@ export default async function IslamicFireCalculatorPage({ params }) {
           )}
         </article>
       </div>
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": isAr ? [
-          {
-            "@type": "Question",
-            "name": "كيف يمكنني تقليل فجوة الزكاة؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "يمكنك تنويع استثماراتك في العقارات المؤجرة حيث لا تجب الزكاة على أصل العقار بل على الإيجار الصافي فقط."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل يمكن الاستثمار في صناديق التقاعد التقليدية؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "نعم، بشرط اختيار الصناديق المتوافقة مع الشريعة وتجنب السندات الربوية."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل عوائد الاستثمارات الإسلامية أقل من التقليدية؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "تاريخياً، أداؤها متقارب جداً وأحياناً أفضل بسب استبعاد البنوك والشركات ذات الديون العالية."
-            }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "How can I reduce the Zakat Gap?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "You can invest in non-Zakatable assets like rental properties. Zakat is generally paid on the rental income, not the property value itself, lowering the overall obligation."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I use a regular 401(k) for Halal FIRE?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, if you use a brokerage link to buy Shariah-compliant mutual funds or ETFs. You must avoid default target-date funds which rely on interest-bearing bonds."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Are Islamic investments less profitable?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Not necessarily. Historically, Shariah-compliant index funds perform very similarly to the broader market, and sometimes outperform during financial crises by excluding highly leveraged companies."
-            }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
     </>
   );
 }

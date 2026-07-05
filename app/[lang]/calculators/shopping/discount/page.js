@@ -1,5 +1,8 @@
 import { getDictionary } from "@/app/dictionaries";
 import DiscountCalculator from "@/app/components/DiscountCalculator";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -30,6 +33,32 @@ export default async function DiscountPage({ params }) {
 
   return (
     <div className="container" style={{ padding: "40px 20px", maxWidth: "900px", margin: "0 auto" }}>
+      <SoftwareSchema
+        name={isAr ? "حاسبة الخصم والضريبة الذكية" : "Smart Discount & VAT Calculator"}
+        description={isAr ? "احسب السعر النهائي فوراً بعد إضافة الخصومات، الكوبونات الإضافية، وضريبة القيمة المضافة (VAT) قبل الشراء للتسوق بذكاء." : "Calculate final prices, total savings, and VAT instantly before you pay. Perfect for shopping discounts and coupons."}
+        url={`https://smartcalctools.xyz/${lang}/calculators/shopping/discount`}
+      />
+      <FAQSchema
+        faqData={isAr ? [
+          {
+            q: "هل أداة الحساب مجانية تماماً؟",
+            a: "نعم، جميع الحسابات تتم محلياً في متصفحك مجاناً وبدون حاجة للاتصال بالإنترنت."
+          },
+          {
+            q: "هل تجمعون الخصم الإضافي مع الخصم الأساسي؟",
+            a: "لا، هذا خطأ رياضي. يتم خصم النسبة الأساسية أولاً، ثم تُطبق نسبة الكوبون الإضافي على السعر المتبقي."
+          }
+        ] : [
+          {
+            q: "Is this calculator completely free and secure?",
+            a: "Yes. All mathematical processing happens locally inside your browser (Client-Side)."
+          },
+          {
+            q: "Why don't you just add the two discount percentages together?",
+            a: "Retail math strictly applies sequential discounting. Our calculator handles this sequencing automatically."
+          }
+        ]}
+      />
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
         <h1 style={{ fontSize: "2.5rem", marginBottom: "16px", color: "var(--primary)" }}>{dict.discount.title}</h1>
         <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", maxWidth: "600px", margin: "0 auto" }}>
@@ -40,8 +69,12 @@ export default async function DiscountPage({ params }) {
       {/* Interactive Tool - Above the Fold */}
       <DiscountCalculator lang={lang} dict={dict} />
 
+      <div style={{ marginTop: "32px", marginBottom: "16px" }}>
+        <DisclaimerBox type="financial" lang={lang} />
+      </div>
+
       {/* Massive AdSense SEO Content - Below the Fold */}
-      <article className="card" style={{ marginTop: "60px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+      <article className="card" style={{ marginTop: "20px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
         {isAr ? (
           <>
             <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>الدليل الشامل لحساب الخصومات التجارية والضرائب المضافة</h2>
@@ -126,34 +159,6 @@ export default async function DiscountPage({ params }) {
         )}
       </article>
 
-      {/* JSON-LD Structured Data for AdSense SEO */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": isAr ? [
-          {
-            "@type": "Question",
-            "name": "هل أداة الحساب مجانية تماماً؟",
-            "acceptedAnswer": { "@type": "Answer", "text": "نعم، جميع الحسابات تتم محلياً في متصفحك مجاناً وبدون حاجة للاتصال بالإنترنت." }
-          },
-          {
-            "@type": "Question",
-            "name": "هل تجمعون الخصم الإضافي مع الخصم الأساسي؟",
-            "acceptedAnswer": { "@type": "Answer", "text": "لا، هذا خطأ رياضي. يتم خصم النسبة الأساسية أولاً، ثم تُطبق نسبة الكوبون الإضافي على السعر المتبقي." }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "Is this calculator completely free and secure?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. All mathematical processing happens locally inside your browser (Client-Side)." }
-          },
-          {
-            "@type": "Question",
-            "name": "Why don't you just add the two discount percentages together?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Retail math strictly applies sequential discounting. Our calculator handles this sequencing automatically." }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

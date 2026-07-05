@@ -1,5 +1,8 @@
 import { getDictionary } from "@/app/dictionaries";
 import CustomsDutyCalculator from "@/app/components/CustomsDutyCalculator";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const dict = await getDictionary(params.lang);
@@ -44,20 +47,6 @@ export default async function CustomsDutyPage({ params }) {
   const url = `https://smartcalctools.xyz/${params.lang}/calculators/shopping/customs-duty`;
 
   // JSON-LD structured data
-  const softwareAppSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": dict.customs.title,
-    "description": dict.customs.desc,
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -91,24 +80,15 @@ export default async function CustomsDutyPage({ params }) {
     { q: "Is VAT applied to the shipping cost as well?", a: "Yes, VAT is calculated on the total landed cost, which includes the item value, shipping cost, and the applied customs duty." }
   ];
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqData.map(faq => ({
-      "@type": "Question",
-      "name": faq.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.a
-      }
-    }))
-  };
-
   return (
     <div className="container" style={{ padding: "40px 20px" }}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
+      <SoftwareSchema
+        name={dict.customs.title}
+        description={dict.customs.desc}
+        url={url}
+      />
+      <FAQSchema faqData={faqData} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="page-header text-center" style={{ marginBottom: "2rem" }}>
         <h1 className="title">📦 {dict.customs.title}</h1>
@@ -118,13 +98,8 @@ export default async function CustomsDutyPage({ params }) {
       </div>
       
       {/* Disclaimer Block */}
-      <div style={{ maxWidth: "900px", margin: "0 auto 24px", background: "rgba(var(--warning-rgb), 0.05)", borderLeft: "4px solid var(--warning)", padding: "16px", borderRadius: "0 8px 8px 0" }}>
-        <strong style={{ color: "var(--warning)" }}>⚠️ {isAr ? "إخلاء مسؤولية مالية:" : "Financial Disclaimer:"}</strong>
-        <p style={{ margin: "4px 0 0", fontSize: "0.9rem" }}>
-          {isAr 
-            ? "تعمل هذه الحاسبة على تقديم تقديرات مبدئية لتكلفة الرسوم الجمركية والضرائب. قد تختلف الرسوم النهائية حسب تصنيف المنتج (HS Code) ولوائح الجمارك في بلدك وقت التخليص." 
-            : "This calculator provides preliminary estimates for customs duties and taxes. Final charges may vary based on the exact HS Code classification and your country's customs regulations at the time of clearance."}
-        </p>
+      <div style={{ maxWidth: "900px", margin: "0 auto 24px" }}>
+        <DisclaimerBox type="financial" lang={params.lang} />
       </div>
 
       <div className="calc-container" style={{ maxWidth: "900px", margin: "0 auto 3rem" }}>

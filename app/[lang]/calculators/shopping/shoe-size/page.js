@@ -3,6 +3,9 @@ import ShoeSizeConverter from "@/app/components/ShoeSizeConverter";
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -31,6 +34,32 @@ export default async function ShoeSizePage({ params }) {
 
   return (
     <div className="container" style={{ padding: "40px 20px" }}>
+      <SoftwareSchema
+        name={dict.everyday?.shoe_size_title || "Global Shoe Size Converter"}
+        description={dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly between US, UK, EU, and CM."}
+        url={`https://smartcalctools.xyz/${lang}/calculators/shopping/shoe-size`}
+      />
+      <FAQSchema
+        faqData={isAr ? [
+          {
+            q: "كيف أقيس قدمي في المنزل بدقة؟",
+            a: "ضع ورقة بيضاء مقابل الحائط وقف عليها، ثم ضع علامة عند أطول إصبع. قِس المسافة بالسنتيمتر في نهاية اليوم."
+          },
+          {
+            q: "هل يجب أن تلامس أصابعي مقدمة الحذاء؟",
+            a: "إطلاقاً. يجب أن تترك مسافة تعادل عرض إبهام اليد (حوالي 1 سم) بين أطول إصبع ومقدمة الحذاء."
+          }
+        ] : [
+          {
+            q: "How do I accurately measure my own foot at home?",
+            a: "Stand on a piece of paper with your heel against a wall. Mark the tip of your longest toe and measure in centimeters at the end of the day."
+          },
+          {
+            q: "Should my toes touch the end of the shoe?",
+            a: "No. There should be roughly a thumb's width of space between your longest toe and the front interior of the shoe."
+          }
+        ]}
+      />
       <h1 style={{ textAlign: "center", marginBottom: "16px", color: "var(--primary)" }}>
         {dict.everyday?.shoe_size_title || "Global Shoe Size Converter"}
       </h1>
@@ -40,8 +69,12 @@ export default async function ShoeSizePage({ params }) {
 
       <ShoeSizeConverter isAr={isAr} dict={dict} />
 
+      <div style={{ marginTop: "32px", marginBottom: "16px" }}>
+        <DisclaimerBox type="health" lang={lang} />
+      </div>
+
       {/* Massive AdSense SEO Content - Below the Fold */}
-      <article className="card" style={{ marginTop: "40px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+      <article className="card" style={{ marginTop: "20px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
         {isAr ? (
           <>
             <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>الدليل الشامل لتحويل مقاسات الأحذية العالمية: القياس الدقيق للقدم</h2>
@@ -125,34 +158,6 @@ export default async function ShoeSizePage({ params }) {
         )}
       </article>
 
-      {/* JSON-LD Structured Data for AdSense SEO */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": isAr ? [
-          {
-            "@type": "Question",
-            "name": "كيف أقيس قدمي في المنزل بدقة؟",
-            "acceptedAnswer": { "@type": "Answer", "text": "ضع ورقة بيضاء مقابل الحائط وقف عليها، ثم ضع علامة عند أطول إصبع. قِس المسافة بالسنتيمتر في نهاية اليوم." }
-          },
-          {
-            "@type": "Question",
-            "name": "هل يجب أن تلامس أصابعي مقدمة الحذاء؟",
-            "acceptedAnswer": { "@type": "Answer", "text": "إطلاقاً. يجب أن تترك مسافة تعادل عرض إبهام اليد (حوالي 1 سم) بين أطول إصبع ومقدمة الحذاء." }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "How do I accurately measure my own foot at home?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Stand on a piece of paper with your heel against a wall. Mark the tip of your longest toe and measure in centimeters at the end of the day." }
-          },
-          {
-            "@type": "Question",
-            "name": "Should my toes touch the end of the shoe?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. There should be roughly a thumb's width of space between your longest toe and the front interior of the shoe." }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
 
       {/* PSEO Internal Links */}
       {pseoLinks.length > 0 && (

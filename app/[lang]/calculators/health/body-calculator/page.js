@@ -1,6 +1,9 @@
 import { getDictionary } from "@/app/dictionaries";
 import HealthCalculator from "@/app/components/HealthCalculator";
 import Link from "next/link";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -131,38 +134,45 @@ export default async function BodyCalculatorPage({ params }) {
             <p style={{ color: "var(--text-muted)", marginBottom: "16px" }}>
               <strong>WARNING:</strong> The physiological body metrics, caloric calculations, algorithms, and information provided by this digital tool are strictly intended for educational, informational, and general estimation purposes only. This tool unequivocally does not constitute professional medical advice, clinical diagnosis, or specialized treatment recommendations. Always consult with a licensed physician or registered clinical dietitian.
             </p>
+            <DisclaimerBox type="medical" lang={lang} />
           </>
         )}
       </article>
 
-      {/* JSON-LD Structured Data for AdSense SEO */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": isAr ? [
-          {
-            "@type": "Question",
-            "name": "أي مقياس هو الأهم لصحتي على المدى الطويل؟",
-            "acceptedAnswer": { "@type": "Answer", "text": "نسبة الدهون في الجسم هي المؤشر الأفضل. الدهون العالية مرتبطة بأمراض القلب، بينما مؤشر كتلة الجسم المرتفع قد يعني فقط أنك تمتلك عضلات كثيفة." }
-          },
-          {
-            "@type": "Question",
-            "name": "لماذا توقف نزول وزني رغم أنني مستمر على نفس النظام الغذائي؟",
-            "acceptedAnswer": { "@type": "Answer", "text": "مع فقدان الوزن، يحتاج جسمك طاقة (سعرات) أقل. سعرات العجز القديمة تصبح سعرات المحافظة الجديدة." }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "Which metric is more important for my long-term health?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Body Fat Percentage is a vastly superior indicator of true metabolic health compared to BMI." }
-          },
-          {
-            "@type": "Question",
-            "name": "Why did my TDEE and weight loss suddenly stall?",
-            "acceptedAnswer": { "@type": "Answer", "text": "As you lose physical mass, your body requires less energy to move. Your old deficit calories have become your new maintenance calories." }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
+      <SoftwareSchema 
+        name={isAr ? "حاسبة مقاييس الجسم" : "Advanced Body Metrics Calculator"}
+        description={isAr ? "احسب مؤشر كتلة الجسم، ومعدل الأيض الأساسي، واحتياج السعرات الحرارية بدقة." : "Calculate BMI, BMR, TDEE, and body fat percentage accurately."}
+        applicationCategory="HealthApplication"
+        url={`https://smartcalctools.com/${lang}/calculators/health/body-calculator`}
+      />
+
+      <FAQSchema faqs={isAr ? [
+        {
+          question: "أي مقياس هو الأهم لصحتي على المدى الطويل؟",
+          answer: "نسبة الدهون في الجسم هي المؤشر الأفضل. الدهون العالية مرتبطة بأمراض القلب، بينما مؤشر كتلة الجسم المرتفع قد يعني فقط أنك تمتلك عضلات كثيفة."
+        },
+        {
+          question: "هل يقل معدل الأيض (BMR) مع تقدم العمر؟",
+          answer: "نعم. ينخفض BMR بشكل مطرد مع تقدم العمر (حوالي 1-2٪ لكل عقد بعد سن العشرين) بسبب فقدان الكتلة العضلية الطبيعي."
+        },
+        {
+          question: "لماذا توقف نزول وزني رغم أنني مستمر على نفس النظام الغذائي؟",
+          answer: "مع فقدان الوزن، يحتاج جسمك طاقة (سعرات) أقل. سعرات العجز القديمة تصبح سعرات المحافظة الجديدة. يجب عليك إعادة حساب أرقامك باستخدام هذه الأداة بشكل دوري."
+        }
+      ] : [
+        {
+          question: "Which metric is more important for my long-term health?",
+          answer: "Body Fat Percentage is universally considered a vastly superior indicator of true metabolic health compared to BMI. High visceral fat is strongly linked to cardiovascular disease."
+        },
+        {
+          question: "Does my biological age significantly decrease my BMR?",
+          answer: "Yes. BMR decreases steadily with age (roughly 1% to 2% per decade after the age of 20) primarily due to the natural, progressive loss of metabolically active lean muscle mass."
+        },
+        {
+          question: "Why did my TDEE and weight loss suddenly stall?",
+          answer: "As you lose physical mass, your body requires significantly less kinetic energy to move and maintain its smaller cellular footprint. Your old deficit calories have become your new maintenance calories."
+        }
+      ]} />
     </div>
   );
 }

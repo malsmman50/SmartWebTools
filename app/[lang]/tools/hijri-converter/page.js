@@ -1,5 +1,8 @@
 import { getDictionary } from "@/app/dictionaries";
 import HijriConverterClient from "@/app/components/HijriConverterClient";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -35,6 +38,114 @@ export async function generateMetadata({ params }) {
 
 export default async function HijriConverterPage({ params }) {
   const { lang } = await params;
+  const isAr = lang === "ar";
   const dict = await getDictionary(lang);
-  return <HijriConverterClient lang={lang} dict={dict} />;
+
+  const softwareName = isAr ? "محول التاريخ الهجري والميلادي" : "Hijri to Gregorian Converter";
+  const softwareDescription = isAr 
+    ? "حول التواريخ فورياً وبدقة بالغة بين التقويم الهجري والميلادي."
+    : "Convert dates instantly and accurately between Gregorian and Hijri calendars.";
+
+  const faqs = isAr ? [
+    {
+      question: "ما هو تقويم أم القرى؟",
+      answer: "تقويم أم القرى هو التقويم الإسلامي الرسمي المستخدم في المملكة العربية السعودية. يتم حسابه بناءً على أسس فلكية دقيقة تتعلق بموقع القمر فوق مكة المكرمة، بدلاً من الاعتماد الكلي على الرؤية البصرية للهلال، مما يجعله قابلاً للتنبؤ بدقة عالية لغرض تحويل التواريخ."
+    },
+    {
+      question: "هل يمكنني استخدام هذه الأداة لتحديد البداية الدقيقة لشهر رمضان؟",
+      answer: "على الرغم من أن الأداة توفر تواريخ دقيقة للغاية بناءً على الحسابات الفلكية لتقويم أم القرى، إلا أن البداية الفعلية لشهر رمضان والأشهر الإسلامية الأخرى تعتمد تقليدياً على الرؤية المحلية للهلال. يجب عليك دائماً الرجوع إلى السلطات الدينية المحلية للإعلانات الرسمية."
+    },
+    {
+      question: "هل يعمل المحول بدون اتصال بالإنترنت؟",
+      answer: "نعم، بمجرد تحميل صفحة الويب، يعمل منطق التحويل بشكل كامل محلياً داخل متصفحك، مما يتيح لك استخدامه دون الاتصال بالإنترنت."
+    },
+    {
+      question: "كيف يتعامل المحول مع السنوات الكبيسة في كلا التقويمين؟",
+      answer: "تأخذ الخوارزمية الخاصة بنا في الاعتبار تلقائياً السنوات الكبيسة في التقويم الميلادي (إضافة 29 فبراير) ودورة الكبس المعقدة المكونة من 30 عاماً داخل الحساب الهجري القياسي لضمان أقصى درجات الدقة الرياضية."
+    },
+    {
+      question: "هل هناك فرق بين التاريخ الهجري في الدول المختلفة؟",
+      answer: "نعم، في بعض الأحيان قد يختلف التاريخ الهجري بمقدار يوم واحد بين الدول المختلفة اعتماداً على وقت الرؤية البصرية للهلال في موقعهم الجغرافي المحدد. تقوم أداتنا بتوحيد ذلك من خلال استخدام نموذج أم القرى المقبول على نطاق واسع."
+    }
+  ] : [
+    {
+      question: "What is the Umm al-Qura calendar?",
+      answer: "The Umm al-Qura calendar is the official Islamic calendar used by Saudi Arabia. It is calculated based on astronomical principles regarding the moon's position over Mecca, rather than strictly relying on visual moon sightings, making it highly predictable and accurate for date conversion."
+    },
+    {
+      question: "Can I use this tool to determine the exact start of Ramadan?",
+      answer: "While the tool provides highly accurate dates based on the Umm al-Qura astronomical calculations, the actual start of Ramadan and other Islamic months traditionally depends on local moon sightings. You should always refer to your local religious authorities for official announcements."
+    },
+    {
+      question: "Does the converter work without an internet connection?",
+      answer: "Yes, once you have loaded the web page, the conversion logic runs completely locally within your browser, allowing you to use it offline."
+    },
+    {
+      question: "How does the converter handle leap years in both calendars?",
+      answer: "Our algorithm automatically accounts for leap years in the Gregorian calendar (adding February 29th) and the complex 30-year leap cycle within the standard Hijri calculation to ensure maximum mathematical accuracy."
+    },
+    {
+      question: "Is there a difference between the Hijri date in different countries?",
+      answer: "Yes, occasionally the Hijri date may vary by one day between different countries depending on when the new moon was visually sighted in their specific geographical location. Our tool standardizes this by using the widely accepted Umm al-Qura model."
+    }
+  ];
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <SoftwareSchema 
+        name={softwareName}
+        description={softwareDescription}
+        url={`https://smartcalctools.xyz/${lang}/tools/hijri-converter`}
+      />
+      <FAQSchema faqs={faqs} />
+      
+      <HijriConverterClient lang={lang} dict={dict} />
+      
+      <DisclaimerBox type="religious" lang={lang} />
+
+      <article className="mt-12 prose dark:prose-invert max-w-none">
+        {isAr ? (
+          <>
+            <h2>المحول الدقيق للتاريخ الهجري والميلادي (حسب تقويم أم القرى)</h2>
+            <p>
+              يُعد "محول التاريخ الهجري والميلادي" تطبيقاً قيماً جداً للمسلمين في جميع أنحاء العالم، بالإضافة إلى المؤرخين والباحثين والمحترفين العاملين في منطقة الشرق الأوسط. التقويم الإسلامي (الهجري) هو تقويم قمري يتكون من 12 شهراً في سنة تبلغ 354 أو 355 يوماً. ونظراً لأن السنة الهجرية أقصر بحوالي 11 يوماً من السنة الميلادية الشمسية، فإن التواريخ الإسلامية تتغير باستمرار مقارنة بالتواريخ الميلادية. هذا يجعل التحويل الدقيق للأحداث التاريخية، أو الأعياد الدينية، أو الوثائق الإدارية الرسمية مهمة حسابية معقدة بعض الشيء.
+            </p>
+            <p>
+              يستخدم المحول الخاص بنا نظام تقويم "أم القرى" عالي الدقة، وهو التقويم الرسمي المستخدم في المملكة العربية السعودية والمقبول على نطاق واسع من قبل العديد من المنظمات الإسلامية حول العالم. من خلال واجهتنا البديهية، يمكنك بسهولة تحويل أي تاريخ من الصيغة الميلادية إلى الصيغة الهجرية، والعكس بالعكس، في الوقت الفعلي. ما عليك سوى تحديد اليوم والشهر والسنة، وستوفر لك الأداة على الفور التاريخ المقابل في التقويم الآخر.
+            </p>
+            <p>
+              هذه الأداة مفيدة بشكل استثنائي في تحديد التواريخ الدقيقة للمناسبات الدينية مثل بداية صيام شهر رمضان المبارك، وموسم الحج، وعيد الفطر، وعيد الأضحى. وعلاوة على ذلك، فهي أداة حيوية لتحويل تواريخ الميلاد الرسمية الموجودة في الهويات الحكومية، مما يضمن تطابق وثائقك بدقة عند الهجرة أو السفر أو التقدم للحصول على تأشيرات. يعمل التطبيق بالكامل على متصفحك المحلي، مما يعني أنه يوفر تحويلات فورية حتى بدون اتصال بالإنترنت ولا يحتفظ بأي بيانات شخصية على الإطلاق.
+            </p>
+            <h3>الأسئلة الشائعة حول تحويل التاريخ الهجري والميلادي</h3>
+            {faqs.map((faq, index) => (
+              <div key={index} className="mb-4">
+                <strong>{faq.question}</strong>
+                <p>{faq.answer}</p>
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            <h2>Precision Hijri to Gregorian Date Converter (Umm al-Qura)</h2>
+            <p>
+              The Hijri and Gregorian Date Converter is an invaluable application designed for Muslims globally, as well as historians, researchers, and professionals working in the Middle East. The Islamic calendar (Hijri) is a lunar calendar consisting of 12 months in a year of 354 or 355 days. Because it is approximately 11 days shorter than the solar Gregorian calendar, Islamic dates shift continuously relative to the Gregorian dates. This makes accurately converting historical events, religious holidays, or official administrative documents a complex mathematical task. 
+            </p>
+            <p>
+              Our converter utilizes the highly accurate Umm al-Qura calendar system, the official calendar utilized in Saudi Arabia and widely accepted by many Islamic organizations around the world. With our intuitive interface, you can seamlessly convert any date from the Gregorian format to the Hijri format, and vice versa, in real-time. Simply select the day, month, and year, and the tool will instantly provide the corresponding date in the other calendar.
+            </p>
+            <p>
+              This is exceptionally useful for determining the exact dates of religious observances like Ramadan fasting, Hajj, Eid al-Fitr, and Eid al-Adha. Furthermore, it is a vital tool for converting official birth dates on governmental IDs, ensuring your documentation matches precisely when migrating, traveling, or applying for visas. The application runs entirely on your local browser, meaning it provides instant offline conversions without retaining any personal data.
+            </p>
+            <h3>Frequently Asked Questions</h3>
+            {faqs.map((faq, index) => (
+              <div key={index} className="mb-4">
+                <strong>{faq.question}</strong>
+                <p>{faq.answer}</p>
+              </div>
+            ))}
+          </>
+        )}
+      </article>
+    </div>
+  );
 }

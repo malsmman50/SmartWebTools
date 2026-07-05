@@ -1,6 +1,9 @@
 import { getDictionary } from "@/app/dictionaries";
 import ZakatCalculatorClient from "@/app/components/ZakatCalculatorClient";
 import Link from "next/link";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -42,6 +45,40 @@ export default async function ZakatCalculatorPage({ params }) {
 
   return (
     <div className="container">
+      <SoftwareSchema
+        name={isAr ? "حاسبة الزكاة الدقيقة" : "Comprehensive Zakat Calculator"}
+        description={isAr ? "احسب زكاتك السنوية (2.5%) بدقة تامة وبخصوصية كاملة 100% وفقاً للضوابط الفقهية الشرعية ونصاب الذهب المباشر." : "Calculate your annual Zakat (2.5%) easily and accurately according to Sharia guidelines using live gold market prices."}
+        url={`https://smartcalctools.xyz/${lang}/calculators/zakat`}
+      />
+      <FAQSchema
+        faqData={isAr ? [
+          {
+            q: "هل تجب الزكاة في أموال التقاعد والادخار طويل الأجل؟",
+            a: "إذا كان بإمكانك سحب هذه الأموال والتصرف فيها اليوم، فتجوز وتجب الزكاة على المبلغ الصافي القابل للسحب. أما إن كانت مجمدة، فلا تجب زكاتها إلا عند قبضها."
+          },
+          {
+            q: "هل أعتمد نصاب الذهب أم نصاب الفضة؟",
+            a: "ينصح بعض العلماء باستخدام نصاب الفضة لأنه أرخص ويصب في مصلحة الفقراء. ومع ذلك، فإن نصاب الذهب صحيح تماماً ومستقر وهو المعتمد كخيار افتراضي في حاسبتنا."
+          },
+          {
+            q: "متى تجب الزكاة؟",
+            a: "تجب الزكاة فوراً عند مرور حول هجري كامل (سنة قمرية) من اليوم الذي بلغت فيه أموالك النصاب لأول مرة."
+          }
+        ] : [
+          {
+            q: "Do I pay Zakat on my 401(k) or Retirement Funds?",
+            a: "If you have full access and control over the funds, you must pay Zakat on the net withdrawable amount. If you have no access, Zakat is only due once you receive the funds."
+          },
+          {
+            q: "Should I use the Gold or Silver Nisab?",
+            a: "Many scholars recommend using the silver Nisab because it is lower, meaning more money goes to the poor. However, the gold Nisab is also entirely valid."
+          },
+          {
+            q: "When is Zakat due?",
+            a: "Zakat is due immediately upon the completion of a Hawl (one lunar year) from the date your wealth first reached the Nisab threshold."
+          }
+        ]}
+      />
       <div className="page-header">
         <h1>{t.title}</h1>
         <p>{t.subtitle}</p>
@@ -53,6 +90,10 @@ export default async function ZakatCalculatorPage({ params }) {
       </div>
 
       <ZakatCalculatorClient lang={lang} dict={dict} initialValues={{}} />
+      
+      <div style={{ marginTop: "24px" }}>
+        <DisclaimerBox type="religious" lang={lang} />
+      </div>
 
       {/* SEO Content Expansion (800+ words) */}
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
@@ -166,63 +207,6 @@ export default async function ZakatCalculatorPage({ params }) {
           </>
         )}
       </article>
-
-      {/* JSON-LD Schema for SEO */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": lang === "ar" ? [
-          {
-            "@type": "Question",
-            "name": "هل تجب الزكاة في أموال التقاعد والادخار طويل الأجل؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "إذا كان بإمكانك سحب هذه الأموال والتصرف فيها اليوم، فتجوز وتجب الزكاة على المبلغ الصافي القابل للسحب. أما إن كانت مجمدة، فلا تجب زكاتها إلا عند قبضها."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل أعتمد نصاب الذهب أم نصاب الفضة؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "ينصح بعض العلماء باستخدام نصاب الفضة لأنه أرخص ويصب في مصلحة الفقراء. ومع ذلك، فإن نصاب الذهب صحيح تماماً ومستقر وهو المعتمد كخيار افتراضي في حاسبتنا."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "متى تجب الزكاة؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "تجب الزكاة فوراً عند مرور حول هجري كامل (سنة قمرية) من اليوم الذي بلغت فيه أموالك النصاب لأول مرة."
-            }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "Do I pay Zakat on my 401(k) or Retirement Funds?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "If you have full access and control over the funds, you must pay Zakat on the net withdrawable amount. If you have no access, Zakat is only due once you receive the funds."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Should I use the Gold or Silver Nisab?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Many scholars recommend using the silver Nisab because it is lower, meaning more money goes to the poor. However, the gold Nisab is also entirely valid."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "When is Zakat due?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Zakat is due immediately upon the completion of a Hawl (one lunar year) from the date your wealth first reached the Nisab threshold."
-            }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
     </div>
   );
 }

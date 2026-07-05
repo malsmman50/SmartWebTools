@@ -1,6 +1,9 @@
 import { getDictionary } from "@/app/dictionaries";
 import PregnancyCalculator from "@/app/components/PregnancyCalculator";
 import Script from "next/script";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -132,9 +135,7 @@ export default async function PregnancyPage({ params }) {
               <p style={{ marginBottom: "15px", color: "var(--text-muted)" }}>ج: تستخدم الحاسبة قاعدة (Naegele's Rule)، حيث يتم إضافة 280 يوماً (40 أسبوعاً) إلى أول يوم من آخر دورة شهرية. أو إضافة 266 يوماً (38 أسبوعاً) إذا تم الحساب بناءً على تاريخ الإخصاب المؤكد.</p>
             </div>
 
-            <div style={{ marginTop: "40px", padding: "15px", borderLeft: "4px solid var(--danger)", background: "rgba(var(--danger-rgb), 0.05)" }}>
-              <strong>إخلاء مسؤولية طبية (Medical Disclaimer):</strong> هذا المتتبع للأغراض المعلوماتية والتثقيفية فقط. لا يُقصد به تشخيص أو علاج أو تقديم نصيحة طبية فردية. كل حمل هو حالة فريدة. استشيري طبيب التوليد الخاص بك دائماً لتقييم صحتك وصحة جنينك.
-            </div>
+            <DisclaimerBox type="medical" lang={lang} />
           </article>
         ) : (
           <article style={{ lineHeight: "1.8", color: "var(--text)" }}>
@@ -200,12 +201,38 @@ export default async function PregnancyPage({ params }) {
               <p style={{ marginBottom: "15px", color: "var(--text-muted)" }}>A: The calculator uses Naegele's Rule, adding 280 days (40 weeks) to the first day of your last menstrual period (LMP). If using the conception date, it adds 266 days (38 weeks).</p>
             </div>
 
-            <div style={{ marginTop: "40px", padding: "15px", borderLeft: "4px solid var(--danger)", background: "rgba(var(--danger-rgb), 0.05)" }}>
-              <strong>Medical Disclaimer:</strong> This tracker is for informational and educational purposes only. It is not intended to diagnose, treat, or offer personalized medical advice. Every pregnancy is unique. Always consult your obstetrician or healthcare provider to evaluate your health and your baby's development.
-            </div>
+            <DisclaimerBox type="medical" lang={lang} />
           </article>
         )}
       </div>
+
+      <FAQSchema faqs={isAr ? [
+        {
+          question: "ماذا لو كان وزني يزداد بمعدل أسرع من الجدول الموصى به؟",
+          answer: "زيادة الوزن السريعة قد تكون ناتجة عن احتباس السوائل الشديد، أو تناول سعرات تفوق احتياجك بكثير. الزيادة المفرطة تزيد من خطر الإصابة بسكري الحمل وارتفاع ضغط الدم (تسمم الحمل). يجب مناقشة أي طفرات مفاجئة في الوزن مع طبيبك فوراً."
+        },
+        {
+          question: "هل من الآمن اتباع حمية غذائية قاسية لإنقاص الوزن أثناء الحمل؟",
+          answer: "لا يُنصح أبداً باتباع حميات قاسية لإنقاص الوزن أثناء الحمل، حتى للنساء اللاتي يعانين من السمنة المفرطة. إنقاص الوزن يحرم الجنين من العناصر الغذائية الأساسية لنمو الدماغ والأعضاء. الهدف دائماً هو إبطاء معدل الزيادة، وليس فقدان الوزن المكتسب."
+        },
+        {
+          question: "كيف يتم حساب موعد الولادة (Due Date)؟",
+          answer: "تستخدم الحاسبة قاعدة (Naegele's Rule)، حيث يتم إضافة 280 يوماً (40 أسبوعاً) إلى أول يوم من آخر دورة شهرية. أو إضافة 266 يوماً (38 أسبوعاً) إذا تم الحساب بناءً على تاريخ الإخصاب المؤكد."
+        }
+      ] : [
+        {
+          question: "What if I am gaining weight much faster than the chart suggests?",
+          answer: "Rapid weight gain can be caused by severe fluid retention or consuming far more calories than needed. Excessive gain increases the risk of gestational diabetes and preeclampsia. You should discuss sudden spikes in weight with your doctor immediately."
+        },
+        {
+          question: "Is it safe to intentionally lose weight during pregnancy?",
+          answer: "Intentional weight loss during pregnancy is strictly advised against, even for mothers diagnosed as obese. Weight loss deprives the developing fetus of critical nutrients necessary for brain and organ development. The medical goal is to slow the rate of gain, never to lose."
+        },
+        {
+          question: "How is the Due Date calculated?",
+          answer: "The calculator uses Naegele's Rule, adding 280 days (40 weeks) to the first day of your last menstrual period (LMP). If using the conception date, it adds 266 days (38 weeks)."
+        }
+      ]} />
     </div>
   );
 }

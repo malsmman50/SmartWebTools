@@ -1,6 +1,9 @@
 import { getDictionary } from "@/app/dictionaries";
 import SplitBillCalculator from "@/app/components/SplitBillCalculator";
 import Script from "next/script";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -31,15 +34,12 @@ export default async function SplitBillPage({ params }) {
 
   return (
     <div className="container" style={{ padding: "40px 20px", maxWidth: "900px", margin: "0 auto" }}>
-      {/* Schema Markup for FAQ and SoftwareApplication */}
-      <Script id="split-bill-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": isAr ? "مقسم الفواتير الحلال" : "Halal Bill Splitter",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Any",
-        "offers": { "@type": "Offer", "price": "0" }
-      }) }} />
+      <SoftwareSchema 
+        name={isAr ? "مقسم الفواتير الحلال" : "Halal Bill Splitter"}
+        description={isAr ? "قسم فواتير المطاعم بدقة واستبعد الطلبات المحرمة." : "Quickly and fairly split restaurant bills and exclude haram items."}
+        applicationCategory="FinanceApplication"
+        url={`https://smartcalctools.xyz/${lang}/calculators/lifestyle/split-bill`}
+      />
 
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
         <h1 style={{ fontSize: "2.5rem", marginBottom: "16px" }}>{dict.split_bill.title}</h1>
@@ -93,9 +93,7 @@ export default async function SplitBillPage({ params }) {
               <p style={{ marginBottom: "15px", color: "var(--text-muted)" }}>ج: مطلقاً. وفقاً لسياسة الخصوصية (Zero-Trust) الخاصة بنا، تتم كافة العمليات الحسابية محلياً داخل متصفحك ولا يتم إرسال أي أرقام إلى أي خادم.</p>
             </div>
 
-            <div style={{ marginTop: "40px", padding: "15px", borderLeft: "4px solid var(--danger)", background: "rgba(var(--danger-rgb), 0.05)" }}>
-              <strong>إخلاء مسؤولية قانوني وشرعي (Disclaimer):</strong> هذه الأداة مقدمة لتسهيل العمليات الحسابية والتقديرات المالية اليومية فقط ولا تغني بأي شكل عن المراجعة اليدوية الدقيقة للفواتير. النتائج المستخرجة لا تمثل فتوى شرعية رسمية أو استشارة مالية أو ضريبية معتمدة.
-            </div>
+            <DisclaimerBox type="financial" lang={lang} />
           </article>
         ) : (
           <article style={{ lineHeight: "1.8", color: "var(--text)" }}>
@@ -138,12 +136,38 @@ export default async function SplitBillPage({ params }) {
               <p style={{ marginBottom: "15px", color: "var(--text-muted)" }}>A: Absolutely not. In accordance with our Zero-Trust privacy policy, all calculations happen locally in your browser. No numbers are ever sent to a server.</p>
             </div>
 
-            <div style={{ marginTop: "40px", padding: "15px", borderLeft: "4px solid var(--danger)", background: "rgba(var(--danger-rgb), 0.05)" }}>
-              <strong>Legal & Financial Disclaimer:</strong> This tool is provided for ease of calculation and daily financial estimation only. The outputs generated do not constitute a formal religious Fatwa, nor certified financial or tax advice. Please review your receipts manually.
-            </div>
+            <DisclaimerBox type="financial" lang={lang} />
           </article>
         )}
       </div>
+
+      <FAQSchema faqs={isAr ? [
+        {
+          question: "ماذا لو طلب شخص وجبة حلال لكنها باهظة الثمن جداً وأراد دفعها بمفرده؟",
+          answer: "يمكنك استخدام الأداة بنفس الطريقة! فقط ضع قيمة الوجبة الباهظة في خانة 'الطلبات المستبعدة'. الأداة ليست مخصصة فقط للأمور المحرمة، بل لأي طلب خاص لا ترغب في أن يشارك البقية في دفع ضريبته وإكراميته."
+        },
+        {
+          question: "كيف تتعامل الحاسبة مع رسوم التوصيل الثابتة (Flat Delivery Fees)؟",
+          answer: "رسوم التوصيل الثابتة يمكن إضافتها إما للقيمة الأساسية أو قسمتها يدوياً خارج الفاتورة. ومع ذلك، إذا كانت الرسوم نسبية مئوية فتسري عليها نفس قواعد الإكرامية."
+        },
+        {
+          question: "هل الأداة تجمع أي بيانات عني أو عن فواتيري؟",
+          answer: "مطلقاً. وفقاً لسياسة الخصوصية (Zero-Trust) الخاصة بنا، تتم كافة العمليات الحسابية محلياً داخل متصفحك ولا يتم إرسال أي أرقام إلى أي خادم."
+        }
+      ] : [
+        {
+          question: "What if someone ordered an expensive Halal meal and wants to pay for it themselves?",
+          answer: "You can use the tool exactly the same way! Just put the cost of their expensive meal into the 'Excluded Items' field. The tool isn't just for Haram items; it's perfect for any item you don't want others to pay tax and tip on."
+        },
+        {
+          question: "How does the calculator handle flat delivery fees?",
+          answer: "Flat delivery fees can either be added to the subtotal or split manually. However, if the fee is a percentage, it follows the exact same proportional rules as the tip."
+        },
+        {
+          question: "Does this tool collect any data about my bills?",
+          answer: "Absolutely not. In accordance with our Zero-Trust privacy policy, all calculations happen locally in your browser. No numbers are ever sent to a server."
+        }
+      ]} />
     </div>
   );
 }

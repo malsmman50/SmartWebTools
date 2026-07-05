@@ -1,5 +1,8 @@
 import { getDictionary } from "@/app/dictionaries";
 import RoiCalculatorClient from "@/app/components/RoiCalculatorClient";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
+import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -40,50 +43,96 @@ export default async function RoiCalculatorPage({ params }) {
 
   return (
     <>
-      <RoiCalculatorClient  lang={lang} dict={dict} />
-      
-      <div className="container" style={{ padding: "0 20px 40px" }}>
-        <article className="card" style={{ marginTop: "20px", lineHeight: "1.8" }}>
+      <SoftwareSchema
+        name={isAr ? "حاسبة العائد الاستثماري (ROI)" : "ROI Calculator"}
+        description={isAr ? "احسب نسبة العائد على الاستثمار وصافي الأرباح أو الخسائر بالإضافة للعائد السنوي المركب لمشاريعك واستثماراتك التجارية بشكل دقيق. أداة مالية متقدمة لتسهيل اتخاذ القرارات الاستثمارية." : "Calculate Return on Investment (ROI), net profit, and annualized yield for your business ventures and investments easily. An advanced financial tool to evaluate your portfolio performance and make informed decisions."}
+        url={`https://smartcalctools.xyz/${lang}/calculators/roi`}
+        price="0"
+      />
+      <div className="container">
+        <RoiCalculatorClient lang={lang} dict={dict} />
+        
+        <article className="card" style={{ marginTop: "20px", lineHeight: "1.8", padding: "20px" }}>
           {isAr ? (
             <>
-              <h2>كيفية حساب العائد على الاستثمار (ROI)</h2>
+              <h2>كيفية حساب العائد على الاستثمار (ROI) بفعالية</h2>
               <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-                العائد على الاستثمار (ROI) هو مقياس مالي شائع الاستخدام لقياس كفاءة الاستثمار أو مقارنة كفاءة عدد من الاستثمارات المختلفة.
+                يعتبر العائد على الاستثمار (Return on Investment - ROI) من أهم المؤشرات والمقاييس المالية التي يعتمد عليها رواد الأعمال والمستثمرون في جميع أنحاء العالم. يهدف هذا المقياس إلى تقييم كفاءة وربحية استثمار معين، أو للمقارنة بين كفاءة عدة خيارات استثمارية متاحة في السوق. يتميز العائد على الاستثمار بسهولة حسابه وقابليته للتطبيق على مختلف أنواع الأصول، سواء كانت أسهم، عقارات، أو مشاريع تجارية ناشئة.
+              </p>
+              <h3 style={{ marginTop: "24px" }}>المعادلة الأساسية لحساب العائد على الاستثمار</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
                 المعادلة البسيطة له هي:
               </p>
               <div style={{ background: "var(--bg)", padding: "12px", borderRadius: "8px", margin: "12px 0", fontFamily: "monospace", textAlign: "center" }}>
                 ROI = ((صافي الربح) / تكلفة الاستثمار) × 100
               </div>
               <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-                العائد الإيجابي يعني أنك حققت أرباحاً، بينما العائد السلبي يعني الخسارة.
+                العائد الإيجابي (الرقم الموجب) يعني أن الاستثمار قد حقق أرباحاً تغطي التكاليف وتزيد عليها، بينما العائد السلبي (الرقم السالب) يشير إلى أن المشروع يتكبد خسائر مالية وأن الإيرادات لم تغطِ تكلفة الاستثمار الأساسية.
               </p>
-              <h3 style={{ marginTop: "24px" }}>العائد السنوي المركب (Annualized ROI)</h3>
+              <h3 style={{ marginTop: "24px" }}>أهمية العائد السنوي المركب (Annualized ROI)</h3>
               <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
-                الـ ROI البسيط لا يأخذ في الاعتبار الفترة الزمنية للاستثمار. عائد بنسبة 50% على مدار 10 سنوات يختلف تماماً عن عائد بنسبة 50% في سنة واحدة.
-                لذلك نقوم باحتساب العائد السنوي المركب لمعرفة النمو الفعلي للاستثمار على أساس سنوي لتسهيل المقارنة بين الفرص الاستثمارية المختلفة.
+                الـ ROI البسيط يعطيك صورة عامة عن الربح الكلي، لكنه لا يأخذ في الاعتبار الفترة الزمنية للاستثمار. على سبيل المثال، تحقيق عائد بنسبة 50% على مدار 10 سنوات يختلف تماماً من حيث الكفاءة عن تحقيق نفس العائد (50%) في سنة واحدة فقط.
+                لذلك، نستخدم ما يُسمى بـ "العائد السنوي المركب" لمعرفة النمو الفعلي للاستثمار على أساس سنوي. هذا المؤشر يسهّل عملية المقارنة الدقيقة بين الفرص الاستثمارية التي تختلف في مددها الزمنية، مما يساعد المستثمر في اتخاذ القرار الأمثل لتوجيه رأس ماله.
               </p>
             </>
           ) : (
             <>
-              <h2>How to Calculate Return on Investment (ROI)</h2>
+              <h2>How to Calculate Return on Investment (ROI) Effectively</h2>
               <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-                Return on Investment (ROI) is one of the most widely used financial metrics to evaluate the efficiency of an investment or compare the efficiencies of several different investments.
-                The formula is simple:
+                Return on Investment (ROI) is one of the most widely used and essential financial metrics relied upon by entrepreneurs, portfolio managers, and individual investors globally. It serves to evaluate the efficiency and profitability of a particular investment, or to compare the relative efficiencies of several different investment opportunities in the market. ROI is highly versatile and can be applied to almost any asset class, including stocks, real estate properties, and startup business ventures.
+              </p>
+              <h3 style={{ marginTop: "24px" }}>The Basic ROI Formula</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                The mathematical formula for calculating ROI is straightforward:
               </p>
               <div style={{ background: "var(--bg)", padding: "12px", borderRadius: "8px", margin: "12px 0", fontFamily: "monospace", textAlign: "center" }}>
                 ROI = ((Net Profit) / Cost of Investment) × 100
               </div>
               <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-                A positive ROI means you made money; a negative ROI means you lost money.
+                A positive ROI means that the investment has generated profits exceeding its costs, indicating a successful venture. Conversely, a negative ROI means the investment has incurred a financial loss, as the total returns failed to cover the initial capital outlay.
               </p>
-              <h3 style={{ marginTop: "24px" }}>Annualized ROI</h3>
+              <h3 style={{ marginTop: "24px" }}>The Importance of Annualized ROI</h3>
               <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
-                Simple ROI doesn't account for the time period of the investment. An ROI of 50% over 10 years is very different from 50% over 1 year.
-                Annualized ROI resolves this issue by calculating the average annual growth rate of the investment, making it easier to compare investments of different durations.
+                While the simple ROI calculation gives you a snapshot of total profitability, it does not account for the holding period of the investment. For instance, generating an ROI of 50% over a span of 10 years is vastly different in terms of performance compared to making a 50% return in just one year.
+                Annualized ROI resolves this issue by calculating the average, compounded annual growth rate of the investment. This standardizes the return metric, making it highly effective for comparing investments of varying durations and helping you allocate your capital consolidated more intelligently.
               </p>
             </>
           )}
         </article>
+
+        <FAQSchema
+          faqs={isAr ? [
+            {
+              question: "ما هو معدل العائد على الاستثمار (ROI) الجيد؟",
+              answer: "يختلف تحديد 'العائد الجيد' باختلاف قطاع الاستثمار ومستوى المخاطرة. في سوق الأسهم، يعتبر العائد السنوي بين 7% إلى 10% عائداً جيداً وتاريخياً. أما في المشاريع الناشئة والعقارات، قد يبحث المستثمرون عن عوائد أعلى تتجاوز 15% لتعويض المخاطر الأكبر ونقص السيولة."
+            },
+            {
+              question: "هل العائد على الاستثمار يأخذ التضخم في الاعتبار؟",
+              answer: "لا، العائد على الاستثمار البسيط (ROI) أو السنوي لا يأخذ التضخم أو الضرائب في الاعتبار. لذلك يُنصح دائماً بحساب 'العائد الحقيقي' (Real ROI) وهو العائد الاسمي مطروحاً منه معدل التضخم السنوي للحصول على صورة أدق للقوة الشرائية لأرباحك."
+            },
+            {
+              question: "ما الفرق بين ROI وهامش الربح (Profit Margin)؟",
+              answer: "هامش الربح يقيس مدى كفاءة الشركة في تحويل المبيعات والإيرادات إلى أرباح صافية (صافي الربح / الإيرادات). أما العائد على الاستثمار (ROI) فيقيس العائد الناتج مقارنة برأس المال الذي تم استثماره لتمويل المشروع أو شراء الأصل (صافي الربح / تكلفة الاستثمار)."
+            }
+          ] : [
+            {
+              question: "What is considered a good Return on Investment (ROI)?",
+              answer: "A 'good' ROI largely depends on the specific industry, asset class, and your risk tolerance. For the stock market, an annualized return of 7% to 10% is historically considered solid. However, for real estate or high-risk startup investments, investors typically seek higher returns (15% or more) to compensate for the higher risk and lack of liquidity."
+            },
+            {
+              question: "Does ROI account for inflation and taxes?",
+              answer: "No, the standard or annualized ROI calculations are nominal figures and do not factor in inflation, taxes, or transactional fees. To get a true picture of your increased purchasing power, you should calculate the 'Real ROI' by subtracting the inflation rate and expected taxes from your nominal ROI."
+            },
+            {
+              question: "What is the difference between ROI and Profit Margin?",
+              answer: "Profit margin measures how efficiently a company converts its sales revenue into net income (Net Profit / Total Revenue). ROI, on the other hand, measures the return generated relative to the initial capital invested to fund the project or purchase the asset (Net Profit / Cost of Investment)."
+            }
+          ]}
+        />
+        
+        <div style={{ marginTop: "30px" }}>
+          <DisclaimerBox type="financial" lang={lang} />
+        </div>
       </div>
     </>
   );
