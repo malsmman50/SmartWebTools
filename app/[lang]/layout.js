@@ -89,11 +89,11 @@ export default async function RootLayout({ children, params }) {
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link rel="dns-prefetch" href="https://tpc.googlesyndication.com" />
-        <script 
-          async 
+        <Script 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2077857887750518" 
           crossOrigin="anonymous" 
-        ></script>
+          strategy="afterInteractive"
+        />
         {/* Google Consent Mode v2 */}
         <script
           dangerouslySetInnerHTML={{
