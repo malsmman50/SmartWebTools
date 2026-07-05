@@ -1,5 +1,7 @@
 import { getDictionary } from "@/app/dictionaries";
 import ImageCompressorClient from "@/app/components/ImageCompressorClient";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -181,8 +183,20 @@ export default async function ImageCompressorPage({ params }) {
             }
           ]
         }).replace(/</g, '\\u003c')}} />
+
+      <SoftwareSchema 
+        name={isAr ? "ضاغط ومحسن الصور" : "Image Compressor"}
+        description={isAr ? "أداة ضغط الصور وتقليل حجمها مجاناً" : "Free image compressor and size reducer"}
+        applicationCategory="UtilityApplication"
+        url={`https://smartcalctools.xyz/${lang}/tools/image-compressor`}
+      />
+      
+      <FAQSchema faqs={isAr ? [
+        { question: "هل الأداة مجانية؟", answer: "نعم، أداة ضغط الصور مجانية بالكامل ولا تتطلب أي تسجيل." }
+      ] : [
+        { question: "Is this tool free?", answer: "Yes, the image compressor tool is completely free and requires no registration." }
+      ]} />
       </div>
     </>
   );
 }
-

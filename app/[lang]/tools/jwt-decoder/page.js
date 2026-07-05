@@ -1,5 +1,7 @@
 import { getDictionary } from "@/app/dictionaries";
 import JwtDecoderClient from "@/app/components/JwtDecoderClient";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -185,7 +187,19 @@ export default async function JwtDecoderPage({ params }) {
           ]
         }).replace(/</g, '\\u003c')}} />
       </div>
+
+      <SoftwareSchema 
+        name={isAr ? "محلل JWT" : "JWT Decoder"}
+        description={isAr ? "تحليل وقراءة توكن JWT مجاناً ومحلياً" : "Decode and read JWT tokens securely offline"}
+        applicationCategory="DeveloperApplication"
+        url={`https://smartcalctools.xyz/${lang}/tools/jwt-decoder`}
+      />
+      
+      <FAQSchema faqs={isAr ? [
+        { question: "هل يتم إرسال التوكن الخاص بي إلى أي خادم؟", answer: "لا، يتم تحليل التوكن محلياً في متصفحك بشكل آمن تماماً." }
+      ] : [
+        { question: "Is my token sent to any server?", answer: "No, the token is decoded locally in your browser with complete security." }
+      ]} />
     </div>
   );
 }
-

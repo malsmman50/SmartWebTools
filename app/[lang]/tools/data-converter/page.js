@@ -97,7 +97,7 @@ export default async function DataConverterPage({ params }) {
       
       <DataConverterClient dict={dict} lang={lang} />
 
-      <article className="mt-12 prose dark:prose-invert max-w-none">
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
             <h2>المحول الشامل لوحدات تخزين البيانات الرقمية</h2>

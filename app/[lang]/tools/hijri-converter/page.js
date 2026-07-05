@@ -103,7 +103,7 @@ export default async function HijriConverterPage({ params }) {
       
       <DisclaimerBox type="religious" lang={lang} />
 
-      <article className="mt-12 prose dark:prose-invert max-w-none">
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
             <h2>المحول الدقيق للتاريخ الهجري والميلادي (حسب تقويم أم القرى)</h2>

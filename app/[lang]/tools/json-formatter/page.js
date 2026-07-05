@@ -100,7 +100,7 @@ export default async function JsonFormatterPage({ params }) {
       
       <JsonFormatterClient lang={lang} dict={dict} />
 
-      <article className="mt-12 prose dark:prose-invert max-w-none">
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
             <h2>منسق ومصحح كود JSON الشامل دون اتصال</h2>

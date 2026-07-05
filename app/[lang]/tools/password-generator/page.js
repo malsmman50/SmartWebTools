@@ -1,5 +1,7 @@
 import { getDictionary } from "@/app/dictionaries";
 import PasswordGeneratorClient from "@/app/components/PasswordGeneratorClient";
+import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
+import FAQSchema from "@/app/components/SEO/FAQSchema";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -163,6 +165,19 @@ export default async function PasswordGeneratorPage({ params }) {
           ]
         }).replace(/</g, '\\u003c')}} />
       </div>
+
+      <SoftwareSchema 
+        name={isAr ? "مولد كلمات المرور" : "Password Generator"}
+        description={isAr ? "مولد كلمات مرور قوية وآمنة مجاناً" : "Strong and secure random password generator"}
+        applicationCategory="UtilityApplication"
+        url={`https://smartcalctools.xyz/${lang}/tools/password-generator`}
+      />
+      
+      <FAQSchema faqs={isAr ? [
+        { question: "هل يتم حفظ كلمات المرور؟", answer: "لا، يتم توليد كلمات المرور عشوائياً في متصفحك ولا يتم حفظها أو إرسالها لأي خادم." }
+      ] : [
+        { question: "Are the passwords saved?", answer: "No, passwords are generated randomly in your browser and are not saved or sent to any server." }
+      ]} />
     </div>
   );
 }

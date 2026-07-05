@@ -85,7 +85,7 @@ export default async function RegexTesterPage({ params }) {
       />
       <FAQSchema faqs={faqs} />
       
-      <article className="prose lg:prose-xl mx-auto mt-12 dark:prose-invert">
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
             <h2>الدليل المتكامل لأداة اختبار التعابير النمطية (Regex Tester)</h2>

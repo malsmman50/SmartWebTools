@@ -100,7 +100,7 @@ export default async function CronGeneratorPage({ params }) {
       
       <CronGeneratorClient lang={lang} dict={dict} />
 
-      <article className="mt-12 prose dark:prose-invert max-w-none">
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
             <h2>المولد والمفسر الشامل لتعبيرات Cron لجدولة المهام</h2>
