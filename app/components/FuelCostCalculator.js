@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { Route, Droplet, DollarSign, Calculator } from "lucide-react";
+import React, { useState, useEffect } from "react";
 
 export default function FuelCostCalculator({ dict }) {
   const [distance, setDistance] = useState("");
@@ -8,12 +7,15 @@ export default function FuelCostCalculator({ dict }) {
   const [price, setPrice] = useState("");
   const [result, setResult] = useState(null);
 
-  const calculateFuel = () => {
+  useEffect(() => {
     const d = parseFloat(distance) || 0;
     const e = parseFloat(efficiency) || 0;
     const p = parseFloat(price) || 0;
 
-    if (d <= 0 || e <= 0 || p <= 0) return;
+    if (d <= 0 || e <= 0 || p <= 0) {
+      setResult(null);
+      return;
+    }
 
     const fuelNeeded = (d / 100) * e;
     const totalCost = fuelNeeded * p;
@@ -22,78 +24,61 @@ export default function FuelCostCalculator({ dict }) {
       fuelNeeded: fuelNeeded.toFixed(2),
       totalCost: totalCost.toFixed(2)
     });
-  };
+  }, [distance, efficiency, price]);
 
   return (
     <div className="grid-2">
       <div className="card">
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.fuel.distance}</label>
-          <div style={{ position: "relative" }}>
-            <Route size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
-            <input
-              type="number"
-              className="input"
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}
-              placeholder="500"
-              min="1"
-              style={{ paddingLeft: "36px" }}
-            />
-          </div>
+          <label className="label">🗺️ {dict.fuel.distance}</label>
+          <input
+            type="number"
+            className="input"
+            value={distance}
+            onChange={(e) => setDistance(e.target.value)}
+            placeholder="500"
+            min="1"
+          />
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.fuel.efficiency}</label>
-          <div style={{ position: "relative" }}>
-            <Droplet size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
-            <input
-              type="number"
-              className="input"
-              value={efficiency}
-              onChange={(e) => setEfficiency(e.target.value)}
-              placeholder="8"
-              min="1"
-              step="0.1"
-              style={{ paddingLeft: "36px" }}
-            />
-          </div>
+          <label className="label">⛽ {dict.fuel.efficiency}</label>
+          <input
+            type="number"
+            className="input"
+            value={efficiency}
+            onChange={(e) => setEfficiency(e.target.value)}
+            placeholder="8"
+            min="1"
+            step="0.1"
+          />
         </div>
 
-        <div style={{ marginBottom: "24px" }}>
-          <label className="label">{dict.fuel.price}</label>
-          <div style={{ position: "relative" }}>
-            <DollarSign size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
-            <input
-              type="number"
-              className="input"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="2.5"
-              min="0.1"
-              step="0.01"
-              style={{ paddingLeft: "36px" }}
-            />
-          </div>
+        <div style={{ marginBottom: "8px" }}>
+          <label className="label">💵 {dict.fuel.price}</label>
+          <input
+            type="number"
+            className="input"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="2.5"
+            min="0.1"
+            step="0.01"
+          />
         </div>
-
-        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={calculateFuel}>
-          <Calculator size={18} />
-          {dict.fuel.calculate}
-        </button>
       </div>
 
-      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>{dict.fuel.result_title}</h3>
+      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }} aria-live="polite">
+        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>🚗 {dict.fuel.result_title}</h3>
         
-        <div className="result-box">
+        <div className="result-box" style={{ background: "rgba(var(--text-rgb), 0.03)", border: "1px dashed rgba(var(--text-rgb), 0.1)" }}>
           <div className="result-label">{dict.fuel.fuel_needed}</div>
-          <div className="result-value" style={{ color: "var(--text)", fontSize: "1.8rem" }}>{result ? result.fuelNeeded : "0.00"} {dict.fuel.liters}</div>
+          <div className="result-value" style={{ color: "var(--text)", fontSize: "2rem" }}>{result ? result.fuelNeeded : "-"} <span style={{ fontSize: "1rem", color: "var(--text-muted)", fontWeight: "normal" }}>{dict.fuel.liters}</span></div>
         </div>
 
-        <div className="result-box" style={{ background: "rgba(14, 165, 233, 0.1)", borderColor: "rgba(14, 165, 233, 0.2)" }}>
-          <div className="result-label" style={{ color: "var(--text)" }}>{dict.fuel.title.split(" ")[0]} Cost</div>
-          <div className="result-value" style={{ color: "#0ea5e9" }}>{result ? result.totalCost : "0.00"}</div>
+        <div className="result-box" style={{ background: "rgba(var(--primary-rgb), 0.05)", border: "2px solid rgba(var(--primary-rgb), 0.2)", marginTop: "auto" }}>
+          <div className="result-label" style={{ color: "var(--text)", fontWeight: "600" }}>{dict.fuel.title.split(" ")[0]} Cost</div>
+          <div className="result-value" style={{ color: "var(--primary)" }}>{result ? result.totalCost : "0.00"}</div>
         </div>
       </div>
     </div>

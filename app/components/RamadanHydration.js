@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { Droplet, Activity, Clock, Info } from "lucide-react";
+import React, { useState, useEffect } from "react";
 
 export default function RamadanHydration({ dict, lang }) {
   const [weight, setWeight] = useState("");
@@ -8,9 +7,12 @@ export default function RamadanHydration({ dict, lang }) {
   const [fastingHours, setFastingHours] = useState("14");
   const [result, setResult] = useState(null);
 
-  const calculateHydration = () => {
+  useEffect(() => {
     const w = parseFloat(weight);
-    if (isNaN(w) || w <= 0) return;
+    if (isNaN(w) || w <= 0) {
+      setResult(null);
+      return;
+    }
 
     let totalMl = w * 35;
     if (activity === "light") totalMl += 350;
@@ -25,13 +27,13 @@ export default function RamadanHydration({ dict, lang }) {
     const cupsPerHour = (cups / nonFastingWindow).toFixed(1);
 
     setResult({ liters, cups, cupsPerHour });
-  };
+  }, [weight, activity, fastingHours]);
 
   return (
     <div className="grid-2">
       <div className="card">
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.ramadan.weight}</label>
+          <label className="label">⚖️ {dict.ramadan.weight}</label>
           <input
             type="number"
             className="input"
@@ -43,69 +45,67 @@ export default function RamadanHydration({ dict, lang }) {
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.ramadan.activity}</label>
-          <select
-            className="input"
-            value={activity}
-            onChange={(e) => setActivity(e.target.value)}
-          >
-            <option value="sedentary">{dict.ramadan.sedentary}</option>
-            <option value="light">{dict.ramadan.light}</option>
-            <option value="moderate">{dict.ramadan.moderate}</option>
-            <option value="active">{dict.ramadan.active}</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: "24px" }}>
-          <label className="label">{dict.ramadan.fasting_hours}</label>
-          <div style={{ position: "relative" }}>
-            <Clock size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
-            <input
-              type="number"
-              className="input"
-              value={fastingHours}
-              onChange={(e) => setFastingHours(e.target.value)}
-              placeholder="14"
-              min="10"
-              max="22"
-              style={{ paddingLeft: "36px" }}
-            />
+          <label className="label">🏃 {dict.ramadan.activity}</label>
+          <div className="tabs" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+            {[
+              { id: "sedentary", label: dict.ramadan.sedentary.split("(")[0].trim() },
+              { id: "light", label: dict.ramadan.light.split("(")[0].trim() },
+              { id: "moderate", label: dict.ramadan.moderate.split("(")[0].trim() },
+              { id: "active", label: dict.ramadan.active.split("(")[0].trim() }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActivity(tab.id)}
+                className={`btn ${activity === tab.id ? "btn-primary" : "btn-outline"}`}
+                style={{ flex: "1 1 calc(50% - 8px)", fontSize: "0.85rem", padding: "8px" }}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={calculateHydration}>
-          <Droplet size={18} />
-          {dict.ramadan.calculate}
-        </button>
+        <div style={{ marginBottom: "8px" }}>
+          <label className="label">⏱️ {dict.ramadan.fasting_hours}</label>
+          <input
+            type="number"
+            className="input"
+            value={fastingHours}
+            onChange={(e) => setFastingHours(e.target.value)}
+            placeholder="14"
+            min="10"
+            max="22"
+          />
+        </div>
       </div>
 
-      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>{dict.ramadan.result_title}</h3>
+      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }} aria-live="polite">
+        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>💧 {dict.ramadan.result_title}</h3>
         
         <div className="grid-2" style={{ gap: "16px" }}>
-          <div className="result-box">
+          <div className="result-box" style={{ background: "rgba(var(--primary-rgb), 0.05)", border: "1px dashed rgba(var(--primary-rgb), 0.2)" }}>
             <div className="result-label">{dict.ramadan.result_liters}</div>
-            <div className="result-value" style={{ color: "var(--primary)", fontSize: "1.8rem" }}>{result ? `${result.liters} L` : "-"}</div>
+            <div className="result-value" style={{ color: "var(--primary)", fontSize: "2rem" }}>{result ? `${result.liters} L` : "-"}</div>
           </div>
-          <div className="result-box">
+          <div className="result-box" style={{ background: "rgba(var(--accent-rgb), 0.05)", border: "1px dashed rgba(var(--accent-rgb), 0.2)" }}>
             <div className="result-label">{dict.ramadan.result_cups}</div>
-            <div className="result-value" style={{ color: "var(--accent)", fontSize: "1.8rem" }}>{result ? result.cups : "-"} 🥤</div>
+            <div className="result-value" style={{ color: "var(--accent)", fontSize: "2rem" }}>{result ? result.cups : "-"} 🥤</div>
           </div>
         </div>
 
         {result && (
-          <div style={{ marginTop: "auto", background: "rgba(37, 99, 235, 0.05)", padding: "16px", borderRadius: "var(--radius-md)", border: "1px solid rgba(37, 99, 235, 0.1)" }}>
+          <div style={{ marginTop: "auto", background: "rgba(var(--success-rgb), 0.1)", padding: "16px", borderRadius: "var(--radius-md)", borderLeft: "4px solid var(--success)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-              <Info size={18} style={{ color: "var(--primary)" }} />
-              <strong style={{ fontSize: "0.95rem" }}>{dict.ramadan.tip_title}</strong>
+              <span style={{ fontSize: "1.2rem" }}>💡</span>
+              <strong style={{ fontSize: "0.95rem", color: "var(--success)" }}>{dict.ramadan.tip_title}</strong>
             </div>
-            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+            <p style={{ fontSize: "0.9rem", color: "var(--text)", margin: 0, lineHeight: 1.6 }}>
               {dict.ramadan.tip_desc}
               <br /><br />
-              <strong style={{ color: "var(--primary)" }}>
+              <strong>
                 {lang === "ar" 
-                  ? `💡 ننصح بشرب حوالي ${result.cupsPerHour} كوب كل ساعة خلال فترة الإفطار.` 
-                  : `💡 We recommend drinking about ${result.cupsPerHour} cups every hour during the non-fasting window.`}
+                  ? `ننصح بشرب حوالي ${result.cupsPerHour} كوب كل ساعة خلال فترة الإفطار.` 
+                  : `We recommend drinking about ${result.cupsPerHour} cups every hour during the non-fasting window.`}
               </strong>
             </p>
           </div>
