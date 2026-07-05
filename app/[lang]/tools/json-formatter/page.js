@@ -51,8 +51,16 @@ export default async function JsonFormatterPage({ params }) {
       answer: "الـ JSON (JavaScript Object Notation) هو تنسيق خفيف لتبادل البيانات. من السهل على البشر قراءته وكتابته ومن السهل على الآلات تحليله وإنشائه. يُستخدم بشكل أساسي لنقل البيانات بين الخادم وتطبيق الويب كبديل لـ XML."
     },
     {
+      question: "ما الفرق بين JSON وكائنات JavaScript؟",
+      answer: "صيغة JSON هي صيغة نصية مبنية على كائنات JavaScript ولكنها تخضع لقواعد صارمة للغاية؛ حيث يجب إحاطة جميع الأسماء بعلامات اقتباس مزدوجة، ولا يُسمح بالوظائف (Functions) أو القيم غير المعرفة (undefined)."
+    },
+    {
       question: "هل يتم إرسال بيانات JSON الخاصة بي إلى خوادمكم؟",
       answer: "لا، على الإطلاق. يعمل منسق الـ JSON الخاص بنا بالكامل محلياً داخل متصفحك باستخدام جافا سكريبت. لا يتم أبداً نقل أي بيانات عبر الشبكة أو حفظها على خوادمنا، مما يضمن بقاء بياناتك الحساسة خاصة تماماً."
+    },
+    {
+      question: "هل الأداة آمنة للبيانات الحساسة؟",
+      answer: "نعم، يتم تشغيل الأداة محلياً 100% داخل المتصفح دون إرسال أي طلبات شبكة خارجية، وهي مناسبة ومطابقة لمعايير الأمان المؤسسية."
     },
     {
       question: "ماذا تفعل وظيفة \"الضغط\" (Minify)؟",
@@ -72,8 +80,16 @@ export default async function JsonFormatterPage({ params }) {
       answer: "JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write and easy for machines to parse and generate. It is primarily used to transmit data between a server and web application as an alternative to XML."
     },
     {
+      question: "What is the difference between JSON and JavaScript objects?",
+      answer: "JSON is a text-based format. In JSON, all property names must be double-quoted strings, and functions or undefined values are not allowed."
+    },
+    {
       question: "Is my JSON data sent to your servers?",
       answer: "Absolutely not. Our JSON Formatter works entirely locally within your browser using JavaScript. No data is ever transmitted over the network or saved on our servers, ensuring your sensitive data remains completely private."
+    },
+    {
+      question: "Is this JSON formatter safe for sensitive data?",
+      answer: "Yes. Since our tool runs entirely offline in your browser, it is perfectly safe to paste sensitive database dumps or tokens. No network requests are made."
     },
     {
       question: "What does the 'Minify' function do?",
@@ -90,29 +106,41 @@ export default async function JsonFormatterPage({ params }) {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={softwareName}
         description={softwareDescription}
         url={`https://smartcalctools.xyz/${lang}/tools/json-formatter`}
       />
-      <FAQSchema faqs={faqs} />
+
+      <div className="page-header">
+        <h1>{dict.json.title}</h1>
+        <p>{dict.json.subtitle}</p>
+      </div>
       
       <JsonFormatterClient lang={lang} dict={dict} />
 
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
-            <h2>منسق ومصحح كود JSON الشامل دون اتصال</h2>
+            <h2>الدليل الشامل لتنسيق والتحقق من صحة JSON</h2>
             <p>
-              يعد "منسق ومصحح كود JSON" أداة ضرورية لا غنى عنها لمطوري الويب، ومحللي البيانات، ومهندسي البرمجيات الذين يتعاملون بشكل متكرر مع واجهات برمجة التطبيقات (APIs)، وملفات التكوين، وتخزين البيانات. يعتبر JSON (JavaScript Object Notation) هو المعيار الأساسي لنقل البيانات عبر الإنترنت. ومع ذلك، غالباً ما تكون ملفات الـ JSON الخام، خاصة تلك المسترجعة مباشرة من الـ APIs، "مضغوطة" (تم إزالة جميع الفواصل والمسافات منها) لتقليل استهلاك النطاق الترددي (Bandwidth)، مما يجعل من الصعب جداً على الإنسان قراءتها أو فهمها أو اكتشاف الأخطاء فيها.
+              تعد صيغة JSON (JavaScript Object Notation) المعيار الأساسي لتبادل البيانات على شبكة الويب الحديثة. تتميز بخفتها وسهولة قراءتها وكتابتها من قبل البشر وسهولة تحليلها وتوليدها من قبل الآلات. سواء كنت مهندس خلفية برمجية تصمم واجهة برمجة تطبيقات REST، أو مطور واجهة أمامية، فإن JSON هي اللغة العالمية التي تربط الأنظمة ببعضها.
+            </p>
+
+            <h3>لماذا تحتاج لتنسيق الـ JSON؟</h3>
+            <p>
+              يعد "منسق ومصحح كود JSON" أداة ضرورية لا غنى عنها لمطوري الويب، ومحللي البيانات، ومهندسي البرمجيات الذين يتعاملون بشكل متكرر مع واجهات برمجة التطبيقات (APIs)، وملفات التكوين، وتخزين البيانات. يعتبر JSON هو المعيار الأساسي لنقل البيانات عبر الإنترنت. ومع ذلك، غالباً ما تكون ملفات الـ JSON الخام مضغوطة (minify) في سطر واحد لتوفير النطاق الترددي أثناء النقل عبر الشبكة. ورغم أن هذا رائع للأداء، إلا أنه مستحيل للاستكشاف البصري وتصحيح الأخطاء.
             </p>
             <p>
-              يقوم منسق الـ JSON القوي الخاص بنا بتحويل النص الفوضوي وغير المقروء على الفور إلى كود منظم بشكل جميل، وملون، وسهل القراءة مع مسافات بادئة صحيحة. والأهم من ذلك، أنه يتميز بأداة تحقق متقدمة مدمجة تقوم بفحص قواعد بناء الجملة (Syntax) للـ JSON بحثاً عن الأخطاء الشائعة مثل علامات الاقتباس المفقودة، أو الفواصل الزائدة، أو الأقواس غير المغلقة، ويحدد بدقة مكان حدوث الخطأ ليوفر عليك ساعات طويلة من تصحيح الأخطاء. وعلى العكس من ذلك، إذا كنت بحاجة إلى تحسين الكود الخاص بك لبيئة الإنتاج (Production)، تتضمن الأداة ميزة "الضغط" (Minify) لتقليص حجم الـ JSON المنسق إلى أصغر حجم ممكن.
+              يقوم منسق الـ JSON القوي الخاص بنا بإعادة صياغة الكود وإضافة مسافات بادئة وسطور جديدة ليسهل فهمه بالعين المجردة واكتشاف الفواصل أو الأقواس الناقصة. والأهم من ذلك، أنه يتميز بأداة تحقق متقدمة مدمجة تقوم بفحص قواعد بناء الجملة (Syntax) للـ JSON بحثاً عن الأخطاء الشائعة مثل علامات الاقتباس المفقودة، أو الفواصل الزائدة، أو الأقواس غير المغلقة، ويحدد بدقة مكان حدوث الخطأ ليوفر عليك ساعات طويلة من تصحيح الأخطاء. وعلى العكس من ذلك، إذا كنت بحاجة إلى تحسين الكود الخاص بك لبيئة الإنتاج (Production)، تتضمن الأداة ميزة "الضغط" (Minify) لتقليص حجم الـ JSON المنسق إلى أصغر حجم ممكن.
             </p>
+
+            <h3>لماذا المعالجة المحلية هي الأكثر أماناً؟</h3>
             <p>
-              تتمثل إحدى المزايا الرئيسية لأداتنا في التزامها المطلق بالخصوصية. على عكس العديد من المنسقات عبر الإنترنت التي تقوم بإرسال بيانات الـ API الحساسة أو مفاتيح التكوين الخاصة بك إلى خوادم خارجية، يعمل تطبيقنا محلياً بنسبة 100% داخل متصفح الويب الخاص بك. هذا يعني أن بياناتك لا تغادر جهاز الكمبيوتر الخاص بك أبداً، مما يوفر أماناً على مستوى المؤسسات للتعليمات البرمجية الخاصة بك. استمتع بتجربة تنسيق JSON سريعة، آمنة، وتعمل بدون إنترنت وبشكل مجاني بالكامل.
+              تقوم العديد من الأدوات عبر الإنترنت بإرسال نصوص الـ JSON الخاصة بك إلى خوادمها الخاصة لمعالجتها. إذا كنت تقوم بتنسيق بيانات حساسة تحتوي على كلمات مرور أو رموز مصادقة (auth tokens)، فقد يعرضك ذلك لخطر تسريب البيانات. منصة SmartCalcTools تقوم بالمعالجة محلياً بالكامل 100% داخل متصفحك. هذا يعني أن بياناتك لا تغادر جهاز الكمبيوتر الخاص بك أبداً، مما يوفر أماناً على مستوى المؤسسات للتعليمات البرمجية الخاصة بك. استمتع بتجربة تنسيق JSON سريعة، آمنة، وتعمل بدون إنترنت وبشكل مجاني بالكامل.
             </p>
+
             <h3>الأسئلة الشائعة حول منسق ومصحح JSON</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
@@ -123,16 +151,24 @@ export default async function JsonFormatterPage({ params }) {
           </>
         ) : (
           <>
-            <h2>Ultimate Offline JSON Formatter and Validator</h2>
+            <h2>The Complete Guide to JSON Formatting and Validation</h2>
             <p>
-              The JSON Formatter and Validator is an essential utility for web developers, data analysts, and software engineers who frequently work with Application Programming Interfaces (APIs), configuration files, and data storage. JSON (JavaScript Object Notation) is the de facto standard for transmitting data across the internet. However, raw JSON files, especially those returned directly from APIs, are often "minified" (stripped of all line breaks and spaces) to reduce bandwidth, making them incredibly difficult for a human to read, debug, or understand.
+              JSON (JavaScript Object Notation) is the standard data interchange format of the modern web. It is lightweight, easy for humans to read and write, and easy for machines to parse and generate. Whether you are a backend engineer designing a REST API or a frontend developer debugging state, JSON is the universal language.
+            </p>
+
+            <h3>Why Format Your JSON?</h3>
+            <p>
+              The JSON Formatter and Validator is an essential utility for web developers, data analysts, and software engineers who frequently work with Application Programming Interfaces (APIs), configuration files, and data storage. Raw JSON data often comes minified (compressed into a single line) to save bandwidth. While this is great for performance, it is terrible for debugging. 
             </p>
             <p>
-              Our powerful JSON Formatter instantly transforms chaotic, unreadable text into beautifully structured, color-coded, and highly readable code with proper indentation. More importantly, it features an advanced built-in validator that checks your JSON syntax for common errors such as missing quotes, trailing commas, or unclosed brackets, pinpointing exactly where the error occurs to save you hours of debugging time. Conversely, if you need to optimize your code for production, the tool includes a "minify" feature to compress your formatted JSON back into the smallest possible file size. 
+              A JSON Formatter takes minified code and adds proper indentation, line breaks, and spacing. This instantly highlights the hierarchy, allowing you to easily spot errors. More importantly, it features an advanced built-in validator that checks your JSON syntax for common errors such as missing quotes, trailing commas, or unclosed brackets, pinpointing exactly where the error occurs to save you hours of debugging time. Conversely, if you need to optimize your code for production, the tool includes a "minify" feature to compress your formatted JSON back into the smallest possible file size. 
             </p>
+
+            <h3>Why Use a Client-Side Formatter?</h3>
             <p>
-              A major advantage of our tool is its commitment to absolute privacy. Unlike many online formatters that send your potentially sensitive API data or configuration keys to remote servers, our application runs 100% locally in your web browser. This means your data never leaves your computer, providing enterprise-grade security for your proprietary code. Experience fast, secure, and offline JSON formatting completely free.
+              Many free online formatting tools send your pasted JSON to a backend server. If you are formatting API payloads containing sensitive user data, auth tokens, or proprietary business logic, you are risking a massive data leak. SmartCalcTools processes your JSON 100% locally in your browser, ensuring enterprise-grade security. This means your data never leaves your computer, providing enterprise-grade security for your proprietary code. Experience fast, secure, and offline JSON formatting completely free.
             </p>
+
             <h3>Frequently Asked Questions</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
@@ -143,6 +179,8 @@ export default async function JsonFormatterPage({ params }) {
           </>
         )}
       </article>
+
+      <FAQSchema faqs={faqs} />
     </div>
   );
 }

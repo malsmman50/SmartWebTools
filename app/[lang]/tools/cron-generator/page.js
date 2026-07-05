@@ -39,6 +39,7 @@ export default async function CronGeneratorPage({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   const dict = await getDictionary(lang);
+  const t = dict.cron;
 
   const softwareName = isAr ? "مولد ومفسر Cron" : "Cron Expression Generator";
   const softwareDescription = isAr 
@@ -90,14 +91,18 @@ export default async function CronGeneratorPage({ params }) {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={softwareName}
         description={softwareDescription}
         url={`https://smartcalctools.xyz/${lang}/tools/cron-generator`}
       />
-      <FAQSchema faqs={faqs} />
       
+      <div className="page-header">
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
+      </div>
+
       <CronGeneratorClient lang={lang} dict={dict} />
 
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
@@ -113,6 +118,16 @@ export default async function CronGeneratorPage({ params }) {
             <p>
               هذه الوظيفة المزدوجة لا تساعدك فقط في إنشاء جداول المهام، بل تُعدّ أيضاً وسيلة تعليمية ممتازة لفهم كيفية عمل صيغة الـ Cron. علاوة على ذلك، تعمل أداتنا بالكامل داخل متصفحك باستخدام معالجة من جانب العميل، مما يضمن بقاء منطق الجدولة الخاص بك خاصاً ويعمل بسرعة فائقة دون أي تأخير في الشبكة. تدعم الأداة صيغة Cron القياسية لنظام لينكس، مما يجعلها متوافقة تماماً مع Crontab، وإجراءات GitHub Actions، ووظائف Kubernetes، وغيرها الكثير من مجدولات المهام. تجنب أخطاء الصياغة وحسّن سير عملك اليوم.
             </p>
+            <h3>هيكل التعبير والرموز الشائعة</h3>
+            <p>
+              يتكون التعبير من خمسة حقول زمنية مرتبة كالتالي: الدقيقة، الساعة، يوم الشهر، الشهر، ويوم الأسبوع. وتستخدم الرموز لتعريف التكرار:
+            </p>
+            <ul>
+              <li><strong>* (الكل):</strong> تشغيل الأداة في كل وحدة زمنية (مثال: * في حقل الدقيقة يعني كل دقيقة).</li>
+              <li><strong>/ (الخطوة):</strong> لتعريف فترات التكرار (مثال: */5 في حقل الدقيقة يعني كل 5 دقائق).</li>
+              <li><strong>, (القائمة):</strong> لتحديد قيم محددة متعددة (مثال: 1,3,5 في حقل يوم الأسبوع).</li>
+              <li><strong>- (النطاق):</strong> لتحديد نطاق زمني مستمر (مثال: 9-17 في حقل الساعة).</li>
+            </ul>
             <h3>الأسئلة الشائعة حول مولد ومفسر تعبيرات الكرون</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
@@ -133,6 +148,16 @@ export default async function CronGeneratorPage({ params }) {
             <p>
               This dual functionality not only helps you generate schedules but also acts as an excellent learning tool for understanding cron syntax. Furthermore, our tool operates entirely within your browser using client-side processing, ensuring that your scheduling logic remains private and executes instantly without any network delays. It supports standard Linux cron syntax, making it compatible with crontab, GitHub Actions, Kubernetes cronjobs, and many other task schedulers. Avoid syntax errors and streamline your workflow today with the best free online cron generator.
             </p>
+            <h3>Expression Structure</h3>
+            <p>
+              The standard fields are Minute, Hour, Day of Month, Month, and Day of Week. Special characters are used to define frequencies:
+            </p>
+            <ul>
+              <li><strong>* (Wildcard):</strong> Specifies all values (e.g., * in the minute field runs every minute).</li>
+              <li><strong>/ (Step):</strong> Specifies increments (e.g., */15 runs every 15 minutes).</li>
+              <li><strong>, (List):</strong> Specifies multiple specific values (e.g., 1,2,3).</li>
+              <li><strong>- (Range):</strong> Specifies a range of values (e.g., 1-5 runs on those values inclusive).</li>
+            </ul>
             <h3>Frequently Asked Questions</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
@@ -143,6 +168,7 @@ export default async function CronGeneratorPage({ params }) {
           </>
         )}
       </article>
+      <FAQSchema faqs={faqs} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import InheritanceCalculatorClient from "@/app/components/InheritanceCalculatorC
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
 import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Link from "next/link";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -78,20 +79,46 @@ export default async function InheritanceCalculatorPage({ params }) {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <InheritanceCalculatorClient lang={lang} dict={dict} />
-      
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={isAr ? "حاسبة المواريث والتركات الشرعية" : "Islamic Inheritance Calculator (Mawarith)"}
         description={isAr ? "احسب أنصبة الورثة الشرعيين والتركات وفقاً لقواعد علم الفرائض والفقه الإسلامي المعتمدة." : "Estimate the legal shares of primary heirs according to Islamic Sharia (Mawarith)."}
         applicationCategory="EducationalApplication"
         url={`https://smartcalctools.xyz/${lang}/calculators/inheritance`}
       />
+
+      <div className="page-header">
+        <h1 style={{ fontSize: "1.8rem", marginBottom: "8px", textAlign: "center" }}>{dict.inheritance.title}</h1>
+        <p style={{ textAlign: "center", color: "var(--text-muted)", marginBottom: "12px" }}>
+          {dict.inheritance.subtitle}
+        </p>
+        <div style={{ textAlign: "center", marginBottom: "24px" }}>
+          <Link href={`/${lang}/methodology#inheritance`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
+            {isAr ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
+          </Link>
+        </div>
+
+        <div style={{ background: "rgba(16, 185, 129, 0.1)", color: "var(--primary)", padding: "16px", borderRadius: "8px", marginBottom: "24px", fontSize: "0.9rem", lineHeight: "1.5" }}>
+          {isAr ? (
+            <><strong>تحديث جديد:</strong> تم ترقية الحاسبة لتشمل أحكام الجدود والجدات والإخوة الأشقاء ولأب ولأم، مع تطبيق قواعد العول والحجب (بناءً على المذهب الحنفي).</>
+          ) : (
+            <><strong>Major Update:</strong> The calculator now includes extended heirs (Grandparents, Full/Paternal/Maternal Siblings) and applies Awl and Hajb rules (based on Hanafi fiqh).</>
+          )}
+        </div>
+      </div>
+
+      <InheritanceCalculatorClient lang={lang} dict={dict} />
+      
       <FAQSchema faqs={faqs} />
       
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
+            <h2>حاسبة المواريث الشرعية (النسخة الشاملة)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px", marginBottom: "24px" }}>
+              تم تطوير حاسبة المواريث لتشمل الأصول (الأب، الجد، الأم، الجدات)، والفروع (الأبناء والبنات)، والحواشي (الإخوة الأشقاء، الإخوة لأب، والإخوة لأم). تطبق الحاسبة قواعد الحجب المعتمدة (Hajb) ومبدأ العول ('Awl) بدقة وفقاً للراجح من المذهب الحنفي.
+            </p>
+
             <h2>الدليل الإرشادي لحاسبة المواريث والتركات (علم الفرائض)</h2>
             <p>
               يُعد علم المواريث، أو ما يُعرف بـ <em>علم الفرائض</em>، من أدق وأهم العلوم في الشريعة الإسلامية. فقد تكفل الله سبحانه وتعالى بتفصيل أنصبة الورثة في القرآن الكريم لضمان العدل والإنصاف بين أفراد الأسرة. صُممت <strong>حاسبة المواريث الشرعية</strong> لتكون أداة مساعدة تترجم هذه القواعد المعقدة إلى نتائج رقمية دقيقة ومبسطة بضغطة زر.
@@ -112,10 +139,20 @@ export default async function InheritanceCalculatorPage({ params }) {
             <p>
               الاعتماد على الحاسبة يوفر وقتاً وجهداً كبيراً، خصوصاً في المسائل المتشابكة التي تتطلب حساب أصول المسائل وتصحيحها. ومع ذلك، تبقى هذه الأداة وسيلة تعليمية وتثقيفية، تمنحك نظرة عامة شاملة حول كيفية التوزيع.
             </p>
+            
+            <h3 style={{ marginTop: "24px", color: "var(--danger)" }}>تنبيه فقهي وقانوني</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px", marginBottom: "24px" }}>
+              على الرغم من دقة هذه الخوارزميات، علم المواريث معقد جداً ويحتوي على اختلافات فقهية في مسائل محددة (مثل مسألة الجد مع الإخوة، والمناسخات). هذه الحاسبة للاستخدام التعليمي والتقريبي فقط. <strong>لا تعتمد عليها في التقاضي أو تقسيم تركة حقيقية</strong>، ويجب الرجوع للمحاكم الشرعية الرسمية.
+            </p>
             <DisclaimerBox type="religious" lang={lang} />
           </>
         ) : (
           <>
+            <h2>Comprehensive Islamic Inheritance (Mawarith) Calculator</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px", marginBottom: "24px" }}>
+              This calculator has been upgraded to handle extended heirs including Ascendants (Grandparents) and Collaterals (Full, Paternal, and Maternal Siblings). It automatically applies the complex rules of exclusion (Hajb) and proportional reduction (Awl) based on the Hanafi school of thought.
+            </p>
+
             <h2>A Guide to the Islamic Inheritance Calculator (Mawarith)</h2>
             <p>
               The science of inheritance, known as <em>Ilm al-Fara'id</em>, is one of the most detailed and crucial disciplines within Islamic jurisprudence (Sharia). To ensure complete justice and fairness among family members, the shares of heirs are explicitly detailed in the Quran. Our <strong>Islamic Inheritance Calculator</strong> is designed to translate these intricate rules into precise, easy-to-understand numerical results with just a few clicks.
@@ -135,6 +172,11 @@ export default async function InheritanceCalculatorPage({ params }) {
             <h3>The Importance of Precision in Mawarith</h3>
             <p>
               Relying on an automated calculator saves significant time and effort, especially in convoluted scenarios that require calculating common denominators and correcting base numbers. Nevertheless, this tool primarily serves an educational purpose, giving you a clear overview of the distribution process.
+            </p>
+            
+            <h3 style={{ marginTop: "24px", color: "var(--danger)" }}>Legal & Fiqh Disclaimer</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px", marginBottom: "24px" }}>
+              Despite the accuracy of these algorithms, Islamic inheritance contains fiqhi differences of opinion in rare edge cases. This calculator is for educational and approximation purposes only. <strong>Never use it as a final legal arbiter for an actual estate.</strong> Always consult official Sharia courts.
             </p>
             <DisclaimerBox type="religious" lang={lang} />
           </>

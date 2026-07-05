@@ -86,81 +86,50 @@ export default function PasswordGeneratorClient({ lang, dict, initialValues, ...
   const st = strength();
 
   return (
-      <div className="grid-2">
-        <div>
-          <div className="card" style={{ maxWidth: "600px", margin: "0 auto" }}>
-            <div className="result-box" style={{ marginBottom: "20px", position: "relative" }}>
-              <div style={{ fontFamily: "monospace", fontSize: "1.3rem", wordBreak: "break-all", minHeight: "40px", display: "flex", alignItems: "center", justifyContent: "center", paddingRight: isAr ? "36px" : "0", paddingLeft: isAr ? "0" : "36px" }}>
-                {password || t.click_generate}
-              </div>
-              {password && (
-                <button 
-                  className="copy-btn" 
-                  onClick={copy} 
-                  style={{ position: "absolute", top: "12px", right: isAr ? "auto" : "12px", left: isAr ? "12px" : "auto", background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem" }}
-                  title={isAr ? "نسخ" : "Copy"}
-                >
-                  {copied ? "✅" : "📋"}
-                </button>
-              )}
-            </div>
-
-            {password && (
-              <div style={{ marginBottom: "20px", textAlign: "center" }}>
-                <span style={{ fontWeight: 600, color: st.color }}>{t.strength}: {st.text}</span>
-                <div style={{ height: "6px", borderRadius: "3px", background: "var(--border)", marginTop: "8px", overflow: "hidden" }}>
-                  <div style={{ height: "100%", background: st.color, width: st.text === t.weak ? "33%" : st.text === t.good ? "66%" : "100%", transition: "width 0.3s" }}></div>
-                </div>
-              </div>
-            )}
-
-            <div style={{ marginBottom: "20px" }}>
-              <label className="label" htmlFor="password-length">{t.length}: {length}</label>
-              <input id="password-length" type="range" min="8" max="64" value={length} onChange={e => setLength(Number(e.target.value))} style={{ width: "100%", cursor: "pointer" }} />
-            </div>
-
-            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginBottom: "24px" }}>
-              <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
-                <input type="checkbox" checked={useUpper} onChange={e => setUseUpper(e.target.checked)} /> {t.uppercase}
-              </label>
-              <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
-                <input type="checkbox" checked={useNumbers} onChange={e => setUseNumbers(e.target.checked)} /> {t.numbers}
-              </label>
-              <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
-                <input type="checkbox" checked={useSymbols} onChange={e => setUseSymbols(e.target.checked)} /> {t.symbols}
-              </label>
-            </div>
-
-            <button className="btn btn-primary" onClick={generate} style={{ width: "100%", justifyContent: "center", background: "var(--success)" }}>{t.generate_btn}</button>
-          </div>
+    <div className="card" style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <div className="result-box" style={{ marginBottom: "20px", position: "relative" }}>
+        <div style={{ fontFamily: "monospace", fontSize: "1.3rem", wordBreak: "break-all", minHeight: "40px", display: "flex", alignItems: "center", justifyContent: "center", paddingRight: isAr ? "36px" : "0", paddingLeft: isAr ? "0" : "36px" }}>
+          {password || t.click_generate}
         </div>
-
-        <div>
-          <article className="card" style={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            {isAr ? (
-              <>
-                <h2>لماذا نستخدم مولد كلمة المرور العشوائية؟</h2>
-                <p style={{ color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.8" }}>
-                  يميل البشر بطبيعتهم لاختيار كلمات مرور سهلة التذكر، مثل الكلمات الشائعة في القاموس أو تواريخ الميلاد. تستخدم المخترقون برامج آلية سريعة لتخمين هذه الأنماط.
-                </p>
-                <p style={{ color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.8" }}>
-                  تعتمد أداتنا على واجهة التشفير المضمنة في المتصفح (<code>window.crypto</code>) لتوليد رموز عشوائية تماماً ومستحيلة التخمين، مما يضمن أماناً فائقاً لحساباتك.
-                </p>
-              </>
-            ) : (
-              <>
-                <h2>Why Use a Cryptographic Password Generator?</h2>
-                <p style={{ color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.8" }}>
-                  Humans are prone to selecting easily guessable passwords, such as keyboard walks, common dictionary words, or personal dates. Hackers use automated tools to exploit these predictable patterns.
-                </p>
-                <p style={{ color: "var(--text-muted)", marginTop: "12px", lineHeight: "1.8" }}>
-                  Our tool leverages the browser's built-in cryptographic API (<code>window.crypto</code>) to generate completely random and unpredictable passwords locally, ensuring absolute security.
-                </p>
-              </>
-            )}
-          </article>
-        </div>
+        {password && (
+          <button 
+            className="copy-btn" 
+            onClick={copy} 
+            style={{ position: "absolute", top: "12px", right: isAr ? "auto" : "12px", left: isAr ? "12px" : "auto", background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem" }}
+            title={isAr ? "نسخ" : "Copy"}
+          >
+            {copied ? "✅" : "📋"}
+          </button>
+        )}
       </div>
 
+      {password && (
+        <div style={{ marginBottom: "20px", textAlign: "center" }}>
+          <span style={{ fontWeight: 600, color: st.color }}>{t.strength}: {st.text}</span>
+          <div style={{ height: "6px", borderRadius: "3px", background: "var(--border)", marginTop: "8px", overflow: "hidden" }}>
+            <div style={{ height: "100%", background: st.color, width: st.text === t.weak ? "33%" : st.text === t.good ? "66%" : "100%", transition: "width 0.3s" }}></div>
+          </div>
+        </div>
+      )}
+
+      <div style={{ marginBottom: "20px" }}>
+        <label className="label" htmlFor="password-length">{t.length}: {length}</label>
+        <input id="password-length" type="range" min="8" max="64" value={length} onChange={e => setLength(Number(e.target.value))} style={{ width: "100%", cursor: "pointer" }} />
+      </div>
+
+      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginBottom: "24px" }}>
+        <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
+          <input type="checkbox" checked={useUpper} onChange={e => setUseUpper(e.target.checked)} /> {t.uppercase}
+        </label>
+        <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
+          <input type="checkbox" checked={useNumbers} onChange={e => setUseNumbers(e.target.checked)} /> {t.numbers}
+        </label>
+        <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
+          <input type="checkbox" checked={useSymbols} onChange={e => setUseSymbols(e.target.checked)} /> {t.symbols}
+        </label>
+      </div>
+
+      <button className="btn btn-primary" onClick={generate} style={{ width: "100%", justifyContent: "center", background: "var(--success)" }}>{t.generate_btn}</button>
+    </div>
   );
 }

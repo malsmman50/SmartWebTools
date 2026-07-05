@@ -78,18 +78,24 @@ export default async function CurrencyConverterPage({ params }) {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <CurrencyConverterClient lang={lang} dict={dict} />
-      
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={isAr ? "محول أسعار العملات المباشر" : "Live Currency Converter"}
         description={isAr ? "حول العملات العالمية فورياً وبأسعار الصرف المحدثة يومياً مع دعم أكثر من 150 عملة." : "Convert global currencies instantly with live market exchange rates."}
         applicationCategory="FinanceApplication"
         url={`https://smartcalctools.xyz/${lang}/calculators/currency`}
       />
-      <FAQSchema faqs={faqs} />
+
+      <div className="page-header">
+        <h1>{dict.currency.title}</h1>
+        <p>{dict.currency.subtitle}</p>
+      </div>
+
+      <CurrencyConverterClient lang={lang} dict={dict} />
       
-      <article className="prose lg:prose-xl mx-auto mt-12 dark:prose-invert">
+      <DisclaimerBox type="financial" lang={lang} />
+      
+      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
             <h2>الدليل الشامل لاستخدام محول أسعار العملات المباشر</h2>
@@ -109,7 +115,14 @@ export default async function CurrencyConverterPage({ params }) {
             <p>
               تذكر دائماً أن الأسواق المالية تتسم بالتغير السريع، والأسعار المعروضة هنا هي أسعار تأشيرية قد تختلف قليلاً عن الأسعار التي تقدمها البنوك المحلية بسبب العمولات وهوامش الربح.
             </p>
-            <DisclaimerBox type="financial" lang={lang} />
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>التجارة الإلكترونية والتسوق:</strong> لنفترض أنك تتسوق من متجر أمريكي وسعر السلعة 49$. يمكنك استخدام محول العملات بضبط المبلغ إلى 49 وتحديد الدولار الأمريكي (USD) إلى عملتك المحلية (مثل الريال السعودي SAR) لمعرفة التكلفة الدقيقة.</li>
+              <li style={{ marginBottom: "8px" }}><strong>السفر والسياحة:</strong> عند التخطيط لرحلة إلى أوروبا، يمكنك التحقق من كم يساوي 1000 يورو (EUR) بالدرهم الإماراتي (AED) لضبط ميزانية سفرك.</li>
+              <li style={{ marginBottom: "8px" }}><strong>تحويلات المغتربين (Remittances):</strong> يمكن للمغتربين معرفة المبلغ الذي سيستلمه ذووهم. مثلاً، تحويل 500 دينار كويتي (KWD) إلى الجنيه المصري (EGP).</li>
+              <li style={{ marginBottom: "8px" }}><strong>تداول العملات والأسواق المالية:</strong> متابعة الفروقات الطفيفة في أسعار الصرف اليومية للعملات العالمية الرائدة كاليورو والدولار والباوند.</li>
+            </ul>
           </>
         ) : (
           <>
@@ -130,10 +143,19 @@ export default async function CurrencyConverterPage({ params }) {
             <p>
               Always keep in mind that financial markets fluctuate rapidly. The rates displayed are indicative mid-market rates and may differ slightly from the rates offered by your local bank or exchange bureau due to applied margins and commissions.
             </p>
-            <DisclaimerBox type="financial" lang={lang} />
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>E-commerce & Online Shopping:</strong> Suppose you are shopping on an international website and an item costs $49. You can use the converter by entering 49 USD to your local currency (e.g., GBP) to know the exact cost before checkout.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Travel Budgeting:</strong> When planning a trip to Europe, you can check exactly how much 1,000 EUR equals in USD to accurately budget your travel expenses.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Expat Remittances:</strong> Expatriates can calculate exactly how much money their families will receive back home. For example, converting 500 AED to INR or PHP.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Financial Trading:</strong> Keeping track of the daily minor fluctuations in global exchange rates for leading pairs like EUR/USD or GBP/USD.</li>
+            </ul>
           </>
         )}
       </article>
+
+      <FAQSchema faqs={faqs} />
     </div>
   );
 }

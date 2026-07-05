@@ -37,109 +37,106 @@ export default async function DataConverterPage({ params }) {
   const isAr = lang === "ar";
   const dict = await getDictionary(lang);
 
-  const softwareName = isAr ? "محول وحدات البيانات الرقمية" : "Digital Data Size Converter";
+  const softwareName = isAr ? "محول وتنسيق البيانات اللحظي الآمن" : "Secure Live Data Format Converter";
   const softwareDescription = isAr 
-    ? "محول مجاني وسريع لتحويل أحجام البيانات بين البايت والميجابايت والجيجابايت والتيرابايت وغيرها من الوحدات."
-    : "Free and fast tool to convert digital data sizes between Bytes, Megabytes, Gigabytes, Terabytes, and more.";
+    ? "أداة تحويل البيانات الذكية توفر لك بيئة آمنة وسريعة للتحويل بين أشهر صيغ البيانات التي يستخدمها المطورون والمبرمجون: JSON، XML، YAML، و CSV."
+    : "The Smart Data Format Converter provides a secure, lightning-fast environment to switch between the most popular data serialization formats used by developers: JSON, XML, YAML, and CSV.";
 
   const faqs = isAr ? [
     {
-      question: "ما الفرق بين البت (Bit) والبايت (Byte)؟",
-      answer: "البت (b) هو أصغر وحدة للبيانات الرقمية، ويمثل قيمة ثنائية إما 0 أو 1. أما البايت (B) فيتكون من 8 بتات. تُقاس أحجام التخزين عادةً بالبايت، بينما تُقاس سرعات الشبكة غالباً بالبت (مثل ميجابت في الثانية)."
+      question: "هل يتم حفظ بياناتي أو إرسالها للخوادم أثناء عملية التحويل؟",
+      answer: "لا، إطلاقاً. الأداة تعمل 100% داخل متصفحك ولا تتصل بأي خوادم خارجية لمعالجة البيانات."
     },
     {
-      question: "لماذا يُظهر القرص الصلب بسعة 1 تيرابايت مساحة أقل في نظام ويندوز؟",
-      answer: "تستخدم الشركات المصنعة للأقراص الصلبة النظام العشري (الأساس 10) حيث يعادل 1 تيرابايت 1000 جيجابايت. بينما يستخدم ويندوز النظام الثنائي (الأساس 2) حيث يعادل 1 تيبي بايت 1024 جيبي بايت. هذا الاختلاف في الحساب يجعل القرص بسعة 1TB يظهر بحوالي 931 جيجابايت في ويندوز."
-    },
-    {
-      question: "ما هي الوحدات التي تدعمها هذه الأداة؟",
-      answer: "تدعم هذه الأداة جميع الوحدات الرقمية القياسية بما في ذلك البت، البايت، الكيلوبايت، الميجابايت، الجيجابايت، التيرابايت، البيتابايت، الإكسابايت، الزيتابايت، واليوتابايت."
-    },
-    {
-      question: "هل أحتاج إلى اتصال بالإنترنت لاستخدام المحول؟",
-      answer: "تحتاج إلى الاتصال بالإنترنت فقط لتحميل الصفحة في البداية. بمجرد تحميلها، تعمل جميع خوارزميات التحويل محلياً في متصفحك عبر جافا سكريبت، مما يسمح لها بالعمل دون اتصال بالإنترنت."
-    },
-    {
-      question: "هل استخدام هذه الأداة مجاني؟",
-      answer: "نعم، محول البيانات الخاص بنا مجاني 100%، بدون أي رسوم خفية، أو قيود، أو الحاجة إلى التسجيل."
+      question: "كيف أحول بيانات JSON المستلمة من API إلى جدول Excel؟",
+      answer: "فقط الصق كود الـ JSON، ثم حدد الصيغة المستهدفة كـ (CSV). انسخ الناتج واحفظه كملف بلاحقة .csv لفتحه في Excel بسهولة."
     }
   ] : [
     {
-      question: "What is the difference between a bit and a byte?",
-      answer: "A bit (b) is the smallest unit of digital data, representing a binary value of 0 or 1. A byte (B) consists of 8 bits. Storage sizes are usually measured in bytes, while network speeds are often measured in bits (e.g., Megabits per second)."
+      question: "Is my data saved or sent to a server during conversion?",
+      answer: "Absolutely not. The tool is 100% client-side, meaning the parsing and conversion processes happen completely inside your browser."
     },
     {
-      question: "Why does my 1TB hard drive show less capacity in Windows?",
-      answer: "Hard drive manufacturers use the decimal system (base 10) where 1 Terabyte (TB) equals 1,000 Gigabytes. Windows uses the binary system (base 2) where 1 Tebibyte (TiB) equals 1,024 Gibibytes. This calculation difference makes the 1TB drive appear as approximately 931 GB in Windows."
-    },
-    {
-      question: "Which units does this tool support?",
-      answer: "This tool supports all standard digital units including Bits, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Petabytes, Exabytes, Zettabytes, and Yottabytes."
-    },
-    {
-      question: "Do I need an internet connection to use the converter?",
-      answer: "You only need an internet connection to load the page initially. Once loaded, all conversion algorithms run locally in your browser via JavaScript, allowing it to function completely offline."
-    },
-    {
-      question: "Is this tool free to use?",
-      answer: "Yes, our Data Converter is 100% free to use, with no hidden fees, limits, or required registrations."
+      question: "How do I convert a JSON API response into an Excel table?",
+      answer: "Simply paste your JSON code, select 'CSV' as the target format, and then copy the resulting output. Save it as a .csv file and it will open perfectly in Excel."
     }
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={softwareName}
         description={softwareDescription}
         url={`https://smartcalctools.xyz/${lang}/tools/data-converter`}
       />
-      <FAQSchema faqs={faqs} />
+      
+      <div className="page-header" style={{ textAlign: "center" }}>
+        <h1>{dict.data_converter.title}</h1>
+        <p>{dict.data_converter.subtitle}</p>
+      </div>
       
       <DataConverterClient dict={dict} lang={lang} />
 
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
           <>
-            <h2>المحول الشامل لوحدات تخزين البيانات الرقمية</h2>
-            <p>
-              يعد "محول حجم البيانات الرقمية" أداة أساسية لمحترفي تكنولوجيا المعلومات، ومطوري البرمجيات، ومهندسي الشبكات، وأي شخص يتعامل مع تخزين الحواسيب أو قيود النطاق الترددي. في مجال الحوسبة، يمكن قياس حجم البيانات بمجموعة واسعة من الوحدات بدءًا من أصغر وحدة أساسية (البت) وصولاً إلى المقاييس الهائلة مثل اليوتابايت. في كثير من الأحيان، يتم تمثيل الملفات والأقراص الصلبة ومساحات التخزين السحابية بوحدات مختلفة، مما يخلق بعض الارتباك. 
+            <h2>محول وتنسيق البيانات اللحظي الآمن</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              أداة تحويل البيانات الذكية توفر لك بيئة آمنة وسريعة للتحويل بين أشهر صيغ البيانات التي يستخدمها المطورون والمبرمجون: JSON، XML، YAML، و CSV. تتميز هذه الأداة بأنها تعمل بشكل كامل داخل متصفحك (Offline-First)، مما يعني أن بياناتك الحساسة أو ملفات الإعدادات الخاصة بك لا يتم إرسالها إطلاقاً إلى أي خادم خارجي.
             </p>
-            <p>
-              على سبيل المثال، قد تعلن الشركة المصنعة للقرص الصلب عن سعته بالجيجابايت العشري (GB)، بينما يعرض نظام التشغيل السعة بالجيبي بايت الثنائي (GiB)، مما يؤدي إلى تباين ملحوظ في المساحة المتاحة المتوقعة. يقوم المحول الشامل للبيانات الخاص بنا بسد هذه الفجوة من خلال توفير تحويلات فورية ودقيقة عبر جميع وحدات التخزين الرقمية القياسية. يمكنك التحويل بسلاسة بين البت (Bits)، البايت (Bytes)، الكيلوبايت (KB)، الميجابايت (MB)، الجيجابايت (GB)، التيرابايت (TB)، البيتابايت (PB)، وحتى الوحدات الأكثر تقدماً مثل الإكسابايت، الزيتابايت، واليوتابايت.
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>تحويل ملفات إعدادات التطبيقات:</strong> الكثير من التطبيقات الحديثة (مثل Docker أو Kubernetes) تستخدم YAML بدلاً من JSON لصيغ التكوين (Config files). يمكنك تحويل ملف <code>config.json</code> بكل سهولة إلى <code>config.yaml</code> جاهز للعمل.</li>
+              <li style={{ marginBottom: "8px" }}><strong>تصدير البيانات لاستخدامات جداول البيانات (Excel):</strong> عندما يقوم مبرمج الواجهة الخلفية (Backend) بتزويدك ببيانات المستخدمين أو المنتجات بصيغة JSON، يمكنك تحويلها هنا فوراً إلى CSV لفتحها وتحليلها في Microsoft Excel أو Google Sheets.</li>
+              <li style={{ marginBottom: "8px" }}><strong>تكامل الأنظمة القديمة (Legacy Systems):</strong> بعض الأنظمة المصرفية أو البرمجيات القديمة لا تقبل إلا بصيغة XML. باستخدام هذه الأداة يمكنك تحويل الردود المستلمة بصيغة JSON إلى XML ليتوافق مع هذه الأنظمة.</li>
+              <li style={{ marginBottom: "8px" }}><strong>تصحيح واختبار البيانات (Debugging):</strong> يمكنك نسخ مخرجات واجهات الـ APIs المعقدة ولصقها هنا كـ JSON وتحويلها لـ YAML لتصبح أسهل للقراءة والتحليل السريع.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>لماذا التحويل المحلي أفضل؟</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              مفاتيح الـ API، ومعلومات الوصول إلى قواعد البيانات، والبيانات الحساسة للعملاء غالباً ما تكون مخزنة في ملفات JSON أو YAML. استخدام أدوات الويب التقليدية للتحويل قد يعرض هذه البيانات لخطر التسريب. أداتنا تقوم بمعالجة هذه الملفات محلياً (Client-Side) باستخدام مكتبات قوية وموثوقة.
             </p>
-            <p>
-              كما أنه يتعامل مع كل من النظامين العشري (الأساس 10) والثنائي (الأساس 2)، مما يضمن حصولك على الأرقام الدقيقة التي تحتاجها بغض النظر عن السياق المرجعي. تم تصميم هذه الأداة ببنية تعتمد كلياً على العميل (Client-side)، مما يعني أن جميع التحويلات الرياضية تتم معالجتها فوراً داخل متصفحك دون الحاجة إلى التواصل مع الخادم. هذا يضمن نتائج سريعة، وخصوصية تامة، ويتيح استخدام الأداة حتى مع اتصالات الإنترنت البطيئة. سواء كنت تحسب أوقات نقل الشبكة، أو تخصص مساحة تخزين لقواعد البيانات، يوفر هذا المحول إجابات فورية وموثوقة.
-            </p>
-            <h3>الأسئلة الشائعة حول محول البيانات الرقمية</h3>
+
+            <h3 style={{ marginTop: "24px" }}>الأسئلة الشائعة حول محول البيانات</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
                 <strong>{faq.question}</strong>
-                <p>{faq.answer}</p>
+                <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>{faq.answer}</p>
               </div>
             ))}
           </>
         ) : (
           <>
-            <h2>Ultimate Digital Data Size Converter</h2>
-            <p>
-              The Digital Data Size Converter is an essential utility for IT professionals, software developers, network engineers, and anyone dealing with computer storage or bandwidth constraints. In computing, data size can be measured in a wide array of units ranging from the smallest basic unit (a bit) up to massive scales like Yottabytes. Often, files, hard drives, and cloud storage allocations are represented in different units, creating confusion. 
+            <h2>Secure Live Data Format Converter</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              The Smart Data Format Converter provides a secure, lightning-fast environment to switch between the most popular data serialization formats used by developers: JSON, XML, YAML, and CSV. Built with an "Offline-First" privacy approach, the entire conversion engine runs strictly in your browser. This means your sensitive configuration files, API payloads, or customer data are never transmitted to external servers.
             </p>
-            <p>
-              For instance, a hard drive manufacturer might advertise capacity in decimal Gigabytes (GB), while your operating system displays it in binary Gibibytes (GiB), leading to a noticeable discrepancy in expected available space. Our comprehensive data converter bridges this gap by offering instant, accurate conversions across all standard digital storage units. You can seamlessly convert between Bits, Bytes, Kilobytes (KB), Megabytes (MB), Gigabytes (GB), Terabytes (TB), Petabytes (PB), and even more advanced units like Exabytes, Zettabytes, and Yottabytes.
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Application Configuration Conversion:</strong> Many modern DevOps tools (like Docker or Kubernetes) rely heavily on YAML, while web APIs prefer JSON. You can easily convert a bulky <code>config.json</code> into a clean, human-readable <code>config.yaml</code> file instantly.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Data Export for Spreadsheets (Excel):</strong> If a backend developer provides you with a list of users or analytics in JSON format, you can convert it to CSV here, allowing non-technical teams to open and analyze the data in Microsoft Excel or Google Sheets.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Legacy Systems Integration:</strong> Some older enterprise or banking software systems strictly accept XML payloads. You can seamlessly convert modern REST API JSON responses into strictly formatted XML to ensure compatibility.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Debugging & Readability:</strong> JSON structures can get deeply nested and hard to read. By copying complex JSON and converting it to YAML, you remove the brackets and quotes, making it significantly easier to debug and scan visually.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Why Local Conversion Matters?</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              API keys, database credentials, and proprietary business logic are often stored inside data serialization files. Uploading these to standard online converter websites exposes you to severe data leakage risks. Our tool eliminates this risk entirely by processing logic locally on your device via robust parsing libraries.
             </p>
-            <p>
-              It also handles both the decimal (base 10) and binary (base 2) systems, ensuring you have the exact numbers you need regardless of the context. The tool is built with a completely client-side architecture, meaning all mathematical conversions are processed instantly in your browser without requiring server communication. This ensures rapid results, total privacy, and allows the tool to be used even on slow internet connections once the page has loaded. Whether you're calculating network transfer times, allocating database storage, or simply trying to figure out how many photos will fit on your flash drive, this data converter provides reliable and immediate answers.
-            </p>
-            <h3>Frequently Asked Questions</h3>
+
+            <h3 style={{ marginTop: "24px" }}>Frequently Asked Questions</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
                 <strong>{faq.question}</strong>
-                <p>{faq.answer}</p>
+                <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>{faq.answer}</p>
               </div>
             ))}
           </>
         )}
       </article>
+      <FAQSchema faqs={faqs} />
     </div>
   );
 }

@@ -66,6 +66,10 @@ export default async function HijriConverterPage({ params }) {
     {
       question: "هل هناك فرق بين التاريخ الهجري في الدول المختلفة؟",
       answer: "نعم، في بعض الأحيان قد يختلف التاريخ الهجري بمقدار يوم واحد بين الدول المختلفة اعتماداً على وقت الرؤية البصرية للهلال في موقعهم الجغرافي المحدد. تقوم أداتنا بتوحيد ذلك من خلال استخدام نموذج أم القرى المقبول على نطاق واسع."
+    },
+    {
+      question: "هل هذا المحول دقيق ومطابق لتقويم السعودية؟",
+      answer: "نعم، نستخدم خوارزمية أم القرى الفلكية المعتمدة رسمياً في المملكة العربية السعودية للحصول على أدق نتيجة ممكنة."
     }
   ] : [
     {
@@ -87,11 +91,15 @@ export default async function HijriConverterPage({ params }) {
     {
       question: "Is there a difference between the Hijri date in different countries?",
       answer: "Yes, occasionally the Hijri date may vary by one day between different countries depending on when the new moon was visually sighted in their specific geographical location. Our tool standardizes this by using the widely accepted Umm al-Qura model."
+    },
+    {
+      question: "Is this converter accurate and aligned with the Saudi calendar?",
+      answer: "Yes, it uses the official Umm al-Qura astronomical algorithm which is the standard utilized by the government of Saudi Arabia."
     }
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={softwareName}
         description={softwareDescription}
@@ -99,6 +107,11 @@ export default async function HijriConverterPage({ params }) {
       />
       <FAQSchema faqs={faqs} />
       
+      <div className="page-header">
+        <h1>{dict.hijri.title}</h1>
+        <p>{dict.hijri.subtitle}</p>
+      </div>
+
       <HijriConverterClient lang={lang} dict={dict} />
       
       <DisclaimerBox type="religious" lang={lang} />
@@ -116,9 +129,23 @@ export default async function HijriConverterPage({ params }) {
             <p>
               هذه الأداة مفيدة بشكل استثنائي في تحديد التواريخ الدقيقة للمناسبات الدينية مثل بداية صيام شهر رمضان المبارك، وموسم الحج، وعيد الفطر، وعيد الأضحى. وعلاوة على ذلك، فهي أداة حيوية لتحويل تواريخ الميلاد الرسمية الموجودة في الهويات الحكومية، مما يضمن تطابق وثائقك بدقة عند الهجرة أو السفر أو التقدم للحصول على تأشيرات. يعمل التطبيق بالكامل على متصفحك المحلي، مما يعني أنه يوفر تحويلات فورية حتى بدون اتصال بالإنترنت ولا يحتفظ بأي بيانات شخصية على الإطلاق.
             </p>
-            <h3>الأسئلة الشائعة حول تحويل التاريخ الهجري والميلادي</h3>
+
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>المناسبات الدينية:</strong> معرفة متى يوافق الأول من رمضان، أو يوم عرفة (9 ذو الحجة)، أو عيد الفطر بالتاريخ الميلادي لترتيب الإجازات المسبقة.</li>
+              <li style={{ marginBottom: "8px" }}><strong>الوثائق الرسمية الحكومية:</strong> في العديد من الدول العربية كالسعودية، تُستخدم التواريخ الهجرية في العقود والوثائق. يمكنك استخدام المحول لمعرفة تاريخ ميلادك الهجري المطابق للميلادي لتعبئة النماذج الحكومية.</li>
+              <li style={{ marginBottom: "8px" }}><strong>الحسابات الشرعية:</strong> حساب حول الزكاة (الذي يعتمد على السنة القمرية 354 يوماً) بدقة تامة دون الاعتماد على السنة الشمسية.</li>
+              <li style={{ marginBottom: "8px" }}><strong>عقود الإيجار والموظفين:</strong> مطابقة تواريخ بدء وانتهاء العقود للمؤسسات التي تعتمد التقويمين معاً لتجنب أي إشكالات قانونية.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>لماذا "أم القرى"؟</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              التقويم الهجري يعتمد على دورة القمر، مما يجعل الأطوال الشهرية تتراوح بين 29 و 30 يوماً. خوارزمية "أم القرى" تقوم بحساب ولادة الهلال فلكياً فوق خط طول مكة المكرمة، مما يعطي دقة رياضية وموحدة تتفوق على التقويم الهجري الجدولي (الاصطلاحي) البسيط.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>الأسئلة الشائعة حول تحويل التاريخ الهجري والميلادي</h3>
             {faqs.map((faq, index) => (
-              <div key={index} className="mb-4">
+              <div key={index} style={{ marginBottom: "16px" }}>
                 <strong>{faq.question}</strong>
                 <p>{faq.answer}</p>
               </div>
@@ -136,9 +163,23 @@ export default async function HijriConverterPage({ params }) {
             <p>
               This is exceptionally useful for determining the exact dates of religious observances like Ramadan fasting, Hajj, Eid al-Fitr, and Eid al-Adha. Furthermore, it is a vital tool for converting official birth dates on governmental IDs, ensuring your documentation matches precisely when migrating, traveling, or applying for visas. The application runs entirely on your local browser, meaning it provides instant offline conversions without retaining any personal data.
             </p>
-            <h3>Frequently Asked Questions</h3>
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Religious Observances:</strong> Calculate exactly when the 1st of Ramadan, the Day of Arafah (9 Dhu al-Hijjah), or Eid al-Fitr will occur in the Gregorian calendar to plan vacations.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Official Documentation:</strong> If you are working or living in the Middle East (like Saudi Arabia), you often need your exact Hijri birth date to fill out residency or visa applications.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Zakat Calculation:</strong> Zakat is paid annually based on the lunar Hijri year (roughly 354 days). This converter helps you accurately track your Zakat due date.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Contract Management:</strong> Easily align start and end dates for employment or rental contracts that legally require Hijri dates alongside Gregorian dates.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Why Umm al-Qura?</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              The Hijri calendar is lunar, meaning months are 29 or 30 days based on the moon's sighting. The Umm al-Qura algorithm uses complex astronomical calculations based on the coordinates of Mecca to predict the new moon, providing a standardized and mathematically precise calendar compared to simple tabular Hijri approximations.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Frequently Asked Questions</h3>
             {faqs.map((faq, index) => (
-              <div key={index} className="mb-4">
+              <div key={index} style={{ marginBottom: "16px" }}>
                 <strong>{faq.question}</strong>
                 <p>{faq.answer}</p>
               </div>

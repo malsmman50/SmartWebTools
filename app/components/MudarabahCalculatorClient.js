@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
-import Link from "next/link";
 
 export default function MudarabahCalculatorClient({ lang, dict, initialValues, ...props }) {
   
@@ -33,18 +32,7 @@ export default function MudarabahCalculatorClient({ lang, dict, initialValues, .
   };
 
   return (
-    <div className="container" style={{ padding: "40px 20px" }}>
-      <div className="page-header">
-        <h1>{t.title}</h1>
-        <p>{t.subtitle}</p>
-        <div style={{ marginTop: "12px" }}>
-          <Link href={`/${lang}/methodology#mudarabah`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
-            {lang === "ar" ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
-          </Link>
-        </div>
-      </div>
-
-      <div className="grid-2">
+    <div className="grid-2">
         <div className="card">
           <h3 style={{ marginBottom: "16px" }}>{lang === "ar" ? "تفاصيل المشروع" : "Project Details"}</h3>
           <div style={{ marginBottom: "16px" }}>
@@ -104,107 +92,5 @@ export default function MudarabahCalculatorClient({ lang, dict, initialValues, .
         </div>
       </div>
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
-        {lang === "ar" ? (
-          <>
-            <h2>الدليل الشامل لشراكة المضاربة في التمويل الإسلامي</h2>
-            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-              المضاربة هي عقد شراكة خاصة في التمويل الإسلامي يقدم فيه أحد الطرفين رأس المال بالكامل (ويُسمى رب المال أو المستثمر)، بينما يقدم الطرف الآخر الخبرة والعمل (ويُسمى المضارب أو الشريك العامل). وتُعد المضاربة واحدة من أرقى صيغ التمويل القائم على الملكية وحقوق الملكية، حيث تحول العلاقة بين أطراف المعاملة من علاقة دائن ومدين تقليدية إلى شراكة حقيقية تنهض على تقاسم المخاطر والمكاسب.
-            </p>
-
-            <h3 style={{ marginTop: "24px" }}>كيفية عمل المضاربة</h3>
-            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
-              على عكس حسابات الادخار أو القروض التقليدية التي تضمن عائداً ثابتاً بغض النظر عن نجاح أو خسارة المشروع، تعتمد المضاربة بشكل كامل على النتائج الفعلية للاستثمار:
-            </p>
-            <ul style={{ paddingInlineStart: "20px", color: "var(--text-muted)", marginTop: "8px" }}>
-              <li><strong>رأس المال:</strong> يقدم المستثمر 100% من السيولة المالية. ولا يساهم الشريك العامل (المضارب) بأي نقد، بل يقتصر دوره على تقديم وقته وجهده وإدارته الفنية للمشروع.</li>
-              <li><strong>نسبة توزيع الأرباح:</strong> يتفق الطرفان قبل بدء العمل على نسبة توزيع الأرباح الصافية (مثلاً: 60% للمستثمر، 40% للمضارب). وتطبق هذه النسبة على الأرباح الصافية المحققة فقط، وليس على إجمالي الإيرادات أو رأس المال.</li>
-              <li><strong>توزيع الخسائر:</strong> في حال وقوع خسارة مالية (خارجة عن إرادة المضارب ودون تقصير منه)، يتحمل المستثمر 100% من الخسارة المالية من رأس ماله. بينما يخسر المضارب جهده ووقته ولا يطالب بتعويض رأس المال الضائع للطرف الأول.</li>
-            </ul>
-
-            <h3 style={{ marginTop: "24px" }}>المضاربة في الخدمات المصرفية المعاصرة</h3>
-            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
-              اليوم، تُستخدم المضاربة على نطاق واسع في حسابات الاستثمار والادخار بالمصارف الإسلامية. فعند فتح حساب استثماري بالمضاربة، تكون أنت (العميل) هو المستثمر (رب المال)، والبنك هو المضارب (مدير الاستثمار). يقوم البنك بتجميع أموال المودعين واستثمارها في مشاريع استثمارية حلال (مثل تمويلات المرابحة أو الصكوك). وفي نهاية الحول، يتم احتساب الأرباح الفعلية وتوزيعها على المودعين بناءً على النسب المتفق عليها مسبقاً.
-            </p>
-
-            <h3 style={{ marginTop: "24px" }}>الأسئلة الشائعة حول المضاربة</h3>
-            <div style={{ marginTop: "16px" }}>
-              <h4 style={{ fontSize: "1.1rem" }}>هل يمكن ضمان رأس المال في عقد المضاربة؟</h4>
-              <p style={{ color: "var(--text-muted)", marginTop: "4px", marginBottom: "16px" }}>لا يجوز شرعاً ضمان رأس المال للمستثمر في عقد المضاربة، لأن ضمان رأس المال يحول العقد تلقائياً إلى قرض ربوي مضمون بالفائدة. يجب أن يكون رأس المال معرضاً للمخاطر لتصح أرباحه. ومع ذلك، تتبع المصارف الإسلامية سياسات حذرة للغاية وتقتطع احتياطيات خاصة للحد من مخاطر الخسارة للمودعين.</p>
-
-              <h4 style={{ fontSize: "1.1rem" }}>ماذا لو ثبت تقصير أو إهمال المضارب (مدير الاستثمار)؟</h4>
-              <p style={{ color: "var(--text-muted)", marginTop: "4px", marginBottom: "16px" }}>حكم أن المستثمر يتحمل كامل الخسارة مقيد بكون الخسارة ناتجة عن تقلبات السوق الطبيعية. أما إذا ثبت بالدليل ارتكاب المضارب لخطأ فادح، أو إهمال متعمد، أو مخالفة لشروط التعاقد المحددة، فإنه يصبح ضامناً لرأس المال وملزماً برده بالكامل للمستثمر.</p>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2>The Complete Guide to Mudarabah (Profit Sharing)</h2>
-            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-              Mudarabah is a specialized partnership in Islamic finance where one party provides the capital (the Rab-ul-Mal or Investor) and the other party provides the expertise and labor (the Mudarib or Working Partner). It is one of the purest forms of Islamic equity financing, fundamentally shifting the dynamic from a lender-borrower relationship to a genuine partnership based on shared risk and reward.
-            </p>
-
-            <h3 style={{ marginTop: "24px" }}>How Mudarabah Works</h3>
-            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
-              Unlike a conventional interest-bearing savings account or loan where the return is guaranteed regardless of the business's performance, Mudarabah is entirely dependent on the actual profit generated by the enterprise.
-            </p>
-            <ul style={{ paddingLeft: "20px", color: "var(--text-muted)", marginTop: "8px" }}>
-              <li><strong>The Capital:</strong> The investor provides 100% of the financial capital. The working partner contributes zero financial capital, only their time, effort, and business acumen.</li>
-              <li><strong>Profit Sharing Ratio (PSR):</strong> Before the business begins, both parties must agree on a Profit Sharing Ratio. This ratio applies strictly to the net profit.</li>
-              <li><strong>Loss Distribution:</strong> In the event of a financial loss (not caused by negligence), the Investor bears 100% of the financial loss, losing a portion or all of their capital. The Working Partner loses the value of their time and effort.</li>
-            </ul>
-
-            <h3 style={{ marginTop: "24px" }}>Frequently Asked Questions (FAQ)</h3>
-            <div style={{ marginTop: "16px" }}>
-              <h4 style={{ fontSize: "1.1rem" }}>Is the principal amount guaranteed in Mudarabah?</h4>
-              <p style={{ color: "var(--text-muted)", marginTop: "4px", marginBottom: "16px" }}>No. Guaranteeing the principal amount would turn the contract into a conventional loan (Riba). In a true Mudarabah, your capital is at risk.</p>
-
-              <h4 style={{ fontSize: "1.1rem" }}>What if the Mudarib (Working Partner) is negligent?</h4>
-              <p style={{ color: "var(--text-muted)", marginTop: "4px", marginBottom: "16px" }}>If it is proven that the Mudarib committed fraud, negligence, or breached the contract terms, the Mudarib becomes liable to refund the capital to the investor.</p>
-            </div>
-          </>
-        )}
-      </article>
-
-      {/* JSON-LD Schema for SEO */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": lang === "ar" ? [
-          {
-            "@type": "Question",
-            "name": "هل يمكن ضمان رأس المال في عقد المضاربة؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "لا يجوز شرعاً ضمان رأس المال للمستثمر في عقد المضاربة، لأن ضمان رأس المال يحول العقد تلقائياً إلى قرض ربوي مضمون بالفائدة. يجب أن يكون رأس المال معرضاً للمخاطر لتصح أرباحه. ومع ذلك، تتبع المصارف الإسلامية سياسات حذرة للغاية وتقتطع احتياطيات خاصة للحد من مخاطر الخسارة للمودعين."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "ماذا لو ثبت تقصير أو إهمال المضارب (مدير الاستثمار)؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "حكم أن المستثمر يتحمل كامل الخسارة مقيد بكون الخسارة ناتجة عن تقلبات السوق الطبيعية. أما إذا ثبت بالدليل ارتكاب المضارب لخطأ فادح، أو إهمال متعمد، أو مخالفة لشروط التعاقد المحددة، فإنه يصبح ضامناً لرأس المال وملزماً برده بالكامل للمستثمر."
-            }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "Is the principal amount guaranteed in Mudarabah?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Guaranteeing the principal amount would turn the contract into a conventional loan (Riba). In a true Mudarabah, your capital is at risk."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What if the Mudarib (Working Partner) is negligent?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "If it is proven that the Mudarib committed fraud, negligence, or breached the contract terms, the Mudarib becomes liable to refund the capital to the investor."
-            }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
-    </div>
   );
 }

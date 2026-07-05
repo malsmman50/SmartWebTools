@@ -56,6 +56,14 @@ export default async function PromptGeneratorPage({ params }) {
     {
       question: "هل تضمن لي هذه الأداة الحصول على إجابة صحيحة 100% من الذكاء الاصطناعي؟",
       answer: "الأداة تحسن بشكل كبير من جودة السؤال والسياق المقدم، مما يرفع من احتمالية الحصول على إجابة دقيقة ومفيدة بنسبة كبيرة، لكن النتيجة النهائية تعتمد دائماً على قدرات نموذج الذكاء الاصطناعي المستخدم."
+    },
+    {
+      question: "لماذا أحتاج إلى أداة لكتابة أوامر الذكاء الاصطناعي بدلاً من كتابتها بنفسي؟",
+      answer: "النماذج اللغوية تستجيب بناءً على السياق. كتابة أمر قصير كـ 'اكتب لي مقال' سيعطي نتيجة عامة وضعيفة. الأداة تساعدك على بناء هيكل (هندسة أوامر) يجمع بين الدور، والأسلوب، والصيغة لضمان مخرجات ذات جودة احترافية من المحاولة الأولى."
+    },
+    {
+      question: "هل تدعم الأوامر المولدة نماذج محددة مثل ChatGPT فقط؟",
+      answer: "لا، الأوامر المهندسة هنا متوافقة وتعمل بكفاءة عالية جداً مع جميع النماذج اللغوية الكبيرة (LLMs) مثل ChatGPT، و Google Gemini، و Claude، وغيرها."
     }
   ] : [
     {
@@ -73,20 +81,30 @@ export default async function PromptGeneratorPage({ params }) {
     {
       question: "Does this tool guarantee a 100% correct answer from the AI?",
       answer: "While the tool significantly improves the quality of your prompt and context, increasing the likelihood of an accurate response, the final output always depends on the capabilities of the specific AI model you are using."
+    },
+    {
+      question: "Why do I need a tool to generate prompts instead of writing them myself?",
+      answer: "AI models are highly sensitive to context and structure. A simple prompt like 'write an article' yields generic results. This tool builds a structured 'engineered prompt' combining persona, tone, and format to guarantee professional-grade outputs on the first try."
+    },
+    {
+      question: "Are the generated prompts only for ChatGPT?",
+      answer: "No, the prompts generated are universally optimized and will work exceptionally well on any Large Language Model (LLM) including ChatGPT, Google Gemini, Anthropic Claude, and Meta Llama."
     }
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <PromptGeneratorClient lang={lang} dict={dict} />
-      
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={isAr ? "مهندس ومولد أوامر الذكاء الاصطناعي" : "AI Prompt Builder & Generator"}
         description={isAr ? "صمم وهندس الأوامر البرمجية المثالية بدقة لـ ChatGPT و Claude و Gemini" : "Structure, optimize, and engineer rich prompts for ChatGPT, Claude, Gemini"}
         applicationCategory="UtilityApplication"
         url={`https://smartcalctools.xyz/${lang}/tools/prompt-generator`}
       />
-      <FAQSchema faqs={faqs} />
+      <div className="page-header">
+        <h1>{dict.prompt.title}</h1>
+        <p>{dict.prompt.subtitle}</p>
+      </div>
+      <PromptGeneratorClient lang={lang} dict={dict} />
       
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
         {isAr ? (
@@ -98,6 +116,20 @@ export default async function PromptGeneratorPage({ params }) {
             <p>
               تم تصميم هذه الأداة لتكون بمثابة جسر بين أفكارك وبين قدرات الذكاء الاصطناعي. سواء كنت كاتباً، مبرمجاً، مسوقاً، أو باحثاً، يمكنك ببساطة إدخال فكرتك الأساسية، وستقوم الأداة بتحويلها إلى أمر برمجي متكامل ومهيكل بأسلوب احترافي، يضمن لك استخراج أفضل أداء من نموذج الذكاء الاصطناعي المستهدف.
             </p>
+            
+            <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>مبرمج يبحث عن حل لمشكلة:</strong> بدلاً من قول "حل مشكلة كذا"، جرب إعدادات الأداة: الدور (مهندس برمجيات)، المهمة (كتابة مكون تفاعلي)، التنسيق (خطوة بخطوة مع أمثلة الكود). النتيجة ستكون كوداً نظيفاً ومشروحاً بعناية.</li>
+              <li style={{ marginBottom: "8px" }}><strong>مسوق يحتاج خطة إعلانية:</strong> اختر الدور (مخطط تسويقي)، المهمة (كتابة خطة إطلاق منتج)، الأسلوب (إبداعي)، والتنسيق (جدول بيانات). ستحصل على جدول زمني مفصل ومقسم بدلاً من نص سردي ممل.</li>
+              <li style={{ marginBottom: "8px" }}><strong>كاتب محتوى لمقال أكاديمي:</strong> اختر الدور (عالم بيانات أو كاتب تقني)، الأسلوب (أكاديمي)، والمهمة (تلخيص ورقة بحثية). هذا سيجبر الذكاء الاصطناعي على تجنب اللغة التسويقية واستخدام مصطلحات رصينة.</li>
+              <li style={{ marginBottom: "8px" }}><strong>محلل مالي يستعرض خيارات الاستثمار:</strong> اختر الدور (مستشار مالي)، المهمة (تقييم شراء أسهم مقابل عقار)، والتنسيق (المميزات والعيوب). ستحصل على مقارنة محايدة ودقيقة.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>مبادئ هندسة الأوامر (Prompt Engineering)</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              تم تصميم هذه الأداة بناءً على أفضل الممارسات في هندسة الأوامر والتي تشمل: إعطاء النموذج <strong>دوراً وشخصية</strong> لضبط المصطلحات، إضافة عبارة <strong>"فكر خطوة بخطوة" (Chain of Thought)</strong> لتقليل الهلوسات وتحسين المنطق، وتحديد <strong>هيكل واضح للمخرجات</strong> لتسهيل القراءة والنسخ.
+            </p>
+
             <h3>لماذا تعتبر هندسة الأوامر (Prompt Engineering) حاسمة؟</h3>
             <p>
               نماذج الذكاء الاصطناعي تعمل كمرآة دقيقة للسؤال الذي يُطرح عليها. إذا كان السؤال عاماً أو غامضاً، فستكون الإجابة كذلك. من خلال هندسة الأوامر بشكل سليم، يمكنك تحديد:
@@ -124,6 +156,20 @@ export default async function PromptGeneratorPage({ params }) {
             <p>
               Our tool is designed to bridge the gap between your raw ideas and the sophisticated capabilities of AI models. Whether you are a writer, developer, marketer, or researcher, you can simply input your core objective, and the tool will transform it into a highly structured, professional prompt. This ensures you extract the absolute best performance from your chosen AI model.
             </p>
+
+            <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+            <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+              <li style={{ marginBottom: "8px" }}><strong>Developer Seeking a Bug Fix:</strong> Instead of asking "fix this code", set the Role to "Senior Software Engineer", Task to "Debug an authentication bug", and Format to "Step-by-step with code examples". You'll get clean, fully explained, and modular code.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Marketer Launching a Product:</strong> Choose Role: "Marketing Strategist", Tone: "Creative", and Format: "Table format". The AI will generate a structured week-by-week spreadsheet of tasks rather than a block of generic text.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Technical Writer Summarizing Data:</strong> Select Role "Data Scientist" and Tone "Academic". This forces the AI to avoid fluffy, colloquial language and stick to objective, precise terminology when summarizing research or charts.</li>
+              <li style={{ marginBottom: "8px" }}><strong>Decision Making & Financials:</strong> Set Role to "Financial Advisor", Task to "Compare renting vs buying a house", and Format to "Pros and cons". The output will be neatly divided for an objective evaluation.</li>
+            </ul>
+
+            <h3 style={{ marginTop: "24px" }}>Principles of Prompt Engineering</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              This tool is built upon the best practices of AI Prompt Engineering. It automatically incorporates: <strong>Role-playing</strong> (to lock the AI into specific domain knowledge), <strong>"Chain of Thought" reasoning</strong> (by asking the AI to think step-by-step to drastically reduce hallucinations), and <strong>Strict formatting rules</strong>.
+            </p>
+
             <h3>Why is Prompt Engineering Crucial?</h3>
             <p>
               AI language models act as mirrors to the instructions they receive. If a prompt is vague, the response will likely be generic. By carefully engineering a prompt, you can define:
@@ -143,6 +189,7 @@ export default async function PromptGeneratorPage({ params }) {
           </>
         )}
       </article>
+      <FAQSchema faqs={faqs} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import SukukCalculatorClient from "@/app/components/SukukCalculatorClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
 import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Link from "next/link";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -40,16 +41,29 @@ export default async function SukukPage({ params }) {
   const isAr = lang === "ar";
   return (
     <>
-      <SoftwareSchema
-        name={isAr ? "حاسبة عوائد الصكوك الإسلامية" : "Islamic Sukuk Returns Calculator"}
-        description={isAr ? "احسب العوائد الدورية للصكوك الإسلامية وتوزيعات الأرباح على مدى فترات الاستثمار. تساعدك الحاسبة في تقدير الأرباح وتحديد العائد الإجمالي لتنويع محفظتك الاستثمارية بشكل متوافق مع أحكام الشريعة الإسلامية." : "Calculate periodic returns and dividend distributions for Islamic Sukuk over your investment period. This calculator helps you estimate profits and determine the total yield to diversify your Sharia-compliant investment portfolio."}
-        url={`https://smartcalctools.xyz/${lang}/calculators/sukuk`}
-        price="0"
-      />
-      <div className="container">
+      <div className="container" style={{ padding: "40px 20px" }}>
+        <SoftwareSchema
+          name={isAr ? "حاسبة عوائد الصكوك الإسلامية" : "Islamic Sukuk Returns Calculator"}
+          description={isAr ? "احسب العوائد الدورية للصكوك الإسلامية وتوزيعات الأرباح على مدى فترات الاستثمار. تساعدك الحاسبة في تقدير الأرباح وتحديد العائد الإجمالي لتنويع محفظتك الاستثمارية بشكل متوافق مع أحكام الشريعة الإسلامية." : "Calculate periodic returns and dividend distributions for Islamic Sukuk over your investment period. This calculator helps you estimate profits and determine the total yield to diversify your Sharia-compliant investment portfolio."}
+          url={`https://smartcalctools.xyz/${lang}/calculators/sukuk`}
+          price="0"
+        />
+
+        <div className="page-header" style={{ textAlign: "center" }}>
+          <h1>{dict.sukuk.title}</h1>
+          <p>{dict.sukuk.subtitle}</p>
+          <div style={{ marginTop: "12px" }}>
+            <Link href={`/${lang}/methodology#sukuk`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
+              {isAr ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
+            </Link>
+          </div>
+        </div>
+
         <SukukCalculatorClient dict={dict} lang={lang} />
-        
-        <article className="card" style={{ marginTop: "20px", lineHeight: "1.8", padding: "20px" }}>
+
+        <DisclaimerBox type="religion" lang={lang} />
+
+        <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
           {isAr ? (
             <>
               <h2>حاسبة عوائد الصكوك الإسلامية: التخطيط المالي المتوافق مع الشريعة</h2>
@@ -63,6 +77,23 @@ export default async function SukukPage({ params }) {
               <h3 style={{ marginTop: "24px" }}>فوائد استخدام حاسبة الصكوك</h3>
               <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
                 تم تصميم هذه الحاسبة لتساعد المستثمرين الأفراد والمؤسسات على توقع التدفقات النقدية المستقبلية من استثماراتهم في الصكوك. من خلال إدخال القيمة الاسمية الإجمالية للاستثمار، ومعدل الربح السنوي المتوقع (أو العائد الكوبوني)، ومدة استحقاق الصك، بالإضافة إلى دورية التوزيع (شهري، ربع سنوي، نصف سنوي، أو سنوي)، ستحصل على تحليل مفصل يوضح الدفعات الدورية وإجمالي العوائد المتوقعة بنهاية المدة. يتيح لك ذلك مقارنة إصدارات الصكوك المختلفة وإدارة محفظتك الاستثمارية بكفاءة عالية وبما يرضي الله عز وجل ويتوافق مع الضوابط الشرعية المعاصرة.
+              </p>
+
+              <h3 style={{ marginTop: "24px" }}>ما هي الصكوك الإسلامية (Sukuk) وكيف تعمل؟</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+                الصكوك هي النسخة الإسلامية الموافقة للشريعة من "السندات" التقليدية (Bonds). بينما تمثل السندات قرضاً بفائدة ربوية يقدمه المستثمر للجهة المصدرة، تمثل الصكوك <strong>حصة ملكية شائعة</strong> في أصول ملموسة، أو منافع، أو خدمات، أو مشروع استثماري محدد. العوائد التي يوزعها الصك ليست "فائدة على قرض"، بل هي حصة المستثمر من الأرباح أو الإيجارات التي يولدها الأصل الممول بالصك.
+              </p>
+
+              <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+              <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+                <li style={{ marginBottom: "8px" }}><strong>حساب صكوك الإجارة:</strong> أطلقت الحكومة صكوكاً بقيمة اسمية 10,000$ لتمويل بناء مستشفى، بمعدل ربح متوقع 5% سنوياً يُصرف كل 6 أشهر، لمدة 5 سنوات. بإدخال هذه البيانات: ستحصل على دفعة دورية (كل نصف سنة) بقيمة 250$. إجمالي الأرباح بعد 5 سنوات هو 2,500$. وعند الاستحقاق، يُرد لك رأس المال لتصبح القيمة الإجمالية 12,500$.</li>
+                <li style={{ marginBottom: "8px" }}><strong>صكوك الشركات:</strong> شركة طيران تصدر صكوكاً بـ 50,000$ بمعدل ربح 7% يُصرف ربع سنوياً. باستخدام الحاسبة، تكتشف أن التوزيع الربع سنوي هو 875$.</li>
+                <li style={{ marginBottom: "8px" }}><strong>تخطيط التدفقات النقدية:</strong> يستخدم المستثمرون هذه الحاسبة لمعرفة متى وكم سيحصلون من سيولة نقدية (Cash flow) لتغطية نفقاتهم الدورية من خلال تنويع الصكوك وتوزيعات أرباحها.</li>
+              </ul>
+
+              <h3 style={{ marginTop: "24px" }}>الفرق بين الصكوك والأسهم</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                الأسهم تمثل ملكية في <strong>الشركة بأكملها</strong> وتتذبذب قيمتها بشدة وعوائدها غير محددة سلفاً. أما الصكوك فتمثل ملكية في <strong>مشروع أو أصل محدد</strong> تابع للشركة (مثلاً طائرة أو مبنى معين يتم تأجيره)، وعوائدها تكون متوقعة وشبه مستقرة (مثل إيجار المبنى)، ولها تاريخ انتهاء (Maturity Date) يتم فيه تصفية الأصل ورد رأس المال للمستثمر.
               </p>
             </>
           ) : (
@@ -78,6 +109,23 @@ export default async function SukukPage({ params }) {
               <h3 style={{ marginTop: "24px" }}>Benefits of Using the Sukuk Calculator</h3>
               <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
                 This calculator is designed to help retail and institutional investors project their future cash flows from Sukuk investments. By entering the total face value (principal) of your investment, the expected annual profit rate (yield), the maturity period, and the payout frequency (monthly, quarterly, semi-annually, or annually), you will receive a detailed breakdown of your periodic dividend payments and the total expected returns by maturity. This enables you to compare different Sukuk issuances, manage your investment portfolio efficiently, and ensure your wealth grows in full compliance with contemporary Islamic financial standards.
+              </p>
+
+              <h3 style={{ marginTop: "24px" }}>What are Islamic Sukuk and How Do They Work?</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+                Sukuk is the Sharia-compliant alternative to conventional bonds. While a conventional bond is a debt obligation that pays interest (Riba), a Sukuk represents <strong>undivided ownership</strong> in a tangible asset, usufruct, service, or specific investment project. The returns generated by Sukuk are not "interest on a loan" but rather the investor's rightful share of the profit or rental income generated by the underlying asset.
+              </p>
+
+              <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+              <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+                <li style={{ marginBottom: "8px" }}><strong>Ijara (Lease) Sukuk:</strong> A government issues Sukuk with a face value of $10,000 to fund a hospital, offering an expected profit rate of 5% paid semi-annually over 5 years. Using the calculator: Your periodic semi-annual payout is $250. Total profit over 5 years is $2,500. At maturity, your principal is returned for a total of $12,500.</li>
+                <li style={{ marginBottom: "8px" }}><strong>Corporate Sukuk:</strong> An airline issues a $50,000 Sukuk offering 7% profit paid quarterly. The calculator shows your quarterly cash flow will be exactly $875.</li>
+                <li style={{ marginBottom: "8px" }}><strong>Cash Flow Planning:</strong> Passive investors use this tool to accurately project their periodic income streams to ensure their living expenses are met through Halal fixed-income equivalents.</li>
+              </ul>
+
+              <h3 style={{ marginTop: "24px" }}>Sukuk vs. Stocks (Equities)</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                Stocks represent ownership in the <strong>entire company</strong>, meaning high volatility and unpredictable dividends. Sukuk represents ownership in a <strong>specific asset</strong> of the company (e.g., a specific airplane being leased out). Thus, Sukuk returns are highly predictable (derived from fixed lease contracts), less volatile, and have a defined maturity date when the capital is returned.
               </p>
             </>
           )}
@@ -113,9 +161,6 @@ export default async function SukukPage({ params }) {
           ]}
         />
         
-        <div style={{ marginTop: "30px" }}>
-          <DisclaimerBox type="religion" lang={lang} />
-        </div>
       </div>
     </>
   );

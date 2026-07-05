@@ -46,10 +46,18 @@ export default async function IslamicDepositPage({ params }) {
         url={`https://smartcalctools.xyz/${lang}/calculators/islamic-deposit`}
         price="0"
       />
-      <div className="container">
+      <div className="container" style={{ padding: "40px 20px" }}>
+        <div className="page-header" style={{ textAlign: "center" }}>
+          <h1>{dict.islamic_deposit.title}</h1>
+          <p>{dict.islamic_deposit.subtitle}</p>
+        </div>
         <IslamicDepositCalculatorClient dict={dict} lang={lang} />
         
-        <article className="card" style={{ marginTop: "20px", lineHeight: "1.8", padding: "20px" }}>
+        <div style={{ marginTop: "30px" }}>
+          <DisclaimerBox type="religion" lang={lang} />
+        </div>
+        
+        <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
           {isAr ? (
             <>
               <h2>حاسبة الودائع الإسلامية (الوكالة بالاستثمار والمضاربة)</h2>
@@ -66,6 +74,18 @@ export default async function IslamicDepositPage({ params }) {
               <h3 style={{ marginTop: "24px" }}>أهمية حاسبة الودائع الإسلامية</h3>
               <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
                 تساعدك حاسبة الودائع الإسلامية على تقدير العوائد المتوقعة لاستثماراتك بناءً على معدلات الأرباح الاسترشادية التي تعلنها البنوك الإسلامية. بإدخال مبلغ الوديعة، ونسبة الربح السنوي المتوقعة، ومدة الاستثمار بالشهور أو السنوات، وتحديد دورية صرف الأرباح (شهري، ربع سنوي، نصف سنوي، أو في نهاية المدة)، ستقوم الحاسبة بتقدير إجمالي الأرباح ورصيد الحساب النهائي. هذا التقدير يساعدك على اتخاذ قرارات مالية حكيمة، ومقارنة العروض المقدمة من البنوك المختلفة، مع إدراك أن الأرباح في النظام الإسلامي قابلة للتغير بناءً على الأداء الفعلي للأصول.
+              </p>
+
+              <h3 style={{ marginTop: "24px" }}>أمثلة واستخدامات شائعة (Use Cases & Examples)</h3>
+              <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+                <li style={{ marginBottom: "8px" }}><strong>حساب وديعة استثمارية سنوية:</strong> أودعت مبلغ 50,000$ في بنك إسلامي، وأعلن البنك أن معدل الربح المتوقع للاستثمار هو 8% سنوياً، ونسبة العميل (حصتك من الربح) هي 60%. بإدخال هذه الأرقام، سيكون إجمالي الربح 4,000$، حصتك منها (الربح الصافي) 2,400$، وحصة البنك 1,600$. إجمالي الرصيد المتوقع نهاية العام: 52,400$.</li>
+                <li style={{ marginBottom: "8px" }}><strong>وديعة قصيرة الأجل (6 أشهر):</strong> استثمرت 100,000$ بمعدل ربح متوقع 6%، مع حصة عميل 50%. ولكن مدة الاستثمار 0.5 سنة (6 أشهر). سيكون صافي ربحك 1,500$ فقط.</li>
+                <li style={{ marginBottom: "8px" }}><strong>المقارنة بين البنوك الإسلامية:</strong> بعض البنوك تقدم معدل ربح أعلى (مثلاً 10%) ولكن حصة عميل أقل (40%). بنوك أخرى تقدم معدل ربح 7% ولكن حصة العميل 80%. يمكنك استخدام الأداة لمعرفة أي العرضين سيوفر لك ربحاً صافياً أعلى في النهاية.</li>
+              </ul>
+
+              <h3 style={{ marginTop: "24px" }}>تنبيه شرعي ومالي</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                معدل الربح في البنوك الإسلامية هو معدل <strong>"متوقع" (Expected Rate)</strong> وليس معدلاً مضموناً وثابتاً كما في البنوك الربوية. الأرباح الفعلية قد تزيد أو تنقص بناءً على أداء المحفظة الاستثمارية للبنك. هذه الحاسبة تقدم أرقاماً تقديرية بناءً على توقعات البنك لتسهيل اتخاذ قرارك المالي.
               </p>
             </>
           ) : (
@@ -85,12 +105,28 @@ export default async function IslamicDepositPage({ params }) {
               <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
                 The Islamic Deposit Calculator is an essential financial planning tool that helps you estimate your potential returns based on the indicative or expected profit rates announced by Islamic financial institutions. By inputting your initial deposit amount, the expected annual profit rate, the investment tenor (in months or years), and the profit payout frequency (monthly, quarterly, semi-annually, or at maturity), the calculator will instantly project your total estimated profit and final balance. This allows you to make informed decisions, compare offerings across different Islamic banks, and align your financial goals with your religious values, while understanding that actual returns may vary based on actual asset performance.
               </p>
+
+              <h3 style={{ marginTop: "24px" }}>Examples & Use Cases</h3>
+              <ul style={{ paddingLeft: "20px", paddingRight: "0", color: "var(--text-muted)", marginTop: "8px" }}>
+                <li style={{ marginBottom: "8px" }}><strong>Annual Investment Deposit:</strong> You deposit $50,000 in an Islamic bank. The bank announces an expected investment return rate of 8% annually, with a customer profit-sharing ratio of 60%. Entering these numbers, the gross profit is $4,000. Your net profit is $2,400, and the bank takes $1,600. Total expected balance at year-end: $52,400.</li>
+                <li style={{ marginBottom: "8px" }}><strong>Short-term Deposit (6 Months):</strong> You invest $100,000 with a 6% expected rate and a 50% customer share, but the duration is 0.5 years (6 months). Your expected net profit will be $1,500.</li>
+                <li style={{ marginBottom: "8px" }}><strong>Comparing Islamic Banks:</strong> Bank A offers a high expected rate (10%) but a low customer share (40%). Bank B offers a lower rate (7%) but a higher customer share (80%). Use this tool to calculate exactly which offer yields a higher net profit for your deposit.</li>
+              </ul>
+
+              <h3 style={{ marginTop: "24px" }}>Sharia & Financial Disclaimer</h3>
+              <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+                In Islamic banking, the profit rate is an <strong>"Expected Rate"</strong> and is never guaranteed or fixed as it is in conventional interest-based (Riba) banking. Actual profits may fluctuate based on the performance of the bank's investment portfolio. This calculator provides estimations based on the bank's projected figures to assist your financial planning.
+              </p>
             </>
           )}
         </article>
 
         <FAQSchema
           faqs={isAr ? [
+            {
+              question: "ما الفرق بين معدل الربح وحصة العميل؟",
+              answer: "معدل الربح هو العائد الإجمالي الذي حققه استثمار أموالك في السوق. أما حصة العميل فهي النسبة المتفق عليها التي ستحصل أنت عليها من ذلك الربح الإجمالي، والباقي يأخذه البنك كأجر على إدارته للاستثمار."
+            },
             {
               question: "هل الأرباح في الودائع الإسلامية مضمونة بنسبة 100%؟",
               answer: "في النظام المصرفي الإسلامي، لا يجوز ضمان رأس المال أو الأرباح في عقود المضاربة أو الوكالة بالاستثمار، حيث يجب أن يتحمل المستثمر مخاطر النشاط التجاري. ومع ذلك، تقوم البنوك الإسلامية بإدارة المخاطر بدقة عالية وتكوين مخصصات احتياطية (مثل احتياطي مخاطر الاستثمار واحتياطي معدل الأرباح) للحفاظ على استقرار العوائد وتقليل احتمالية الخسارة."
@@ -105,6 +141,10 @@ export default async function IslamicDepositPage({ params }) {
             }
           ] : [
             {
+              question: "What is the difference between Expected Rate and Customer Share?",
+              answer: "The Expected Rate is the total ROI generated by the investment in the market. The Customer Share is the pre-agreed percentage of that total profit that you will receive, while the bank takes the rest as a management fee."
+            },
+            {
               question: "Are returns on Islamic deposits 100% guaranteed?",
               answer: "In the Islamic banking system, neither the principal nor the profits can be strictly guaranteed in Mudarabah or Wakala contracts, as the investor must share the commercial risk. However, Islamic banks employ strict risk management frameworks and maintain provisions (such as Investment Risk Reserve and Profit Equalization Reserve) to stabilize returns and minimize the likelihood of capital loss."
             },
@@ -118,10 +158,6 @@ export default async function IslamicDepositPage({ params }) {
             }
           ]}
         />
-        
-        <div style={{ marginTop: "30px" }}>
-          <DisclaimerBox type="religion" lang={lang} />
-        </div>
       </div>
     </>
   );

@@ -39,6 +39,7 @@ export default async function ChatPdfPage({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   const dict = await getDictionary(lang);
+  const t = dict.chatpdf;
 
   const softwareName = isAr ? "محادثة PDF الذكية والمحلية" : "Local ChatPDF Tool";
   const softwareDescription = isAr 
@@ -90,14 +91,24 @@ export default async function ChatPdfPage({ params }) {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema 
         name={softwareName}
         description={softwareDescription}
         url={`https://smartcalctools.xyz/${lang}/tools/chatpdf`}
       />
-      <FAQSchema faqs={faqs} />
       
+      <div className="page-header">
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
+        <div style={{ marginTop: "12px", padding: "12px 16px", background: "rgba(99,102,241,0.08)", border: "1px solid var(--primary)", borderRadius: "8px", fontSize: "0.88rem", color: "var(--text-muted)", textAlign: isAr ? "right" : "left" }}>
+          ⚠️ <strong>{isAr ? "الاستخدام لأول مرة:" : "First use:"}</strong>{" "}
+          {isAr 
+            ? "سيقوم المتصفح بتحميل نموذج ذكاء اصطناعي خفيف بحجم ~113 ميجابايت ليدعم اللغة العربية ولغات أخرى محلياً 100%. يحدث هذا مرة واحدة فقط ويتم حفظه في ذاكرة التخزين المؤقت لجهازك."
+            : "This tool downloads a ~113MB Multilingual AI model to your device to support Arabic & 50+ languages. This happens only once and is cached locally. Subsequent uses are instant."}
+        </div>
+      </div>
+
       <ChatPdfClient lang={lang} dict={dict} />
 
       <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
@@ -113,6 +124,23 @@ export default async function ChatPdfPage({ params }) {
             <p>
               سواء كنت طالباً يراجع مذكرات محاضرات مكثفة، أو محامياً يحلل عقوداً قانونية، أو باحثاً يستخرج معلومات هامة من المجلات العلمية، تمنحك هذه الأداة القدرة على العثور على المعلومات بكفاءة وأمان تام. اكتشف مستقبل التفاعل مع المستندات من خلال تطبيق محادثة PDF الذي لا يحتفظ بأي بيانات إطلاقاً ويوفر سرعة استجابة فائقة.
             </p>
+
+            <h2>كيف يعمل الذكاء الاصطناعي المحلي بالكامل (أمن صفري)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              تتطلب أدوات "التحدث مع PDF" التقليدية رفع ملفاتك الحساسة وعقودك ومستنداتك المالية إلى خوادمها السحابية البعيدة لتحليلها، وهو ما يمثل خطورة بالغة على السرية والخصوصية.
+            </p>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              لكن <strong>SmartCalcTools</strong> تأخذ نهج الأمان المطلق. عند رفع الملف هنا، يجري المتصفح عملية المعالجة بالكامل محلياً. يقوم النموذج الرياضي للذكاء الاصطناعي (المحمل سلفاً في متصفحك) بتحويل الفقرات إلى متجهات رقمية ثم مطابقتها مع سؤالك باستخدام خوارزميات جيب التمام (Cosine Similarity) دون إرسال حرف واحد خارج متصفحك.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>خطوات العمل المحلية للـ RAG</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              1. <strong>استخراج النص:</strong> قراءة نصوص PDF محلياً بالكامل عبر مكتبة PDF.js.<br/>
+              2. <strong>التقسيم (Chunking):</strong> تقسيم النص إلى فقرات ومقاطع متناسقة الحجم.<br/>
+              3. <strong>التضمين (Embedding):</strong> استخدام الذكاء الاصطناعي المدمج لتحويل كل فقرة لمتجه رياضي ذكي.<br/>
+              4. <strong>البحث السيمانتيكي:</strong> تحويل سؤالك لمتجه ومقارنته بالمتجهات المخزنة محلياً لجلب الفقرة الأكثر مطابقة للمعنى، وليس فقط الكلمات المفتاحية المتطابقة حرفياً.
+            </p>
+
             <h3>أهم الأسئلة الشائعة حول أداة ChatPDF المحلية</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
@@ -133,6 +161,23 @@ export default async function ChatPdfPage({ params }) {
             <p>
               Whether you are a student reviewing extensive lecture notes, a lawyer analyzing contracts, or a researcher extracting insights from scientific journals, this tool empowers you to find information efficiently and securely. Experience the future of document interaction with our zero-data-retention ChatPDF application, providing both unmatched privacy and lightning-fast responsiveness.
             </p>
+
+            <h2>How 100% Client-Side AI Works (Zero Trust Security)</h2>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              Traditional "Chat with PDF" tools require you to upload your sensitive files to their backend servers. This is a massive privacy risk.
+            </p>
+            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
+              <strong>SmartCalcTools</strong> takes a revolutionary "Zero Trust" approach. When you upload a PDF here, our website downloads a highly-optimized Multilingual AI model directly into your browser cache, running on your local machine.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>The RAG Architecture (Retrieval-Augmented Generation)</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              1. <strong>Extraction:</strong> Your PDF is parsed locally using PDF.js.<br/>
+              2. <strong>Chunking:</strong> The text is split into paragraphs.<br/>
+              3. <strong>Embedding:</strong> The local AI converts each paragraph into a mathematical Vector representation.<br/>
+              4. <strong>Semantic Search:</strong> When you ask a question, the AI converts your question into a vector and uses Cosine Similarity to find the exact paragraph.
+            </p>
+
             <h3>Frequently Asked Questions about our Local ChatPDF Tool</h3>
             {faqs.map((faq, index) => (
               <div key={index} className="mb-4">
@@ -143,6 +188,8 @@ export default async function ChatPdfPage({ params }) {
           </>
         )}
       </article>
+
+      <FAQSchema faqs={faqs} />
     </div>
   );
 }
