@@ -37,14 +37,31 @@ export default async function JwtDecoderPage({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   const dict = await getDictionary(lang);
+  const t = dict.jwt;
   
   return (
-    <>
-      {/* Interactive Tool - Above the Fold */}
+    <div className="container" style={{ padding: "40px 20px", maxWidth: "1400px" }}>
+      <div className="page-header">
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
+        
+        <div style={{ marginTop: "20px", padding: "16px", background: "rgba(245, 158, 11, 0.1)", border: "1px solid #f59e0b", borderRadius: "var(--radius-sm)", color: "#b45309", textAlign: isAr ? "right" : "left", display: "flex", gap: "12px", alignItems: "flex-start" }}>
+          <span style={{ fontSize: "1.2rem" }}>⚠️</span>
+          <div>
+            <strong style={{ display: "block", marginBottom: "4px" }}>
+              {isAr ? "تنبيه أمني هام" : "Security Warning"}
+            </strong>
+            {isAr 
+              ? "تقوم هذه الأداة بفك ترميز Base64Url فقط. هي لا تتحقق من التوقيع الرقمي (Signature) للرمز. فك تشفير البيانات لا يضمن صحتها أو عدم العبث بها. يجب دائماً التحقق من صحة التوقيع رقمياً على الخوادم الخاصة بك."
+              : "This tool performs Base64Url decode only. It does NOT verify the cryptographic signature of the token. A decoded payload does not guarantee the token is authentic or untampered. Always perform signature verification on your backend server."}
+          </div>
+        </div>
+      </div>
+
       <JwtDecoderClient lang={lang} dict={dict} />
 
       {/* Massive AdSense SEO Content - Below the Fold */}
-      <div className="container" style={{ padding: "0 20px 60px 20px", maxWidth: "1400px" }}>
+      <div style={{ paddingBottom: "60px" }}>
         <article className="card" style={{ marginTop: "20px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
           {isAr ? (
             <>
@@ -168,7 +185,7 @@ export default async function JwtDecoderPage({ params }) {
           ]
         }).replace(/</g, '\\u003c')}} />
       </div>
-    </>
+    </div>
   );
 }
 

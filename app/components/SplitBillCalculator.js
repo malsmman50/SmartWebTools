@@ -91,21 +91,13 @@ export default function SplitBillCalculator({ lang, dict }) {
         </div>
         
         {/* Quick Tip Buttons */}
-        <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+        <div className="tabs" style={{ marginTop: "8px", marginBottom: "0", flexWrap: "nowrap" }}>
           {[0, 10, 15, 20].map(tip => (
             <button
               key={tip}
               onClick={() => setTipPercent(tip.toString())}
-              style={{
-                flex: 1,
-                padding: "8px",
-                background: parseFloat(tipPercent) === tip ? "var(--primary)" : "var(--bg-secondary)",
-                color: parseFloat(tipPercent) === tip ? "#fff" : "var(--text)",
-                border: "1px solid var(--border)",
-                borderRadius: "var(--radius)",
-                cursor: "pointer",
-                transition: "all 0.2s"
-              }}
+              className={`tab ${parseFloat(tipPercent) === tip ? "active" : ""}`}
+              style={{ flex: 1, textAlign: "center", padding: "8px" }}
             >
               {tip}%
             </button>

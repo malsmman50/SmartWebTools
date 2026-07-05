@@ -84,20 +84,7 @@ export default function ImageCompressorClient({ lang, dict, ...props }) {
         <p style={{ textAlign: "center", color: "var(--text-muted)", marginBottom: "24px" }}>{t.subtitle}</p>
 
         <div style={{ marginBottom: "24px" }}>
-          <label 
-            style={{ 
-              display: "flex", 
-              flexDirection: "column", 
-              alignItems: "center", 
-              justifyContent: "center", 
-              padding: "40px", 
-              border: "2px dashed var(--success)", 
-              borderRadius: "8px", 
-              background: "var(--surface-sunken)", 
-              cursor: "pointer",
-              transition: "all 0.2s"
-            }}
-          >
+          <label className="dropzone">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: "16px" }}>
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
               <circle cx="8.5" cy="8.5" r="1.5"></circle>

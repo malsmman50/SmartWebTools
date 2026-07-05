@@ -37,13 +37,19 @@ export default async function PasswordGeneratorPage({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   const dict = await getDictionary(lang);
+  const t = dict.password;
   
   return (
-    <>
+    <div className="container" style={{ padding: "40px 20px", maxWidth: "1400px" }}>
+      <div className="page-header">
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
+      </div>
+
       <PasswordGeneratorClient lang={lang} dict={dict} />
 
       {/* Massive AdSense SEO Content - Below the Fold */}
-      <div className="container" style={{ padding: "0 20px 60px 20px", maxWidth: "1400px" }}>
+      <div style={{ paddingBottom: "60px" }}>
         <article className="card" style={{ marginTop: "20px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
           {isAr ? (
             <>
@@ -157,7 +163,7 @@ export default async function PasswordGeneratorPage({ params }) {
           ]
         }).replace(/</g, '\\u003c')}} />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -86,12 +86,6 @@ export default function PasswordGeneratorClient({ lang, dict, initialValues, ...
   const st = strength();
 
   return (
-    <div className="container" style={{ padding: "40px 20px" }}>
-      <div className="page-header">
-        <h1>{t.title}</h1>
-        <p>{t.subtitle}</p>
-      </div>
-
       <div className="grid-2">
         <div>
           <div className="card" style={{ maxWidth: "600px", margin: "0 auto" }}>
@@ -168,77 +162,5 @@ export default function PasswordGeneratorClient({ lang, dict, initialValues, ...
         </div>
       </div>
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
-        {isAr ? (
-          <>
-            <h2>الدليل الإرشادي لحماية الحسابات وكلمات المرور</h2>
-            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-              في الفضاء الرقمي اليوم، تعد كلمة المرور القوية خط الدفاع الأول والأهم لحماية أصولك وحساباتك وبياناتك الحساسة.
-            </p>
-            <h3 style={{ marginTop: "24px" }}>أفضل الممارسات لأمن كلمات المرور</h3>
-            <ul style={{ paddingRight: "20px", paddingLeft: "0", color: "var(--text-muted)", marginTop: "8px" }}>
-              <li><strong>الطول أهم من التعقيد:</strong> كلمة مرور مكونة من 16 حرفاً عادياً أصعب بكثير في الكسر من كلمة مرور معقدة من 8 أحرف فقط. يفضل ألا يقل الطول عن 16 حرفاً.</li>
-              <li><strong>تجنب تكرار كلمة المرور:</strong> إذا تسربت كلمة مرورك في موقع واحد، فسيحاول المخترقون استخدامها في كافة حساباتك الأخرى (حشو الاعتماديات). استخدم كلمة فريدة لكل حساب.</li>
-              <li><strong>استخدم مدير كلمات مرور (Password Manager):</strong> لا تحاول حفظ عشرات كلمات المرور العشوائية في ذهنك. استعن بمدير كلمات مرور موثوق مثل Bitwarden أو 1Password لحفظها بأمان وتعبئتها تلقائياً.</li>
-              <li><strong>تفعيل المصادقة الثنائية (2FA):</strong> قم دائماً بتفعيل التحقق بخطوتين عبر تطبيقات الجوال المعتمدة (مثل Google Authenticator) لتوفير طبقة حماية إضافية لا يمكن اختراقها بكلمة المرور وحدها.</li>
-            </ul>
-          </>
-        ) : (
-          <>
-            <h2>Best Practices for Password Security</h2>
-            <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>
-              In today's digital landscape, a strong password is your first line of defense against cyber threats.
-            </p>
-            <h3 style={{ marginTop: "24px" }}>Recommended Guidelines</h3>
-            <ul style={{ paddingLeft: "20px", color: "var(--text-muted)", marginTop: "8px" }}>
-              <li><strong>Length Over Complexity:</strong> A 16-character password is often harder to crack than a complex 8-character one. Aim for at least 16 characters.</li>
-              <li><strong>Never Reuse Passwords:</strong> Reusing passwords allows hackers to gain access to multiple accounts if one site is breached. Always use unique passwords.</li>
-              <li><strong>Use a Password Manager:</strong> Store your unique, random passwords securely using software like Bitwarden or 1Password.</li>
-              <li><strong>Enable 2FA:</strong> Turn on Two-Factor Authentication (2FA) for your important accounts to add an extra layer of security.</li>
-            </ul>
-          </>
-        )}
-      </article>
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": isAr ? [
-          {
-            "@type": "Question",
-            "name": "هل الأداة آمنة تماماً للاستخدام؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "نعم. تعمل الأداة محلياً بالكامل 100% داخل جهازك عبر المتصفح. لا يتم إرسال أو حفظ أي كلمات مرور مولدة في أي مكان على الإنترنت."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "هل يجب تغيير كلمات المرور بشكل دوري؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "وفقاً للمنظمات الأمنية العالمية مثل NIST، يُنصح بعدم تغيير كلمات المرور بشكل إجباري متكرر إلا إذا اشتبهت في تسريبها أو اختراقها فعلياً، لضمان عدم اختيار كلمات أسهل وأضعف."
-            }
-          }
-        ] : [
-          {
-            "@type": "Question",
-            "name": "Is this generator safe to use?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. This tool is 100% client-side. The passwords are generated in your local browser and are never sent over the internet."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Should I change my passwords regularly?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Modern cybersecurity guidelines (like NIST) now recommend against forced regular password changes, unless you have reason to believe your password was compromised."
-            }
-          }
-        ]
-      }).replace(/</g, '\\u003c')}} />
-    </div>
   );
 }

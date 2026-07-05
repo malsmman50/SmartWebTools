@@ -183,29 +183,6 @@ export default function Navbar({ lang, dict }) {
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
               title={lang === "en" ? "تحويل للعربية" : "Switch to English"}
-              style={{
-                background: "rgba(var(--primary-rgb), 0.08)",
-                border: "1px solid rgba(var(--primary-rgb), 0.2)",
-                borderRadius: "8px",
-                padding: "8px 16px",
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                color: "var(--primary)",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                transition: "all 0.2s ease",
-                boxShadow: "0 2px 8px rgba(var(--primary-rgb), 0.05)"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(var(--primary-rgb), 0.15)";
-                e.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(var(--primary-rgb), 0.08)";
-                e.currentTarget.style.transform = "translateY(0)";
-              }}
             >
               🌐 {lang === "en" ? "العربية" : "English"}
             </button>
@@ -226,19 +203,7 @@ export default function Navbar({ lang, dict }) {
               className="lang-toggle"
               onClick={() => switchLanguage(lang === "en" ? "ar" : "en")}
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
-              style={{
-                background: "rgba(var(--primary-rgb), 0.08)",
-                border: "1px solid rgba(var(--primary-rgb), 0.2)",
-                borderRadius: "8px",
-                padding: "6px 12px",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                color: "var(--primary)",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px"
-              }}
+              style={{ padding: "6px 12px", fontSize: "0.8rem" }}
             >
               🌐 {lang === "en" ? "العربية" : "English"}
             </button>

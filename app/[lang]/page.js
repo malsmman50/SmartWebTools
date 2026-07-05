@@ -22,36 +22,36 @@ export default async function Home({ params }) {
   const localize = (path) => `/${lang}${path}`;
 
   const calculators = [
-    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲", color: "#059669" },
-    { title: dict.calculators.inheritance_title, desc: dict.calculators.inheritance_desc, href: localize("/calculators/inheritance"), icon: "⚖️", color: "#f59e0b" },
-    { title: dict.calculators.murabaha_title, desc: dict.calculators.murabaha_desc, href: localize("/calculators/murabaha"), icon: "🤝", color: "#2563eb" },
-    { title: dict.calculators.mudarabah_title, desc: dict.calculators.mudarabah_desc, href: localize("/calculators/mudarabah"), icon: "📈", color: "#f59e0b" },
-    { title: dict.calculators.roi_title, desc: dict.calculators.roi_desc, href: localize("/calculators/roi"), icon: "💰", color: "#7c3aed" },
-    { title: dict.calculators.fire_title, desc: dict.calculators.fire_desc, href: localize("/calculators/islamic-fire"), icon: "🔥", color: "#dc2626" }
+    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲" },
+    { title: dict.calculators.inheritance_title, desc: dict.calculators.inheritance_desc, href: localize("/calculators/inheritance"), icon: "⚖️" },
+    { title: dict.calculators.murabaha_title, desc: dict.calculators.murabaha_desc, href: localize("/calculators/murabaha"), icon: "🤝" },
+    { title: dict.calculators.mudarabah_title, desc: dict.calculators.mudarabah_desc, href: localize("/calculators/mudarabah"), icon: "📈" },
+    { title: dict.calculators.roi_title, desc: dict.calculators.roi_desc, href: localize("/calculators/roi"), icon: "💰" },
+    { title: dict.calculators.fire_title, desc: dict.calculators.fire_desc, href: localize("/calculators/islamic-fire"), icon: "🔥" }
   ];
 
   const everydayTools = [
-    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍", color: "#ec4899" },
-    { title: dict.everyday?.discount_title || "Smart Discount & VAT", desc: dict.everyday?.discount_desc || "Calculate final prices with tax.", href: localize("/calculators/shopping/discount"), icon: "🏷️", color: "#f59e0b" },
-    { title: dict.everyday?.split_bill_title || "Split the Bill", desc: dict.everyday?.split_bill_desc || "Divide restaurant bills.", href: localize("/calculators/lifestyle/split-bill"), icon: "🍕", color: "#10b981" },
-    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️", color: "#ef4444" },
-    { title: dict.health?.pregnancy_title || "Pregnancy Tracker", desc: dict.health?.pregnancy_desc || "Calculate due date and track your baby's growth.", href: localize("/calculators/health/pregnancy"), icon: "👶", color: "#f43f5e" }
+    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍" },
+    { title: dict.everyday?.discount_title || "Smart Discount & VAT", desc: dict.everyday?.discount_desc || "Calculate final prices with tax.", href: localize("/calculators/shopping/discount"), icon: "🏷️" },
+    { title: dict.everyday?.split_bill_title || "Split the Bill", desc: dict.everyday?.split_bill_desc || "Divide restaurant bills.", href: localize("/calculators/lifestyle/split-bill"), icon: "🍕" },
+    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️" },
+    { title: dict.health?.pregnancy_title || "Pregnancy Tracker", desc: dict.health?.pregnancy_desc || "Calculate due date and track your baby's growth.", href: localize("/calculators/health/pregnancy"), icon: "👶" }
   ];
 
   const utilities = [
-    { title: dict.utilities.qibla_title, desc: dict.utilities.qibla_desc, href: localize("/tools/qibla-compass"), icon: "🕋", color: "#10b981" },
-    { title: dict.utilities.hijri_title, desc: dict.utilities.hijri_desc, href: localize("/tools/hijri-converter"), icon: "📅", color: "#059669" },
-    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱", color: "#10b981" },
-    { title: dict.utilities.compressor_title, desc: dict.utilities.compressor_desc, href: localize("/tools/image-compressor"), icon: "🖼️", color: "#2563eb" },
-    { title: dict.utilities.chatpdf_title, desc: dict.utilities.chatpdf_desc, href: localize("/tools/chatpdf"), icon: "📄", color: "#f59e0b" },
-    { title: dict.utilities.password_title, desc: dict.utilities.password_desc, href: localize("/tools/password-generator"), icon: "🔐", color: "#7c3aed" }
+    { title: dict.utilities.qibla_title, desc: dict.utilities.qibla_desc, href: localize("/tools/qibla-compass"), icon: "🕋" },
+    { title: dict.utilities.hijri_title, desc: dict.utilities.hijri_desc, href: localize("/tools/hijri-converter"), icon: "📅" },
+    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱" },
+    { title: dict.utilities.compressor_title, desc: dict.utilities.compressor_desc, href: localize("/tools/image-compressor"), icon: "🖼️" },
+    { title: dict.utilities.chatpdf_title, desc: dict.utilities.chatpdf_desc, href: localize("/tools/chatpdf"), icon: "📄" },
+    { title: dict.utilities.password_title, desc: dict.utilities.password_desc, href: localize("/tools/password-generator"), icon: "🔐" }
   ];
 
   const tools = [
-    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }", color: "#2563eb" },
-    { title: dict.dev_tools.jwt_title, desc: dict.dev_tools.jwt_desc, href: localize("/tools/jwt-decoder"), icon: "🔑", color: "#f59e0b" },
-    { title: dict.dev_tools.cron_title, desc: dict.dev_tools.cron_desc, href: localize("/tools/cron-generator"), icon: "⏰", color: "#059669" },
-    { title: dict.dev_tools.prompt_title, desc: dict.dev_tools.prompt_desc, href: localize("/tools/prompt-generator"), icon: "✨", color: "#f59e0b" }
+    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }" },
+    { title: dict.dev_tools.jwt_title, desc: dict.dev_tools.jwt_desc, href: localize("/tools/jwt-decoder"), icon: "🔑" },
+    { title: dict.dev_tools.cron_title, desc: dict.dev_tools.cron_desc, href: localize("/tools/cron-generator"), icon: "⏰" },
+    { title: dict.dev_tools.prompt_title, desc: dict.dev_tools.prompt_desc, href: localize("/tools/prompt-generator"), icon: "✨" }
   ];
 
   const schema = {
@@ -71,10 +71,10 @@ export default async function Home({ params }) {
   };
 
   const popularTools = [
-    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍", color: "#ec4899" },
-    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲", color: "#059669" },
-    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱", color: "#10b981" },
-    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }", color: "#2563eb" }
+    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍" },
+    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲" },
+    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱" },
+    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }" }
   ];
 
   const allToolsCount = calculators.length + utilities.length + tools.length;
