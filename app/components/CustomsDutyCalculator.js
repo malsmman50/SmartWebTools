@@ -17,15 +17,10 @@ export default function CustomsDutyCalculator({ dict }) {
 
     if (value <= 0) return;
 
-    // CIF Value (Cost, Insurance, Freight)
+    // CIF Value
     const cifValue = value + shipping;
-    
-    // Duty is calculated on CIF
     const dutyAmount = cifValue * (dutyP / 100);
-    
-    // VAT is calculated on (CIF + Duty)
     const vatAmount = (cifValue + dutyAmount) * (vatP / 100);
-    
     const totalTaxes = dutyAmount + vatAmount;
     const totalLandedCost = cifValue + totalTaxes;
 
@@ -38,108 +33,98 @@ export default function CustomsDutyCalculator({ dict }) {
   };
 
   return (
-    <div className="calc-card glass-effect">
-      <div className="input-group">
-        <label className="input-label">
-          {dict.customs.item_value}
-        </label>
-        <div className="input-wrapper">
-          <DollarSign className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={itemValue}
-            onChange={(e) => setItemValue(e.target.value)}
-            placeholder="1000"
-            min="0"
-          />
-        </div>
-      </div>
-
-      <div className="input-group">
-        <label className="input-label">
-          {dict.customs.shipping_cost}
-        </label>
-        <div className="input-wrapper">
-          <Truck className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={shippingCost}
-            onChange={(e) => setShippingCost(e.target.value)}
-            placeholder="50"
-            min="0"
-          />
-        </div>
-      </div>
-
-      <div className="input-group">
-        <label className="input-label">
-          {dict.customs.duty_rate}
-        </label>
-        <div className="input-wrapper">
-          <Percent className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={dutyRate}
-            onChange={(e) => setDutyRate(e.target.value)}
-            placeholder="5"
-            min="0"
-            step="0.1"
-          />
-        </div>
-      </div>
-
-      <div className="input-group">
-        <label className="input-label">
-          {dict.customs.vat_rate}
-        </label>
-        <div className="input-wrapper">
-          <Percent className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={vatRate}
-            onChange={(e) => setVatRate(e.target.value)}
-            placeholder="15"
-            min="0"
-            step="0.1"
-          />
-        </div>
-      </div>
-
-      <button className="calc-btn primary" onClick={calculateCustoms}>
-        <Calculator size={18} />
-        {dict.customs.calculate}
-      </button>
-
-      {result && (
-        <div className="result-card glass-effect result-enter">
-          <h3 className="result-title" style={{ textAlign: "center", marginBottom: "1rem" }}>{dict.customs.result_title}</h3>
-          
-          <div className="result-grid" style={{ gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-            <div className="result-box">
-              <span className="result-label">{dict.customs.duty_amount}</span>
-              <span className="result-value secondary-text">{result.dutyAmount}</span>
-            </div>
-            <div className="result-box">
-              <span className="result-label">{dict.customs.vat_amount}</span>
-              <span className="result-value secondary-text">{result.vatAmount}</span>
-            </div>
-          </div>
-
-          <div className="result-box premium-box" style={{ marginTop: "1rem" }}>
-            <span className="result-label">{dict.customs.total_taxes}</span>
-            <span className="result-value warning-text">{result.totalTaxes}</span>
-          </div>
-
-          <div className="result-box premium-box highlight-box" style={{ marginTop: "1rem", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)" }}>
-            <span className="result-label" style={{ color: "var(--text-color)" }}>{dict.customs.result_title}</span>
-            <span className="result-value" style={{ color: "#10b981", fontSize: "2rem" }}>{result.totalLandedCost}</span>
+    <div className="grid-2">
+      <div className="card">
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.customs.item_value}</label>
+          <div style={{ position: "relative" }}>
+            <DollarSign size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={itemValue}
+              onChange={(e) => setItemValue(e.target.value)}
+              placeholder="1000"
+              min="0"
+              style={{ paddingLeft: "36px" }}
+            />
           </div>
         </div>
-      )}
+
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.customs.shipping_cost}</label>
+          <div style={{ position: "relative" }}>
+            <Truck size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={shippingCost}
+              onChange={(e) => setShippingCost(e.target.value)}
+              placeholder="50"
+              min="0"
+              style={{ paddingLeft: "36px" }}
+            />
+          </div>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.customs.duty_rate}</label>
+          <div style={{ position: "relative" }}>
+            <Percent size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={dutyRate}
+              onChange={(e) => setDutyRate(e.target.value)}
+              placeholder="5"
+              min="0"
+              step="0.1"
+              style={{ paddingLeft: "36px" }}
+            />
+          </div>
+        </div>
+
+        <div style={{ marginBottom: "24px" }}>
+          <label className="label">{dict.customs.vat_rate}</label>
+          <div style={{ position: "relative" }}>
+            <Percent size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={vatRate}
+              onChange={(e) => setVatRate(e.target.value)}
+              placeholder="15"
+              min="0"
+              step="0.1"
+              style={{ paddingLeft: "36px" }}
+            />
+          </div>
+        </div>
+
+        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={calculateCustoms}>
+          <Calculator size={18} />
+          {dict.customs.calculate}
+        </button>
+      </div>
+
+      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>{dict.customs.result_title}</h3>
+        
+        <div className="result-box">
+          <div className="result-label">{dict.customs.duty_amount}</div>
+          <div className="result-value" style={{ color: "var(--text)", fontSize: "1.8rem" }}>{result ? result.dutyAmount : "0.00"}</div>
+        </div>
+
+        <div className="result-box">
+          <div className="result-label">{dict.customs.vat_amount}</div>
+          <div className="result-value" style={{ color: "var(--text)", fontSize: "1.8rem" }}>{result ? result.vatAmount : "0.00"}</div>
+        </div>
+
+        <div className="result-box" style={{ background: "rgba(16, 185, 129, 0.1)", borderColor: "rgba(16, 185, 129, 0.2)" }}>
+          <div className="result-label" style={{ color: "var(--text)" }}>{dict.customs.result_title}</div>
+          <div className="result-value" style={{ color: "var(--success)" }}>{result ? result.totalLandedCost : "0.00"}</div>
+        </div>
+      </div>
     </div>
   );
 }

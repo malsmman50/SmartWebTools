@@ -25,81 +25,77 @@ export default function FuelCostCalculator({ dict }) {
   };
 
   return (
-    <div className="calc-card glass-effect">
-      <div className="input-group">
-        <label className="input-label">
-          {dict.fuel.distance}
-        </label>
-        <div className="input-wrapper">
-          <Route className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={distance}
-            onChange={(e) => setDistance(e.target.value)}
-            placeholder="500"
-            min="1"
-          />
-        </div>
-      </div>
-
-      <div className="input-group">
-        <label className="input-label">
-          {dict.fuel.efficiency}
-        </label>
-        <div className="input-wrapper">
-          <Droplet className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={efficiency}
-            onChange={(e) => setEfficiency(e.target.value)}
-            placeholder="8"
-            min="1"
-            step="0.1"
-          />
-        </div>
-      </div>
-
-      <div className="input-group">
-        <label className="input-label">
-          {dict.fuel.price}
-        </label>
-        <div className="input-wrapper">
-          <DollarSign className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="2.5"
-            min="0.1"
-            step="0.01"
-          />
-        </div>
-      </div>
-
-      <button className="calc-btn primary" onClick={calculateFuel}>
-        <Calculator size={18} />
-        {dict.fuel.calculate}
-      </button>
-
-      {result && (
-        <div className="result-card glass-effect result-enter">
-          <h3 className="result-title" style={{ textAlign: "center", marginBottom: "1rem" }}>{dict.fuel.result_title}</h3>
-          
-          <div className="result-grid" style={{ gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-            <div className="result-box">
-              <span className="result-label">{dict.fuel.fuel_needed}</span>
-              <span className="result-value secondary-text">{result.fuelNeeded} {dict.fuel.liters}</span>
-            </div>
-            <div className="result-box premium-box highlight-box" style={{ background: "rgba(14, 165, 233, 0.1)", border: "1px solid rgba(14, 165, 233, 0.2)" }}>
-              <span className="result-label" style={{ color: "var(--text-color)" }}>{dict.fuel.title.split(" ")[0]} Cost</span>
-              <span className="result-value" style={{ color: "var(--primary)", fontSize: "2rem" }}>{result.totalCost}</span>
-            </div>
+    <div className="grid-2">
+      <div className="card">
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.fuel.distance}</label>
+          <div style={{ position: "relative" }}>
+            <Route size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
+              placeholder="500"
+              min="1"
+              style={{ paddingLeft: "36px" }}
+            />
           </div>
         </div>
-      )}
+
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.fuel.efficiency}</label>
+          <div style={{ position: "relative" }}>
+            <Droplet size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={efficiency}
+              onChange={(e) => setEfficiency(e.target.value)}
+              placeholder="8"
+              min="1"
+              step="0.1"
+              style={{ paddingLeft: "36px" }}
+            />
+          </div>
+        </div>
+
+        <div style={{ marginBottom: "24px" }}>
+          <label className="label">{dict.fuel.price}</label>
+          <div style={{ position: "relative" }}>
+            <DollarSign size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="2.5"
+              min="0.1"
+              step="0.01"
+              style={{ paddingLeft: "36px" }}
+            />
+          </div>
+        </div>
+
+        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={calculateFuel}>
+          <Calculator size={18} />
+          {dict.fuel.calculate}
+        </button>
+      </div>
+
+      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>{dict.fuel.result_title}</h3>
+        
+        <div className="result-box">
+          <div className="result-label">{dict.fuel.fuel_needed}</div>
+          <div className="result-value" style={{ color: "var(--text)", fontSize: "1.8rem" }}>{result ? result.fuelNeeded : "0.00"} {dict.fuel.liters}</div>
+        </div>
+
+        <div className="result-box" style={{ background: "rgba(14, 165, 233, 0.1)", borderColor: "rgba(14, 165, 233, 0.2)" }}>
+          <div className="result-label" style={{ color: "var(--text)" }}>{dict.fuel.title.split(" ")[0]} Cost</div>
+          <div className="result-value" style={{ color: "#0ea5e9" }}>{result ? result.totalCost : "0.00"}</div>
+        </div>
+      </div>
     </div>
   );
 }

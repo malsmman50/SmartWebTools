@@ -12,10 +12,7 @@ export default function RamadanHydration({ dict, lang }) {
     const w = parseFloat(weight);
     if (isNaN(w) || w <= 0) return;
 
-    // Base water: 35ml per kg
     let totalMl = w * 35;
-
-    // Add for activity
     if (activity === "light") totalMl += 350;
     else if (activity === "moderate") totalMl += 700;
     else if (activity === "active") totalMl += 1050;
@@ -31,34 +28,26 @@ export default function RamadanHydration({ dict, lang }) {
   };
 
   return (
-    <div className="calc-card glass-effect">
-      <div className="input-group">
-        <label className="input-label">
-          {dict.ramadan.weight}
-        </label>
-        <div className="input-wrapper">
+    <div className="grid-2">
+      <div className="card">
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.ramadan.weight}</label>
           <input
             type="number"
-            className="calc-input"
+            className="input"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
             placeholder="70"
             min="1"
           />
         </div>
-      </div>
 
-      <div className="input-group">
-        <label className="input-label">
-          {dict.ramadan.activity}
-        </label>
-        <div className="input-wrapper select-wrapper">
-          <Activity className="input-icon" size={18} />
+        <div style={{ marginBottom: "16px" }}>
+          <label className="label">{dict.ramadan.activity}</label>
           <select
-            className="calc-input with-icon"
+            className="input"
             value={activity}
             onChange={(e) => setActivity(e.target.value)}
-            style={{ paddingInlineStart: "2.5rem" }}
           >
             <option value="sedentary">{dict.ramadan.sedentary}</option>
             <option value="light">{dict.ramadan.light}</option>
@@ -66,63 +55,62 @@ export default function RamadanHydration({ dict, lang }) {
             <option value="active">{dict.ramadan.active}</option>
           </select>
         </div>
-      </div>
 
-      <div className="input-group">
-        <label className="input-label">
-          {dict.ramadan.fasting_hours}
-        </label>
-        <div className="input-wrapper">
-          <Clock className="input-icon" size={18} />
-          <input
-            type="number"
-            className="calc-input with-icon"
-            value={fastingHours}
-            onChange={(e) => setFastingHours(e.target.value)}
-            placeholder="14"
-            min="10"
-            max="22"
-          />
-        </div>
-      </div>
-
-      <button className="calc-btn primary" onClick={calculateHydration}>
-        <Droplet size={18} />
-        {dict.ramadan.calculate}
-      </button>
-
-      {result && (
-        <div className="result-card glass-effect result-enter">
-          <h3 className="result-title" style={{ textAlign: "center" }}>{dict.ramadan.result_title}</h3>
-          
-          <div className="result-grid" style={{ gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
-            <div className="result-box premium-box">
-              <span className="result-label">{dict.ramadan.result_liters}</span>
-              <span className="result-value primary-text">{result.liters} L</span>
-            </div>
-            <div className="result-box premium-box">
-              <span className="result-label">{dict.ramadan.result_cups}</span>
-              <span className="result-value secondary-text">{result.cups} 🥤</span>
-            </div>
-          </div>
-
-          <div className="info-box" style={{ marginTop: "1.5rem" }}>
-            <Info size={20} className="info-icon" />
-            <div className="info-content">
-              <strong>{dict.ramadan.tip_title}</strong>
-              <p style={{ margin: "0.25rem 0 0 0", fontSize: "0.9rem", lineHeight: "1.5" }}>
-                {dict.ramadan.tip_desc}
-                <br />
-                <span style={{ display: "inline-block", marginTop: "0.5rem", fontWeight: "600", color: "var(--primary)" }}>
-                  {lang === "ar" 
-                    ? `💡 ننصح بشرب حوالي ${result.cupsPerHour} كوب كل ساعة خلال فترة الإفطار.` 
-                    : `💡 We recommend drinking about ${result.cupsPerHour} cups every hour during the non-fasting window.`}
-                </span>
-              </p>
-            </div>
+        <div style={{ marginBottom: "24px" }}>
+          <label className="label">{dict.ramadan.fasting_hours}</label>
+          <div style={{ position: "relative" }}>
+            <Clock size={18} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+            <input
+              type="number"
+              className="input"
+              value={fastingHours}
+              onChange={(e) => setFastingHours(e.target.value)}
+              placeholder="14"
+              min="10"
+              max="22"
+              style={{ paddingLeft: "36px" }}
+            />
           </div>
         </div>
-      )}
+
+        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={calculateHydration}>
+          <Droplet size={18} />
+          {dict.ramadan.calculate}
+        </button>
+      </div>
+
+      <div className="card" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <h3 style={{ textAlign: "center", marginBottom: "8px" }}>{dict.ramadan.result_title}</h3>
+        
+        <div className="grid-2" style={{ gap: "16px" }}>
+          <div className="result-box">
+            <div className="result-label">{dict.ramadan.result_liters}</div>
+            <div className="result-value" style={{ color: "var(--primary)", fontSize: "1.8rem" }}>{result ? `${result.liters} L` : "-"}</div>
+          </div>
+          <div className="result-box">
+            <div className="result-label">{dict.ramadan.result_cups}</div>
+            <div className="result-value" style={{ color: "var(--accent)", fontSize: "1.8rem" }}>{result ? result.cups : "-"} 🥤</div>
+          </div>
+        </div>
+
+        {result && (
+          <div style={{ marginTop: "auto", background: "rgba(37, 99, 235, 0.05)", padding: "16px", borderRadius: "var(--radius-md)", border: "1px solid rgba(37, 99, 235, 0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+              <Info size={18} style={{ color: "var(--primary)" }} />
+              <strong style={{ fontSize: "0.95rem" }}>{dict.ramadan.tip_title}</strong>
+            </div>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+              {dict.ramadan.tip_desc}
+              <br /><br />
+              <strong style={{ color: "var(--primary)" }}>
+                {lang === "ar" 
+                  ? `💡 ننصح بشرب حوالي ${result.cupsPerHour} كوب كل ساعة خلال فترة الإفطار.` 
+                  : `💡 We recommend drinking about ${result.cupsPerHour} cups every hour during the non-fasting window.`}
+              </strong>
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
