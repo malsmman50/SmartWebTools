@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getDictionary } from "@/app/dictionaries";
+import PopularToolsClient from "@/app/components/PopularToolsClient";
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
@@ -70,14 +71,7 @@ export default async function Home({ params }) {
     }
   };
 
-  const popularTools = [
-    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍" },
-    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲" },
-    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱" },
-    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }" }
-  ];
-
-  const allToolsCount = calculators.length + utilities.length + tools.length;
+  const allTools = [...calculators, ...everydayTools, ...utilities, ...tools];
 
   return (
     <div className="container">
@@ -121,21 +115,8 @@ export default async function Home({ params }) {
         </div>
       </section>
 
-      {/* Popular Tools */}
-      <section style={{ marginBottom: "60px" }}>
-        <h2 style={{ fontSize: "1.8rem", marginBottom: "24px", textAlign: "center" }}>
-          {lang === "ar" ? "🔥 الأكثر استخداماً اليوم" : "🔥 Most Popular Today"}
-        </h2>
-        <div className="grid-4">
-          {popularTools.map(tool => (
-            <Link key={tool.href} href={tool.href} className="card card-link">
-              <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{tool.icon}</div>
-              <h3 style={{ fontSize: "1.1rem", marginBottom: "8px" }}>{tool.title}</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: "1.5" }}>{tool.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Popular Tools (Dynamic & Random) */}
+      <PopularToolsClient allTools={allTools} langTitle={lang === "ar" ? "🔥 الأكثر استخداماً اليوم" : "🔥 Most Popular Today"} />
 
       {/* Categorized Tools directory */}
       
