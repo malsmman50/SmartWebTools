@@ -26,6 +26,11 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = 'auto', dataFullWi
     let observer;
     let timer;
 
+    // Google AdSense throws 'No slot size for availableWidth=0' if we push when the container is hidden (e.g. mobile)
+    if (insEl.offsetWidth === 0 && insEl.offsetHeight === 0) {
+      return;
+    }
+
     try {
       // Push ad to Google
       (window.adsbygoogle = window.adsbygoogle || []).push({});
