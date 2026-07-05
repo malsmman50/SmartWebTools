@@ -18,6 +18,7 @@ export default function Navbar({ lang, dict }) {
   };
 
   const getSwitchedPath = (newLang) => {
+    if (!pathname) return `/${newLang}`;
     const segments = pathname.split("/");
     if (segments[1] === "en" || segments[1] === "ar") {
       segments[1] = newLang;
