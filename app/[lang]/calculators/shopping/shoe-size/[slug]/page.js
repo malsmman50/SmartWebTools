@@ -85,6 +85,7 @@ export default async function PseoShoeSizePage({ params }) {
       {/* Pre-filled Component! */}
       <ShoeSizeConverter 
         isAr={isAr} 
+        dict={dict}
         prefill={{
           gender: pageData.gender,
           from: pageData.from,

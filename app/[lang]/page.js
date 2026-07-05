@@ -116,7 +116,7 @@ export default async function Home({ params }) {
       </section>
 
       {/* Popular Tools (Dynamic & Random) */}
-      <PopularToolsClient allTools={allTools} langTitle={lang === "ar" ? "🔥 الأكثر استخداماً اليوم" : "🔥 Most Popular Today"} />
+      <PopularToolsClient allTools={allTools} langTitle={dict.home.popular_tools} />
 
       {/* Categorized Tools directory */}
       
@@ -142,7 +142,7 @@ export default async function Home({ params }) {
       {/* Everyday Life & Health */}
       <section id="everyday" style={{ marginBottom: "40px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
-          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>❤️ {lang === "ar" ? "يوميات وصحة" : "Life & Health"}</h2>
+          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>❤️ {dict.home.life_and_health}</h2>
           <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
         </div>
         <div className="grid-4" style={{ opacity: 0.9 }}>

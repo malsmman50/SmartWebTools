@@ -10,7 +10,7 @@ export default function HealthCalculator({ dict, isAr }) {
   
   const [results, setResults] = useState(null);
 
-  const calculate = () => {
+  useEffect(() => {
     const w = parseFloat(weight);
     const h = parseFloat(height);
     const a = parseFloat(age);
@@ -50,51 +50,47 @@ export default function HealthCalculator({ dict, isAr }) {
       idealMin: idealMin.toFixed(1),
       idealMax: idealMax.toFixed(1)
     });
-  };
-
-  useEffect(() => {
-    calculate();
-  }, [gender, age, height, weight, activity]);
+  }, [gender, age, height, weight, activity, dict]);
 
   return (
     <div className="grid-2">
       {/* Input Section */}
       <div className="card">
-        <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", marginBottom: "24px" }}>
           <button 
             onClick={() => setGender("men")}
             className={`btn ${gender === "men" ? "btn-primary" : "btn-outline"}`}
             style={{ flex: 1 }}
           >
-            {isAr ? "رجل 👨" : "Man 👨"}
+            {dict.health.gender_man}
           </button>
           <button 
             onClick={() => setGender("women")}
             className={`btn ${gender === "women" ? "btn-primary" : "btn-outline"}`}
             style={{ flex: 1 }}
           >
-            {isAr ? "امرأة 👩" : "Woman 👩"}
+            {dict.health.gender_woman}
           </button>
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.health.age}</label>
-          <input type="number" className="input" value={age} onChange={e => setAge(e.target.value)} />
+          <label htmlFor="health-age" className="label">{dict.health.age}</label>
+          <input id="health-age" type="number" className="input" value={age} onChange={e => setAge(e.target.value)} />
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.health.height}</label>
-          <input type="number" className="input" value={height} onChange={e => setHeight(e.target.value)} />
+          <label htmlFor="health-height" className="label">{dict.health.height}</label>
+          <input id="health-height" type="number" className="input" value={height} onChange={e => setHeight(e.target.value)} />
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{dict.health.weight}</label>
-          <input type="number" className="input" value={weight} onChange={e => setWeight(e.target.value)} />
+          <label htmlFor="health-weight" className="label">{dict.health.weight}</label>
+          <input id="health-weight" type="number" className="input" value={weight} onChange={e => setWeight(e.target.value)} />
         </div>
 
         <div style={{ marginBottom: "24px" }}>
-          <label className="label">{dict.health.activity_level}</label>
-          <select className="input" value={activity} onChange={e => setActivity(e.target.value)}>
+          <label htmlFor="health-activity" className="label">{dict.health.activity_level}</label>
+          <select id="health-activity" className="input" value={activity} onChange={e => setActivity(e.target.value)}>
             <option value="1.2">{dict.health.activity_sedentary}</option>
             <option value="1.375">{dict.health.activity_light}</option>
             <option value="1.55">{dict.health.activity_moderate}</option>
@@ -148,7 +144,7 @@ export default function HealthCalculator({ dict, isAr }) {
           </>
         ) : (
           <div className="card" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "var(--text-muted)", minHeight: "300px" }}>
-            {isAr ? "أدخل بياناتك لرؤية النتائج..." : "Enter your data to see results..."}
+            {dict.health.placeholder}
           </div>
         )}
       </div>

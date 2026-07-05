@@ -9,31 +9,22 @@ export default function JwtDecoderClient({ lang, dict, ...props }) {
   const isAr = lang === "ar";
 
   const [token, setToken] = useState("");
-  const [header, setHeader] = useState("");
-  const [payload, setPayload] = useState("");
-  const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (!token.trim()) {
-      setHeader("");
-      setPayload("");
-      setError("");
-      return;
-    }
+  let header = "";
+  let payload = "";
+  let error = "";
 
+  if (token.trim()) {
     try {
       const decodedHeader = decodeProtectedHeader(token);
       const decodedPayload = decodeJwt(token);
       
-      setHeader(JSON.stringify(decodedHeader, null, 2));
-      setPayload(JSON.stringify(decodedPayload, null, 2));
-      setError("");
+      header = JSON.stringify(decodedHeader, null, 2);
+      payload = JSON.stringify(decodedPayload, null, 2);
     } catch (e) {
-      setError(isAr ? "رمز JWT غير صالح البنية" : "Invalid JWT Format");
-      setHeader("");
-      setPayload("");
+      error = isAr ? "رمز JWT غير صالح البنية" : "Invalid JWT Format";
     }
-  }, [token, isAr]);
+  }
 
   return (
       <div className="grid-2">

@@ -22,7 +22,7 @@ export default function CronGeneratorClient({ lang, dict, initialValues, ...prop
       if (initialValues.preset === "every-day-at-midnight") { setMinute("0"); setHour("0"); }
       if (initialValues.preset === "every-monday") { setMinute("0"); setHour("0"); setDayOfWeek("1"); }
     }
-  }, []);
+  }, [initialValues]);
   const [copied, setCopied] = useState(false);
 
   const [humanReadable, setHumanReadable] = useState("");

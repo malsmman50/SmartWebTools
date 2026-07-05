@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Editor from "@monaco-editor/react";
-import Papa from "papaparse";
-import YAML from "yaml";
-import { js2xml, xml2js } from "xml-js";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 export default function DataConverterClient({ dict, lang, initialValues }) {
   const t = dict.data_converter;
@@ -18,71 +17,89 @@ export default function DataConverterClient({ dict, lang, initialValues }) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    convertData();
-  }, [inputData, fromFormat, toFormat]);
+    let isActive = true;
 
-  const parseInput = () => {
-    if (!inputData.trim()) return null;
-    switch (fromFormat) {
-      case "json": return JSON.parse(inputData);
-      case "yaml": return YAML.parse(inputData);
-      case "csv":
-        const parsed = Papa.parse(inputData, { header: true, skipEmptyLines: true });
-        if (parsed.errors.length > 0) throw new Error(parsed.errors[0].message);
-        return parsed.data;
-      case "xml": return xml2js(inputData, { compact: true, spaces: 4 });
-      default: throw new Error("Unknown input format");
-    }
-  };
+    const convertDataAsync = async () => {
+      setError("");
+      setSuccess(false);
+      if (!inputData.trim()) {
+        if (isActive) setOutputData("");
+        return;
+      }
+      try {
+        let parsedObj;
+        switch (fromFormat) {
+          case "json":
+            parsedObj = JSON.parse(inputData);
+            break;
+          case "yaml":
+            const YAML = (await import("yaml")).default;
+            parsedObj = YAML.parse(inputData);
+            break;
+          case "csv":
+            const Papa = (await import("papaparse")).default;
+            const parsed = Papa.parse(inputData, { header: true, skipEmptyLines: true });
+            if (parsed.errors.length > 0) throw new Error(parsed.errors[0].message);
+            parsedObj = parsed.data;
+            break;
+          case "xml":
+            const { xml2js } = await import("xml-js");
+            parsedObj = xml2js(inputData, { compact: true, spaces: 4 });
+            break;
+          default:
+            throw new Error("Unknown input format");
+        }
 
-  const formatOutput = (parsedObj) => {
-    if (!parsedObj) return "";
-    switch (toFormat) {
-      case "json": return JSON.stringify(parsedObj, null, 2);
-      case "yaml": return YAML.stringify(parsedObj);
-      case "csv":
-        if (!Array.isArray(parsedObj)) {
-            if (typeof parsedObj === "object" && parsedObj !== null) {
-                const keys = Object.keys(parsedObj);
-                if (keys.length === 1 && Array.isArray(parsedObj[keys[0]])) {
-                    parsedObj = parsedObj[keys[0]];
-                } else {
-                    parsedObj = [parsedObj];
-                }
-            } else {
-                parsedObj = [parsedObj];
+        let result = "";
+        switch (toFormat) {
+          case "json":
+            result = JSON.stringify(parsedObj, null, 2);
+            break;
+          case "yaml":
+            const YAMLOut = (await import("yaml")).default;
+            result = YAMLOut.stringify(parsedObj);
+            break;
+          case "csv":
+            const PapaOut = (await import("papaparse")).default;
+            let csvObj = parsedObj;
+            if (!Array.isArray(csvObj)) {
+              if (typeof csvObj === "object" && csvObj !== null) {
+                const keys = Object.keys(csvObj);
+                if (keys.length === 1 && Array.isArray(csvObj[keys[0]])) csvObj = csvObj[keys[0]];
+                else csvObj = [csvObj];
+              } else csvObj = [csvObj];
             }
+            result = PapaOut.unparse(csvObj);
+            break;
+          case "xml":
+            const { js2xml } = await import("xml-js");
+            let xmlObj = parsedObj;
+            if (Array.isArray(parsedObj)) xmlObj = { root: { item: parsedObj } };
+            else if (typeof parsedObj !== "object" || Object.keys(parsedObj).length !== 1) xmlObj = { root: parsedObj };
+            result = js2xml(xmlObj, { compact: true, spaces: 2 });
+            break;
+          default:
+            throw new Error("Unknown output format");
         }
-        return Papa.unparse(parsedObj);
-      case "xml":
-        let xmlObj = parsedObj;
-        if (Array.isArray(parsedObj)) {
-            xmlObj = { root: { item: parsedObj } };
-        } else if (typeof parsedObj !== "object" || Object.keys(parsedObj).length !== 1) {
-            xmlObj = { root: parsedObj };
-        }
-        return js2xml(xmlObj, { compact: true, spaces: 2 });
-      default: throw new Error("Unknown output format");
-    }
-  };
 
-  const convertData = () => {
-    setError("");
-    setSuccess(false);
-    if (!inputData.trim()) {
-      setOutputData("");
-      return;
-    }
-    try {
-      const parsedObj = parseInput();
-      const result = formatOutput(parsedObj);
-      setOutputData(result);
-      setSuccess(true);
-    } catch (err) {
-      setError(t.error_parse + " (" + err.message + ")");
-      setOutputData("");
-    }
-  };
+        if (isActive) {
+          setOutputData(result);
+          setSuccess(true);
+        }
+      } catch (err) {
+        if (isActive) {
+          setError(t.error_parse + " (" + err.message + ")");
+          setOutputData("");
+        }
+      }
+    };
+
+    convertDataAsync();
+
+    return () => {
+      isActive = false;
+    };
+  }, [inputData, fromFormat, toFormat, t.error_parse]);
 
   const handleCopy = () => {
     if (outputData) {

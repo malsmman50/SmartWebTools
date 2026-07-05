@@ -38,7 +38,7 @@ export default async function ShoeSizePage({ params }) {
         {dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly between US, UK, EU, and CM."}
       </p>
 
-      <ShoeSizeConverter isAr={isAr} />
+      <ShoeSizeConverter isAr={isAr} dict={dict} />
 
       {/* Massive AdSense SEO Content - Below the Fold */}
       <article className="card" style={{ marginTop: "40px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>

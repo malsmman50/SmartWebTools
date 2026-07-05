@@ -91,7 +91,7 @@ export default function SplitBillCalculator({ lang, dict }) {
         </div>
         
         {/* Quick Tip Buttons */}
-        <div className="tabs" style={{ marginTop: "8px", marginBottom: "0", flexWrap: "nowrap" }}>
+        <div className="tabs" style={{ marginTop: "8px", marginBottom: "0", flexWrap: "wrap" }}>
           {[0, 10, 15, 20].map(tip => (
             <button
               key={tip}

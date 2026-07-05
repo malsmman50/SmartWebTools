@@ -131,7 +131,7 @@ export default function PregnancyCalculator({ lang, dict }) {
           />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+        <div className="grid-2" style={{ marginBottom: "24px" }}>
           <div>
             <label className="label">{dict.pregnancy.height_label}</label>
             <input

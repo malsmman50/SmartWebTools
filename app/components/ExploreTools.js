@@ -43,7 +43,7 @@ export default function ExploreTools({ lang, dict }) {
     <div style={{ marginTop: "80px", paddingTop: "40px", borderTop: "1px solid var(--border)" }}>
       <div style={{ textAlign: "center", marginBottom: "24px" }}>
         <h3 style={{ fontSize: "1.4rem", marginBottom: "8px" }}>
-          {lang === "ar" ? "🔥 اكتشف المزيد من الأدوات المجانية" : "🔥 Discover More Free Tools"}
+          {dict.home.discover_more}
         </h3>
         <p style={{ color: "var(--text-muted)", fontSize: "0.95rem" }}>
           {lang === "ar" 

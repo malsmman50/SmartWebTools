@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export default function ShoeSizeConverter({ isAr, prefill }) {
+export default function ShoeSizeConverter({ isAr, prefill, dict }) {
   const [gender, setGender] = useState(prefill?.gender || "men");
   const [fromSystem, setFromSystem] = useState(prefill?.from || "EU");
   const [toSystem, setToSystem] = useState(prefill?.to || "US");
@@ -23,7 +23,7 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
     }
   };
 
-  const calculate = () => {
+  useEffect(() => {
     if (!inputValue || isNaN(inputValue)) {
       setResult("");
       return;
@@ -46,10 +46,6 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
     
     const toResult = sizes[gender][toSystem][closestIndex];
     setResult(toResult.toString());
-  };
-
-  useEffect(() => {
-    calculate();
   }, [gender, fromSystem, toSystem, inputValue]);
 
   return (
@@ -59,20 +55,20 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
           onClick={() => setGender("men")}
           className={`btn ${gender === "men" ? "btn-primary" : "btn-secondary"}`}
         >
-          {isAr ? "رجال" : "Men"}
+          {dict.shoe_size.men}
         </button>
         <button 
           onClick={() => setGender("women")}
           className={`btn ${gender === "women" ? "btn-primary" : "btn-secondary"}`}
         >
-          {isAr ? "نساء" : "Women"}
+          {dict.shoe_size.women}
         </button>
       </div>
 
       <div className="grid-2">
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{isAr ? "من نظام" : "From System"}</label>
-          <select className="input" value={fromSystem} onChange={(e) => setFromSystem(e.target.value)}>
+          <label htmlFor="shoe-from-system" className="label">{dict.shoe_size.from_system}</label>
+          <select id="shoe-from-system" className="input" value={fromSystem} onChange={(e) => setFromSystem(e.target.value)}>
             <option value="EU">EU (Europe)</option>
             <option value="US">US (United States)</option>
             <option value="UK">UK (United Kingdom)</option>
@@ -80,8 +76,8 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
           </select>
         </div>
         <div style={{ marginBottom: "16px" }}>
-          <label className="label">{isAr ? "إلى نظام" : "To System"}</label>
-          <select className="input" value={toSystem} onChange={(e) => setToSystem(e.target.value)}>
+          <label htmlFor="shoe-to-system" className="label">{dict.shoe_size.to_system}</label>
+          <select id="shoe-to-system" className="input" value={toSystem} onChange={(e) => setToSystem(e.target.value)}>
             <option value="US">US (United States)</option>
             <option value="EU">EU (Europe)</option>
             <option value="UK">UK (United Kingdom)</option>
@@ -91,8 +87,9 @@ export default function ShoeSizeConverter({ isAr, prefill }) {
       </div>
 
       <div style={{ marginBottom: "24px", marginTop: "8px" }}>
-        <label className="label">{isAr ? `المقاس (${fromSystem})` : `Size (${fromSystem})`}</label>
+        <label htmlFor="shoe-size-input" className="label">{isAr ? `المقاس (${fromSystem})` : `Size (${fromSystem})`}</label>
         <input 
+          id="shoe-size-input"
           type="number" 
           className="input" 
           value={inputValue} 
