@@ -26,7 +26,7 @@ const gregorianMonthNamesAr = [
 
 // --- Hybrid Umm al-Qura Algorithm ---
 const getExactHijriDate = (dateObj) => {
-  const formatter = new Intl.DateTimeFormat("en-US-u-ca-islamic-umalqura", {
+  const formatter = new Intl.DateTimeFormat("en-US-u-ca-islamic-umalqura-nu-latn", {
     day: "numeric", month: "numeric", year: "numeric"
   });
   const parts = formatter.formatToParts(dateObj);
@@ -185,6 +185,7 @@ export default function HijriConverterClient({ lang, dict, initialValues, ...pro
               <input 
                 id="gregorian-input"
                 type="date" 
+                lang={isAr ? "ar-EG" : "en-US"}
                 value={gregorianDate}
                 onChange={(e) => setGregorianDate(e.target.value)}
                 className="input"

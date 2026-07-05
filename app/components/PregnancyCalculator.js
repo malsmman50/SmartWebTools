@@ -124,6 +124,7 @@ export default function PregnancyCalculator({ lang, dict }) {
           <label className="label">{dict.pregnancy.date_label}</label>
           <input
             type="date"
+            lang={isAr ? "ar-EG" : "en-US"}
             className="input"
             value={inputDate}
             onChange={(e) => setInputDate(e.target.value)}
