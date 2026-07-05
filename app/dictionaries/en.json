@@ -83,14 +83,16 @@
     "final_price": "Final Price to Pay"
   },
   "split_bill": {
-    "title": "🍕 Split the Bill Calculator",
-    "subtitle": "Quickly divide restaurant bills and calculate tips fairly.",
-    "total_bill": "Total Bill Amount",
-    "number_of_people": "Number of People",
-    "tip_percent": "Tip / Service Charge (%)",
-    "tip_amount": "Total Tip",
-    "total_with_tip": "Total with Tip",
-    "amount_per_person": "Amount per Person"
+    "title": "🍕 Halal Bill Splitter",
+    "subtitle": "Quickly and fairly divide restaurant bills. Exclude haram or special items so their tax is calculated separately, protecting your Halal share.",
+    "total_bill": "Bill Subtotal (Before Tax)",
+    "excluded_items": "Excluded Items (Haram/Special)",
+    "number_of_people": "Number of People (Halal Share)",
+    "tip_percent": "Tax / Tip (%)",
+    "tip_amount": "Tax / Tip (Halal Share)",
+    "total_with_tip": "Total for Halal Share",
+    "amount_per_person": "Amount per Person (Halal)",
+    "excluded_total": "Total for Excluded Items (with Tax)"
   },
   "health": {
     "body_calc_title": "Comprehensive Body Calculator",
@@ -134,7 +136,11 @@
     "trimester_2": "2nd Trimester",
     "trimester_3": "3rd Trimester",
     "baby_size": "Baby's Size",
-    "weekly_tip": "Weekly Tip"
+    "weekly_tip": "Weekly Tip",
+    "height_label": "Pre-pregnancy Height (cm)",
+    "weight_label": "Pre-pregnancy Weight (kg)",
+    "target_weight_gain": "Recommended Healthy Weight Gain (by this week)",
+    "bmi_category": "Pre-pregnancy BMI Category"
   },
   "utilities": {
     "qibla_title": "Live Qibla Compass",

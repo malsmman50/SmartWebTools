@@ -19,6 +19,8 @@ export default function PregnancyCalculator({ lang, dict }) {
   const isAr = lang === "ar";
   const [method, setMethod] = useState("lmp");
   const [inputDate, setInputDate] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
   const [result, setResult] = useState(null);
 
   const calculatePregnancy = () => {
@@ -31,14 +33,11 @@ export default function PregnancyCalculator({ lang, dict }) {
     const today = new Date();
 
     if (method === "lmp") {
-      // Due date is 280 days (40 weeks) from LMP
       dueDate.setDate(date.getDate() + 280);
       const diffTime = Math.abs(today - date);
       currentWeek = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
     } else {
-      // Due date is 266 days (38 weeks) from conception
       dueDate.setDate(date.getDate() + 266);
-      // LMP is 14 days before conception
       const estimatedLmp = new Date(date);
       estimatedLmp.setDate(estimatedLmp.getDate() - 14);
       const diffTime = Math.abs(today - estimatedLmp);
@@ -54,10 +53,50 @@ export default function PregnancyCalculator({ lang, dict }) {
 
     const weeklyData = getWeeklyData(currentWeek, isAr);
 
+    // Weight Tracker Logic (ACOG Guidelines)
+    let bmiCategory = "";
+    let weightGainRange = "";
+    
+    if (height && weight) {
+      const h = parseFloat(height) / 100;
+      const w = parseFloat(weight);
+      const bmi = w / (h * h);
+
+      let rateMin = 0.35, rateMax = 0.5; // Normal
+      if (bmi < 18.5) {
+        bmiCategory = isAr ? "نقص الوزن" : "Underweight";
+        rateMin = 0.44; rateMax = 0.58;
+      } else if (bmi >= 18.5 && bmi < 25) {
+        bmiCategory = isAr ? "وزن طبيعي" : "Normal Weight";
+      } else if (bmi >= 25 && bmi < 30) {
+        bmiCategory = isAr ? "زيادة في الوزن" : "Overweight";
+        rateMin = 0.23; rateMax = 0.33;
+      } else {
+        bmiCategory = isAr ? "سمنة" : "Obese";
+        rateMin = 0.17; rateMax = 0.27;
+      }
+
+      let minGain = 0;
+      let maxGain = 0;
+
+      if (currentWeek > 0 && currentWeek <= 13) {
+        minGain = (currentWeek / 13) * 0.5;
+        maxGain = (currentWeek / 13) * 2.0;
+      } else if (currentWeek > 13) {
+        const addedWeeks = currentWeek - 13;
+        minGain = 0.5 + (addedWeeks * rateMin);
+        maxGain = 2.0 + (addedWeeks * rateMax);
+      }
+
+      weightGainRange = currentWeek === 0 ? "0 kg" : `+${minGain.toFixed(1)} kg ${isAr ? "إلى" : "to"} +${maxGain.toFixed(1)} kg`;
+    }
+
     setResult({
       dueDate: dueDate.toLocaleDateString(isAr ? 'ar-EG' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       currentWeek,
       trimester,
+      bmiCategory,
+      weightGainRange,
       ...weeklyData
     });
   };
@@ -91,6 +130,31 @@ export default function PregnancyCalculator({ lang, dict }) {
           />
         </div>
 
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+          <div>
+            <label className="label">{dict.pregnancy.height_label}</label>
+            <input
+              type="number"
+              className="input"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              placeholder="e.g., 165"
+              min="100"
+            />
+          </div>
+          <div>
+            <label className="label">{dict.pregnancy.weight_label}</label>
+            <input
+              type="number"
+              className="input"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              placeholder="e.g., 65"
+              min="30"
+            />
+          </div>
+        </div>
+
         <button className="btn btn-primary" style={{ width: "100%" }} onClick={calculatePregnancy} disabled={!inputDate}>
           {dict.pregnancy.calculate}
         </button>
@@ -121,6 +185,14 @@ export default function PregnancyCalculator({ lang, dict }) {
               <div className="result-label" style={{ color: "var(--success)" }}>{dict.pregnancy.baby_size}</div>
               <div className="result-value" style={{ color: "var(--success)", fontSize: "1.2rem" }}>{result.size}</div>
             </div>
+
+            {result.weightGainRange && (
+              <div className="result-box" style={{ marginBottom: "20px", border: "1px dashed var(--accent)" }}>
+                <div className="result-label" style={{ color: "var(--accent)" }}>{dict.pregnancy.target_weight_gain}</div>
+                <div className="result-value" style={{ color: "var(--accent)", fontSize: "1.2rem" }}>{result.weightGainRange}</div>
+                <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginTop: "4px" }}>{dict.pregnancy.bmi_category}: {result.bmiCategory}</div>
+              </div>
+            )}
 
             <div className="result-box" style={{ background: "rgba(var(--warning-rgb), 0.1)" }}>
               <div className="result-label" style={{ color: "var(--warning)" }}>💡 {dict.pregnancy.weekly_tip}</div>
