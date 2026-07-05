@@ -5,6 +5,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/contact`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/contact`,
+        "ar": `https://smartcalctools.xyz/ar/contact`,
+      },
+    },
     title: isAr ? "اتصل بنا | أدوات الحساب الذكية" : "Contact Us | SmartCalcTools",
     description: isAr 
       ? "تواصل معنا للإبلاغ عن أي مشاكل أو اقتراح أدوات وحاسبات جديدة في موقع أدوات الحساب الذكية."

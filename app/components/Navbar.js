@@ -179,8 +179,8 @@ export default function Navbar({ lang, dict }) {
               {dict.common.nav_about}
             </Link>
 
-            {/* Desktop Language Switcher - real <Link> so it's crawlable and works without JS */}
-            <Link
+            {/* Desktop Language Switcher - real <a> so it's crawlable and works without JS */}
+            <a
               href={getSwitchedPath(lang === "en" ? "ar" : "en")}
               className="lang-toggle"
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
@@ -189,7 +189,7 @@ export default function Navbar({ lang, dict }) {
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
               <span>{lang === "en" ? "العربية" : "English"}</span>
-            </Link>
+            </a>
 
             <button
               className="theme-toggle"
@@ -207,7 +207,7 @@ export default function Navbar({ lang, dict }) {
 
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }} className="mobile-only-controls">
             {/* Mobile Language Switcher - same label as desktop for consistency; only the CSS makes it compact */}
-            <Link
+            <a
               href={getSwitchedPath(lang === "en" ? "ar" : "en")}
               className="lang-toggle"
               aria-label={lang === "en" ? "Switch to العربية" : "Switch to English"}
@@ -216,7 +216,7 @@ export default function Navbar({ lang, dict }) {
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
               <span>{lang === "en" ? "العربية" : "English"}</span>
-            </Link>
+            </a>
             
             <button
               className="theme-toggle"

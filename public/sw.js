@@ -1,5 +1,5 @@
-const CACHE_NAME = "smartcalctools-cache-v4";
-const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v4";
+const CACHE_NAME = "smartcalctools-cache-v5";
+const DYNAMIC_CACHE_NAME = "smartcalctools-dynamic-v5";
 const MAX_DYNAMIC_ENTRIES = 150;
 
 // Static assets to cache immediately on install
@@ -14,10 +14,11 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener("install", (event) => {
+  self.skipWaiting(); // Aggressive takeover
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS);
-    }).then(() => self.skipWaiting())
+    }).catch(err => console.error("Cache install error:", err))
   );
 });
 
@@ -27,6 +28,7 @@ self.addEventListener("activate", (event) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME && key !== DYNAMIC_CACHE_NAME) {
+            console.log("[Service Worker] Deleting old cache:", key);
             return caches.delete(key);
           }
         })
@@ -62,9 +64,22 @@ self.addEventListener("fetch", (event) => {
     url.pathname.startsWith("/api") || 
     url.hostname.includes("googlesyndication") || 
     url.hostname.includes("doubleclick") ||
-    url.hostname.includes("googleadservices")
+    url.hostname.includes("googleadservices") ||
+    url.pathname === "/sw.js"
   ) {
     return;
+  }
+
+  // FORCE BYPASS CACHE for old missing-lang routes (e.g. /calculators/zakat)
+  // This allows the Next.js middleware to actually receive the request and 308 redirect it.
+  const pathParts = url.pathname.split("/").filter(Boolean);
+  if (pathParts.length > 0 && pathParts[0] !== "en" && pathParts[0] !== "ar") {
+    // If it's a known static asset excluded by middleware, allow it through
+    const isStaticAsset = url.pathname.match(/\.(png|jpg|jpeg|svg|ico|js|css|json|txt|woff2)$/i);
+    if (!isStaticAsset) {
+      // Do not intercept - let the network/middleware handle the redirect!
+      return;
+    }
   }
 
   const isRscRequest = event.request.headers.get("RSC") === "1" || url.searchParams.has("_rsc");

@@ -4,6 +4,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/about`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/about`,
+        "ar": `https://smartcalctools.xyz/ar/about`,
+      },
+    },
     title: isAr ? "من نحن | أدوات الحساب الذكية" : "About Us | SmartCalcTools",
     description: isAr 
       ? "تعرف على أدوات الحساب الذكية ورسالتنا لبناء أدوات مطورين وحاسبات مالية متوافقة مع الشريعة الإسلامية 100% وخاصة بالكامل."

@@ -10,6 +10,13 @@ export async function generateMetadata({ params }) {
   const isAr = lang === "ar";
   
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/health/body-calculator`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/health/body-calculator`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/health/body-calculator`,
+      },
+    },
     title: isAr ? "حاسبة الجسم الشاملة (BMI و السعرات) | SmartCalcTools" : "Comprehensive Body Calculator (BMI & TDEE) | SmartCalcTools",
     description: isAr ? "احسب مؤشر كتلة الجسم (BMI)، معدل الأيض (BMR)، احتياج السعرات (TDEE)، والوزن المثالي دفعة واحدة وبخصوصية تامة." : "Calculate your BMI, BMR, TDEE, and Ideal Weight all at once with 100% privacy.",
   };

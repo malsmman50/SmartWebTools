@@ -4,6 +4,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/terms-of-service`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/terms-of-service`,
+        "ar": `https://smartcalctools.xyz/ar/terms-of-service`,
+      },
+    },
     title: isAr ? "شروط الخدمة | أدوات الحساب الذكية" : "Terms of Service | SmartCalcTools",
     description: isAr 
       ? "شروط وإرشادات استخدام موقع أدوات الحساب الذكية وإخلاء المسؤولية القانونية والشرعية للحاسبات."

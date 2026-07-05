@@ -4,6 +4,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/privacy-policy`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/privacy-policy`,
+        "ar": `https://smartcalctools.xyz/ar/privacy-policy`,
+      },
+    },
     title: isAr ? "سياسة الخصوصية | أدوات الحساب الذكية" : "Privacy Policy | SmartCalcTools",
     description: isAr 
       ? "سياسة الخصوصية الخاصة بموقع أدوات الحساب الذكية. نحن نضمن عدم جمع أو حفظ أي بيانات خاصة بك بفضل معالجتنا المحلية بالكامل."

@@ -12,6 +12,13 @@ export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/embed/zakat`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/embed/zakat`,
+        "ar": `https://smartcalctools.xyz/ar/embed/zakat`,
+      },
+    },
     title: isAr ? "تضمين حاسبة الزكاة" : "Embed Zakat Calculator",
     robots: {
       index: false,

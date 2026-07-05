@@ -12,6 +12,13 @@ export async function generateMetadata({ params }) {
   const isAr = lang === "ar";
   
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/calculators/shopping/shoe-size`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/calculators/shopping/shoe-size`,
+        "ar": `https://smartcalctools.xyz/ar/calculators/shopping/shoe-size`,
+      },
+    },
     title: isAr ? "محول مقاسات الأحذية العالمي | SmartCalcTools" : "Global Shoe Size Converter | SmartCalcTools",
     description: isAr ? "حول مقاسات الأحذية بين الأوروبي والأمريكي والبريطاني." : "Convert shoe sizes instantly between US, UK, EU, and CM.",
   };

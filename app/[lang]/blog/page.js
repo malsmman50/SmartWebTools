@@ -4,11 +4,17 @@ import path from "path";
 import { getDictionary } from "@/app/dictionaries";
 
 export async function generateMetadata({ params }) {
-  const resolvedParams = await params;
-  const lang = resolvedParams.lang;
+  const { lang } = await params;
   const isAr = lang === "ar";
   
   return {
+    alternates: {
+      canonical: `https://smartcalctools.xyz/${lang}/blog`,
+      languages: {
+        "en": `https://smartcalctools.xyz/en/blog`,
+        "ar": `https://smartcalctools.xyz/ar/blog`,
+      },
+    },
     title: isAr ? "المدونة | SmartCalcTools" : "Blog | SmartCalcTools",
     description: isAr ? "أحدث المقالات والشروحات حول أدوات المطورين والتمويل الإسلامي." : "Latest articles and tutorials on developer tools and Islamic finance.",
   };
