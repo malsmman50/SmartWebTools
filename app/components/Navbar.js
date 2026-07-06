@@ -106,7 +106,7 @@ export default function Navbar({ lang, dict }) {
 
         <div className="container navbar-inner">
           <Link href={localizePath("/")} className="navbar-logo">
-            📐 {lang === "ar" ? (dict.common.nav_logo_short || "أدوات الحساب") : <>Smart<span>CalcTools</span></>}
+            {lang === "ar" ? (dict.common.nav_logo_short || "أدوات الحساب") : <>📐 Smart<span>CalcTools</span></>}
           </Link>
 
           {/* Desktop Menu - Premium Hover Dropdowns */}
@@ -164,15 +164,15 @@ export default function Navbar({ lang, dict }) {
                     {item.name}
                   </Link>
                 ))}
+                <div style={{ borderTop: "1px solid var(--border)", margin: "4px 0" }}></div>
+                <Link href={localizePath("/developers")} className="dropdown-item" style={{ fontWeight: 600, color: "var(--primary)" }}>
+                  {lang === "ar" ? "واجهة المطورين (API)" : "Developers (API)"}
+                </Link>
               </div>
             </div>
 
             <Link href={localizePath("/blog")} className="nav-link">
               {lang === "ar" ? "المدونة" : "Blog"}
-            </Link>
-
-            <Link href={localizePath("/developers")} className="nav-link" style={{ fontWeight: 600, color: "var(--primary)" }}>
-              {lang === "ar" ? "المطورين (API)" : "Developers (API)"}
             </Link>
 
             <Link href={localizePath("/about")} className="nav-link">
@@ -253,7 +253,7 @@ export default function Navbar({ lang, dict }) {
           
           <div className="mobile-drawer-header">
             <div className="navbar-logo" style={{ fontSize: "1.2rem" }}>
-              📐 {lang === "ar" ? "أدوات الحساب" : "SmartCalc"}
+              {lang === "ar" ? (dict.common.nav_logo_short || "أدوات الحساب") : "📐 SmartCalc"}
             </div>
             <button className="close-drawer-btn" onClick={() => setIsOpen(false)} aria-label="Close menu">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>

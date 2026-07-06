@@ -67,7 +67,7 @@ export default async function MurabahaCalculatorPage({ params }) {
         <DisclaimerBox type="religion" lang={lang} />
       </div>
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card" style={{ marginTop: "40px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
         {isAr ? (
           <>
             <h2>حاسبة تمويل المرابحة الإسلامية: بديل القروض الربوية</h2>

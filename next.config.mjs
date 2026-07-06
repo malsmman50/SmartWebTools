@@ -26,6 +26,7 @@ const cspHeader = `
 `;
 
 const nextConfig = {
+  trailingSlash: false,
   compress: true,
   poweredByHeader: false,
   experimental: {

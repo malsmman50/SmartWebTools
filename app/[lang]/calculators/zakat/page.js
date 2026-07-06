@@ -44,7 +44,7 @@ export default async function ZakatCalculatorPage({ params }) {
   const t = dict.zakat;
 
   return (
-    <div className="container">
+    <div className="container" style={{ padding: "40px 20px" }}>
       <SoftwareSchema
         name={isAr ? "حاسبة الزكاة الدقيقة" : "Comprehensive Zakat Calculator"}
         description={isAr ? "احسب زكاتك السنوية (2.5%) بدقة تامة وبخصوصية كاملة 100% وفقاً للضوابط الفقهية الشرعية ونصاب الذهب المباشر." : "Calculate your annual Zakat (2.5%) easily and accurately according to Sharia guidelines using live gold market prices."}
@@ -96,7 +96,7 @@ export default async function ZakatCalculatorPage({ params }) {
       </div>
 
       {/* SEO Content Expansion (800+ words) */}
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card" style={{ marginTop: "40px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
         {lang === "ar" ? (
           <>
             <h2>الدليل الشامل لحساب الزكاة عبر الإنترنت</h2>
