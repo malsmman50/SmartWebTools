@@ -9,7 +9,7 @@ const googleTlds = [
 // Generate both root domains and wildcard subdomains to comply with CSP strict matching
 const googleDomains = googleTlds.map(tld => `https://google.${tld} https://*.google.${tld}`).join(' ');
 
-const cspHeader = `
+const getCspHeader = (frameAncestors) => `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://partner.googleadservices.com https://*.adtrafficquality.google https://adservice.google.com https://www.googletagservices.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
@@ -21,9 +21,12 @@ const cspHeader = `
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none';
+    frame-ancestors ${frameAncestors};
     upgrade-insecure-requests;
 `;
+
+const cspHeaderMain = getCspHeader("'none'");
+const cspHeaderEmbed = getCspHeader("https: http:");
 
 const nextConfig = {
   trailingSlash: false,
@@ -39,7 +42,16 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: cspHeader.replace(/\n/g, ''),
+            value: cspHeaderMain.replace(/\n/g, ''),
+          },
+        ],
+      },
+      {
+        source: '/:lang/embed/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeaderEmbed.replace(/\n/g, ''),
           },
         ],
       },
