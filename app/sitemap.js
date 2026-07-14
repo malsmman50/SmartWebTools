@@ -129,7 +129,8 @@ export default function sitemap() {
     routes.forEach(route => {
       sitemapData.push({
         url: `${baseUrl}/${locale}${route.path}`,
-        lastModified: new Date(),
+        // lastModified intentionally omitted: stamping every URL with the build
+        // date makes all pages look "always updated", which search engines ignore.
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });

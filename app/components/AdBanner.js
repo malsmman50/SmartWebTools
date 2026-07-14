@@ -5,6 +5,9 @@ import Link from 'next/link';
 
 export default function AdBanner({ dataAdSlot, dataAdFormat = 'auto', dataFullWidthResponsive = 'true' }) {
   const pathname = usePathname();
+  // Guard: AdSense slot IDs are numeric. Placeholder strings (e.g. 'LEFT_SIDE_SLOT')
+  // would silently break the ad request — render nothing until a real slot ID is set.
+  const isValidSlot = /^\d+$/.test(String(dataAdSlot || ''));
   const containerRef = useRef(null); // Ref on the wrapper, not the ins
   const [isUnfilled, setIsUnfilled] = useState(false);
   // Use a key derived from pathname to force full unmount/remount of <ins> on navigation
@@ -69,6 +72,8 @@ export default function AdBanner({ dataAdSlot, dataAdFormat = 'auto', dataFullWi
       if (timer) clearTimeout(timer);
     };
   }, [adKey]); // depends on adKey — runs each time ins remounts
+
+  if (!isValidSlot) return null;
 
   // Do not render ads on legal / contact pages (AdSense policy)
   const noAdsPages = ['/privacy-policy', '/terms-of-service', '/contact'];

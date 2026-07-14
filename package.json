@@ -19,7 +19,6 @@
     "next": "16.2.9",
     "papaparse": "^5.5.4",
     "pdfjs-dist": "^6.0.227",
-    "puppeteer": "^25.3.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-number-format": "^5.4.5",
@@ -28,6 +27,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.44.0"
+    "@playwright/test": "^1.44.0",
+    "puppeteer": "^25.3.0"
   }
 }
