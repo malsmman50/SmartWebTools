@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getAllSeoArticles, getSeoArticle } from "@/lib/seo-generator";
 import Link from "next/link";
 import { getDictionary } from "@/app/dictionaries";
+import { sanitizeArticleHtml } from "@/lib/sanitize";
 
 // Generate static params for SSG
 export async function generateStaticParams() {
@@ -86,9 +87,9 @@ export default async function SeoArticlePage({ params }) {
           </Link>
         </div>
 
-        <div 
+        <div
           style={{ lineHeight: "1.8", fontSize: "1.1rem", color: "var(--text)" }}
-          dangerouslySetInnerHTML={{ __html: content }} 
+          dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(content) }}
         />
         
         <div style={{ marginTop: "40px", paddingTop: "24px", borderTop: "1px solid var(--border)", textAlign: "center" }}>

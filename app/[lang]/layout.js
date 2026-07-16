@@ -34,7 +34,7 @@ export async function generateMetadata({ params }) {
         : "Free, offline-first developer tools and Sharia-compliant financial calculators. Private and secure.",
       siteName: "SmartCalcTools",
       type: "website",
-      locale: isAr ? "ar_AR" : "en_US",
+      locale: isAr ? "ar_SA" : "en_US",
       images: [
         {
           url: "/opengraph-image.png",

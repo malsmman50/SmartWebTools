@@ -11,6 +11,28 @@ export async function POST(request) {
       });
     }
 
+    // Input validation: strict email format + sane length limits
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!EMAIL_RE.test(String(email)) || String(name).length > 100 || String(message).length > 5000) {
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Escape all user input before interpolating into the HTML email (prevents HTML injection)
+    const escapeHtml = (s) => String(s)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message);
+    // Subject is a plain-text header: strip line breaks (prevents header injection), no HTML entities
+    const subjectName = String(name).replace(/[\r\n]+/g, ' ').slice(0, 100);
+
     // Fail-closed: never operate without a configured API key (no hardcoded fallback)
     if (!process.env.RESEND_API_KEY) {
       return new Response(JSON.stringify({ error: 'Service temporarily unavailable' }), {
@@ -25,18 +47,18 @@ export async function POST(request) {
     // You should set ADMIN_EMAIL in Vercel to your personal Gmail if you want to receive them there.
     const toEmail = process.env.ADMIN_EMAIL || 'support@smartcalctools.xyz';
 
-    const subject = `New Contact Form Message from ${name}`;
+    const subject = `New Contact Form Message from ${subjectName}`;
     
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px; line-height: 1.6;">
         <h2 style="color: #10b981; margin-top: 0;">New Message via SmartCalcTools</h2>
-        <p><strong>From:</strong> ${name} (${email})</p>
+        <p><strong>From:</strong> ${safeName} (${safeEmail})</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
-        <p style="white-space: pre-wrap; background: #f9fafb; padding: 16px; border-radius: 8px;">${message}</p>
+        <p style="white-space: pre-wrap; background: #f9fafb; padding: 16px; border-radius: 8px;">${safeMessage}</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
         <p style="font-size: 0.8rem; color: #999;">
           This message was sent from the contact form on smartcalctools.xyz.
-          You can reply directly to this email to respond to ${name}.
+          You can reply directly to this email to respond to ${safeName}.
         </p>
       </div>
     `;

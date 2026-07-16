@@ -23,6 +23,7 @@
     "react-dom": "19.2.4",
     "react-number-format": "^5.4.5",
     "resend": "^6.16.0",
+    "sanitize-html": "^2.14.0",
     "xml-js": "^1.6.11",
     "yaml": "^2.9.0"
   },

@@ -11,6 +11,16 @@ export async function POST(request) {
       });
     }
 
+    // Strict validation: real email format + month must be from the known whitelist
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const VALID_MONTHS = ['ramadan', 'muharram', 'shawwal', 'dhul-hijjah'];
+    if (!EMAIL_RE.test(String(email)) || String(email).length > 254 || !VALID_MONTHS.includes(String(month))) {
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const userLang = lang === 'en' ? 'en' : 'ar';
 
     // Fail-closed: never operate without a configured API key (no hardcoded fallback)

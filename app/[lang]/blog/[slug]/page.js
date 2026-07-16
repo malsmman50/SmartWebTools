@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import { sanitizeArticleHtml } from "@/lib/sanitize";
 
 import { cache } from "react";
 
@@ -106,10 +107,10 @@ export default async function BlogPostPage({ params }) {
           {dateStr}
         </div>
 
-        <div 
+        <div
           className="blog-content"
           style={{ lineHeight: "1.9", fontSize: "1.15rem", color: "var(--text)" }}
-          dangerouslySetInnerHTML={{ __html: content }} 
+          dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(content) }}
         />
         
       </article>
