@@ -40,8 +40,8 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
         setReminderSuccess(true);
         setReminderMessage(
           lang === "ar"
-            ? "تم تفعيل التذكير بنجاح! تفقد بريدك الإلكتروني لتأكيد الاشتراك."
-            : "Reminder activated successfully! Check your email to confirm subscription."
+            ? "أرسلنا رابط تأكيد إلى بريدك. اضغط عليه لتفعيل التذكير (تحقّق من مجلد الرسائل غير المرغوبة)."
+            : "We sent a confirmation link to your email. Click it to activate the reminder (check your spam folder)."
         );
         setReminderEmail("");
       } else {

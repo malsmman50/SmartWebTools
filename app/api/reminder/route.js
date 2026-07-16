@@ -1,4 +1,7 @@
 import { Resend } from 'resend';
+import { signToken } from '@/lib/token';
+
+const BASE_URL = 'https://smartcalctools.xyz';
 
 export async function POST(request) {
   try {
@@ -32,11 +35,51 @@ export async function POST(request) {
     }
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // 1. Send dynamic confirmation email immediately to verify subscription based on language
+    // 1. Persist as UNCONFIRMED (double opt-in) if Postgres is available.
+    if (process.env.POSTGRES_URL) {
+      const { sql } = await import('@vercel/postgres');
+      await sql`
+        CREATE TABLE IF NOT EXISTS zakat_reminders (
+          id SERIAL PRIMARY KEY,
+          email VARCHAR(255) UNIQUE NOT NULL,
+          month VARCHAR(50) NOT NULL,
+          lang VARCHAR(10) DEFAULT 'ar',
+          confirmed BOOLEAN DEFAULT false,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+      `;
+      try {
+        await sql`ALTER TABLE zakat_reminders ADD COLUMN IF NOT EXISTS lang VARCHAR(10) DEFAULT 'ar';`;
+        await sql`ALTER TABLE zakat_reminders ADD COLUMN IF NOT EXISTS confirmed BOOLEAN DEFAULT false;`;
+      } catch (err) {
+        console.warn('[!] Table upgrade note:', err.message);
+      }
+      // Re-subscribing resets confirmation (must re-verify).
+      await sql`
+        INSERT INTO zakat_reminders (email, month, lang, confirmed)
+        VALUES (${email}, ${month}, ${userLang}, false)
+        ON CONFLICT (email)
+        DO UPDATE SET month = ${month}, lang = ${userLang}, confirmed = false;
+      `;
+    }
+
+    // 2. Build a signed confirmation link (double opt-in).
+    let confirmUrl;
+    try {
+      const token = await signToken({ email, month, lang: userLang, act: 'confirm' }, '7d');
+      confirmUrl = `${BASE_URL}/api/reminder/confirm?token=${encodeURIComponent(token)}`;
+    } catch (e) {
+      // No signing secret configured — cannot run double opt-in safely.
+      return new Response(JSON.stringify({ error: 'Service temporarily unavailable' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const subject = userLang === 'ar'
-      ? 'تم تفعيل تذكير الزكاة السنوي - SmartCalcTools'
-      : 'Annual Zakat Reminder Activated - SmartCalcTools';
-    
+      ? 'أكّد اشتراكك في تذكير الزكاة - SmartCalcTools'
+      : 'Confirm your Zakat reminder subscription - SmartCalcTools';
+
     const html = userLang === 'ar' ? `
       <div style="font-family: sans-serif; direction: rtl; text-align: right; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px; line-height: 1.6;">
         <div style="text-align: center; margin-bottom: 20px;">
@@ -44,20 +87,15 @@ export async function POST(request) {
           <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">حسابات ذكية.. قيم إسلامية</p>
         </div>
         <p>مرحباً،</p>
-        <p>تم تفعيل تذكير الزكاة السنوي بنجاح لبريدك الإلكتروني: <strong>${email}</strong>.</p>
-        <p>سنقوم بإرسال رسالة تذكيرية لك <strong>قبل موعد زكاتك السنوي (${month === 'ramadan' ? 'رمضان' : 'الموعد المحدد'}) بـ 30 يوماً</strong> لتقوم بحساب وإخراج فريضتك بسهولة ودقة.</p>
-        
-        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 15px; margin: 20px 0;">
-          <h4 style="color: #15803d; margin: 0 0 8px 0;">🕊️ دفع الزكاة مباشرة</h4>
-          <p style="margin: 0; font-size: 0.9rem; color: #166534;">
-            تذكر أنه يمكنك دائماً دفع زكاتك مباشرة وبشكل آمن 100% ودون أي عمولات عبر القنوات الرسمية والحكومية المعتمدة مثل <strong>منصة إحسان الخيرية</strong>.
-          </p>
+        <p>لقد طلب أحدهم تفعيل تذكير الزكاة السنوي لهذا البريد. لتأكيد اشتراكك، يرجى الضغط على الزر أدناه:</p>
+        <div style="text-align: center; margin: 25px 0;">
+          <a href="${confirmUrl}" style="background: #10b981; color: white; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">تأكيد الاشتراك ✅</a>
         </div>
-
+        <p style="font-size: 0.85rem; color: #666;">إذا لم تطلب هذا الاشتراك، فتجاهل هذه الرسالة ولن يصلك أي تذكير.</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
         <p style="font-size: 0.8rem; color: #999; text-align: center; margin: 0;">
-          هذه رسالة تأكيدية تلقائية، يرجى عدم الرد عليها.<br>
-          SmartCalcTools.xyz - أدوات مجانية وآمنة 100% تعمل بالكامل داخل متصفحك.
+          هذه رسالة تلقائية، يرجى عدم الرد عليها.<br>
+          SmartCalcTools.xyz - أدوات مجانية وآمنة 100%.
         </p>
       </div>
     ` : `
@@ -67,20 +105,15 @@ export async function POST(request) {
           <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">Smart Calculations, Islamic Values</p>
         </div>
         <p>Hello,</p>
-        <p>Your annual Zakat reminder has been successfully activated for: <strong>${email}</strong>.</p>
-        <p>We will send you an automated email reminder <strong>30 days before your selected date (${month === 'ramadan' ? 'Ramadan' : 'specified date'})</strong> to help you calculate and fulfill your obligation easily and accurately.</p>
-        
-        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 15px; margin: 20px 0;">
-          <h4 style="color: #15803d; margin: 0 0 8px 0;">🕊️ Direct Zakat Payment</h4>
-          <p style="margin: 0; font-size: 0.9rem; color: #166534;">
-            Remember that you can always pay your Zakat directly and 100% securely without any commissions via globally trusted humanitarian organizations like <strong>Islamic Relief</strong> or <strong>Zakat Foundation</strong>.
-          </p>
+        <p>Someone requested an annual Zakat reminder for this email address. To confirm your subscription, please click the button below:</p>
+        <div style="text-align: center; margin: 25px 0;">
+          <a href="${confirmUrl}" style="background: #10b981; color: white; padding: 12px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Confirm Subscription ✅</a>
         </div>
-
+        <p style="font-size: 0.85rem; color: #666;">If you did not request this, simply ignore this email and you will not receive any reminders.</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
         <p style="font-size: 0.8rem; color: #999; text-align: center; margin: 0;">
-          This is an automated confirmation email, please do not reply.<br>
-          SmartCalcTools.xyz - 100% secure, offline client-side tools for your privacy.
+          This is an automated email, please do not reply.<br>
+          SmartCalcTools.xyz - 100% free and secure tools.
         </p>
       </div>
     `;
@@ -89,54 +122,20 @@ export async function POST(request) {
       await resend.emails.send({
         from: 'SmartCalcTools <no-reply@smartcalctools.xyz>',
         to: email,
-        subject: subject,
-        html: html,
+        subject,
+        html,
       });
     } catch (emailErr) {
       console.warn('[!] Failed to send confirmation email:', emailErr.message);
     }
 
-    // 2. Try to save to Vercel Postgres if env variable exists
-    if (process.env.POSTGRES_URL) {
-      const { sql } = await import('@vercel/postgres');
-      
-      // Auto-create table if not exists
-      await sql`
-        CREATE TABLE IF NOT EXISTS zakat_reminders (
-          id SERIAL PRIMARY KEY,
-          email VARCHAR(255) UNIQUE NOT NULL,
-          month VARCHAR(50) NOT NULL,
-          lang VARCHAR(10) DEFAULT 'ar',
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-      `;
-
-      // Auto-upgrade table to add lang column if it was created previously
-      try {
-        await sql`ALTER TABLE zakat_reminders ADD COLUMN IF NOT EXISTS lang VARCHAR(10) DEFAULT 'ar';`;
-      } catch (err) {
-        console.warn('[!] Failed to alter table (might be already altered):', err.message);
-      }
-      
-      // Insert or Update reminder including language
-      await sql`
-        INSERT INTO zakat_reminders (email, month, lang)
-        VALUES (${email}, ${month}, ${userLang})
-        ON CONFLICT (email) 
-        DO UPDATE SET month = ${month}, lang = ${userLang};
-      `;
-      console.log(`[+] Saved reminder for ${email} (${userLang}) to Postgres.`);
-    } else {
-      console.warn('[!] POSTGRES_URL not configured. Running in standalone email mode.');
-    }
-
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ success: true, pending: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error('Reminder API Error:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: 'Internal error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

@@ -1,4 +1,7 @@
 import { Resend } from 'resend';
+import { signToken } from '@/lib/token';
+
+const BASE_URL = 'https://smartcalctools.xyz';
 
 export async function GET(request) {
   // Fail-closed: reject unless CRON_SECRET is configured AND the header matches
@@ -50,10 +53,10 @@ export async function GET(request) {
 
     const { sql } = await import('@vercel/postgres');
     
-    // Query subscribers due for this target month, including language preference
+    // Only email CONFIRMED subscribers (double opt-in) due for this month.
     const { rows } = await sql`
-      SELECT email, lang FROM zakat_reminders 
-      WHERE month = ${targetMonthOption};
+      SELECT email, lang FROM zakat_reminders
+      WHERE month = ${targetMonthOption} AND confirmed = true;
     `;
 
     if (rows.length === 0) {
@@ -76,7 +79,16 @@ export async function GET(request) {
     for (const subscriber of rows) {
       const email = subscriber.email;
       const userLang = subscriber.lang === 'en' ? 'en' : 'ar';
-      
+
+      // Per-subscriber signed unsubscribe link (opens a confirm page, no auto-delete).
+      let unsubUrl = `${BASE_URL}/${userLang}/unsubscribe`;
+      try {
+        const unsubToken = await signToken({ email, act: 'unsub' }, '365d');
+        unsubUrl = `${BASE_URL}/${userLang}/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
+      } catch (e) {
+        // If signing is unavailable, fall back to the bare page (still informative).
+      }
+
       const subject = userLang === 'ar'
         ? (targetMonthOption === 'ramadan' 
             ? '🌙 تذكير: اقتراب شهر رمضان المبارك وموعد زكاتك السنوية'
@@ -111,7 +123,7 @@ export async function GET(request) {
           <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
           <p style="font-size: 0.8rem; color: #999; text-align: center; margin: 0;">
             لقد تلقيت هذا البريد لأنك اشتركت في خدمة تذكير الزكاة من موقع SmartCalcTools.<br>
-            لإلغاء الاشتراك، يرجى تجاهل هذا الإيميل أو التواصل معنا.
+            <a href="${unsubUrl}" style="color: #999; text-decoration: underline;">إلغاء الاشتراك</a>
           </p>
         </div>
       ` : `
@@ -141,7 +153,7 @@ export async function GET(request) {
           <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
           <p style="font-size: 0.8rem; color: #999; text-align: center; margin: 0;">
             You received this email because you subscribed to the Zakat reminder service on SmartCalcTools.<br>
-            To unsubscribe, please contact us or disregard this message.
+            <a href="${unsubUrl}" style="color: #999; text-decoration: underline;">Unsubscribe</a>
           </p>
         </div>
       `;
