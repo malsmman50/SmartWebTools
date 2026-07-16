@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^generate-(\d+)-character-secure-password$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/password-generator/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `قم بتوليد كلمة مرور عشوائية وقوية جداً تتكون من ${p1} حرفاً لحماية حساباتك.` : `Generate a highly secure, random, and strong password of ${p1} characters instantly.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/password-generator/`,
       languages: {

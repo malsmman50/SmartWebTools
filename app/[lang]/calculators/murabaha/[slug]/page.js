@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^murabaha-for-(\d+)-usd-over-(\d+)-years$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب أقساط وأرباح تمويل المرابحة الإسلامي لمبلغ ${p1} دولار على فترة ${p2} سنوات بدقة.` : `Calculate Islamic Murabaha financing for ${p1} USD over ${p2} years.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/murabaha/`,
       languages: {

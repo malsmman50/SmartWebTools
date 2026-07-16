@@ -11,8 +11,14 @@ export async function POST(request) {
       });
     }
 
-    // Use the Resend API Key provided by user (or fallback to the one we tested with)
-    const resend = new Resend(process.env.RESEND_API_KEY || 're_Scy4mLRJ_KGgB6kGn3ELr2C82jdn1kb6B');
+    // Fail-closed: never operate without a configured API key (no hardcoded fallback)
+    if (!process.env.RESEND_API_KEY) {
+      return new Response(JSON.stringify({ error: 'Service temporarily unavailable' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // The email where you want to receive contact form submissions
     // If ADMIN_EMAIL is not set, it will send to support@smartcalctools.xyz

@@ -29,6 +29,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^zakat-on-(\d+)-grams-of-(24k|22k|21k|18k)-gold$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/`,
       languages: {
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }) {
     : `Find out exactly how much Zakat you owe on ${grams} grams of ${karat} gold using today's live market prices.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/zakat/`,
       languages: {

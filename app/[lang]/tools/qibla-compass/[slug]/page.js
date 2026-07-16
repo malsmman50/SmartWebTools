@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^qibla-direction-from-([a-z-]+)$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/qibla-compass/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `حدد اتجاه القبلة للصلاة بدقة عالية من مدينة ${p1.replace(/-/g, " ")} باستخدام البوصلة الذكية.` : `Find the exact Qibla direction for prayer from ${p1.replace(/-/g, " ")} using our smart compass.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/qibla-compass/`,
       languages: {

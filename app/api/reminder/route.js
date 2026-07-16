@@ -13,8 +13,14 @@ export async function POST(request) {
 
     const userLang = lang === 'en' ? 'en' : 'ar';
 
-    // Use the Resend API Key provided by user
-    const resend = new Resend(process.env.RESEND_API_KEY || 're_Scy4mLRJ_KGgB6kGn3ELr2C82jdn1kb6B');
+    // Fail-closed: never operate without a configured API key (no hardcoded fallback)
+    if (!process.env.RESEND_API_KEY) {
+      return new Response(JSON.stringify({ error: 'Service temporarily unavailable' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // 1. Send dynamic confirmation email immediately to verify subscription based on language
     const subject = userLang === 'ar'

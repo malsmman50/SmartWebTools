@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^convert-([a-z]+)-to-([a-z]+)$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `أداة مجانية وسريعة لتحويل البيانات من صيغة ${p1.toUpperCase()} إلى ${p2.toUpperCase()} بأمان تام داخل المتصفح.` : `Free online tool to instantly convert ${p1.toUpperCase()} format to ${p2.toUpperCase()} securely in your browser.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/data-converter/`,
       languages: {

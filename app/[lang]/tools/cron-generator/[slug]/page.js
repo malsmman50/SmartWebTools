@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^([a-z0-9-]+)$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احصل على تعبير Cron الدقيق لجدولة المهام: ${p1.replace(/-/g, " ")}.` : `Generate the exact Cron expression to schedule tasks for: ${p1.replace(/-/g, " ")}.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/cron-generator/`,
       languages: {

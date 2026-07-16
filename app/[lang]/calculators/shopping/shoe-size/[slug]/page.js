@@ -39,8 +39,9 @@ export async function generateMetadata({ params }) {
   const genderStr = pageData.gender === "men" ? (isAr ? "للرجال" : "Men's") : (isAr ? "للنساء" : "Women's");
 
   return {
-    title: isAr 
-      ? `تحويل مقاس ${pageData.fromSize} ${pageData.from} إلى ${pageData.to} ${genderStr} | حاسبة الأحذية` 
+    robots: { index: false, follow: true },
+    title: isAr
+      ? `تحويل مقاس ${pageData.fromSize} ${pageData.from} إلى ${pageData.to} ${genderStr} | حاسبة الأحذية`
       : `Convert Size ${pageData.fromSize} ${pageData.from} to ${pageData.to} ${genderStr} | Shoe Size`,
     description: isAr 
       ? `تعرف على ما يعادله مقاس ${pageData.fromSize} بنظام ${pageData.from} في نظام ${pageData.to} ${genderStr}. تحويل فوري ودقيق لمقاسات الأحذية.`

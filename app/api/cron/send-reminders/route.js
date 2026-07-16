@@ -1,9 +1,9 @@
 import { Resend } from 'resend';
 
 export async function GET(request) {
-  // Protect route with a cron token or authorization header
+  // Fail-closed: reject unless CRON_SECRET is configured AND the header matches
   const authHeader = request.headers.get('authorization');
-  if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!process.env.CRON_SECRET || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -63,8 +63,14 @@ export async function GET(request) {
       });
     }
 
-    // Use user Resend API Key
-    const resend = new Resend(process.env.RESEND_API_KEY || 're_Scy4mLRJ_KGgB6kGn3ELr2C82jdn1kb6B');
+    // Fail-closed: never operate without a configured API key (no hardcoded fallback)
+    if (!process.env.RESEND_API_KEY) {
+      return new Response(JSON.stringify({ error: 'Service temporarily unavailable' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    const resend = new Resend(process.env.RESEND_API_KEY);
     let successCount = 0;
 
     for (const subscriber of rows) {

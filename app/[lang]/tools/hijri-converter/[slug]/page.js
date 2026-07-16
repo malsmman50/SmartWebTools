@@ -29,6 +29,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^convert-(\d+)-([a-z-]+)-(\d+)$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/`,
       languages: {
@@ -63,6 +64,7 @@ export async function generateMetadata({ params }) {
     : `Find out the exact Gregorian equivalent for ${day} ${mName} ${year} AH. Offline and highly accurate conversion.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/tools/hijri-converter/`,
       languages: {

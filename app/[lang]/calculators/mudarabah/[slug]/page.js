@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^mudarabah-profit-for-(\d+)-usd-at-(\d+)-percent$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/mudarabah/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب توزيع أرباح المضاربة الإسلامية لمبلغ ${p1} دولار بعائد متوقع ${p2}%.` : `Calculate Mudarabah profit sharing for a ${p1} USD capital with ${p2}% expected ROI.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/mudarabah/`,
       languages: {

@@ -29,6 +29,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^convert-(\d+)-([a-z]+)-to-([a-z]+)$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/`,
       languages: {
@@ -52,6 +53,7 @@ export async function generateMetadata({ params }) {
     : `Calculate exactly how much ${amount} ${fromUpper} is in ${toUpper} using today's live exchange rates.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/currency/`,
       languages: {

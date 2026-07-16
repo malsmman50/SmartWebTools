@@ -25,6 +25,7 @@ export async function generateMetadata({ params }) {
   const match = slug.match(/^roi-for-(\d+)-usd-with-(\d+)-usd-profit$/);
   if (!match) {
     return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/`,
       languages: {
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }) {
   const description = isAr ? `احسب النسبة المئوية للعائد على الاستثمار (ROI) لاستثمار ${p1} دولار بربح ${p2} دولار.` : `Calculate the Return on Investment (ROI) percentage for a ${p1} USD investment yielding ${p2} USD profit.`;
 
   return {
+    robots: { index: false, follow: true },
     alternates: {
       canonical: `https://smartcalctools.xyz/${lang}/calculators/roi/`,
       languages: {

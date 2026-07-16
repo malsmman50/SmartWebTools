@@ -49,7 +49,9 @@ export default function sitemap() {
     { path: '/compare/murabaha-vs-conventional-loan', changeFrequency: 'monthly', priority: 0.6 },
   ];
 
-  // Inject Curated PSEO (High Intent)
+  /*
+  DISABLED (AdSense recovery, 2026-07-16): shoe-size PSEO pages are now noindexed.
+  A sitemap must not list noindexed URLs. Re-evaluate after AdSense approval.
   try {
     const pseoPath = path.join(process.cwd(), "lib", "pseo-shoe-size.json");
     if (fs.existsSync(pseoPath)) {
@@ -61,6 +63,7 @@ export default function sitemap() {
   } catch(e) {
     console.error("Error loading shoe size PSEO config", e);
   }
+  */
 
   // Dynamically inject Programmatic SEO routes
   const pSeoArticles = getAllSeoArticles();
