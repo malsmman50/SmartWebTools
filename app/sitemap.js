@@ -81,13 +81,15 @@ export default function sitemap() {
     if (fs.existsSync(dataPath)) {
       const fileContent = fs.readFileSync(dataPath, "utf-8");
       const blogPosts = JSON.parse(fileContent);
-      blogPosts.forEach(post => {
-        routes.push({
-          path: `/blog/${post.slug}`,
-          changeFrequency: 'weekly',
-          priority: 0.8
+      blogPosts
+        .filter(post => post.draft !== true) // never list unpublished drafts
+        .forEach(post => {
+          routes.push({
+            path: `/blog/${post.slug}`,
+            changeFrequency: 'weekly',
+            priority: 0.8
+          });
         });
-      });
     }
   } catch (err) {
     console.error("Error loading blog data for sitemap:", err);

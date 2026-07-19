@@ -34,6 +34,8 @@ export default async function BlogIndexPage({ params, searchParams }) {
   try {
     const fileContent = fs.readFileSync(dataPath, "utf-8");
     posts = JSON.parse(fileContent);
+    // Hide drafts: only human-reviewed (draft !== true) articles are public.
+    posts = posts.filter((p) => p.draft !== true);
     // Sort by date descending
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
   } catch (error) {

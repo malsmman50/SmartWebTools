@@ -21,12 +21,13 @@ const getBlogData = cache(() => {
 export async function generateStaticParams() {
   const posts = getBlogData();
   const params = [];
-  
+
   for (const post of posts) {
+    if (post.draft === true) continue; // don't pre-render drafts
     params.push({ lang: "en", slug: post.slug });
     params.push({ lang: "ar", slug: post.slug });
   }
-  
+
   return params;
 }
 
