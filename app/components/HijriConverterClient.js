@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const hijriMonthNamesEn = [
   "Muharram", "Safar", "Rabi' I", "Rabi' II", 
@@ -45,30 +45,30 @@ const exactHijriToGregorian = (targetY, targetM, targetD) => {
   const dayDiff = targetD - 1;
   
   const totalDaysOffset = (yearDiff * 354.36) + (monthDiff * 29.53) + dayDiff;
-  let estimatedDate = new Date(anchorGregorian.getTime() + (totalDaysOffset * 86400000));
-  
-  let closestMatch = estimatedDate;
-  let minDiff = 999999;
+  const estimatedDate = new Date(anchorGregorian.getTime() + (totalDaysOffset * 86400000));
 
   for (let i = -20; i <= 20; i++) {
     const testDate = new Date(estimatedDate.getTime() + (i * 86400000));
     const testHijri = getExactHijriDate(testDate);
-    
+
     if (testHijri.year === targetY && testHijri.month === targetM && testHijri.day === targetD) {
       return testDate;
     }
-    
-    const diff = Math.abs(testHijri.year - targetY) * 354 + 
-                 Math.abs(testHijri.month - targetM) * 30 + 
-                 Math.abs(testHijri.day - targetD);
-                 
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestMatch = testDate;
-    }
   }
-  
-  return closestMatch;
+
+  // The requested Hijri date does not exist in the Umm al-Qura calendar
+  // (e.g. day 30 of a 29-day month). Never silently return a nearby date.
+  return null;
+};
+
+// Actual length (29 or 30) of a Hijri month: convert day 1 of the next month
+// and step one day back — that day's Hijri day number is the month length.
+const getHijriMonthLength = (y, m) => {
+  const nextM = m === 12 ? 1 : m + 1;
+  const nextY = m === 12 ? y + 1 : y;
+  const firstOfNext = exactHijriToGregorian(nextY, nextM, 1);
+  if (!firstOfNext) return 30;
+  return getExactHijriDate(new Date(firstOfNext.getTime() - 86400000)).day;
 };
 
 export default function HijriConverterClient({ lang, dict, initialValues, ...props }) {
@@ -87,6 +87,27 @@ export default function HijriConverterClient({ lang, dict, initialValues, ...pro
   
   const [result, setResult] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
+
+  // Length of the currently selected Hijri month (29 or 30) so the day
+  // dropdown never offers a non-existent day 30.
+  const hijriMonthLength = useMemo(() => {
+    const y = parseInt(hYear, 10);
+    const m = parseInt(hMonth, 10);
+    if (isNaN(y) || isNaN(m) || y < 1300 || y > 1600) return 30;
+    try {
+      return getHijriMonthLength(y, m);
+    } catch {
+      return 30;
+    }
+  }, [hYear, hMonth]);
+
+  // If the month/year change shrinks the month to 29 days while day 30 is
+  // selected, clamp the selection.
+  useEffect(() => {
+    if (parseInt(hDay, 10) > hijriMonthLength) {
+      setHDay(String(hijriMonthLength));
+    }
+  }, [hijriMonthLength, hDay]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -129,9 +150,18 @@ export default function HijriConverterClient({ lang, dict, initialValues, ...pro
         const d = parseInt(hDay, 10);
         
         if (isNaN(y) || y < 1) throw new Error(isAr ? "السنة الهجرية غير صالحة" : "Invalid Hijri year");
-        
+
         const gDate = exactHijriToGregorian(y, m, d);
-        
+
+        if (!gDate) {
+          const monthName = hijriMonthNames[m - 1] || m;
+          throw new Error(
+            isAr
+              ? `التاريخ ${d} ${monthName} ${y} غير موجود في تقويم أم القرى — هذا الشهر ${getHijriMonthLength(y, m)} يوماً في تلك السنة.`
+              : `The date ${monthName} ${d}, ${y} does not exist in the Umm al-Qura calendar — that month has ${getHijriMonthLength(y, m)} days in that year.`
+          );
+        }
+
         setResult({
           primary: `${gDate.getDate()} ${gregorianMonthNames[gDate.getMonth()]} ${gDate.getFullYear()} ${isAr ? "م" : "CE"}`,
           secondary: `${isAr ? "صيغة ISO" : "ISO Format"}: ${gDate.getFullYear()}-${String(gDate.getMonth() + 1).padStart(2, "0")}-${String(gDate.getDate()).padStart(2, "0")}`,
@@ -202,7 +232,7 @@ export default function HijriConverterClient({ lang, dict, initialValues, ...pro
                   className="input"
                   style={{ flex: 1, fontSize: "1.1rem" }}
                 >
-                  {Array.from({length: 30}, (_, i) => i + 1).map(d => (
+                  {Array.from({length: hijriMonthLength}, (_, i) => i + 1).map(d => (
                     <option key={d} value={d}>{isAr ? `يوم ${d}` : `Day ${d}`}</option>
                   ))}
                 </select>

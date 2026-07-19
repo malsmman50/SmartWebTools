@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import { NumericFormat } from "react-number-format";
 import Link from "next/link";
+import { FALLBACK_GOLD_PRICE_PER_GRAM, NISAB_GOLD_GRAMS } from "../../lib/goldPrice";
 
 export default function ZakatCalculatorClient({ lang, dict, initialValues, ...props }) {
   
   const t = dict.zakat;
 
   const [cash, setCash] = useState(0);
-  const [gold, setGold] = useState(initialValues?.gold ? parseFloat(initialValues.gold) * 80 : 0); // Approx: gold grams * $80/g
+  const [gold, setGold] = useState(initialValues?.gold ? parseFloat(initialValues.gold) * FALLBACK_GOLD_PRICE_PER_GRAM : 0); // Approx: gold grams * fallback $/g
   const [silver, setSilver] = useState(0);
   const [business, setBusiness] = useState(0);
   const [debts, setDebts] = useState(0);
@@ -75,7 +76,7 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
 
         const goldPricePerOz = data.pricePerOunce;
         const goldPricePerGram = goldPricePerOz / 31.1035;
-        const nisabGold = goldPricePerGram * 85; 
+        const nisabGold = goldPricePerGram * NISAB_GOLD_GRAMS;
         setNisab(Math.round(nisabGold));
         setApiStatus("success");
       } catch (err) {

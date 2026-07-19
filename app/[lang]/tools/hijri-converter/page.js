@@ -70,6 +70,10 @@ export default async function HijriConverterPage({ params }) {
     {
       question: "هل هذا المحول دقيق ومطابق لتقويم السعودية؟",
       answer: "نعم، نستخدم خوارزمية أم القرى الفلكية المعتمدة رسمياً في المملكة العربية السعودية للحصول على أدق نتيجة ممكنة."
+    },
+    {
+      question: "لماذا تظهر لي رسالة أن التاريخ الهجري الذي أدخلته غير موجود؟",
+      answer: "الشهر الهجري إما 29 أو 30 يوماً حسب السنة، فتاريخ مثل 30 رمضان قد يكون موجوداً في سنة وغير موجود في أخرى. عندما تختار يوماً لا وجود له في تقويم أم القرى لتلك السنة، يخبرك المحول صراحة بذلك ويبين لك طول الشهر الفعلي بدلاً من إعطائك أقرب تاريخ بشكل صامت قد يسبب خطأً في وثائقك."
     }
   ] : [
     {
@@ -95,6 +99,10 @@ export default async function HijriConverterPage({ params }) {
     {
       question: "Is this converter accurate and aligned with the Saudi calendar?",
       answer: "Yes, it uses the official Umm al-Qura astronomical algorithm which is the standard utilized by the government of Saudi Arabia."
+    },
+    {
+      question: "Why am I told that the Hijri date I entered does not exist?",
+      answer: "A Hijri month has either 29 or 30 days depending on the year, so a date like 30 Ramadan may exist in one year but not another. When you pick a day that does not exist in the Umm al-Qura calendar for that year, the converter tells you explicitly and shows the month's actual length, instead of silently returning a nearby date that could corrupt your documents."
     }
   ];
 
@@ -143,6 +151,11 @@ export default async function HijriConverterPage({ params }) {
               التقويم الهجري يعتمد على دورة القمر، مما يجعل الأطوال الشهرية تتراوح بين 29 و 30 يوماً. خوارزمية "أم القرى" تقوم بحساب ولادة الهلال فلكياً فوق خط طول مكة المكرمة، مما يعطي دقة رياضية وموحدة تتفوق على التقويم الهجري الجدولي (الاصطلاحي) البسيط.
             </p>
 
+            <h3 style={{ marginTop: "24px" }}>التواريخ غير الموجودة: لماذا يرفض المحول 30 رمضان أحياناً؟</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              على عكس الشهر الميلادي الثابت الطول، لا يمكن معرفة طول الشهر الهجري (29 أم 30 يوماً) إلا من التقويم نفسه؛ فرمضان مثلاً كان 30 يوماً في بعض السنوات و29 في أخرى. لذلك يتحقق محولنا من وجود التاريخ فعلاً في تقويم أم القرى قبل التحويل: قائمة الأيام تعرض العدد الصحيح لأيام الشهر الذي اخترته تلقائياً، وإن وصلك رابط بتاريخ غير موجود (مثل 30 من شهر طوله 29) فسترى رسالة واضحة تبين طول الشهر الفعلي بدلاً من تحويل صامت لتاريخ مجاور — فالانزياح بيوم واحد قد يعني خطأً في تاريخ ميلاد بوثيقة رسمية أو في حساب حول الزكاة. نطاق التحويل المدعوم من سنة 1350هـ إلى 1500هـ (نحو 1931–2077م) وهو نطاق صلاحية بيانات أم القرى الموثوقة.
+            </p>
+
             <h3 style={{ marginTop: "24px" }}>الأسئلة الشائعة حول تحويل التاريخ الهجري والميلادي</h3>
             {faqs.map((faq, index) => (
               <div key={index} style={{ marginBottom: "16px" }}>
@@ -175,6 +188,11 @@ export default async function HijriConverterPage({ params }) {
             <h3 style={{ marginTop: "24px" }}>Why Umm al-Qura?</h3>
             <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
               The Hijri calendar is lunar, meaning months are 29 or 30 days based on the moon's sighting. The Umm al-Qura algorithm uses complex astronomical calculations based on the coordinates of Mecca to predict the new moon, providing a standardized and mathematically precise calendar compared to simple tabular Hijri approximations.
+            </p>
+
+            <h3 style={{ marginTop: "24px" }}>Non-Existent Dates: Why the Converter Sometimes Rejects 30 Ramadan</h3>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px" }}>
+              Unlike fixed-length Gregorian months, a Hijri month's length (29 or 30 days) can only be known from the calendar itself — Ramadan, for instance, has 30 days in some years and 29 in others. Our converter therefore validates that a date actually exists in the Umm al-Qura calendar before converting: the day dropdown automatically offers the correct number of days for the month you selected, and if a link brings you a non-existent date (such as day 30 of a 29-day month), you get a clear message stating the month's real length instead of a silent conversion to a neighboring date — a one-day shift can mean a wrong birth date on an official document or a misplaced Zakat anniversary. The supported conversion range is 1350–1500 AH (roughly 1931–2077 CE), the validity window of reliable Umm al-Qura data.
             </p>
 
             <h3 style={{ marginTop: "24px" }}>Frequently Asked Questions</h3>

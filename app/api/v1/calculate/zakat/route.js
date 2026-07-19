@@ -1,3 +1,5 @@
+import { FALLBACK_GOLD_PRICE_PER_GRAM, NISAB_GOLD_GRAMS } from "../../../../../lib/goldPrice";
+
 export async function POST(request) {
   try {
     const body = await request.json().catch(() => ({}));
@@ -8,13 +10,14 @@ export async function POST(request) {
     const business = Number(body.business) || 0;
     const debts = Number(body.debts) || 0;
     
-    // Optional gold price input, defaults to $75/gram if not provided
-    const goldPrice = Number(body.goldPricePerGram) || 75;
+    // Optional gold price input; falls back to the site-wide default when omitted.
+    // Callers should pass the current market price for accurate results.
+    const goldPrice = Number(body.goldPricePerGram) || FALLBACK_GOLD_PRICE_PER_GRAM;
     
     const totalWealth = cash + gold + silver + business;
     const netAssets = totalWealth - debts;
     
-    const nisab = goldPrice * 85;
+    const nisab = goldPrice * NISAB_GOLD_GRAMS;
     const isEligible = netAssets >= nisab;
     const zakatDue = isEligible ? netAssets * 0.025 : 0;
     
