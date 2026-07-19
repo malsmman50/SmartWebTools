@@ -13,6 +13,8 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
   const [wivesCount, setWivesCount] = useState(1);
   const [sonsCount, setSonsCount] = useState(0);
   const [daughtersCount, setDaughtersCount] = useState(0);
+  const [sonsOfSons, setSonsOfSons] = useState(0);
+  const [daughtersOfSons, setDaughtersOfSons] = useState(0);
   const [fatherAlive, setFatherAlive] = useState(false);
   const [motherAlive, setMotherAlive] = useState(false);
 
@@ -27,6 +29,12 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
   const [paternalBrothers, setPaternalBrothers] = useState(0);
   const [paternalSisters, setPaternalSisters] = useState(0);
   const [maternalSiblings, setMaternalSiblings] = useState(0);
+
+  // Extended (Nephews & Uncles)
+  const [fullNephews, setFullNephews] = useState(0);
+  const [paternalNephews, setPaternalNephews] = useState(0);
+  const [fullUncles, setFullUncles] = useState(0);
+  const [paternalUncles, setPaternalUncles] = useState(0);
 
   const [results, setResults] = useState(null);
 
@@ -52,7 +60,13 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
       fullSisters,
       paternalBrothers,
       paternalSisters,
-      maternalSiblings
+      maternalSiblings,
+      sonsOfSons,
+      daughtersOfSons,
+      fullNephews,
+      paternalNephews,
+      fullUncles,
+      paternalUncles
     };
 
     const res = calculateFaraid(input);
@@ -133,6 +147,8 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
           
           {renderInput("sonsCount", t.sons, sonsCount, setSonsCount)}
           {renderInput("daughtersCount", t.daughters, daughtersCount, setDaughtersCount)}
+          {renderInput("sonsOfSons", lang === "ar" ? "أبناء الابن (ذكور)" : "Son's Sons", sonsOfSons, setSonsOfSons)}
+          {renderInput("daughtersOfSons", lang === "ar" ? "بنات الابن" : "Son's Daughters", daughtersOfSons, setDaughtersOfSons)}
 
           <div style={{ gridColumn: "1 / -1", marginTop: "16px" }}>
             <h3 style={{ borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "16px" }}>
@@ -157,6 +173,17 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
           {renderInput("paternalBrothers", lang === "ar" ? "إخوة لأب (ذكور)" : "Paternal Brothers", paternalBrothers, setPaternalBrothers)}
           {renderInput("paternalSisters", lang === "ar" ? "أخوات لأب" : "Paternal Sisters", paternalSisters, setPaternalSisters)}
           {renderInput("maternalSiblings", lang === "ar" ? "إخوة لأم (ذكور وإناث)" : "Maternal Siblings (Both)", maternalSiblings, setMaternalSiblings)}
+
+          <div style={{ gridColumn: "1 / -1", marginTop: "16px" }}>
+            <h3 style={{ borderBottom: "1px solid var(--border)", paddingBottom: "8px", marginBottom: "16px" }}>
+              {lang === "ar" ? "أبناء الإخوة والأعمام" : "Nephews & Uncles"}
+            </h3>
+          </div>
+
+          {renderInput("fullNephews", lang === "ar" ? "أبناء الإخوة الأشقاء" : "Full Brothers' Sons", fullNephews, setFullNephews)}
+          {renderInput("paternalNephews", lang === "ar" ? "أبناء الإخوة لأب" : "Paternal Brothers' Sons", paternalNephews, setPaternalNephews)}
+          {renderInput("fullUncles", lang === "ar" ? "الأعمام الأشقاء" : "Full Paternal Uncles", fullUncles, setFullUncles)}
+          {renderInput("paternalUncles", lang === "ar" ? "الأعمام لأب" : "Paternal Half-Uncles", paternalUncles, setPaternalUncles)}
         </div>
 
         <button 
@@ -195,7 +222,7 @@ export default function InheritanceCalculatorClient({ lang, dict, ...props }) {
               
               {results.unallocated > 0 && (
                 <div style={{ padding: "16px", background: "rgba(234, 179, 8, 0.1)", color: "#ca8a04", borderRadius: "8px", border: "1px dashed #ca8a04", marginTop: "8px" }}>
-                  <strong>{lang === "ar" ? "متبقي من التركة:" : "Remaining Estate:"}</strong> {fmt(results.unallocated)} {lang === "ar" ? "(يرد على أصحاب الفروض أو ذوي الأرحام أو لبيت المال)." : "(Subject to Radd or goes to Bayt al-Mal)."}
+                  <strong>{lang === "ar" ? "متبقي من التركة:" : "Remaining Estate:"}</strong> {fmt(results.unallocated)} {lang === "ar" ? "(لا وارث مستحق له — يذهب لذوي الأرحام إن وُجدوا أو لبيت المال. الردّ على أصحاب الفروض مطبق تلقائياً في النتائج أعلاه)." : "(No eligible heir remains — it passes to distant kindred if any, otherwise to Bayt al-Mal. Radd to fixed-share heirs is already applied in the results above)."}
                 </div>
               )}
             </div>

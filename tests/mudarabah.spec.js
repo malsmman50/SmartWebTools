@@ -10,10 +10,6 @@ test.describe('Mudarabah Calculator', () => {
     // Investor share 60% = 36000 profit
     // Manager share 40% = 24000 profit
     
-    await page.fill('input[type="text"]:has-prefix("$")', '50000'); // First numeric format might not have ID, let's use exact selectors or fill text inputs with values
-    
-    // Playwright locator for inputs using labels is best, but since labels and inputs are separate, let's find input by surrounding text.
-    // Actually, react-number-format uses input type="text"
     const inputs = page.locator('.input[type="text"]');
     
     await inputs.nth(0).fill('50,000'); // Capital
@@ -23,11 +19,12 @@ test.describe('Mudarabah Calculator', () => {
     // Set slider to 60
     await page.fill('input[type="range"]', '60');
 
-    // Wait for calculations
+    // Wait for calculations. The final-capital figure lives in a .card
+    // without the result-value class, so target its card by text.
     const netResult = page.locator('.result-value').nth(0);
     const investorProfit = page.locator('.result-value').nth(1);
     const managerProfit = page.locator('.result-value').nth(2);
-    const finalCapital = page.locator('.result-value').nth(3);
+    const finalCapital = page.locator('.card', { hasText: 'Final Capital' }).last();
 
     await expect(netResult).toContainText('$60,000');
     await expect(investorProfit).toContainText('$36,000');
@@ -46,7 +43,7 @@ test.describe('Mudarabah Calculator', () => {
     await inputs.nth(2).fill('90,000'); // Expenses
     
     const netResult = page.locator('.result-value').nth(0);
-    const finalCapital = page.locator('.result-value').nth(3);
+    const finalCapital = page.locator('.card', { hasText: 'Final Capital' }).last();
 
     await expect(netResult).toContainText('$80,000'); // -80,000 is shown as -$80,000 or -80,000
     await expect(finalCapital).toContainText('$0');

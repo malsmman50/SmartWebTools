@@ -9,10 +9,11 @@ test.describe('JSON Formatter', () => {
     const rawJson = '{"hello":"world","numbers":[1,2,3]}';
     const formattedJson = '{\n  "hello": "world",\n  "numbers": [\n    1,\n    2,\n    3\n  ]\n}';
     
-    await page.fill('textarea', rawJson);
+    // Two textareas: input on the left, formatted output on the right
+    await page.locator('textarea').nth(0).fill(rawJson);
     await page.click('button:has-text("Format")');
-    
-    const editorValue = await page.inputValue('textarea');
+
+    const editorValue = await page.locator('textarea').nth(1).inputValue();
     expect(editorValue).toBe(formattedJson);
   });
 

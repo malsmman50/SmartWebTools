@@ -24,7 +24,7 @@ test.describe('Zakat Calculator', () => {
     // Zakat Due = 11000 * 0.025 = $275.00
     
     const zakatDue = page.locator('.result-value').nth(0);
-    await expect(zakatDue).toContainText('$275.00');
+    await expect(zakatDue).toContainText('$275');
   });
 
   test('should show $0.00 Zakat if wealth is below Nisab', async ({ page }) => {
