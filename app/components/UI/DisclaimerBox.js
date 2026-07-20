@@ -15,23 +15,33 @@ export default function DisclaimerBox({ type, lang }) {
     religious: {
       ar: "تنبيه شرعي: تم تصميم هذه الحاسبة لتقديم تقديرات عامة مبنية على الفتاوى الشائعة. نظراً لاختلاف المذاهب الفقهية والتفاصيل الفردية، ننصح دائماً باستشارة أهل العلم الموثوقين لحالتك الخاصة.",
       en: "Religious Disclaimer: This calculator is designed to provide general estimates based on common fatwas. Given the differences in Islamic jurisprudence schools and individual circumstances, we strongly advise consulting a qualified scholar for your specific situation."
+    },
+    calendar: {
+      ar: "ملاحظة حول التحويل: يعتمد هذا المحول على نظام أم القرى الحسابي الرسمي للتقويم الهجري. الرؤية الفعلية للهلال قد تختلف يوماً واحداً بين الدول والمناسبات (مثل بداية رمضان أو عيد الفطر) بحسب إعلان الجهات الرسمية المحلية.",
+      en: "Note on this conversion: This converter uses the official Umm al-Qura astronomical calendar system. Actual moon-sighting announcements may vary by one day between countries for events like the start of Ramadan or Eid, depending on local official authorities."
     }
   };
 
   const currentDisclaimer = disclaimers[type] || disclaimers.financial;
+  const isNote = type === 'calendar';
+  const icon = isNote ? 'ℹ️' : '⚠️';
+  const label = isNote
+    ? (isAr ? "ملاحظة" : "Note")
+    : (isAr ? "إخلاء مسؤولية" : "Disclaimer");
+  const accentColor = isNote ? '#0d6efd' : '#ffc107';
 
   return (
     <div style={{
       marginTop: '24px',
       padding: '16px',
-      backgroundColor: 'rgba(255, 193, 7, 0.1)',
-      borderLeft: isAr ? 'none' : '4px solid #ffc107',
-      borderRight: isAr ? '4px solid #ffc107' : 'none',
+      backgroundColor: isNote ? 'rgba(13, 110, 253, 0.08)' : 'rgba(255, 193, 7, 0.1)',
+      borderLeft: isAr ? 'none' : `4px solid ${accentColor}`,
+      borderRight: isAr ? `4px solid ${accentColor}` : 'none',
       borderRadius: '4px',
       color: 'var(--text-color, #333)'
     }}>
-      <h4 style={{ margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px', color: '#b38600' }}>
-        <span>⚠️</span> {isAr ? "إخلاء مسؤولية" : "Disclaimer"}
+      <h4 style={{ margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '8px', color: isNote ? '#0d6efd' : '#b38600' }}>
+        <span>{icon}</span> {label}
       </h4>
       <p style={{ margin: '0', fontSize: '0.9rem', lineHeight: '1.6' }}>
         {isAr ? currentDisclaimer.ar : currentDisclaimer.en}

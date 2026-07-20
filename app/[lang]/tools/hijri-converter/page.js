@@ -122,7 +122,7 @@ export default async function HijriConverterPage({ params }) {
 
       <HijriConverterClient lang={lang} dict={dict} />
       
-      <DisclaimerBox type="religious" lang={lang} />
+      <DisclaimerBox type="calendar" lang={lang} />
 
       <article className="card guide-article blog-content">
         {isAr ? (
