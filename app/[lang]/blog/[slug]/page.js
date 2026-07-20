@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 import { sanitizeArticleHtml } from "@/lib/sanitize";
+import YouTubeFacade from "@/app/components/YouTubeFacade";
 
 import { cache } from "react";
 
@@ -107,6 +108,14 @@ export default async function BlogPostPage({ params }) {
         <div style={{ fontSize: "1rem", color: "var(--text-muted)", marginBottom: "40px", borderBottom: "1px solid var(--border)", paddingBottom: "20px" }}>
           {dateStr}
         </div>
+
+        {post.videoId && (
+          <YouTubeFacade
+            videoId={post.videoId}
+            title={isAr ? (post.videoTitleAr || title) : (post.videoTitleEn || title)}
+            lang={lang}
+          />
+        )}
 
         <div
           className="blog-content"

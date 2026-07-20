@@ -27,7 +27,7 @@ export default async function PrivacyPolicyPage({ params }) {
   return (
     <div className="container" style={{ padding: "40px 20px", maxWidth: "800px", lineHeight: "1.8" }}>
       <h1>{t.title}</h1>
-      <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>{isAr ? "آخر تحديث: 1 يوليو 2026" : "Last Updated: July 1, 2026"}</p>
+      <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>{isAr ? "آخر تحديث: 20 يوليو 2026" : "Last Updated: July 20, 2026"}</p>
 
       <section className="card" style={{ marginBottom: "32px" }}>
         <h2>{t.section1_title}</h2>
@@ -43,7 +43,13 @@ export default async function PrivacyPolicyPage({ params }) {
 
       <section className="card" style={{ marginBottom: "32px" }}>
         <h2>{t.section3_title}</h2>
-        <p>{t.section3_desc}</p>
+        <p>{t.section3_desc1}</p>
+        <p style={{ marginTop: "12px" }}>{t.section3_desc2}</p>
+      </section>
+
+      <section className="card" style={{ marginBottom: "32px" }}>
+        <h2>{t.section4_title}</h2>
+        <p>{t.section4_desc}</p>
       </section>
 
       <section className="card" style={{ marginBottom: "32px" }}>

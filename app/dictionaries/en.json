@@ -212,14 +212,17 @@
   "privacy": {
     "title": "Privacy Policy",
     "updated": "Last updated: June 2026",
-    "section1_title": "1. Zero Data Collection (100% Client-Side)",
-    "section1_desc1": "At SmartCalcTools, we take a radical approach to privacy: **we collect absolutely nothing**. All of our tools, including the Semantic PDF Search, JSON Formatter, and Password Generator, run 100% locally in your web browser.",
-    "section1_desc2": "When you upload a file or paste sensitive text, it never leaves your device. We do not have servers that process your data.",
-    "section2_title": "2. Third-Party Services",
-    "section2_desc1": "To keep the lights on, we use non-invasive analytics (like basic page views) and may display contextual advertisements. These third-party services (such as Google AdSense) may use cookies or similar technologies to serve ads based on your visit.",
-    "section2_desc2": "**Crucially:** These third parties have zero access to the data you process within our tools. The execution context of our calculators and AI models is strictly isolated.",
-    "section3_title": "3. Local Storage",
-    "section3_desc": "Some tools may use your browser's local storage to save your preferences (like Dark Mode settings). This data remains on your device and can be cleared at any time through your browser settings."
+    "section1_title": "1. Your Financial Numbers Never Leave Your Device",
+    "section1_desc1": "Every number you enter into our calculators — your Zakat wealth, gold weight, inheritance estate value, financing amounts, or any file you upload to our PDF, JSON, or password tools — is processed entirely inside your own browser. This data is never transmitted to, or stored on, any server we operate.",
+    "section1_desc2": "You can verify this yourself: our calculators keep working even if you disconnect your internet after the page loads. We built it this way deliberately, because we understand these are sensitive personal financial figures, and you should never have to worry when entering them.",
+    "section2_title": "2. Optional Services That Do Collect Limited Data",
+    "section2_desc1": "If you voluntarily subscribe to our free annual Zakat reminder, we store only your email address and your chosen reminder month in our database (Vercel/Neon Postgres), solely to send you one reminder per year. We use double opt-in — you must click a confirmation link in your inbox before any reminder is ever sent — and you can unsubscribe with a single click via the link included in every email.",
+    "section2_desc2": "If you use our Contact form, the name, email, and message you submit are sent to us via Resend (a transactional email service) purely so we can reply to you — you are never added to a marketing list because of this. We also use Upstash Redis to briefly process your IP address for spam and abuse prevention only; it is never linked to your identity or stored long-term.",
+    "section3_title": "3. Advertising & Analytics (Third Parties)",
+    "section3_desc1": "To keep the lights on, we use website analytics (Google Analytics) and may display advertisements via Google AdSense. These services may use cookies or similar technologies, subject to the consent you give via our cookie banner.",
+    "section3_desc2": "**Crucially:** These third parties have zero access to the figures you process within our calculators (Section 1 above) — those stay strictly local to your browser and are never seen by Google or anyone else.",
+    "section4_title": "4. Local Storage",
+    "section4_desc": "Some tools may use your browser's local storage to save your preferences (like Dark Mode settings). This data remains on your device and can be cleared at any time through your browser settings."
   },
   "terms": {
     "title": "Terms of Service",
