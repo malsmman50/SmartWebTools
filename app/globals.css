@@ -535,3 +535,165 @@ input[type=number] {
     display: block;
   }
 }
+
+/* ============================================================
+   BLOG ARTICLE TYPOGRAPHY SYSTEM
+   Applies the "perfect article" spec (2026 research): comfortable
+   reading measure, generous whitespace, clear heading hierarchy,
+   bordered/striped tables, and callout blockquotes. Uses logical
+   properties so it works identically in RTL (ar) and LTR (en).
+   ============================================================ */
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+/* Lead paragraph: the first paragraph reads slightly larger to pull
+   the reader in, per the "strong opening" guidance. */
+.blog-content > p:first-of-type {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.blog-content p {
+  margin: 0 0 1.4em;
+}
+
+/* Section headings: lots of top space creates the visual breathing
+   room the reader flagged as missing, plus a hairline separator. */
+.blog-content h2 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--text);
+  margin: 2.6em 0 0.9em;
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid var(--border);
+}
+
+.blog-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--primary);
+  margin: 2em 0 0.7em;
+  padding-inline-start: 0.7em;
+  border-inline-start: 4px solid var(--primary);
+}
+
+.blog-content h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 1.6em 0 0.6em;
+}
+
+/* Lists: indent and row spacing so items don't run together. */
+.blog-content ul,
+.blog-content ol {
+  margin: 0 0 1.4em;
+  padding-inline-start: 1.6em;
+}
+
+.blog-content li {
+  margin-bottom: 0.6em;
+  padding-inline-start: 0.3em;
+}
+
+.blog-content strong { color: var(--text); font-weight: 700; }
+
+.blog-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.blog-content a:hover { color: var(--primary-hover); }
+
+/* ---- Tables: the core of the complaint ---- */
+/* Scroll wrapper behaviour without a wrapper element: on narrow
+   screens the table becomes a horizontally scrollable block so it
+   never breaks the page width. */
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.8em 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.blog-content thead {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.blog-content th {
+  color: #ffffff;
+  font-weight: 700;
+  text-align: start;
+  padding: 14px 16px;
+  font-size: 0.98rem;
+  border: none;
+}
+
+.blog-content td {
+  padding: 13px 16px;
+  border-top: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+/* Zebra striping: even rows a few percent darker than the card, per
+   the readability research (reduces misreading on scan). */
+.blog-content tbody tr:nth-child(even) {
+  background: rgba(var(--primary-rgb), 0.045);
+}
+
+.blog-content tbody tr:hover {
+  background: rgba(var(--primary-rgb), 0.09);
+  transition: background 0.12s;
+}
+
+/* Emphasise the totals/last row that our worked examples rely on. */
+.blog-content tbody tr:last-child strong {
+  color: var(--primary);
+}
+
+/* ---- Callout blockquote: ready for key-takeaway boxes ---- */
+.blog-content blockquote {
+  margin: 1.8em 0;
+  padding: 16px 20px;
+  border-inline-start: 4px solid var(--accent);
+  background: rgba(var(--primary-rgb), 0.05);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-style: normal;
+}
+.blog-content blockquote p:last-child { margin-bottom: 0; }
+
+.blog-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.2em 0;
+}
+
+/* Mobile: let wide tables scroll instead of overflowing the page. */
+@media (max-width: 700px) {
+  .blog-content { font-size: 1.05rem; }
+  .blog-content > p:first-of-type { font-size: 1.1rem; }
+  .blog-content h2 { font-size: 1.4rem; margin-top: 2em; }
+  .blog-content h3 { font-size: 1.18rem; }
+  .blog-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}

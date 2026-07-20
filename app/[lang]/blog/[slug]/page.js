@@ -119,7 +119,6 @@ export default async function BlogPostPage({ params }) {
 
         <div
           className="blog-content"
-          style={{ lineHeight: "1.9", fontSize: "1.15rem", color: "var(--text)" }}
           dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(content) }}
         />
         
