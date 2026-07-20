@@ -109,7 +109,7 @@ export default async function CustomsDutyPage({ params }) {
       </div>
 
       {/* SEO Article Wrapper */}
-      <article className="card" style={{ maxWidth: "900px", margin: "0 auto" }}>
+      <article className="card guide-article blog-content">
         <section style={{ marginBottom: "2rem" }}>
           <h2>{isAr ? "دليل حساب الرسوم الجمركية والضرائب" : "Guide to Calculating Customs Duty and VAT"}</h2>
           <p>{isAr ? "يواجه الكثير من المتسوقين عبر الإنترنت والمستوردين عقبة تقدير التكلفة النهائية للشحنات. تعتمد هذه الأداة على معادلة (القيمة + الشحن = CIF)، ثم تطبق نسبة الرسوم الجمركية، يليها تطبيق ضريبة القيمة المضافة للحصول على التكلفة الإجمالية الواصلة (Landed Cost)." : "Many online shoppers and importers face the challenge of estimating the final cost of shipments. This tool uses the standard (Value + Shipping = CIF) formula, applies the duty rate, and then compounds the VAT to give you the precise Landed Cost."}</p>

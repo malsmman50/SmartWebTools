@@ -77,7 +77,7 @@ export default async function DataConverterPage({ params }) {
       
       <DataConverterClient dict={dict} lang={lang} />
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>محول وتنسيق البيانات اللحظي الآمن</h2>

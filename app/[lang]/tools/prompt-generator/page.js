@@ -106,7 +106,7 @@ export default async function PromptGeneratorPage({ params }) {
       </div>
       <PromptGeneratorClient lang={lang} dict={dict} />
       
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>الدليل الشامل لاستخدام مهندس ومولد أوامر الذكاء الاصطناعي</h2>

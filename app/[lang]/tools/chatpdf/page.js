@@ -111,7 +111,7 @@ export default async function ChatPdfPage({ params }) {
 
       <ChatPdfClient lang={lang} dict={dict} />
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>المحادثة الذكية والبحث الدلالي الآمن في ملفات PDF محلياً</h2>

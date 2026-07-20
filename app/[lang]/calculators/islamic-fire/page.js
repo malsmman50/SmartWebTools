@@ -60,7 +60,7 @@ export default async function IslamicFireCalculatorPage({ params }) {
         <DisclaimerBox type="religious" lang={lang} />
       </div>
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>الدليل الشامل للتقاعد المبكر الإسلامي (Islamic FIRE)</h2>

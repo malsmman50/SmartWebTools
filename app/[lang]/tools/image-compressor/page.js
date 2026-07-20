@@ -56,7 +56,7 @@ export default async function ImageCompressorPage({ params }) {
 
       <ImageCompressorClient lang={lang} dict={dict} />
 
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>أداة ضغط الصور وتقليل حجمها (بدون إنترنت)</h2>

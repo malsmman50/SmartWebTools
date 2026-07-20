@@ -111,7 +111,7 @@ export default async function InheritanceCalculatorPage({ params }) {
       
       <FAQSchema faqs={faqs} />
       
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>حاسبة المواريث الشرعية (النسخة الشاملة)</h2>

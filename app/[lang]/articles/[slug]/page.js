@@ -88,7 +88,7 @@ export default async function SeoArticlePage({ params }) {
         </div>
 
         <div
-          style={{ lineHeight: "1.8", fontSize: "1.1rem", color: "var(--text)" }}
+          className="blog-content"
           dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(content) }}
         />
         

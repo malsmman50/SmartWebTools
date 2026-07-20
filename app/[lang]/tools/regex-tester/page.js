@@ -105,7 +105,7 @@ export default async function RegexTesterPage({ params }) {
 
       <RegexTesterClient dict={dict} lang={lang} />
       
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>الدليل المتكامل لأداة اختبار التعابير النمطية (Regex Tester)</h2>

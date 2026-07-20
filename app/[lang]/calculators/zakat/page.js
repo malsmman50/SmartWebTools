@@ -96,7 +96,7 @@ export default async function ZakatCalculatorPage({ params }) {
       </div>
 
       {/* SEO Content Expansion (800+ words) */}
-      <article className="card" style={{ marginTop: "40px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+      <article className="card guide-article blog-content">
         {lang === "ar" ? (
           <>
             <h2>الدليل الشامل لحساب الزكاة عبر الإنترنت</h2>

@@ -66,7 +66,7 @@ export default async function MudarabahCalculatorPage({ params }) {
       
       <DisclaimerBox type="religion" lang={lang} />
       
-      <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2>حاسبة المضاربة الإسلامية: الدليل الشامل وتوزيع الأرباح</h2>

@@ -744,3 +744,20 @@ input[type=number] {
 .blog-content .callout-tip strong:first-child { color: var(--success); }
 
 .blog-content .callout-note::before { content: "📌"; }
+
+/* ============================================================
+   GUIDE ARTICLE — unified reading column for the SEO/guide
+   sections under every calculator & tool page. One class,
+   one institutional look: comfortable ~72ch line length,
+   centered, with the brand accent rule on top.
+   ============================================================ */
+.guide-article {
+  max-width: 820px;
+  margin: 48px auto 0;
+  padding: 40px;
+  line-height: 1.8;
+  border-top: 4px solid var(--primary);
+}
+@media (max-width: 700px) {
+  .guide-article { padding: 28px 20px; margin-top: 32px; }
+}

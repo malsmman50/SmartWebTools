@@ -95,7 +95,7 @@ export default async function FuelCostPage({ params }) {
       </div>
 
       {/* SEO Article Wrapper */}
-      <article className="card" style={{ maxWidth: "900px", margin: "0 auto", padding: "40px", lineHeight: "1.8" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2 style={{ fontSize: "1.8rem", marginBottom: "20px", color: "var(--primary)" }}>الدليل الشامل لحساب تكلفة وقود الرحلات وتوفير الميزانية</h2>

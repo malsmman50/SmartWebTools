@@ -57,7 +57,7 @@ export default async function IslamicDepositPage({ params }) {
           <DisclaimerBox type="religion" lang={lang} />
         </div>
         
-        <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        <article className="card guide-article blog-content">
           {isAr ? (
             <>
               <h2>حاسبة الودائع الإسلامية (الوكالة بالاستثمار والمضاربة)</h2>

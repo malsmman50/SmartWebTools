@@ -63,7 +63,7 @@ export default async function SukukPage({ params }) {
 
         <DisclaimerBox type="religion" lang={lang} />
 
-        <article className="card" style={{ marginTop: "40px", lineHeight: "1.8" }}>
+        <article className="card guide-article blog-content">
           {isAr ? (
             <>
               <h2>حاسبة عوائد الصكوك الإسلامية: التخطيط المالي المتوافق مع الشريعة</h2>

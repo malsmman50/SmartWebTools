@@ -74,7 +74,7 @@ export default async function DiscountPage({ params }) {
       </div>
 
       {/* Massive AdSense SEO Content - Below the Fold */}
-      <article className="card" style={{ marginTop: "20px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>الدليل الشامل لحساب الخصومات التجارية والضرائب المضافة</h2>

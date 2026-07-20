@@ -62,7 +62,7 @@ export default async function RoiCalculatorPage({ params }) {
           <DisclaimerBox type="financial" lang={lang} />
         </div>
 
-        <article className="card" style={{ marginTop: "40px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+        <article className="card guide-article blog-content">
           {isAr ? (
             <>
               <h2>العائد على الاستثمار (ROI): الدليل الشامل</h2>

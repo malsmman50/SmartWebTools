@@ -39,7 +39,7 @@ export default async function BodyCalculatorPage({ params }) {
       <HealthCalculator dict={dict} isAr={isAr} />
 
       {/* Massive AdSense SEO Content - Below the Fold */}
-      <article className="card" style={{ marginTop: "60px", padding: "40px", lineHeight: "1.8", borderTop: "4px solid var(--primary)" }}>
+      <article className="card guide-article blog-content">
         {isAr ? (
           <>
             <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>حاسبة مقاييس الجسم المتقدمة: مؤشر الكتلة والأيض واحتياج السعرات</h2>
