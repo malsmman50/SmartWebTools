@@ -22,12 +22,19 @@ export async function POST(request) {
     let priceSource = goldPrice > 0 ? "caller" : null;
 
     if (!goldPrice) {
+      // gold-api.com is the same primary source /api/gold uses. An earlier
+      // attempt here called data-asg.goldprice.org directly and silently got
+      // "Forbidden" — it rejects requests without a browser User-Agent — so the
+      // endpoint kept serving the stale constant while reporting success. Hence
+      // goldPriceSource in the response: a fallback that cannot be seen is a
+      // fallback nobody fixes.
       try {
-        const res = await fetch("https://data-asg.goldprice.org/dbXRates/USD", {
+        const res = await fetch("https://api.gold-api.com/price/XAU", {
+          headers: { Accept: "application/json" },
           next: { revalidate: 3600 },
         });
         const data = await res.json();
-        const perOunce = Number(data?.items?.[0]?.xauPrice);
+        const perOunce = Number(data?.price);
         if (perOunce > 0) {
           goldPrice = perOunce / 31.1035; // troy ounce -> gram
           priceSource = "live";
