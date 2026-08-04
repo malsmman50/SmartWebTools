@@ -294,20 +294,42 @@ function checkAutomation(slug, post, text) {
  */
 const FAQ_HEADING = /(الأسئلة الشائعة|أسئلة شائعة|frequently asked|\bFAQ\b)/i;
 
+/**
+ * عدّ الأسئلة — بصيغتيه معاً.
+ *
+ * النسخة الأولى عدّت ترويسات <h3> وحدها، فأبلغت عن تسعة مقالات «بلا أسئلة
+ * شائعة» وفيها أسئلة مكتوبة بصيغة <li><strong>س: …</strong>. وهو إنذار كاذب
+ * من أسوأ نوع: يبعث المحرّر ليكتب ما هو مكتوب.
+ *
+ * والصيغتان تُعدّان، لأن السؤال سؤال. لكن الصيغة الأولى وحدها هي التي تصنع
+ * بنية ترويسات يقرؤها الزاحف ويربطها بمخطط FAQPage — فالثانية تُذكر تحذيراً
+ * مستقلاً بوصفها فرصةً ضائعة، لا نقصاً في المحتوى.
+ */
+// المقالات كتبت أسئلتها بثلاث صيغ: ترويسة <h3>، و<strong> داخل فقرة، و<strong>
+// داخل عنصر قائمة — بترقيم أو بـ«س:» أو بلا شيء. فالعلامة الجامعة هي علامة
+// الاستفهام في آخر النصّ البارز، لا الصيغة التي كُتب بها.
+const Q_HEADING = /<h[34][^>]*>[^<]*[؟?]\s*<\/h[34]>/gi;
+const Q_INLINE = /<(?:strong|b)>[^<]*[؟?]\s*<\/(?:strong|b)>/gi;
+
 function countQuestions(text) {
   const i = text.search(FAQ_HEADING);
-  if (i < 0) return 0;
-  // الأسئلة عناوين فرعية بعد ترويسة القسم — تُعدّ بترويساتها لا بعلامات
-  // الاستفهام، لأن علامة استفهام قد ترد في متن الفقرة.
-  return (text.slice(i).match(/<h[34][^>]*>[^<]*[؟?]\s*<\/h[34]>/gi) || []).length;
+  if (i < 0) return { total: 0, structured: 0 };
+  const tail = text.slice(i);
+  const structured = (tail.match(Q_HEADING) || []).length;
+  const inline = (tail.match(Q_INLINE) || []).length;
+  return { total: structured + inline, structured };
 }
 
 function checkStructure(slug, post, ar, en) {
   for (const [text, lang] of [[ar, 'العربية'], [en, 'الإنجليزية']]) {
     if (!/<table/i.test(text)) flag(W, slug, 'بلا جدول', `النسخة ${lang} — العتبة تشترط جدولاً أصلياً`);
-    const q = countQuestions(text);
-    if (q === 0) flag(W, slug, 'بلا أسئلة شائعة', `النسخة ${lang} — العتبة تشترط ≥4`);
-    else if (q < 4) flag(W, slug, 'أسئلة شائعة ناقصة', `النسخة ${lang} — ${q} من 4`);
+    const { total, structured } = countQuestions(text);
+    if (total === 0) flag(W, slug, 'بلا أسئلة شائعة', `النسخة ${lang} — العتبة تشترط ≥4`);
+    else if (total < 4) flag(W, slug, 'أسئلة شائعة ناقصة', `النسخة ${lang} — ${total} من 4`);
+    if (total >= 1 && structured === 0) {
+      flag(N, slug, 'أسئلة بصيغة غير مهيكلة',
+        `النسخة ${lang} — ${total} سؤالاً بصيغة «س:» داخل قائمة؛ ترويسات <h3> تُقرأ كبنية ويربطها الزاحف بـ FAQPage`);
+    }
   }
   if (ar.length < 3500) flag(N, slug, 'مقال قصير', `${ar.length} حرفاً — تحقّق من عمق المعالجة`);
   if (!/\d/.test(ar)) flag(W, slug, 'بلا أرقام', 'العتبة تشترط مثالاً عددياً محلولاً');
@@ -418,6 +440,7 @@ function collectTitle(post) {
 // ── التشغيل ──────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
 const only = args.find((a) => a.startsWith('--slug='))?.split('=')[1];
+const ALL = args.includes('--all');
 const target = only ? posts.filter((p) => p.slug === only) : posts;
 
 for (const post of target) {
@@ -450,8 +473,11 @@ for (const [lvl, label] of [[F, '🔴 قاتل — يمنع النشر'], [W, '�
   for (const f of items) (grouped[f.rule] ||= []).push(f);
   for (const [rule, list] of Object.entries(grouped)) {
     console.log(`\n  ▸ ${rule} — ${list.length}`);
-    for (const f of list.slice(0, 6)) console.log(`      ${f.slug}\n        ${f.detail}`);
-    if (list.length > 6) console.log(`      … و${list.length - 6} غيرها`);
+    // الاختصار للقراءة السريعة؛ و--all يعرض كل بند. تقريرٌ يُخفي نصف نتائجه
+    // يُجبر قارئه على تخمين ما وراء «و11 غيرها»، وهو أول الطريق إلى تجاهله.
+    const shown = ALL ? list : list.slice(0, 6);
+    for (const f of shown) console.log(`      ${f.slug}\n        ${f.detail}`);
+    if (!ALL && list.length > 6) console.log(`      … و${list.length - 6} غيرها — شغّل --all لعرضها`);
   }
   console.log('');
 }
