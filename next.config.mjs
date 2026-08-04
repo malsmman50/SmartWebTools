@@ -50,7 +50,19 @@ const removedTools = [
 ];
 
 // Blog posts removed by the same scope rule that removed the tools above.
-const removedBlogPosts = ['optimizing-llm-prompts-prompt-generator'];
+// Each one taught a developer topic and linked only to tools that no longer
+// live here; their text moved to devtools-site/lib/blog-data.json rather than
+// being discarded. Repoint these at the developer subdomain when it is live.
+const removedBlogPosts = [
+  'optimizing-llm-prompts-prompt-generator',
+  'webgpu-client-side-ai-offline-pdf-chat',
+  'offline-data-unit-conversion-secure',
+  'digital-amanah-secure-passwords',
+  'cron-expressions-easy-generator-schedules',
+  'regex-testing-guide-writing-debugging-regular-expressions',
+  'decoding-jwt-safely-understanding-token-structure',
+  'mastering-json-web-apis-formatting-validation-debugging',
+];
 
 const removedCalculatorPaths = [
   'shopping/shoe-size', 'shopping/discount', 'shopping/customs-duty',

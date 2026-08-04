@@ -44,6 +44,10 @@ if (!NISAB_GOLD) {
 
 const posts = JSON.parse(read('lib/blog-data.json'));
 
+// معرّفات المقالات المنشورة — يُقاس عليها كل رابط داخلي إلى المدونة.
+// المسودّات ليست منشورة، فالرابط إليها 404 في عين الزاحف كالمحذوف تماماً.
+const ALL_SLUGS = new Set(posts.filter((p) => p.draft !== true).map((p) => p.slug));
+
 // المسارات الحقيقية بعد إعادة التأسيس. رابط خارج هذه القائمة إمّا 404
 // أو تحويلة 301 — وكلاهما يُضعف المقال في عين القارئ والزاحف.
 const LIVE = new Set([
@@ -228,17 +232,47 @@ function checkRiba(slug, text) {
   }
 }
 
-/** الروابط الداخلية ولغتها. */
+/**
+ * الروابط الداخلية: وجهتها، ولغتها، وأن المقال المقصود ما زال موجوداً.
+ *
+ * النسخة الأولى طابقت `href="/ar/…"` وحدها — أي الروابط النسبية. والمقالات
+ * تكتب روابطها مطلقةً بالنطاق الكامل، فكانت القاعدة ترى 14 رابطاً من 245
+ * وتسكت عن 231. سكوتٌ يُقرأ في التقرير على أنه سلامة.
+ *
+ * ولهذا مرّت عشرة روابط تقذف القارئ العربي إلى صفحات إنجليزية دون إنذار
+ * واحد، حتى وجدتُها بالفحص اليدوي. القاعدة الآن تقبل الصيغتين.
+ *
+ * وأُضيف فحصٌ لم يكن: أن يكون المقال المُشار إليه موجوداً فعلاً. فحذف مقال
+ * واحد يترك كل رابط إليه 404 — وهو بالضبط ما يقيسه الزاحف على الموقع.
+ */
+const ORIGIN = /^(?:https?:\/\/(?:www\.)?smartcalctools\.xyz)?/;
+
 function checkLinks(slug, ar, en) {
   for (const [text, lang] of [[ar, 'ar'], [en, 'en']]) {
-    for (const m of text.matchAll(/href="(\/(ar|en)([^"#?]*))"/g)) {
-      const [, full, hrefLang, tail] = m;
-      const clean = tail.replace(/\/$/, '');
-      if (clean && !LIVE.has(clean) && !clean.startsWith('/blog/')) {
-        flag(F, slug, 'رابط لمسار غير موجود', `${full} — يرد 301 أو 404`);
+    for (const m of text.matchAll(/href="([^"]+)"/g)) {
+      const href = m[1];
+      // روابط خارجية حقيقية تُترك؛ المعنيّ هنا ما يقع داخل الموقع.
+      const path = href.replace(ORIGIN, '');
+      if (!path.startsWith('/')) continue;
+      const seg = path.match(/^\/(ar|en)(\/[^#?]*)?/);
+      if (!seg) {
+        flag(W, slug, 'رابط داخلي بلا لغة', `${href} — كل مسار داخلي يبدأ بـ /ar أو /en`);
+        continue;
       }
+      const [, hrefLang, rawTail = ''] = seg;
+      const tail = rawTail.replace(/\/$/, '');
+
+      if (tail.startsWith('/blog/')) {
+        const target = tail.slice('/blog/'.length);
+        if (!ALL_SLUGS.has(target)) {
+          flag(F, slug, 'رابط لمقال محذوف', `${href} — لا مقال بهذا المعرّف، الرابط 404`);
+        }
+      } else if (tail && !LIVE.has(tail)) {
+        flag(F, slug, 'رابط لمسار غير موجود', `${href} — يرد 301 أو 404`);
+      }
+
       if (hrefLang !== lang) {
-        flag(W, slug, 'رابط بلغة أخرى', `النسخة ${lang} تشير إلى ${full}`);
+        flag(W, slug, 'رابط بلغة أخرى', `النسخة ${lang} تشير إلى ${href}`);
       }
     }
   }
@@ -250,12 +284,127 @@ function checkAutomation(slug, post, text) {
   if (/\[(?:تمت مراجعة|Data accuracy)/.test(text)) flag(W, slug, 'حاشية آلية', 'من بقايا freshness bot');
 }
 
-/** بنية المقال — البنود القابلة للقياس من العتبة السبعية. */
+/**
+ * بنية المقال — البنود القابلة للقياس من العتبة السبعية.
+ *
+ * كان الفحص يقبل جدولاً في العربية وحدها، ويعدّ ورودَ عبارة «الأسئلة
+ * الشائعة» في أيّ اللغتين وفاءً بشرط «أربعة أسئلة» — فيمرّ مقال إنجليزيّه
+ * بلا جدول، ومقالٌ فيه سؤال واحد. النسختان صفحتان مستقلّتان يزورهما قارئان
+ * مختلفان، ويفهرسهما الزاحف منفصلتين؛ فالعتبة تلزمهما معاً.
+ */
+const FAQ_HEADING = /(الأسئلة الشائعة|أسئلة شائعة|frequently asked|\bFAQ\b)/i;
+
+function countQuestions(text) {
+  const i = text.search(FAQ_HEADING);
+  if (i < 0) return 0;
+  // الأسئلة عناوين فرعية بعد ترويسة القسم — تُعدّ بترويساتها لا بعلامات
+  // الاستفهام، لأن علامة استفهام قد ترد في متن الفقرة.
+  return (text.slice(i).match(/<h[34][^>]*>[^<]*[؟?]\s*<\/h[34]>/gi) || []).length;
+}
+
 function checkStructure(slug, post, ar, en) {
-  if (!/<table/i.test(ar)) flag(W, slug, 'بلا جدول', 'العتبة تشترط جدولاً أصلياً');
-  if (!/(الأسئلة الشائعة|أسئلة شائعة|FAQ)/i.test(ar + en)) flag(W, slug, 'بلا أسئلة شائعة', 'العتبة تشترط ≥4');
+  for (const [text, lang] of [[ar, 'العربية'], [en, 'الإنجليزية']]) {
+    if (!/<table/i.test(text)) flag(W, slug, 'بلا جدول', `النسخة ${lang} — العتبة تشترط جدولاً أصلياً`);
+    const q = countQuestions(text);
+    if (q === 0) flag(W, slug, 'بلا أسئلة شائعة', `النسخة ${lang} — العتبة تشترط ≥4`);
+    else if (q < 4) flag(W, slug, 'أسئلة شائعة ناقصة', `النسخة ${lang} — ${q} من 4`);
+  }
   if (ar.length < 3500) flag(N, slug, 'مقال قصير', `${ar.length} حرفاً — تحقّق من عمق المعالجة`);
   if (!/\d/.test(ar)) flag(W, slug, 'بلا أرقام', 'العتبة تشترط مثالاً عددياً محلولاً');
+}
+
+/**
+ * صحّة الحساب في الأمثلة المحلولة.
+ *
+ * المدقّق يتحقّق من النسبة والنصاب، ثم يمرّ على «140,000,000 × 2.5% =
+ * 3,500,000» دون أن يجريها. والقارئ الذي يتتبّع المثال بآلته الحاسبة هو
+ * أول من سيكتشف الخلل — وحينها يكون قد فقد الثقة في الأداة كلّها.
+ *
+ * فما دام الرقمان والعملية مكتوبين صراحةً، فالتحقّق منها آليٌّ ورخيص.
+ */
+function checkArithmetic(slug, text) {
+  const num = (s) => Number(String(s).replace(/[,٬\s$]/g, ''));
+  const near = (a, b) => Math.abs(a - b) <= Math.max(0.02, Math.abs(b) * 0.005);
+
+  // أ × ب% = ج
+  for (const m of text.matchAll(/([\d,]+(?:\.\d+)?)\s*[×x*]\s*([\d.]+)\s*%\s*=\s*\$?([\d,]+(?:\.\d+)?)/gi)) {
+    const [a, r, c] = [num(m[1]), Number(m[2]), num(m[3])];
+    if (!near(a * r / 100, c)) {
+      flag(F, slug, 'خطأ حسابي', `«${m[0].trim()}» — الناتج الصحيح ${(a * r / 100).toLocaleString('en-US')}`);
+    }
+  }
+  // أ ÷ ب = ج
+  for (const m of text.matchAll(/([\d,]+(?:\.\d+)?)\s*[÷/]\s*([\d,]+(?:\.\d+)?)\s*=\s*\$?([\d,]+(?:\.\d+)?)/g)) {
+    const [a, b, c] = [num(m[1]), num(m[2]), num(m[3])];
+    if (b && !near(a / b, c)) {
+      flag(F, slug, 'خطأ حسابي', `«${m[0].trim()}» — الناتج الصحيح ${a / b}`);
+    }
+  }
+  // أ + ب + … = ج
+  for (const m of text.matchAll(/([\d,]+(?:\.\d+)?(?:\s*\+\s*[\d,]+(?:\.\d+)?){1,6})\s*=\s*\$?([\d,]+(?:\.\d+)?)/g)) {
+    const sum = m[1].split('+').reduce((t, x) => t + num(x), 0);
+    if (!near(sum, num(m[2]))) {
+      flag(F, slug, 'خطأ حسابي', `«${m[0].trim()}» — المجموع الصحيح ${sum.toLocaleString('en-US')}`);
+    }
+  }
+}
+
+/**
+ * التشابه بين المقالات — القاعدة التي كان غيابها أفدح من كل ما سبق.
+ *
+ * سبب رفض AdSense المعلن كان «محتوى منخفض القيمة»، وجوهره التكرار: صفحات
+ * تقول الشيء نفسه بألفاظ مبدّلة. وكل قواعد هذا الملف تفحص المقال وحده —
+ * فمقالان متطابقان بنسبة 80% يمرّان كلاهما «سليماً تماماً».
+ *
+ * والقياس هنا على تداخل المتتاليات (shingles): تُجرَّد الوسوم والأرقام
+ * وعلامات الترقيم، ثم يُقارَن كل مقال بغيره على متتاليات من خمس كلمات.
+ * الأرقام تُجرَّد عمداً لأن التكرار الحقيقي يتخفّى بتبديلها: «زكاة 100 جرام»
+ * و«زكاة 200 جرام» نصٌّ واحد وإن اختلف الرقمان — وهو بالضبط ما كانت تفعله
+ * صفحات PSEO السبعة آلاف.
+ */
+const SHINGLE = 5;
+const DUP_HIGH = 0.45;  // تطابق يستوجب الدمج أو الحذف
+const DUP_WARN = 0.28;  // زاويتان متقاربتان تستحقّان مراجعة
+
+function shingles(html) {
+  const words = html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z]+;/gi, ' ')
+    .replace(/[\d.,٬%$×÷=+—–\-()«»"'?؟:;،.]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w.length > 1);
+  const set = new Set();
+  for (let i = 0; i + SHINGLE <= words.length; i++) set.add(words.slice(i, i + SHINGLE).join(' '));
+  return set;
+}
+
+function overlap(a, b) {
+  if (!a.size || !b.size) return 0;
+  let shared = 0;
+  const [small, large] = a.size < b.size ? [a, b] : [b, a];
+  for (const s of small) if (large.has(s)) shared++;
+  return shared / small.size; // نسبةً إلى الأصغر: احتواءُ مقالٍ في آخر تكرارٌ أيضاً
+}
+
+function checkDuplication(items) {
+  for (const lang of ['ar', 'en']) {
+    const prints = items.map((p) => ({ slug: p.slug, sh: shingles(lang === 'ar' ? p.contentAr || '' : p.contentEn || '') }));
+    for (let i = 0; i < prints.length; i++) {
+      for (let j = i + 1; j < prints.length; j++) {
+        const r = overlap(prints[i].sh, prints[j].sh);
+        if (r < DUP_WARN) continue;
+        const pct = (r * 100).toFixed(0);
+        const label = lang === 'ar' ? 'العربية' : 'الإنجليزية';
+        if (r >= DUP_HIGH) {
+          flag(F, prints[i].slug, 'تكرار عالٍ',
+            `${pct}% تطابق مع ${prints[j].slug} (${label}) — يُدمج أو يُحذف أحدهما`);
+        } else {
+          flag(W, prints[i].slug, 'تشابه ملحوظ',
+            `${pct}% تطابق مع ${prints[j].slug} (${label}) — تأكّد من تمايز الزاوية`);
+        }
+      }
+    }
+  }
 }
 
 /** العنوان القالبي — «guide» في 24 من 53 هي ما يقرؤه الزاحف كمزرعة محتوى. */
@@ -278,9 +427,12 @@ for (const post of target) {
   checkNisab(s, both); checkRate(s, both); checkHawl(s, both);
   checkAuthority(s, both); checkStandards(s, both); checkRiba(s, both);
   checkLinks(s, ar, en); checkAutomation(s, post, both);
-  checkStructure(s, post, ar, en);
+  checkStructure(s, post, ar, en); checkArithmetic(s, both);
   collectTitle(post);
 }
+
+// المقارنة بين المقالات تحتاج المجموعة كاملة — فلا تُجرى عند فحص مقال واحد.
+if (!only) checkDuplication(posts);
 
 // ── التقرير ──────────────────────────────────────────────────────────────
 const by = (lvl) => findings.filter((f) => f.level === lvl);
