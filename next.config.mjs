@@ -49,6 +49,9 @@ const removedTools = [
   'image-compressor', 'chatpdf',
 ];
 
+// Blog posts removed by the same scope rule that removed the tools above.
+const removedBlogPosts = ['optimizing-llm-prompts-prompt-generator'];
+
 const removedCalculatorPaths = [
   'shopping/shoe-size', 'shopping/discount', 'shopping/customs-duty',
   'lifestyle/split-bill', 'lifestyle/fuel-cost',
@@ -85,6 +88,17 @@ const nextConfig = {
         destination: '/:lang/blog',
         statusCode: 301,
       },
+
+      // --- Blog posts that left with the tools they were written for ---
+      // This one taught prompt engineering and linked only to the JSON
+      // formatter and the prompt generator. Both moved to the developer
+      // subdomain; the article had nowhere left to point on an Islamic
+      // finance site, so it goes to the blog index rather than a 404.
+      ...removedBlogPosts.map((slug) => ({
+        source: `/:lang(ar|en)/blog/${slug}`,
+        destination: '/:lang/blog',
+        statusCode: 301,
+      })),
 
       // --- Out-of-scope tools (and any generated children) -> homepage ---
       ...removedTools.flatMap((tool) => [
