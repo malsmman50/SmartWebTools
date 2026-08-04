@@ -9,22 +9,36 @@ const googleTlds = [
 // Both root domains and wildcard subdomains — CSP matches strictly.
 const googleDomains = googleTlds.map(tld => `https://google.${tld} https://*.google.${tld}`).join(' ');
 
+// upgrade-insecure-requests is right in production and wrong on a dev machine.
+// Chromium quietly exempts localhost from it; WebKit does not — so every asset
+// on http://localhost was upgraded to https, failed the TLS handshake, and the
+// page loaded with no JavaScript at all. Every calculator returned $0 under
+// Mobile Safari and it read as a Safari bug for as long as nobody looked.
+// Production headers are unchanged; only the dev server drops the directive.
+//
+// 'unsafe-eval' is granted on the same terms and for the same reason. Next's
+// development build calls eval() to rebuild stack traces; blocking it leaves
+// hydration half-finished, so the client never fetches the gold price and the
+// zakat result sits at $0 while the inputs read correctly. Production keeps
+// eval blocked — this is a concession to the dev server, not to the site.
+const isDev = process.env.NODE_ENV === 'development';
+
 // CSP no longer allows huggingface.co / cdn.jsdelivr.net / blob: workers:
 // those existed for ChatPDF, Monaco and the transformers model, all of which
 // moved out with the developer tools. Narrower policy = smaller attack surface.
 const getCspHeader = (frameAncestors) => `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://partner.googleadservices.com https://*.adtrafficquality.google https://adservice.google.com https://www.googletagservices.com https://fundingchoicesmessages.google.com https://www.googletagmanager.com;
+    script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ''} https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://partner.googleadservices.com https://*.adtrafficquality.google https://adservice.google.com https://www.googletagservices.com https://fundingchoicesmessages.google.com https://www.googletagmanager.com;
     style-src 'self' 'unsafe-inline';
     font-src 'self';
     img-src 'self' blob: data: https://pagead2.googlesyndication.com ${googleDomains} https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://www.googletagmanager.com https://www.google-analytics.com https://i.ytimg.com;
-    connect-src 'self' https://data-asg.goldprice.org https://*.googlesyndication.com https://*.adtrafficquality.google ${googleDomains} https://*.doubleclick.net https://fundingchoicesmessages.google.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com;
+    connect-src 'self' https://*.googlesyndication.com https://*.adtrafficquality.google ${googleDomains} https://*.doubleclick.net https://fundingchoicesmessages.google.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com;
     frame-src 'self' https://googleads.g.doubleclick.net https://*.googlesyndication.com ${googleDomains} https://fundingchoicesmessages.google.com https://*.adtrafficquality.google https://www.youtube-nocookie.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors ${frameAncestors};
-    upgrade-insecure-requests;
+    ${isDev ? '' : 'upgrade-insecure-requests;'}
 `;
 
 const cspHeaderMain = getCspHeader("'none'");
