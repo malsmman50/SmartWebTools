@@ -3,7 +3,7 @@ import ZakatCalculatorClient from "@/app/components/ZakatCalculatorClient";
 import Link from "next/link";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
-import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Hashiya from "@/app/components/UI/Hashiya";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -93,46 +93,7 @@ export default async function ZakatCalculatorPage({ params }) {
           <ZakatCalculatorClient lang={lang} dict={dict} initialValues={{}} />
         </div>
 
-        <aside className="hashiya" aria-label={isAr ? "المستند الشرعي" : "Sharia basis"}>
-          <h4>{isAr ? "المستند" : "The basis"}</h4>
-
-          <dl className="hashiya-list">
-            <dt>{isAr ? "المعيار" : "Standard"}</dt>
-            <dd>{isAr ? "معيار أيوفي الشرعي رقم 35 (الزكاة)" : "AAOIFI Sharia Standard No. 35 (Zakah)"}</dd>
-
-            <dt>{isAr ? "النصاب" : "Nisab"}</dt>
-            <dd>
-              <span className="num">85</span>{" "}
-              {isAr ? "جراماً من الذهب الخالص (عيار 24)" : "grams of pure gold (24k)"}
-            </dd>
-
-            <dt>{isAr ? "المقدار" : "Rate"}</dt>
-            <dd>
-              <span className="num">2.5%</span> {isAr ? "— ربع العشر" : "— a quarter of a tenth"}
-            </dd>
-
-            <dt>{isAr ? "الحول" : "Hawl"}</dt>
-            <dd>
-              {isAr
-                ? "سنة قمرية لا شمسية. الفرق نحو 11 يوماً، ويغيّر تاريخ الوجوب."
-                : "A lunar year, not a solar one. The ~11-day difference moves the due date."}
-            </dd>
-          </dl>
-
-          <p className="hashiya-note">
-            {isAr
-              ? "نصاب الفضة (595 جراماً) يُخرج مبلغاً أقل غالباً، فيكون أنفع للفقراء. من أراد الأخذ به فليقارن الناتجين."
-              : "The silver nisab (595g) usually gives a lower threshold, which favours recipients. Compare both if you wish to follow it."}
-          </p>
-
-          <Link href={`/${lang}/methodology#zakat`} className="hashiya-link">
-            {isAr ? "المنهجية الكاملة ←" : "Full methodology →"}
-          </Link>
-
-          <div className="hashiya-warn">
-            <DisclaimerBox type="religious" lang={lang} />
-          </div>
-        </aside>
+        <Hashiya source="zakat" lang={lang} methodologyAnchor="zakat" />
       </div>
 
       {/* SEO Content Expansion (800+ words) */}

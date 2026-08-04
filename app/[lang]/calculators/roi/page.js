@@ -2,7 +2,7 @@ import { getDictionary } from "@/app/dictionaries";
 import RoiCalculatorClient from "@/app/components/RoiCalculatorClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
-import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Hashiya from "@/app/components/UI/Hashiya";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -56,11 +56,12 @@ export default async function RoiCalculatorPage({ params }) {
           <p>{dict.roi.subtitle}</p>
         </div>
 
-        <RoiCalculatorClient lang={lang} dict={dict} />
-        
-        <div style={{ marginTop: "30px" }}>
-          <DisclaimerBox type="financial" lang={lang} />
+        <div className="matn-hashiya">
+        <div>
+          <RoiCalculatorClient lang={lang} dict={dict} />
         </div>
+        <Hashiya source="roi" lang={lang} methodologyAnchor="roi" />
+      </div>
 
         <article className="card guide-article blog-content">
           {isAr ? (

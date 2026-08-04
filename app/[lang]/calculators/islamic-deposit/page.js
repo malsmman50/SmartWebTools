@@ -2,7 +2,7 @@ import { getDictionary } from "@/app/dictionaries";
 import IslamicDepositCalculatorClient from "@/app/components/IslamicDepositCalculatorClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
-import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Hashiya from "@/app/components/UI/Hashiya";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -51,11 +51,12 @@ export default async function IslamicDepositPage({ params }) {
           <h1>{dict.islamic_deposit.title}</h1>
           <p>{dict.islamic_deposit.subtitle}</p>
         </div>
-        <IslamicDepositCalculatorClient dict={dict} lang={lang} />
-        
-        <div style={{ marginTop: "30px" }}>
-          <DisclaimerBox type="religion" lang={lang} />
+        <div className="matn-hashiya">
+        <div>
+          <IslamicDepositCalculatorClient dict={dict} lang={lang} />
         </div>
+        <Hashiya source="islamic-deposit" lang={lang} methodologyAnchor="islamic-deposit" />
+      </div>
         
         <article className="card guide-article blog-content">
           {isAr ? (

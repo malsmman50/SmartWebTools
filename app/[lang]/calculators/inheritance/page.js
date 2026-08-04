@@ -2,6 +2,7 @@ import { getDictionary } from "@/app/dictionaries";
 import InheritanceCalculatorClient from "@/app/components/InheritanceCalculatorClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
+import Hashiya from "@/app/components/UI/Hashiya";
 import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
 import Link from "next/link";
 
@@ -92,11 +93,6 @@ export default async function InheritanceCalculatorPage({ params }) {
         <p style={{ textAlign: "center", color: "var(--text-muted)", marginBottom: "12px" }}>
           {dict.inheritance.subtitle}
         </p>
-        <div style={{ textAlign: "center", marginBottom: "24px" }}>
-          <Link href={`/${lang}/methodology#inheritance`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
-            {isAr ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
-          </Link>
-        </div>
 
         <div style={{ background: "rgba(16, 185, 129, 0.1)", color: "var(--primary)", padding: "16px", borderRadius: "8px", marginBottom: "24px", fontSize: "0.9rem", lineHeight: "1.5" }}>
           {isAr ? (
@@ -107,7 +103,12 @@ export default async function InheritanceCalculatorPage({ params }) {
         </div>
       </div>
 
-      <InheritanceCalculatorClient lang={lang} dict={dict} />
+      <div className="matn-hashiya">
+        <div>
+          <InheritanceCalculatorClient lang={lang} dict={dict} />
+        </div>
+        <Hashiya source="inheritance" lang={lang} methodologyAnchor="inheritance" />
+      </div>
       
       <FAQSchema faqs={faqs} />
       

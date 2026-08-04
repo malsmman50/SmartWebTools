@@ -1,4 +1,5 @@
 import { getDictionary } from "@/app/dictionaries";
+import Hashiya from "@/app/components/UI/Hashiya";
 import QiblaCompassClient from "@/app/components/QiblaCompassClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
@@ -106,7 +107,12 @@ export default async function QiblaCompassPage({ params }) {
         <p>{dict.qibla.subtitle}</p>
       </div>
 
-      <QiblaCompassClient lang={lang} dict={dict} />
+      <div className="matn-hashiya">
+        <div>
+          <QiblaCompassClient lang={lang} dict={dict} />
+        </div>
+        <Hashiya source="qibla" lang={lang} methodologyAnchor="qibla" religious={false} />
+      </div>
       
       <article className="card guide-article blog-content">
         {isAr ? (

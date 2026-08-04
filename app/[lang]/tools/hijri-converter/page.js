@@ -1,4 +1,5 @@
 import { getDictionary } from "@/app/dictionaries";
+import Hashiya from "@/app/components/UI/Hashiya";
 import HijriConverterClient from "@/app/components/HijriConverterClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
@@ -120,7 +121,12 @@ export default async function HijriConverterPage({ params }) {
         <p>{dict.hijri.subtitle}</p>
       </div>
 
-      <HijriConverterClient lang={lang} dict={dict} />
+      <div className="matn-hashiya">
+        <div>
+          <HijriConverterClient lang={lang} dict={dict} />
+        </div>
+        <Hashiya source="hijri" lang={lang} methodologyAnchor="hijri" religious={false} />
+      </div>
       
       <DisclaimerBox type="calendar" lang={lang} />
 

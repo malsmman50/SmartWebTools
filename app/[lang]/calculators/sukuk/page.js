@@ -2,7 +2,7 @@ import { getDictionary } from "@/app/dictionaries";
 import SukukCalculatorClient from "@/app/components/SukukCalculatorClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
-import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Hashiya from "@/app/components/UI/Hashiya";
 import Link from "next/link";
 
 export async function generateMetadata({ params }) {
@@ -52,16 +52,14 @@ export default async function SukukPage({ params }) {
         <div className="page-header" style={{ textAlign: "center" }}>
           <h1>{dict.sukuk.title}</h1>
           <p>{dict.sukuk.subtitle}</p>
-          <div style={{ marginTop: "12px" }}>
-            <Link href={`/${lang}/methodology#sukuk`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
-              {isAr ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
-            </Link>
-          </div>
         </div>
 
-        <SukukCalculatorClient dict={dict} lang={lang} />
-
-        <DisclaimerBox type="religion" lang={lang} />
+        <div className="matn-hashiya">
+          <div>
+            <SukukCalculatorClient dict={dict} lang={lang} />
+          </div>
+          <Hashiya source="sukuk" lang={lang} methodologyAnchor="sukuk" />
+        </div>
 
         <article className="card guide-article blog-content">
           {isAr ? (

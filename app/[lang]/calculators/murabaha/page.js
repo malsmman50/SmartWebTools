@@ -2,7 +2,7 @@ import { getDictionary } from "@/app/dictionaries";
 import MurabahaCalculatorClient from "@/app/components/MurabahaCalculatorClient";
 import SoftwareSchema from "@/app/components/SEO/SoftwareSchema";
 import FAQSchema from "@/app/components/SEO/FAQSchema";
-import DisclaimerBox from "@/app/components/UI/DisclaimerBox";
+import Hashiya from "@/app/components/UI/Hashiya";
 import Link from "next/link";
 
 export async function generateMetadata({ params }) {
@@ -54,17 +54,13 @@ export default async function MurabahaCalculatorPage({ params }) {
       <div className="page-header">
         <h1>{t.title}</h1>
         <p>{t.subtitle}</p>
-        <div style={{ marginTop: "12px" }}>
-          <Link href={`/${lang}/methodology#murabaha`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
-            {lang === "ar" ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
-          </Link>
-        </div>
       </div>
 
-      <MurabahaCalculatorClient lang={lang} dict={dict} />
-      
-      <div style={{ marginTop: "30px" }}>
-        <DisclaimerBox type="religion" lang={lang} />
+      <div className="matn-hashiya">
+        <div>
+          <MurabahaCalculatorClient lang={lang} dict={dict} />
+        </div>
+        <Hashiya source="murabaha" lang={lang} methodologyAnchor="murabaha" />
       </div>
 
       <article className="card guide-article blog-content">
