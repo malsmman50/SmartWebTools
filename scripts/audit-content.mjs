@@ -278,6 +278,28 @@ function checkLinks(slug, ar, en) {
   }
 }
 
+/**
+ * سلامة الوسوم.
+ *
+ * وُجد في خمسة مقالات فقراتٌ لم تُغلق، وفي واحد `</p>` زائد يغلق ما لم
+ * يُفتح. المتصفّح يتسامح مع ذلك فيبدو المقال سليماً على الشاشة — لكن
+ * التعقيم عبر sanitize-html يعيد بناء الشجرة، وشجرةٌ مختلّة قد تُسقط
+ * فقرةً أو تبتلع ما بعدها. والعطب من النوع الذي لا يظهر إلا في الإنتاج
+ * وعلى صفحة بعينها.
+ */
+function checkMarkup(slug, ar, en) {
+  for (const [text, lang] of [[ar, 'العربية'], [en, 'الإنجليزية']]) {
+    for (const tag of ['p', 'h2', 'h3', 'h4', 'ul', 'ol', 'li', 'table', 'strong']) {
+      const open = (text.match(new RegExp(`<${tag}\\b[^>]*>`, 'gi')) || []).length;
+      const close = (text.match(new RegExp(`</${tag}>`, 'gi')) || []).length;
+      if (open !== close) {
+        flag(W, slug, 'وسوم غير متوازنة',
+          `النسخة ${lang} — <${tag}> ${open} مقابل ${close}؛ التعقيم يعيد بناء الشجرة وقد يُسقط محتوى`);
+      }
+    }
+  }
+}
+
 /** بقايا الحداثة الآلية — تلاعب بإشارات التحديث. */
 function checkAutomation(slug, post, text) {
   if (post.dateModified) flag(W, slug, 'dateModified', 'حقل الحداثة المزيّف يجب أن يبقى محذوفاً');
@@ -450,7 +472,7 @@ for (const post of target) {
   checkNisab(s, both); checkRate(s, both); checkHawl(s, both);
   checkAuthority(s, both); checkStandards(s, both); checkRiba(s, both);
   checkLinks(s, ar, en); checkAutomation(s, post, both);
-  checkStructure(s, post, ar, en); checkArithmetic(s, both);
+  checkStructure(s, post, ar, en); checkArithmetic(s, both); checkMarkup(s, ar, en);
   collectTitle(post);
 }
 
