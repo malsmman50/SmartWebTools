@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 import { sanitizeArticleHtml } from "@/lib/sanitize";
+import { extractFaq } from "@/lib/faq";
 import YouTubeFacade from "@/app/components/YouTubeFacade";
 
 import { cache } from "react";
@@ -86,6 +87,7 @@ export default async function BlogPostPage({ params }) {
 
   const title = isAr ? post.titleAr : post.titleEn;
   const content = isAr ? post.contentAr : post.contentEn;
+  const faqPairs = extractFaq(content);
   const dateStr = new Date(post.date).toLocaleDateString(isAr ? "ar-EG" : "en-US", {
     year: "numeric", month: "long", day: "numeric"
   });
@@ -127,6 +129,7 @@ export default async function BlogPostPage({ params }) {
       {/* JSON-LD Schema for Blog Post */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
         "@context": "https://schema.org",
+        "@graph": [{
         "@type": "BlogPosting",
         "mainEntityOfPage": {
           "@type": "WebPage",
@@ -152,7 +155,19 @@ export default async function BlogPostPage({ params }) {
           }
         },
         "inLanguage": lang === "ar" ? "ar" : "en"
-      }).replace(/</g, '\\u003c')}} />
+        },
+        // مخطط الأسئلة يُبثّ فقط حين توجد أسئلة فعلاً في نصّ هذه اللغة.
+        // مخططٌ فارغ أو مُختلق يصف صفحةً غير التي يراها الزائر، وذاك عيبٌ
+        // في البيان لا مكسبٌ فيه.
+        ...(faqPairs.length >= 2 ? [{
+          "@type": "FAQPage",
+          "mainEntity": faqPairs.map((f) => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer },
+          })),
+        }] : []),
+      ]}).replace(/</g, '\\u003c')}} />
     </div>
   );
 }
