@@ -82,17 +82,57 @@ export default async function ZakatCalculatorPage({ params }) {
       <div className="page-header">
         <h1>{t.title}</h1>
         <p>{t.subtitle}</p>
-        <div style={{ marginTop: "12px" }}>
-          <Link href={`/${lang}/methodology#zakat`} style={{ color: "var(--primary)", textDecoration: "underline", fontWeight: "600", fontSize: "0.9rem" }}>
-            {lang === "ar" ? "📖 اقرأ المنهجية الشرعية ومصادر الحساب لهذه الحاسبة" : "📖 Read Shariah methodology & sources for this calculator"}
-          </Link>
-        </div>
       </div>
 
-      <ZakatCalculatorClient lang={lang} dict={dict} initialValues={{}} />
-      
-      <div style={{ marginTop: "24px" }}>
-        <DisclaimerBox type="religious" lang={lang} />
+      {/* Matn and hashiya: the calculator is the body text, its Sharia basis is
+          the margin — the way a fiqh manuscript carries its evidence. The margin
+          is not collapsible and does not disappear on mobile, because whether a
+          reader can check the basis is part of whether the answer is usable. */}
+      <div className="matn-hashiya">
+        <div>
+          <ZakatCalculatorClient lang={lang} dict={dict} initialValues={{}} />
+        </div>
+
+        <aside className="hashiya" aria-label={isAr ? "المستند الشرعي" : "Sharia basis"}>
+          <h4>{isAr ? "المستند" : "The basis"}</h4>
+
+          <dl className="hashiya-list">
+            <dt>{isAr ? "المعيار" : "Standard"}</dt>
+            <dd>{isAr ? "معيار أيوفي الشرعي رقم 35 (الزكاة)" : "AAOIFI Sharia Standard No. 35 (Zakah)"}</dd>
+
+            <dt>{isAr ? "النصاب" : "Nisab"}</dt>
+            <dd>
+              <span className="num">85</span>{" "}
+              {isAr ? "جراماً من الذهب الخالص (عيار 24)" : "grams of pure gold (24k)"}
+            </dd>
+
+            <dt>{isAr ? "المقدار" : "Rate"}</dt>
+            <dd>
+              <span className="num">2.5%</span> {isAr ? "— ربع العشر" : "— a quarter of a tenth"}
+            </dd>
+
+            <dt>{isAr ? "الحول" : "Hawl"}</dt>
+            <dd>
+              {isAr
+                ? "سنة قمرية لا شمسية. الفرق نحو 11 يوماً، ويغيّر تاريخ الوجوب."
+                : "A lunar year, not a solar one. The ~11-day difference moves the due date."}
+            </dd>
+          </dl>
+
+          <p className="hashiya-note">
+            {isAr
+              ? "نصاب الفضة (595 جراماً) يُخرج مبلغاً أقل غالباً، فيكون أنفع للفقراء. من أراد الأخذ به فليقارن الناتجين."
+              : "The silver nisab (595g) usually gives a lower threshold, which favours recipients. Compare both if you wish to follow it."}
+          </p>
+
+          <Link href={`/${lang}/methodology#zakat`} className="hashiya-link">
+            {isAr ? "المنهجية الكاملة ←" : "Full methodology →"}
+          </Link>
+
+          <div className="hashiya-warn">
+            <DisclaimerBox type="religious" lang={lang} />
+          </div>
+        </aside>
       </div>
 
       {/* SEO Content Expansion (800+ words) */}

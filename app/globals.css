@@ -995,3 +995,43 @@ html, body { max-width: 100%; overflow-x: hidden; }
 table { display: block; overflow-x: auto; max-width: 100%; }
 
 img, svg, video { max-width: 100%; height: auto; }
+
+/* --- Hashiya internals --- */
+.hashiya-list { margin: 0 0 16px; }
+
+.hashiya-list dt {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.82rem;
+  margin-top: 12px;
+}
+.hashiya-list dt:first-child { margin-top: 0; }
+
+.hashiya-list dd { margin: 2px 0 0; }
+
+.hashiya-note {
+  padding-block: 12px;
+  border-block-start: 1px solid var(--rule);
+  margin-block-start: 4px;
+}
+
+.hashiya-link {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--zellige);
+  margin-block-start: 4px;
+}
+.hashiya-link:hover { color: var(--zellige-deep); }
+
+.hashiya-warn { margin-block-start: 18px; }
+
+/* The page-header rule echoes the section breaks on the homepage, so a
+   calculator page and the index read as the same document. */
+.page-header {
+  border-block-end: 1px solid var(--rule);
+  padding-block-end: 18px;
+  margin-block-end: 32px;
+}
+.page-header h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: 8px; }
+.page-header p { color: var(--ink-soft); max-width: 68ch; margin: 0; }
