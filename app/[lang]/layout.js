@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { Inter } from "next/font/google";
+import { Aref_Ruqaa, IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import Script from "next/script";
@@ -9,7 +9,35 @@ import PwaInstallPrompt from "@/app/components/PwaInstallPrompt";
 import CookieBanner from "@/app/components/CookieBanner";
 import SmartFooter from "@/app/components/SmartFooter";
 import { GoogleAnalytics } from '@next/third-parties/google';
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+/* Three faces, three jobs — see references/design.md.
+   Aref Ruqaa carries the traditional voice but only in headings, so it never
+   tires the reader. IBM Plex Sans Arabic covers both scripts from one design,
+   so the Arabic never reads as a bolted-on translation. Plex Mono gives every
+   figure a fixed advance width, which is what keeps calculation tables honest.
+   All three are self-hosted at build time: no external request, no CSP entry,
+   no layout shift. */
+const arefRuqaa = Aref_Ruqaa({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-aref",
+});
+
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-plex-ar",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-plex-mono",
+});
+
+const fontVars = `${arefRuqaa.variable} ${plexArabic.variable} ${plexMono.variable}`;
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
@@ -84,8 +112,7 @@ export default async function RootLayout({ children, params }) {
           }}
         />
         {/* Resource Hints: Pre-warm connections to critical third-party domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* No font preconnect: next/font self-hosts all three faces at build time. */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link rel="dns-prefetch" href="https://tpc.googlesyndication.com" />
@@ -141,7 +168,7 @@ export default async function RootLayout({ children, params }) {
           }}
         />
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={fontVars} suppressHydrationWarning>
           <Navbar lang={lang} dict={dict} />
           <div className="page-wrapper">
             <aside className="side-ad">

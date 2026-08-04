@@ -71,33 +71,14 @@ export default function Navbar({ lang, dict }) {
     { name: dict.calculators.fire_title, path: "/calculators/islamic-fire" }
   ];
 
-  const everydayTools = [
-    { name: dict.everyday?.shoe_size_title || "Shoe Size Converter", path: "/calculators/shopping/shoe-size" },
-    { name: dict.everyday?.discount_title || "Discount & VAT", path: "/calculators/shopping/discount" },
-    { name: dict.customs?.title || "Customs Duty", path: "/calculators/shopping/customs-duty" },
-    { name: dict.everyday?.split_bill_title || "Split the Bill", path: "/calculators/lifestyle/split-bill" },
-    { name: dict.health?.body_calc_title || "Body Calculator", path: "/calculators/health/body-calculator" },
-    { name: dict.health?.pregnancy_title || "Pregnancy Tracker", path: "/calculators/health/pregnancy" },
-    { name: dict.health?.ramadan_title || "Ramadan Hydration", path: "/calculators/health/ramadan-hydration" },
-    { name: dict.fuel?.title || "Fuel Cost", path: "/calculators/lifestyle/fuel-cost" }
-  ];
-
-  const utilities = [
+  // Two menus, not four. Developer tools, shopping and general health
+  // calculators left the site under the scope rule (.claude/RULES.md, Bab 1),
+  // and a nav that still advertised them would point at redirects.
+  const worship = [
     { name: dict.utilities.qibla_title, path: "/tools/qibla-compass" },
     { name: dict.utilities.hijri_title, path: "/tools/hijri-converter" },
     { name: dict.utilities.currency_title, path: "/calculators/currency" },
-    { name: dict.utilities.compressor_title, path: "/tools/image-compressor" },
-    { name: dict.utilities.chatpdf_title, path: "/tools/chatpdf" },
-    { name: dict.utilities.password_title, path: "/tools/password-generator" }
-  ];
-
-  const tools = [
-    { name: dict.dev_tools.json_title, path: "/tools/json-formatter" },
-    { name: dict.dev_tools.jwt_title, path: "/tools/jwt-decoder" },
-    { name: dict.dev_tools.cron_title, path: "/tools/cron-generator" },
-    { name: dict.dev_tools.prompt_title, path: "/tools/prompt-generator" },
-    { name: dict.dev_tools.data_converter_title, path: "/tools/data-converter" },
-    { name: dict.dev_tools.regex_title, path: "/tools/regex-tester" }
+    { name: dict.health?.ramadan_title || (lang === "ar" ? "ترطيب رمضان" : "Ramadan Hydration"), path: "/calculators/health/ramadan-hydration" }
   ];
 
   return (
@@ -127,39 +108,11 @@ export default function Navbar({ lang, dict }) {
 
             <div className="premium-dropdown">
               <span className="nav-link" style={{ cursor: "pointer" }}>
-                {lang === "ar" ? "يوميات وصحة" : "Life & Health"}
+                {lang === "ar" ? "مواقيت وعبادات" : "Timing & Worship"}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </span>
               <div className="dropdown-content">
-                {everydayTools.map((item) => (
-                  <Link key={item.path} href={localizePath(item.path)} className="dropdown-item">
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="premium-dropdown">
-              <span className="nav-link" style={{ cursor: "pointer" }}>
-                {dict.common.nav_smart_utilities}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-              <div className="dropdown-content">
-                {utilities.map((item) => (
-                  <Link key={item.path} href={localizePath(item.path)} className="dropdown-item">
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="premium-dropdown">
-              <span className="nav-link" style={{ cursor: "pointer" }}>
-                {dict.common.nav_dev_tools}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-              <div className="dropdown-content">
-                {tools.map((item) => (
+                {worship.map((item) => (
                   <Link key={item.path} href={localizePath(item.path)} className="dropdown-item">
                     {item.name}
                   </Link>
@@ -261,35 +214,21 @@ export default function Navbar({ lang, dict }) {
           </div>
 
           <div className="mobile-menu-section">
-            <h4>🕌 {dict.common.nav_islamic_finance}</h4>
+            <h4>{dict.common.nav_islamic_finance}</h4>
             {calculators.map(c => (
               <Link key={c.path} href={localizePath(c.path)} onClick={toggleMenu}>{c.name}</Link>
             ))}
           </div>
-          
+
           <div className="mobile-menu-section">
-            <h4>❤️ {lang === "ar" ? "يوميات وصحة" : "Life & Health"}</h4>
-            {everydayTools.map(u => (
+            <h4>{lang === "ar" ? "مواقيت وعبادات" : "Timing & Worship"}</h4>
+            {worship.map(u => (
               <Link key={u.path} href={localizePath(u.path)} onClick={toggleMenu}>{u.name}</Link>
             ))}
           </div>
 
           <div className="mobile-menu-section">
-            <h4>✨ {dict.common.nav_smart_utilities}</h4>
-            {utilities.map(u => (
-              <Link key={u.path} href={localizePath(u.path)} onClick={toggleMenu}>{u.name}</Link>
-            ))}
-          </div>
-
-          <div className="mobile-menu-section">
-            <h4>👨‍💻 {dict.common.nav_dev_tools}</h4>
-            {tools.map(t => (
-              <Link key={t.path} href={localizePath(t.path)} onClick={toggleMenu}>{t.name}</Link>
-            ))}
-          </div>
-
-          <div className="mobile-menu-section">
-            <h4>🏢 {dict.common.nav_company}</h4>
+            <h4>{dict.common.nav_company}</h4>
             <Link href={localizePath("/developers")} onClick={toggleMenu}>{lang === "ar" ? "المطورين (API)" : "Developers (API)"}</Link>
             <Link href={localizePath("/blog")} onClick={toggleMenu}>{lang === "ar" ? "المدونة" : "Blog"}</Link>
             <Link href={localizePath("/about")} onClick={toggleMenu}>{dict.common.nav_about_us}</Link>

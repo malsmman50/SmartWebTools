@@ -1,71 +1,125 @@
+/* ============================================================
+   SmartCalcTools — visual identity
+   Drawn from the subject's own materials: manuscript ink and paper,
+   the brass of a scale (zakat is weight before it is money), and the
+   turquoise of mihrab zellige. Contrast ratios below are calculated,
+   not eyeballed — see .claude/skills/smartcalctools/references/design.md.
+   The old palette (#2563eb blue + #7c3aed violet + Inter) was the
+   default any generator produces, and the site was rejected wearing it.
+   ============================================================ */
 :root {
-  --bg: #f8f9fb;
-  --bg-card: #ffffff;
-  --text: #1a1a2e;
-  --text-muted: #64748b;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --accent: #7c3aed;
-  --accent-hover: #6d28d9;
-  --border: #e2e8f0;
-  --success: #059669;
-  --danger: #dc2626;
-  --warning: #d97706;
-  --primary-rgb: 37, 99, 235;
-  --danger-rgb: 220, 38, 38;
-  --warning-rgb: 217, 119, 6;
-  --success-rgb: 5, 150, 105;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius: 16px;
-  --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
-  --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.08);
+  --ink: #14161c;
+  --ink-soft: #5a5f6b;
+  --paper: #fbfaf7;
+  --surface: #ffffff;
+  --brass: #8a5e18;        /* 5.5:1 on paper — AA. #9a6b1f gave 4.48:1 and failed. */
+  --brass-deep: #6d4a12;
+  --zellige: #1d6b73;      /* 5.9:1 on paper — AA */
+  --zellige-deep: #14515a;
+  --rule: #dcd8d0;
+
+  /* Legacy names kept so existing pages inherit the new identity
+     without each one being rewritten. Same tokens, new values. */
+  --bg: var(--paper);
+  --bg-card: var(--surface);
+  --text: var(--ink);
+  --text-muted: var(--ink-soft);
+  --primary: var(--brass);
+  --primary-hover: var(--brass-deep);
+  --accent: var(--zellige);
+  --accent-hover: var(--zellige-deep);
+  --border: var(--rule);
+  --success: #1d6b46;
+  --danger: #9a3412;
+  --warning: #8a5e18;
+  --primary-rgb: 138, 94, 24;
+  --danger-rgb: 154, 52, 18;
+  --warning-rgb: 138, 94, 24;
+  --success-rgb: 29, 107, 70;
+
+  /* Elevation comes from a hairline rule, not a blurred shadow.
+     Large radii are the signature of the template we are leaving. */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius: 6px;
+  --shadow: 0 1px 2px rgba(20, 22, 28, 0.04);
+  --shadow-lg: 0 2px 8px rgba(20, 22, 28, 0.07);
+
+  --font-display: var(--font-aref), Georgia, serif;
+  --font-body: var(--font-plex-ar), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 [data-theme="dark"] {
-  --bg: #0f172a;
-  --bg-card: #1e293b;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --primary: #3b82f6;
-  --primary-hover: #60a5fa;
-  --accent: #8b5cf6;
-  --accent-hover: #a78bfa;
-  --border: #334155;
-  --success: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --primary-rgb: 59, 130, 246;
-  --danger-rgb: 239, 68, 68;
-  --warning-rgb: 245, 158, 11;
-  --success-rgb: 16, 185, 129;
-  --shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
-  --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.5);
+  --ink: #e8e4dc;
+  --ink-soft: #9ba1ac;
+  --paper: #0f1116;
+  --surface: #171a21;
+  --brass: #d9a441;        /* 8.4:1 on dark paper — AAA */
+  --brass-deep: #e8bc66;
+  --zellige: #4fb3bf;      /* 7.7:1 on dark paper — AAA */
+  --zellige-deep: #6cc9d4;
+  --rule: #2a2e37;
+
+  --success: #5cbf8f;
+  --danger: #f08a5d;
+  --warning: #d9a441;
+  --primary-rgb: 217, 164, 65;
+  --danger-rgb: 240, 138, 93;
+  --warning-rgb: 217, 164, 65;
+  --success-rgb: 92, 191, 143;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  /* Arabic needs a little more leading than Latin at the same size. */
+  line-height: 1.75;
+  font-size: 17px;
   min-height: 100vh;
-  transition: background 0.3s ease, color 0.3s ease;
-  text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
-a:hover { color: var(--primary-hover); }
-
-*:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+/* Every figure on this site is a result someone may check against paper.
+   Tabular numerals keep columns aligned; the mono face makes digits
+   unmistakable for prose. */
+.num, table td, table th {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
-h1, h2, h3, h4 { font-weight: 700; color: var(--text); line-height: 1.3; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a { color: var(--primary); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--primary-hover); }
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+h3, h4 { font-weight: 600; color: var(--ink); line-height: 1.35; }
+
+*:focus-visible {
+  outline: 2px solid var(--zellige);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
 
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
@@ -85,12 +139,14 @@ h1, h2, h3, h4 { font-weight: 700; color: var(--text); line-height: 1.3; }
 /* Buttons */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px; border-radius: 8px; font-weight: 600;
-  font-size: 0.95rem; cursor: pointer; border: none;
-  transition: all 0.2s ease; font-family: inherit;
+  padding: 11px 22px; border-radius: var(--radius-md); font-weight: 600;
+  font-size: 0.95rem; cursor: pointer; border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  font-family: inherit; min-height: 44px;
 }
-.btn-primary { background: var(--primary); color: #fff; }
-.btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+.btn-primary { background: var(--brass); color: #fff; }
+.btn-primary:hover { background: var(--brass-deep); }
+[data-theme="dark"] .btn-primary { color: #14161c; }
 .btn-accent { background: var(--accent); color: #fff; }
 .btn-accent:hover { background: var(--accent-hover); }
 .btn-outline {
@@ -761,3 +817,181 @@ input[type=number] {
 @media (max-width: 700px) {
   .guide-article { padding: 28px 20px; margin-top: 32px; }
 }
+
+/* ============================================================
+   Homepage — identity components
+   ============================================================ */
+
+.home-hero {
+  padding: 72px 0 56px;
+  max-width: 68ch;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 18px;
+}
+
+.home-hero__title {
+  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  margin-bottom: 20px;
+  text-wrap: balance;
+}
+
+.home-hero__lede {
+  font-size: 1.12rem;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.tool-group { margin-bottom: 56px; }
+
+/* The rule sits under the heading rather than beside it: it reads as a
+   section break in a printed page, not as a decorative divider. */
+.tool-group__head {
+  border-block-end: 1px solid var(--rule);
+  padding-block-end: 14px;
+  margin-block-end: 24px;
+}
+
+.tool-group__title { font-size: 1.5rem; margin-bottom: 6px; }
+
+.tool-group__note {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  max-width: 62ch;
+  margin: 0;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.tool-card {
+  display: block;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* The brass edge is the hover signal — a marker in the margin,
+   consistent with the marginalia idea the result panels use. */
+.tool-card:hover,
+.tool-card:focus-visible {
+  border-color: var(--brass);
+  box-shadow: inset 3px 0 0 var(--brass);
+  color: inherit;
+}
+[dir="rtl"] .tool-card:hover,
+[dir="rtl"] .tool-card:focus-visible {
+  box-shadow: inset -3px 0 0 var(--brass);
+}
+
+.tool-card__title { font-size: 1.02rem; margin-bottom: 6px; }
+
+.tool-card__desc {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.trust {
+  border-block-start: 1px solid var(--rule);
+  padding-block-start: 40px;
+  margin-block: 24px 72px;
+}
+
+.trust__title { font-size: 1.5rem; margin-bottom: 28px; }
+
+.trust__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+}
+
+.trust__item h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--zellige);
+}
+
+.trust__item p {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* --- Marginalia: the signature element. The Sharia source sits beside the
+   result the way a hashiya sits beside the matn of a fiqh manuscript.
+   On narrow screens it drops below the result and stays visible — it is
+   part of whether the answer is correct, not decoration. --- */
+.matn-hashiya {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 0.42fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.hashiya {
+  border-inline-start: 2px solid var(--brass);
+  padding-inline-start: 16px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.hashiya h4 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 10px;
+}
+
+.result-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.2rem, 6.5vw, 3.6rem);
+  font-weight: 600;
+  color: var(--brass);
+  line-height: 1.1;
+}
+
+@media (max-width: 720px) {
+  .matn-hashiya { grid-template-columns: 1fr; gap: 20px; }
+  .home-hero { padding: 48px 0 40px; }
+}
+
+/* --- Horizontal overflow guard ---
+   In RTL a single over-wide child crops content off the right edge, which is
+   how the mobile hero was losing the first word of every line. Nothing on a
+   calculator page needs to be wider than the viewport; wide items (tables,
+   code) scroll inside their own container instead. */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+.container { width: 100%; max-width: 1100px; }
+
+.home-hero, .home-hero__title, .home-hero__lede,
+.tool-group__note, .trust__item p { max-width: min(68ch, 100%); }
+
+table { display: block; overflow-x: auto; max-width: 100%; }
+
+img, svg, video { max-width: 100%; height: auto; }

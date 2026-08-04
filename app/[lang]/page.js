@@ -1,16 +1,22 @@
 import Link from "next/link";
 import { getDictionary } from "@/app/dictionaries";
-import PopularToolsClient from "@/app/components/PopularToolsClient";
+
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const isAr = lang === "ar";
   return {
+    title: isAr
+      ? "حاسبات الزكاة والميراث والتمويل الإسلامي — بسند شرعي"
+      : "Zakat, Inheritance & Islamic Finance Calculators — With Sources",
+    description: isAr
+      ? "احسب زكاتك وميراثك وأقساط مرابحتك، واعرف من أين جاء كل رقم. كل حاسبة تعرض خطوات الحساب والمعيار الشرعي الذي بُنيت عليه."
+      : "Calculate your zakat, inheritance shares and murabaha instalments — and see where every number comes from. Each calculator shows its steps and the Sharia standard behind it.",
     alternates: {
-      canonical: isAr ? 'https://smartcalctools.xyz/ar' : 'https://smartcalctools.xyz/en',
+      canonical: `https://smartcalctools.xyz/${isAr ? "ar" : "en"}`,
       languages: {
-        'en': 'https://smartcalctools.xyz/en',
-        'ar': 'https://smartcalctools.xyz/ar',
-        'x-default': 'https://smartcalctools.xyz/en',
+        en: "https://smartcalctools.xyz/en",
+        ar: "https://smartcalctools.xyz/ar",
+        "x-default": "https://smartcalctools.xyz/en",
       },
     },
   };
@@ -19,59 +25,78 @@ export async function generateMetadata({ params }) {
 export default async function Home({ params }) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
-
+  const isAr = lang === "ar";
   const localize = (path) => `/${lang}${path}`;
 
-  const calculators = [
-    { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: localize("/calculators/zakat"), icon: "🤲" },
-    { title: dict.calculators.inheritance_title, desc: dict.calculators.inheritance_desc, href: localize("/calculators/inheritance"), icon: "⚖️" },
-    { title: dict.calculators.murabaha_title, desc: dict.calculators.murabaha_desc, href: localize("/calculators/murabaha"), icon: "🤝" },
-    { title: dict.calculators.mudarabah_title, desc: dict.calculators.mudarabah_desc, href: localize("/calculators/mudarabah"), icon: "📈" },
-    { title: dict.calculators.roi_title, desc: dict.calculators.roi_desc, href: localize("/calculators/roi"), icon: "💰" },
-    { title: dict.calculators.fire_title, desc: dict.calculators.fire_desc, href: localize("/calculators/islamic-fire"), icon: "🔥" }
-  ];
+  const t = (ar, en) => (isAr ? ar : en);
 
-  const everydayTools = [
-    { title: dict.everyday?.shoe_size_title || "Shoe Size Converter", desc: dict.everyday?.shoe_size_desc || "Convert shoe sizes instantly.", href: localize("/calculators/shopping/shoe-size"), icon: "🌍" },
-    { title: dict.everyday?.discount_title || "Smart Discount & VAT", desc: dict.everyday?.discount_desc || "Calculate final prices with tax.", href: localize("/calculators/shopping/discount"), icon: "🏷️" },
-    { title: dict.everyday?.split_bill_title || "Split the Bill", desc: dict.everyday?.split_bill_desc || "Divide restaurant bills.", href: localize("/calculators/lifestyle/split-bill"), icon: "🍕" },
-    { title: dict.health?.body_calc_title || "Body Calculator", desc: dict.health?.body_calc_desc || "Calculate BMI, BMR, TDEE, and Ideal Weight.", href: localize("/calculators/health/body-calculator"), icon: "⚖️" },
-    { title: dict.health?.pregnancy_title || "Pregnancy Tracker", desc: dict.health?.pregnancy_desc || "Calculate due date and track your baby's growth.", href: localize("/calculators/health/pregnancy"), icon: "👶" }
-  ];
-
-  const utilities = [
-    { title: dict.utilities.qibla_title, desc: dict.utilities.qibla_desc, href: localize("/tools/qibla-compass"), icon: "🕋" },
-    { title: dict.utilities.hijri_title, desc: dict.utilities.hijri_desc, href: localize("/tools/hijri-converter"), icon: "📅" },
-    { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: localize("/calculators/currency"), icon: "💱" },
-    { title: dict.utilities.compressor_title, desc: dict.utilities.compressor_desc, href: localize("/tools/image-compressor"), icon: "🖼️" },
-    { title: dict.utilities.chatpdf_title, desc: dict.utilities.chatpdf_desc, href: localize("/tools/chatpdf"), icon: "📄" },
-    { title: dict.utilities.password_title, desc: dict.utilities.password_desc, href: localize("/tools/password-generator"), icon: "🔐" }
-  ];
-
-  const tools = [
-    { title: dict.dev_tools.json_title, desc: dict.dev_tools.json_desc, href: localize("/tools/json-formatter"), icon: "{ }" },
-    { title: dict.dev_tools.jwt_title, desc: dict.dev_tools.jwt_desc, href: localize("/tools/jwt-decoder"), icon: "🔑" },
-    { title: dict.dev_tools.cron_title, desc: dict.dev_tools.cron_desc, href: localize("/tools/cron-generator"), icon: "⏰" },
-    { title: dict.dev_tools.prompt_title, desc: dict.dev_tools.prompt_desc, href: localize("/tools/prompt-generator"), icon: "✨" }
+  // Grouped by what the visitor came to do, not by which team built the tool.
+  const groups = [
+    {
+      id: "obligations",
+      title: t("الزكاة والميراث", "Zakat & Inheritance"),
+      note: t(
+        "فريضتان لهما مقدار محسوب. الخطأ فيهما ليس خطأ حساب فقط.",
+        "Two obligations with an exact amount. Getting them wrong is not merely an arithmetic error."
+      ),
+      items: [
+        { title: dict.calculators.zakat_title, desc: dict.calculators.zakat_desc, href: "/calculators/zakat" },
+        { title: dict.calculators.inheritance_title, desc: dict.calculators.inheritance_desc, href: "/calculators/inheritance" },
+      ],
+    },
+    {
+      id: "finance",
+      title: t("أدوات التمويل الإسلامي", "Islamic Finance Instruments"),
+      note: t(
+        "عقود لها ضوابط. الحاسبة تبيّن الكلفة الحقيقية، لا الرقم الترويجي.",
+        "Contracts with rules. These show the real cost, not the headline figure."
+      ),
+      items: [
+        { title: dict.calculators.murabaha_title, desc: dict.calculators.murabaha_desc, href: "/calculators/murabaha" },
+        { title: dict.calculators.mudarabah_title, desc: dict.calculators.mudarabah_desc, href: "/calculators/mudarabah" },
+        { title: dict.calculators.sukuk_title, desc: dict.calculators.sukuk_desc, href: "/calculators/sukuk" },
+        { title: dict.calculators.islamic_deposit_title, desc: dict.calculators.islamic_deposit_desc, href: "/calculators/islamic-deposit" },
+        { title: dict.calculators.fire_title, desc: dict.calculators.fire_desc, href: "/calculators/islamic-fire" },
+        { title: dict.calculators.roi_title, desc: dict.calculators.roi_desc, href: "/calculators/roi" },
+      ],
+    },
+    {
+      id: "worship",
+      title: t("مواقيت وعبادات", "Timing & Worship"),
+      note: t(
+        "اتجاه وتاريخ. يُرفض المدخل المستحيل بدل تصحيحه بصمت.",
+        "Direction and date. An impossible input is refused, never silently corrected."
+      ),
+      items: [
+        { title: dict.utilities.qibla_title, desc: dict.utilities.qibla_desc, href: "/tools/qibla-compass" },
+        { title: dict.utilities.hijri_title, desc: dict.utilities.hijri_desc, href: "/tools/hijri-converter" },
+        { title: dict.utilities.currency_title, desc: dict.utilities.currency_desc, href: "/calculators/currency" },
+        {
+          title: t("حاسبة ترطيب رمضان", "Ramadan Hydration"),
+          desc: t("وزّع حاجتك من الماء بين الإفطار والسحور.", "Plan your water intake between iftar and suhoor."),
+          href: "/calculators/health/ramadan-hydration",
+        },
+      ],
+    },
   ];
 
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": lang === "ar" ? "SmartCalcTools - أدوات الحساب الذكية" : "SmartCalcTools",
-    "url": `https://smartcalctools.xyz/${lang}`,
-    "description": lang === "ar" ? "مجموعة من الأدوات الخاصة بالتمويل الإسلامي والمطورين." : "A complete suite of Halal finance calculators and developer tools.",
-    "publisher": {
+    name: isAr ? "SmartCalcTools — حاسبات شرعية بسند" : "SmartCalcTools",
+    url: `https://smartcalctools.xyz/${lang}`,
+    description: isAr
+      ? "حاسبات الزكاة والميراث والتمويل الإسلامي، كل نتيجة مع خطواتها ومعيارها الشرعي."
+      : "Zakat, inheritance and Islamic finance calculators — every result with its steps and Sharia standard.",
+    publisher: {
       "@type": "Organization",
-      "name": "SmartCalcTools",
-      "logo": {
+      name: "SmartCalcTools",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://smartcalctools.xyz/icon-512.png"
-      }
-    }
+        url: "https://smartcalctools.xyz/icon-512.png",
+      },
+    },
   };
-
-  const allTools = [...calculators, ...everydayTools, ...utilities, ...tools];
 
   return (
     <div className="container">
@@ -79,138 +104,79 @@ export default async function Home({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <style dangerouslySetInnerHTML={{ __html: `
-        .side-ad { display: none !important; }
-        .main-content { max-width: 1300px !important; margin: 0 auto; }
-      ` }} />
-      
-      {/* Hero Section */}
-      <section className="hero" style={{ paddingBottom: "30px" }}>
-        <h1 style={{ fontSize: "3.5rem" }}>
-          {dict.home.hero_title}
+
+      {/* The thesis: this site's claim is not "fast and free" — it is "you can
+          check our work". That is what a rejected-for-thin-content site must prove. */}
+      <section className="home-hero">
+        <p className="eyebrow">{t("حساب شرعي مُسنَد", "Sharia calculation, sourced")}</p>
+        <h1 className="home-hero__title">
+          {t("احسب فريضتك، واعرف من أين جاء الرقم.", "Work out what you owe — and see where the number came from.")}
         </h1>
-        <p style={{ fontSize: "1.2rem", maxWidth: "800px", margin: "0 auto", color: "var(--text-muted)" }}>
-          {dict.home.hero_subtitle}
+        <p className="home-hero__lede">
+          {t(
+            "كل حاسبة هنا تعرض خطوات الحساب كاملة، والمعيار الشرعي الذي بُنيت عليه، والمذهب المعتمد عند الاختلاف. لا صندوق أسود.",
+            "Every calculator here shows its full working, the Sharia standard it rests on, and which school of thought it follows where jurists differ. No black box."
+          )}
         </p>
-        
-        <div className="trust-badges" style={{ marginTop: "40px" }}>
-          <div className="trust-badge">
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            <div>
-              <strong>{dict.home.badge_private_title}</strong>
-              <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>{dict.home.badge_private_desc}</div>
-            </div>
+
+        <div className="home-hero__actions">
+          <Link href={localize("/calculators/zakat")} className="btn btn-primary">
+            {t("ابدأ بحاسبة الزكاة", "Start with zakat")}
+          </Link>
+          <Link href={localize("/methodology")} className="btn btn-outline">
+            {t("كيف نحسب", "How we calculate")}
+          </Link>
+        </div>
+      </section>
+
+      {groups.map((group) => (
+        <section key={group.id} id={group.id} className="tool-group">
+          <div className="tool-group__head">
+            <h2 className="tool-group__title">{group.title}</h2>
+            <p className="tool-group__note">{group.note}</p>
           </div>
-          <div className="trust-badge">
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <div>
-              <strong>{dict.home.badge_speed_title}</strong>
-              <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>{dict.home.badge_speed_desc}</div>
-            </div>
+          <div className="tool-grid">
+            {group.items.map((tool) => (
+              <Link key={tool.href} href={localize(tool.href)} className="tool-card">
+                <h3 className="tool-card__title">{tool.title}</h3>
+                <p className="tool-card__desc">{tool.desc}</p>
+              </Link>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
-      {/* Popular Tools (Dynamic & Random) */}
-      <PopularToolsClient allTools={allTools} langTitle={dict.home.popular_tools} />
-
-      {/* Categorized Tools directory */}
-      
-      {/* Islamic Finance */}
-      <section id="islamic" style={{ marginBottom: "40px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
-          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>🕌 {dict.common.nav_islamic_finance}</h2>
-          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
-        </div>
-        <div className="grid-4" style={{ opacity: 0.9 }}>
-          {calculators.map(tool => (
-            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
-                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
-              </div>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Everyday Life & Health */}
-      <section id="everyday" style={{ marginBottom: "40px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
-          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>❤️ {dict.home.life_and_health}</h2>
-          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
-        </div>
-        <div className="grid-4" style={{ opacity: 0.9 }}>
-          {everydayTools.map(tool => (
-            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
-                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
-              </div>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Smart Utilities */}
-      <section style={{ marginBottom: "40px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
-          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>✨ {dict.common.nav_smart_utilities}</h2>
-          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
-        </div>
-        <div className="grid-4" style={{ opacity: 0.9 }}>
-          {utilities.map(tool => (
-            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
-                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
-              </div>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Developer Tools */}
-      <section style={{ marginBottom: "60px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "24px" }}>
-          <h2 style={{ fontSize: "1.6rem", margin: 0, color: "var(--text)" }}>💻 {dict.common.nav_dev_tools}</h2>
-          <div style={{ height: "1px", background: "var(--border)", flex: 1 }}></div>
-        </div>
-        <div className="grid-4" style={{ opacity: 0.9 }}>
-          {tools.map(tool => (
-            <Link key={tool.href} href={tool.href} className="card card-link" style={{ padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
-                <span style={{ fontSize: "1.5rem" }}>{tool.icon}</span>
-                <h3 style={{ fontSize: "1rem", margin: 0 }}>{tool.title}</h3>
-              </div>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: "1.4", margin: 0 }}>{tool.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="card" style={{ textAlign: "center", padding: "48px 32px", marginBottom: "40px" }}>
-        <h2 style={{ marginBottom: "12px" }}>{dict.home.why_title}</h2>
-        <div className="grid-3" style={{ marginTop: "24px", textAlign: lang === "ar" ? "right" : "left" }}>
-          <div>
-            <h4 style={{ marginBottom: "8px" }}>{dict.home.why_halal_title}</h4>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{dict.home.why_halal_desc}</p>
+      {/* Trust section. Three claims, each one falsifiable by the visitor —
+          which is the only kind worth printing. */}
+      <section className="trust">
+        <h2 className="trust__title">{t("لماذا تثق بهذه الأرقام", "Why these numbers are checkable")}</h2>
+        <div className="trust__grid">
+          <div className="trust__item">
+            <h3>{t("السند مذكور", "The source is named")}</h3>
+            <p>
+              {t(
+                "بجوار كل نتيجة معيارها الشرعي والمذهب المعتمد. إن خالف فقيهٌ ما نعتمده، ذكرنا ذلك بدل إخفائه.",
+                "Each result sits beside the standard it follows and the school it applies. Where jurists disagree, we say so rather than hide it."
+              )}
+            </p>
           </div>
-          <div>
-            <h4 style={{ marginBottom: "8px" }}>{dict.home.why_private_title}</h4>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{dict.home.why_private_desc}</p>
+          <div className="trust__item">
+            <h3>{t("الخطوات مكشوفة", "The working is shown")}</h3>
+            <p>
+              {t(
+                "تستطيع إعادة الحساب بالورقة والقلم والوصول إلى الرقم نفسه. هذا شرط، لا ميزة إضافية.",
+                "You can redo the arithmetic on paper and land on the same figure. That is a requirement here, not a feature."
+              )}
+            </p>
           </div>
-          <div>
-            <h4 style={{ marginBottom: "8px" }}>{dict.home.why_speed_title}</h4>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{dict.home.why_speed_desc}</p>
+          <div className="trust__item">
+            <h3>{t("بياناتك لا تغادر جهازك", "Your data stays with you")}</h3>
+            <p>
+              {t(
+                "الحساب يجري داخل متصفحك. لا نحفظ مبالغك ولا تفاصيل تركتك على أي خادم.",
+                "Calculations run inside your browser. We store neither your balances nor your family details on any server."
+              )}
+            </p>
           </div>
         </div>
       </section>
