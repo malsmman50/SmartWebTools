@@ -32,6 +32,12 @@ async function get(url) {
     const r = await fetch(BASE + url, { redirect: 'manual', headers: { 'User-Agent': 'SmartCalcTools-Audit' } });
     const body = r.status < 300 || r.status >= 400 ? await r.text() : '';
     const v = { status: r.status, body, headers: r.headers, location: r.headers.get('location') || '' };
+    // 403/429 يعنيان أن المدقّق نفسه حُجب، لا أن الصفحة معطوبة. لا تُخزَّن
+    // هذه الاستجابة، وإلا انتشر عطبٌ واحد على كل فحص يشترك في العنوان.
+    if (r.status === 403 || r.status === 429) {
+      console.warn(`\n  ⚠ حُجب المدقّق على ${url} (${r.status}) — أبطئ الوتيرة وأعد التشغيل`);
+      return v;
+    }
     cache.set(url, v);
     return v;
   } catch (e) {
@@ -200,8 +206,17 @@ ask('أداء', 'هل الدستور موجود؟', () => fs.existsSync(path.joi
 // ═══ التشغيل ═══
 const pool = ONLY ? checks.filter(c => c.group === ONLY) : checks;
 const results = [];
-const CONC = 6;
+
+// التزامن والمهلة: أول نسخة أطلقت 6 طلبات متوازية بلا فاصل، فردّ الموقع 403
+// على عنوان المدقّق نفسه — حماية Vercel من الطلبات المكثفة. النتيجة كانت
+// تقريراً يتهم الموقع بأعطال هي في الحقيقة من الأداة. مدقّق يغيّر ما يقيسه
+// لا يقيس شيئاً، فالوتيرة هنا مقصودة وليست بطئاً عارضاً.
+const CONC = 3;
+const GAP = 350;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 for (let i = 0; i < pool.length; i += CONC) {
+  if (i) await sleep(GAP);
   const batch = pool.slice(i, i + CONC);
   const out = await Promise.all(batch.map(async c => {
     try { const r = await c.run(); return { ...c, pass: r === true, why: r === true ? '' : String(r) }; }
