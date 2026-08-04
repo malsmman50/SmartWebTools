@@ -10,10 +10,38 @@ export async function POST(request) {
     const business = Number(body.business) || 0;
     const debts = Number(body.debts) || 0;
     
-    // Optional gold price input; falls back to the site-wide default when omitted.
-    // Callers should pass the current market price for accurate results.
-    const goldPrice = Number(body.goldPricePerGram) || FALLBACK_GOLD_PRICE_PER_GRAM;
-    
+    // Gold price resolution, in order: caller-supplied -> live market -> constant.
+    //
+    // The constant alone is not good enough here. It stood at $120/g while the
+    // market was near $130/g, which put the API's nisab at $10,200 against the
+    // site's $11,091 — an 8.7% gap. Anyone holding between those two figures was
+    // told "zakat is due" by the API and "no zakat is due" by the calculator on
+    // the same site. That is a contradiction in a religious ruling, not a
+    // rounding difference, so the API now resolves the same price the UI does.
+    let goldPrice = Number(body.goldPricePerGram) || 0;
+    let priceSource = goldPrice > 0 ? "caller" : null;
+
+    if (!goldPrice) {
+      try {
+        const res = await fetch("https://data-asg.goldprice.org/dbXRates/USD", {
+          next: { revalidate: 3600 },
+        });
+        const data = await res.json();
+        const perOunce = Number(data?.items?.[0]?.xauPrice);
+        if (perOunce > 0) {
+          goldPrice = perOunce / 31.1035; // troy ounce -> gram
+          priceSource = "live";
+        }
+      } catch {
+        // Network failure must not fail the request — fall through to the constant.
+      }
+    }
+
+    if (!goldPrice) {
+      goldPrice = FALLBACK_GOLD_PRICE_PER_GRAM;
+      priceSource = "fallback";
+    }
+
     const totalWealth = cash + gold + silver + business;
     const netAssets = totalWealth - debts;
     
@@ -29,7 +57,12 @@ export async function POST(request) {
       isEligibleForZakat: isEligible,
       zakatDue: Number(zakatDue.toFixed(2)),
       currency: "USD",
-      note: "Calculated according to AAOIFI Sharia standards (2.5% on net zakatable assets)."
+      // Reported so a caller can tell whether the threshold reflects the live
+      // market or a stale constant — the answer changes who owes zakat.
+      goldPricePerGram: Number(goldPrice.toFixed(2)),
+      goldPriceSource: priceSource,
+      nisabGoldGrams: NISAB_GOLD_GRAMS,
+      note: "Calculated according to AAOIFI Sharia Standard No. 35 (2.5% on net zakatable assets)."
     }), {
       status: 200,
       headers: {
