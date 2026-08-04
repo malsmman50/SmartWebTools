@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import "@/app/globals.css";
 import { Aref_Ruqaa, IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
 import Navbar from "@/app/components/Navbar";
@@ -46,20 +47,20 @@ export async function generateMetadata({ params }) {
   return {
     metadataBase: new URL("https://smartcalctools.xyz"),
     title: {
-      default: isAr ? "أدوات الحساب الذكية — حاسبات مالية إسلامية وأدوات مطورين آمنة" : "SmartCalcTools — Halal Financial Calculators & Secure Developer Tools",
+      default: isAr ? "الحساب الذكي — حاسبات الزكاة والميراث والتمويل الإسلامي" : "SmartCalcTools — Zakat, Inheritance & Islamic Finance Calculators",
       template: isAr ? "%s | أدوات الحساب الذكية" : "%s | SmartCalcTools",
     },
     description: isAr 
-      ? "أدوات مجانية، آمنة، وتعمل بالكامل في متصفحك. استكشف حاسبة الزكاة، حاسبة التمويل بالمرابحة، التقاعد الإسلامي، منسق JSON، ومفكك JWT آمن."
-      : "100% free, private, and client-side tools. Explore our Zakat Calculator, Murabaha Financing Calculator, Islamic FIRE tool, JSON Formatter, and secure WebGPU ChatPDF.",
+      ? "احسب زكاتك وميراثك وأقساط مرابحتك، واعرف من أين جاء كل رقم. كل حاسبة تعرض خطواتها والمعيار الشرعي الذي بُنيت عليه."
+      : "Calculate zakat, inheritance shares and murabaha instalments — and see where every number comes from. Each calculator shows its steps and its Sharia standard.",
     keywords: isAr
-      ? ["حاسبات التمويل الإسلامي", "حاسبة الزكاة", "حاسبة المرابحة", "حاسبة المضاربة", "أدوات الاستثمار الحلال", "منسق JSON", "مفكك JWT دون اتصال", "البحث في PDF محليا", "أدوات مطورين مجانية"]
-      : ["Islamic finance calculators", "Zakat calculator", "Murabaha calculator", "Mudarabah profit calculator", "Halal investment tools", "JSON formatter", "JWT decoder offline", "client-side ChatPDF", "free developer tools"],
+      ? ["حاسبات التمويل الإسلامي", "حاسبة الزكاة", "حاسبة المرابحة", "حاسبة المضاربة", "أدوات الاستثمار الحلال", "حاسبة المواريث", "نصاب الزكاة", "معيار أيوفي"]
+      : ["Islamic finance calculators", "Zakat calculator", "Murabaha calculator", "Mudarabah profit calculator", "Halal investment tools", "inheritance calculator", "zakat nisab", "AAOIFI standard"],
     openGraph: {
-      title: isAr ? "أدوات الحساب الذكية — حاسبات مالية إسلامية وأدوات مطورين آمنة" : "SmartCalcTools — Halal Financial Calculators & Secure Developer Tools",
+      title: isAr ? "الحساب الذكي — حاسبات الزكاة والميراث والتمويل الإسلامي" : "SmartCalcTools — Zakat, Inheritance & Islamic Finance Calculators",
       description: isAr 
-        ? "أدوات مجانية وتعمل دون اتصال للمطورين وحاسبات مالية متوافقة مع الشريعة الإسلامية. آمنة وخاصة."
-        : "Free, offline-first developer tools and Sharia-compliant financial calculators. Private and secure.",
+        ? "حاسبات مالية وتعبدية إسلامية، كل نتيجة مع خطواتها وسندها الشرعي."
+        : "Islamic finance and worship calculators — every result with its working and its Sharia basis.",
       siteName: "SmartCalcTools",
       type: "website",
       locale: isAr ? "ar_SA" : "en_US",
@@ -74,16 +75,29 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: isAr ? "أدوات الحساب الذكية — التمويل الإسلامي وأدوات المطورين" : "SmartCalcTools — Halal Finance & Pro Dev Tools",
-      description: isAr ? "مجموعة من الأدوات الخاصة بالتمويل الإسلامي والمطورين. حساب الزكاة والمواريث، وتحويل العملات والمزيد بخصوصية تامة." : "A complete suite of Halal finance calculators and developer tools. Compute Zakat, Inheritance, format JSON, and decode JWT safely offline.",
+      title: isAr ? "الحساب الذكي — زكاة وميراث وتمويل إسلامي" : "SmartCalcTools — Islamic Finance Calculators",
+      description: isAr ? "حاسبات الزكاة والمواريث والمرابحة والصكوك، بسند شرعي معلن وخطوات مكشوفة." : "Zakat, inheritance, murabaha and sukuk calculators — with the Sharia standard stated and the working shown.",
       images: ["/twitter-image.png"],
     },
     robots: { index: true, follow: true }
   };
 }
 
+// The site speaks exactly two languages. Anything else in the [lang] slot is
+// not a locale — it is a crawler or scanner walking paths.
+const LOCALES = ["ar", "en"];
+
 export default async function RootLayout({ children, params }) {
   const { lang } = await params;
+
+  // Without this, /wp-login.php and /.git rendered the full homepage with
+  // HTTP 200 and <html lang=".git">. Paths containing a dot skip the
+  // middleware matcher entirely, so they landed here unchecked — which meant
+  // unlimited duplicate content under arbitrary URLs. That is the exact
+  // signal that got this site rejected, arriving through a different door.
+  if (!LOCALES.includes(lang)) {
+    notFound();
+  }
   const dict = await getDictionary(lang);
   const isAr = lang === "ar";
 
