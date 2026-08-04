@@ -63,6 +63,14 @@ export default async function ZakatCalculatorPage({ params }) {
           {
             q: "متى تجب الزكاة؟",
             a: "تجب الزكاة فوراً عند مرور حول هجري كامل (سنة قمرية) من اليوم الذي بلغت فيه أموالك النصاب لأول مرة."
+          },
+          {
+            q: "ما الفرق بين الحول الهجري والميلادي في حساب الزكاة؟",
+            a: "السنة القمرية أقصر من الشمسية بنحو 11 يوماً، فمن يحسب زكاته بالتقويم الميلادي يؤخّرها كل عام قليلاً، ويسقط عنه حولٌ كامل كل 33 سنة تقريباً. من اعتاد التقويم الميلادي لسهولة المتابعة، فليزد المقدار إلى 2.577% بدل 2.5% تعويضاً عن فارق الأيام."
+          },
+          {
+            q: "هل أزكّي الذهب الذي ألبسه؟",
+            a: "المسألة خلافية: جمهور المالكية والشافعية والحنابلة لا يوجبون الزكاة في حلي المرأة المُعدّ للُّبس المعتاد، والحنفية يوجبونها فيه إذا بلغ النصاب. حاسبتنا لا تفترض عنك اختياراً — أدخل الذهب المدّخر وحده إن كنت تأخذ بقول الجمهور، وأضف حليّ اللبس إن كنت على المذهب الحنفي."
           }
         ] : [
           {
@@ -76,6 +84,14 @@ export default async function ZakatCalculatorPage({ params }) {
           {
             q: "When is Zakat due?",
             a: "Zakat is due immediately upon the completion of a Hawl (one lunar year) from the date your wealth first reached the Nisab threshold."
+          },
+          {
+            q: "What difference does using the Gregorian calendar make?",
+            a: "A lunar year is about 11 days shorter than a solar one, so paying on Gregorian dates pushes your zakat slightly later each year — skipping a full hawl roughly every 33 years. If you track it on the Gregorian calendar for convenience, use 2.577% instead of 2.5% to make up the difference in days."
+          },
+          {
+            q: "Do I pay zakat on jewellery I wear?",
+            a: "Jurists differ. The majority — Maliki, Shafi'i and Hanbali — exempt a woman's jewellery kept for ordinary personal wear; the Hanafi school requires zakat on it once it reaches the nisab. This calculator makes no choice for you: enter only stored gold if you follow the majority, and include worn jewellery if you follow the Hanafi position."
           }
         ]}
       />

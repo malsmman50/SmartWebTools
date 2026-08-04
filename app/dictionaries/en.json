@@ -71,14 +71,6 @@
     "islamic_deposit_title": "Islamic Savings",
     "islamic_deposit_desc": "Calculate returns on Mudarabah-based Islamic savings accounts."
   },
-  "everyday": {
-    "shoe_size_title": "Global Shoe Size Converter",
-    "shoe_size_desc": "Convert shoe sizes instantly between US, UK, EU, and CM for men, women, and kids.",
-    "discount_title": "️ Smart Discount & VAT Calculator",
-    "discount_desc": "Calculate final prices instantly after discounts and taxes.",
-    "split_bill_title": "Split the Bill Calculator",
-    "split_bill_desc": "Split restaurant bills quickly including tips and service charges."
-  },
   "discount": {
     "title": "️ Smart Discount & VAT Calculator",
     "subtitle": "Calculate final prices, savings, and taxes instantly before you pay.",
@@ -160,27 +152,7 @@
     "hijri_title": "Hijri Date Converter",
     "hijri_desc": "Convert instantly between Gregorian and Hijri (Umm al-Qura) calendars.",
     "currency_title": "Live Currency",
-    "currency_desc": "Real-time currency converter supporting over 150 global currencies.",
-    "compressor_title": "Image Compressor",
-    "compressor_desc": "Compress JPG/PNG images instantly without uploading them to any server.",
-    "chatpdf_title": "Semantic PDF Search",
-    "chatpdf_desc": "Chat directly with your PDF documents securely in your browser.",
-    "password_title": "Password Generator",
-    "password_desc": "Generate cryptographically secure passwords with customizable options."
-  },
-  "dev_tools": {
-    "json_title": "JSON Formatter",
-    "json_desc": "Format, validate, and minify JSON data instantly in your browser.",
-    "jwt_title": "JWT Decoder",
-    "jwt_desc": "Decode and inspect JSON Web Tokens entirely offline.",
-    "cron_title": "Cron Generator",
-    "cron_desc": "Build and understand cron expressions with an intuitive visual editor.",
-    "prompt_title": "AI Prompt Builder",
-    "prompt_desc": "Craft optimized prompts for ChatGPT, Claude, and other AI models.",
-    "data_converter_title": "Data Converter",
-    "data_converter_desc": "Convert data between JSON, XML, YAML, and CSV locally.",
-    "regex_title": "Regex Tester",
-    "regex_desc": "Test and visualize Regular Expressions instantly."
+    "currency_desc": "Real-time currency converter supporting over 150 global currencies."
   },
   "about": {
     "title": "About SmartCalcTools",
@@ -387,16 +359,6 @@
     "saved": "Saved",
     "download": "Download Compressed Image"
   },
-  "chatpdf": {
-    "title": "Semantic PDF Chat",
-    "subtitle": "Securely chat with your local PDF documents. Runs entirely in your browser using local AI.",
-    "drop_pdf": "Drop your PDF file here, or click to browse",
-    "loading_model": "🔄 Loading localized AI model (runs locally on your device)...",
-    "indexing": "🔄 Reading and indexing PDF document...",
-    "indexed": "✅ PDF loaded and indexed! You can now ask questions.",
-    "ask_placeholder": "Ask something about your document...",
-    "btn": "Send"
-  },
   "json": {
     "title": "{ } JSON Formatter & Validator",
     "subtitle": "Clean, format, validate, and minify JSON data entirely in your browser.",
@@ -535,30 +497,5 @@
     "result_cups": "Cups (250ml each)",
     "tip_title": "Hydration Strategy:",
     "tip_desc": "Do not drink it all at once! Spread it out by drinking 1-2 cups every hour from Iftar until Suhoor."
-  },
-  "fuel": {
-    "title": "Fuel Cost Calculator",
-    "desc": "Calculate the total fuel cost for your trip based on distance, fuel efficiency, and price per liter.",
-    "distance": "Trip Distance (km)",
-    "efficiency": "Fuel Efficiency (L/100km)",
-    "price": "Price per Liter",
-    "calculate": "Calculate Cost",
-    "result_title": "Total Trip Cost",
-    "result_currency": "Currency Units",
-    "fuel_needed": "Fuel Needed",
-    "liters": "Liters"
-  },
-  "customs": {
-    "title": "Customs Duty & VAT Calculator",
-    "desc": "Calculate the total import duty and VAT for your online shopping shipments.",
-    "item_value": "Item Value",
-    "shipping_cost": "Shipping Cost",
-    "duty_rate": "Customs Duty Rate (%)",
-    "vat_rate": "VAT Rate (%)",
-    "calculate": "Calculate Total",
-    "result_title": "Total Landed Cost",
-    "duty_amount": "Duty Amount",
-    "vat_amount": "VAT Amount",
-    "total_taxes": "Total Taxes"
   }
 }

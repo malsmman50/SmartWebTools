@@ -137,7 +137,12 @@ ask('schema', 'هل الـ JSON-LD صالح للتحليل؟', async () => {
   if (!m) return 'لا يوجد';
   try { JSON.parse(m[1]); return true; } catch { return 'JSON غير صالح'; }
 });
-ask('schema', 'هل المدونة تبثّ بيانات مقال؟', async () => { const b = (await get('/ar/blog')).body; return /ld\+json/.test(b) || 'لا بيانات منظمة'; });
+// يُسأل مقالٌ فعلي لا صفحة الفهرس: BlogPosting يعيش في صفحة المقال،
+// وسؤال الفهرس عنه أنتج إنذاراً كاذباً في أول تشغيل.
+ask('schema', 'هل مقال المدونة يبثّ BlogPosting؟', async () => {
+  const slug = JSON.parse(rd('lib/blog-data.json')).find(p => !p.draft)?.slug;
+  return (await get('/ar/blog/' + slug)).body.includes('BlogPosting') || 'غائب';
+});
 ask('schema', 'هل FAQ فيه أسئلة فعلية؟', async () => { const n = ((await get('/ar/calculators/zakat')).body.match(/"Question"/g) || []).length; return n >= 4 || `${n} أسئلة فقط`; });
 
 // ═══ ٧. الحاشية والسند الشرعي (14) ═══
