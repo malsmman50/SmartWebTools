@@ -71,29 +71,6 @@
     "islamic_deposit_title": "Islamic Savings",
     "islamic_deposit_desc": "Calculate returns on Mudarabah-based Islamic savings accounts."
   },
-  "discount": {
-    "title": "️ Smart Discount & VAT Calculator",
-    "subtitle": "Calculate final prices, savings, and taxes instantly before you pay.",
-    "original_price": "Original Price",
-    "discount_percent": "Discount (%)",
-    "vat_percent": "VAT / Tax (%)",
-    "additional_discount": "Additional Coupon (%)",
-    "amount_saved": "Total Saved",
-    "vat_amount": "Tax Amount",
-    "final_price": "Final Price to Pay"
-  },
-  "split_bill": {
-    "title": "Halal Bill Splitter",
-    "subtitle": "Quickly and fairly divide restaurant bills. Exclude haram or special items so their tax is calculated separately, protecting your Halal share.",
-    "total_bill": "Bill Subtotal (Before Tax)",
-    "excluded_items": "Excluded Items (Haram/Special)",
-    "number_of_people": "Number of People (Halal Share)",
-    "tip_percent": "Tax / Tip (%)",
-    "tip_amount": "Tax / Tip (Halal Share)",
-    "total_with_tip": "Total for Halal Share",
-    "amount_per_person": "Amount per Person (Halal)",
-    "excluded_total": "Total for Excluded Items (with Tax)"
-  },
   "health": {
     "body_calc_title": "Comprehensive Body Calculator",
     "body_calc_desc": "Calculate your BMI, BMR, TDEE, and Ideal Weight all at once.",
@@ -123,28 +100,6 @@
     "gender_woman": "Woman 👩",
     "placeholder": "Enter your data to see results...",
     "ramadan_title": "Ramadan Hydration"
-  },
-  "pregnancy": {
-    "title": "Pregnancy Due Date & Weekly Tracker",
-    "subtitle": "Track your pregnancy journey: calculate your due date, current week, and your baby's weekly growth.",
-    "disclaimer": "Medical Disclaimer: The results provided by this calculator are estimates based on standard averages. This tool is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with your doctor or healthcare provider for medical decisions.",
-    "select_method": "Calculate Based On:",
-    "method_lmp": "First Day of Last Period (LMP)",
-    "method_conception": "Date of Conception",
-    "date_label": "Select Date",
-    "calculate": "Calculate Due Date",
-    "due_date": "Estimated Due Date",
-    "current_week": "Current Week",
-    "trimester": "Trimester",
-    "trimester_1": "1st Trimester",
-    "trimester_2": "2nd Trimester",
-    "trimester_3": "3rd Trimester",
-    "baby_size": "Baby's Size",
-    "weekly_tip": "Weekly Tip",
-    "height_label": "Pre-pregnancy Height (cm)",
-    "weight_label": "Pre-pregnancy Weight (kg)",
-    "target_weight_gain": "Recommended Healthy Weight Gain (by this week)",
-    "bmi_category": "Pre-pregnancy BMI Category"
   },
   "utilities": {
     "qibla_title": "Live Qibla Compass",
@@ -185,7 +140,7 @@
     "title": "Privacy Policy",
     "updated": "Last updated: June 2026",
     "section1_title": "1. Your Financial Numbers Never Leave Your Device",
-    "section1_desc1": "Every number you enter into our calculators — your Zakat wealth, gold weight, inheritance estate value, financing amounts, or any file you upload to our PDF, JSON, or password tools — is processed entirely inside your own browser. This data is never transmitted to, or stored on, any server we operate.",
+    "section1_desc1": "Every number you enter into our calculators — your zakat wealth, your gold weight, an estate value, financing amounts — is processed entirely inside your own browser. None of it is sent to a server we operate, and none of it is stored by us. You can verify this yourself: open any calculator, then disconnect from the internet — it keeps working.",
     "section1_desc2": "You can verify this yourself: our calculators keep working even if you disconnect your internet after the page loads. We built it this way deliberately, because we understand these are sensitive personal financial figures, and you should never have to worry when entering them.",
     "section2_title": "2. Optional Services That Do Collect Limited Data",
     "section2_desc1": "If you voluntarily subscribe to our free annual Zakat reminder, we store only your email address and your chosen reminder month in our database (Vercel/Neon Postgres), solely to send you one reminder per year. We use double opt-in — you must click a confirmation link in your inbox before any reminder is ever sent — and you can unsubscribe with a single click via the link included in every email.",
@@ -348,97 +303,6 @@
     "convert_btn": "Convert Date",
     "result": "Converted Date"
   },
-  "compressor": {
-    "title": "️ Image Compressor",
-    "subtitle": "Compress JPG, PNG, and WebP images locally. 100% private, no server uploads.",
-    "drag_drop": "Drag & drop your images here or click to browse",
-    "quality": "Compression Quality",
-    "btn": "Compress Image",
-    "original": "Original Size",
-    "compressed": "Compressed Size",
-    "saved": "Saved",
-    "download": "Download Compressed Image"
-  },
-  "json": {
-    "title": "{ } JSON Formatter & Validator",
-    "subtitle": "Clean, format, validate, and minify JSON data entirely in your browser.",
-    "input_placeholder": "Paste your raw JSON code here...",
-    "format_btn": "Format JSON",
-    "minify_btn": "Minify JSON",
-    "copy_btn": "Copy to Clipboard",
-    "clear_btn": "Clear",
-    "status_valid": "✅ Valid JSON",
-    "status_invalid": "❌ Invalid JSON:"
-  },
-  "jwt": {
-    "title": "Offline JWT Decoder",
-    "subtitle": "Decode, inspect, and analyze JSON Web Tokens safely entirely in your browser.",
-    "input_placeholder": "Paste your encoded JWT token here...",
-    "header": "Header (Algorithm & Type)",
-    "payload": "Payload (Claims)",
-    "signature": "Signature Verification"
-  },
-  "cron": {
-    "title": "Cron Expression Generator",
-    "subtitle": "Build, format, and translate cron schedules into plain English visually.",
-    "minutes": "Minutes",
-    "hours": "Hours",
-    "days": "Day of Month",
-    "months": "Month",
-    "weekdays": "Day of Week",
-    "result_label": "Cron Expression",
-    "desc_label": "Human Readable Schedule"
-  },
-  "prompt": {
-    "title": "AI Prompt Builder",
-    "subtitle": "Structure, optimize, and engineer rich prompts for ChatGPT, Claude, and Gemini.",
-    "role": "Role / Persona",
-    "role_placeholder": "e.g., Senior Software Architect",
-    "task": "Task / Objective",
-    "task_placeholder": "What do you want the AI to do?",
-    "context": "Context / Details",
-    "context_placeholder": "Any background information or rules?",
-    "output": "Format / Output Style",
-    "output_placeholder": "e.g., Markdown table, JSON, code",
-    "btn": "Build Optimized Prompt",
-    "copy": "Copy Prompt"
-  },
-  "password": {
-    "title": "Secure Password Generator",
-    "subtitle": "Generate cryptographically secure passwords locally in your browser. Nothing is sent to any server.",
-    "length": "Length",
-    "uppercase": "Uppercase Letters",
-    "numbers": "Numbers",
-    "symbols": "Symbols",
-    "generate_btn": "Generate Secure Password",
-    "strength": "Strength",
-    "weak": "Weak",
-    "good": "Good",
-    "strong": "Strong",
-    "click_generate": "Click Generate below"
-  },
-  "regex": {
-    "title": "Regex Tester & Visualizer",
-    "subtitle": "Test, visualize, and debug Regular Expressions instantly in your browser.",
-    "regex_pattern": "Regular Expression",
-    "test_string": "Test String",
-    "flags": "Flags (e.g. g, i, m)",
-    "matches": "Matches Found",
-    "no_matches": "No matches found.",
-    "error": "Invalid regular expression."
-  },
-  "data_converter": {
-    "title": "Data Format Converter",
-    "subtitle": "Convert between JSON, XML, YAML, and CSV formats instantly and securely.",
-    "input_data": "Input Data",
-    "output_data": "Converted Output",
-    "from_format": "From Format",
-    "to_format": "To Format",
-    "convert_btn": "Convert Data",
-    "copy_btn": "Copy to Clipboard",
-    "error_parse": "Error parsing input data.",
-    "success": "✅ Converted successfully!"
-  },
   "sukuk": {
     "title": "Sukuk Profit Calculator",
     "subtitle": "Calculate periodic distributions and maturity values for Islamic Sukuk.",
@@ -473,13 +337,6 @@
     "body": "Install SmartCalcTools on your device for quick access and offline use!",
     "install": "Install",
     "not_now": "Not now"
-  },
-  "shoe_size": {
-    "men": "Men",
-    "women": "Women",
-    "from_system": "From System",
-    "to_system": "To System",
-    "size": "Size"
   },
   "ramadan": {
     "title": "Ramadan Hydration Calculator",
