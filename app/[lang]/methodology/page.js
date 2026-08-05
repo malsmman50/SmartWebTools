@@ -55,14 +55,12 @@ export default async function MethodologyPage({ params }) {
       sourcesEn: [
         "Quran: Surah An-Nisa (4:11-12, 176) — Primary inheritance shares",
         "Hadith: Sahih al-Bukhari & Muslim — Rules of Asabah",
-        "Al-Sirajiyyah by Imam al-Sajawandi — Classical Faraid reference",
-        "AAOIFI Shariah Standard No. 38: Distribution of Estates"
+        "Al-Sirajiyyah by Imam al-Sajawandi — Classical Faraid reference"
       ],
       sourcesAr: [
         "القرآن الكريم: سورة النساء (4:11-12، 176) — أنصبة الإرث الأساسية",
         "الحديث النبوي: صحيح البخاري ومسلم — أحكام التعصيب",
-        "السراجية للإمام السجاوندي — مرجع الفرائض الكلاسيكي",
-        "معيار AAOIFI رقم 38: توزيع التركات"
+        "السراجية للإمام السجاوندي — مرجع الفرائض الكلاسيكي"
       ]
     },
     {
@@ -74,12 +72,10 @@ export default async function MethodologyPage({ params }) {
       methodAr: "المرابحة هي عقد تمويل بالتكلفة مضافاً إليها هامش ربح معلوم، حيث يقوم البنك بشراء الأصل ثم بيعه للعميل بربح متفق عليه. تحسب حاسبتنا التكلفة الإجمالية شاملة هامش الربح. على عكس القروض التقليدية، يُحدد معدل الربح عند التعاقد ولا يتراكم.",
       sourcesEn: [
         "AAOIFI Shariah Standard No. 8: Murabaha",
-        "Islamic Financial Services Board (IFSB) Guidelines",
         "An Introduction to Islamic Finance by Mufti Taqi Usmani"
       ],
       sourcesAr: [
         "معيار AAOIFI رقم 8: المرابحة",
-        "إرشادات مجلس الخدمات المالية الإسلامية (IFSB)",
         "مقدمة في التمويل الإسلامي — المفتي محمد تقي العثماني"
       ]
     },
@@ -110,13 +106,11 @@ export default async function MethodologyPage({ params }) {
       methodAr: "الصكوك هي شهادات استثمار متوافقة مع الشريعة تمثل ملكية نسبية في أصل أساسي. على عكس السندات التقليدية، يشارك حاملو الصكوك في عوائد الأصل بدلاً من تلقي فوائد ربوية.",
       sourcesEn: [
         "AAOIFI Shariah Standard No. 17: Investment Sukuk",
-        "Securities Commission Malaysia: Guidelines on Sukuk",
-        "Islamic Capital Markets by IFSB"
+        "Securities Commission Malaysia: Guidelines on Sukuk"
       ],
       sourcesAr: [
         "معيار AAOIFI رقم 17: صكوك الاستثمار",
-        "هيئة الأوراق المالية الماليزية: إرشادات الصكوك",
-        "أسواق رأس المال الإسلامية — IFSB"
+        "هيئة الأوراق المالية الماليزية: إرشادات الصكوك"
       ]
     }
   ];

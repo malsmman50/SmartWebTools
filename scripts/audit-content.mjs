@@ -174,9 +174,23 @@ function checkRate(slug, text) {
  * فيفوته الخطأ الحقيقي حين يقع.
  */
 function checkHawl(slug, text) {
-  const NEGATED = /(?:وليس|ليس|لا\s+ب?|بدلاً\s+من|not|rather\s+than|instead\s+of)\s*(?:ال)?(?:تقويم\s*)?(?:ميلادي|شمسي|solar|gregorian)/i;
+  /* الاستثناء مربوطٌ بلفظ التقويم عمداً.
+     وسّعتُه أولاً إلى «الفرق بين» و«مقارنة» أينما وردتا في الجوار، فصار
+     يُعفي كل جملة يقع قربها لفظ مقارنة — وأثبت اختبار الحقن أنه أعمى:
+     التقط خطأً واحداً من خطأين متعمّدين. فالاستثناء الآن صيغة بعينها،
+     «الفرق بين الحول الهجري والميلادي» وما يقابلها بالإنجليزية، لا كلمة
+     عابرة. استثناءٌ واسع يُسكت القاعدة أشدّ من إنذار كاذب يُزعجها. */
+  const NEGATED = new RegExp(
+    '(?:وليس|ليس|لا\\s+ب?|بدلاً\\s+من|not|rather\\s+than|instead\\s+of)' +
+    '\\s*(?:ال)?(?:تقويم\\s*)?(?:ميلادي|شمسي|solar|gregorian)' +
+    '|الفرق\\s+بين\\s+الحول\\s+الهجري\\s+و(?:ال)?ميلادي' +
+    '|difference\\s+between\\s+(?:the\\s+)?(?:hijri|lunar)[^.]{0,30}(?:gregorian|solar)', 'i');
+  /* «حوّل» فعلٌ و«حول» ظرفٌ، و«الحول» وحده هو المصطلح الفقهي. والصيغة
+     الأولى التقطت «حوّل التاريخ الهجري والميلادي» تسع مرات في صفحة المحوّل —
+     وهي دعوة لاستعمال الأداة لا خطأ في وصف الحول. فاشتُرطت أداة التعريف،
+     واستُثني ما تلاه «التاريخ» صراحةً لأنه موضع الالتباس. */
   const hits = [
-    ...text.matchAll(/(?:حول|الحول)[^.،]{0,40}?(?:سنة\s*)?(?:ميلادي|شمسي)/g),
+    ...text.matchAll(/الحول(?!\s*(?:ال)?تاريخ)[^.،]{0,40}?(?:سنة\s*)?(?:ميلادي|شمسي)/g),
     ...text.matchAll(/hawl[^.]{0,40}?(?:solar|gregorian)\s*year/gi),
   ];
   for (const m of hits) {
@@ -216,7 +230,11 @@ function checkAuthority(slug, text) {
 /** إسناد إلى معيار برقم — يوثَّق للمراجعة البشرية لا يُصحَّح آلياً. */
 const KNOWN_AAOIFI = { 8: 'المرابحة', 12: 'الشركة', 13: 'المضاربة', 17: 'الصكوك', 21: 'الأوراق المالية', 35: 'الزكاة' };
 function checkStandards(slug, text) {
-  for (const m of text.matchAll(/(?:أيوفي|AAOIFI)[^.،\n]{0,40}?(?:رقم|No\.?|Standard)\s*\(?(\d{1,2})/gi)) {
+  /* «Standard» وحدها كانت تكفي لبدء العدّ، فقرأت القاعدة «AAOIFI standard
+     (0.8% ...)» على أنها المعيار رقم صفر. فالرقم الآن يلزمه سياق ترقيم
+     صريح — «رقم» أو «No.» — وألّا يكون كسراً عشرياً بعده فاصلة ورقم. */
+  const re = /(?:أيوفي|AAOIFI)[^.،\n]{0,40}?(?:رقم|No\.|Standard\s+No\.?)\s*\(?(\d{1,2})(?![.,]\d)/gi;
+  for (const m of text.matchAll(re)) {
     const n = Number(m[1]);
     if (!KNOWN_AAOIFI[n]) {
       flag(W, slug, 'رقم معيار غير مؤكّد',
@@ -482,6 +500,38 @@ for (const post of target) {
 
 // المقارنة بين المقالات تحتاج المجموعة كاملة — فلا تُجرى عند فحص مقال واحد.
 if (!only) checkDuplication(posts);
+
+/**
+ * الصفحات الثابتة تُفحص كما تُفحص المقالات.
+ *
+ * كل قواعد هذا الملف كانت تقرأ blog-data.json وحده، فمرّ في صفحة المنهجية
+ * إسنادٌ إلى «معيار أيوفي رقم 38: توزيع التركات» — والمعيار 38 عنوانه
+ * «التعاملات المالية عبر الإنترنت». وقاعدة الأرقام موجودة منذ البداية وكانت
+ * ستلتقطه في أول تشغيل، لكنها لم تكن تنظر إلى هناك.
+ *
+ * والصفحات الثابتة أولى بالفحص لا أقلّ: صفحة المنهجية هي التي يُرجع إليها
+ * ليُوثَّق ما في المقالات.
+ */
+function auditStaticPages() {
+  const dir = path.join(ROOT, 'app', '[lang]');
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+    const full = path.join(d, e.name);
+    return e.isDirectory() ? walk(full) : (e.name.endsWith('.js') ? [full] : []);
+  });
+
+  for (const file of walk(dir)) {
+    const rel = path.relative(ROOT, file).replace(/\\/g, '/');
+    const text = fs.readFileSync(file, 'utf-8');
+    checkNisab(rel, text);
+    checkRate(rel, text);
+    checkHawl(rel, text);
+    checkAuthority(rel, text);
+    checkStandards(rel, text);
+    checkArithmetic(rel, text);
+  }
+}
+
+if (!only) auditStaticPages();
 
 // ── التقرير ──────────────────────────────────────────────────────────────
 const by = (lvl) => findings.filter((f) => f.level === lvl);
