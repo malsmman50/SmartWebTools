@@ -156,14 +156,14 @@
   },
   "about": {
     "title": "About SmartCalcTools",
-    "subtitle": "Empowering users with 100% private, fast, and secure tools.",
-    "mission_title": "Our Mission",
-    "mission_desc1": "SmartCalcTools was born out of a simple necessity: the need for reliable, privacy-first web utilities. In an era where every piece of data is tracked, we decided to build a platform that respects your privacy by default.",
-    "mission_desc2": "Whether you are a software developer needing to format JSON or decode a JWT, or a Muslim looking for mathematically precise, Sharia-compliant financial calculators, our tools run entirely in your browser. **No data leaves your device.**",
-    "zero_trust_title": "The Zero Trust Architecture",
-    "zero_trust_desc": "We use modern WebAssembly and WebGPU technologies to bring powerful capabilities directly to your browser. Our **Semantic PDF Search** tool downloads a multilingual AI model directly to your device's cache, allowing you to search highly sensitive documents (like NDAs or tax returns) without ever sending the file to a cloud server.",
-    "islamic_finance_title": "Islamic Finance Commitment",
-    "islamic_finance_desc": "Our financial calculators (Zakat, Murabaha, Mudarabah, Islamic FIRE) are built with strict adherence to Islamic Fiqh principles. We consult standard AAOIFI guidelines and use real-time gold APIs to ensure absolute precision, avoiding the common interest-based assumptions found in conventional financial tools."
+    "subtitle": "Calculators for zakat, inheritance and Islamic finance — each one shows its basis.",
+    "mission_title": "Why this site exists",
+    "mission_desc1": "Most zakat calculators online hand you a number and never say where it came from. When one disagrees with another, you have no way to judge which to trust or why they differ. This site is built on the opposite principle: every result sits beside its basis — the standard behind it, the school of law where the question is disputed, and the limits of what the tool can tell you.",
+    "mission_desc2": "Every calculation runs inside your browser. Your figures are not sent to a server and are not stored by us, and you can verify that by disconnecting from the internet after the page loads — the calculators keep working.",
+    "zero_trust_title": "What the numbers rest on",
+    "zero_trust_desc": "The zakat nisab is computed from a live gold price rather than a fixed figure that quietly goes stale, with a fallback that takes over if the source fails — and says so rather than hiding it. The Hijri converter follows the Umm al-Qura calendar and rejects a date that does not exist with a message explaining why, instead of silently rounding to the nearest day. The inheritance calculator passes twenty-three reference cases with known answers, covering awl, radd, the two Umariyyah cases and exclusion.",
+    "islamic_finance_title": "The Sharia basis, and its limits",
+    "islamic_finance_desc": "The calculators follow AAOIFI standards: No. 35 for zakat, No. 8 for murabaha, No. 13 for mudarabah, No. 17 for sukuk. Where a question is disputed we say so and name the opposing position — as with the grandfather and brothers, where this tool follows the Hanafi view while the majority hold otherwise, so anyone following another school will find their share stated differently here. The inheritance cases have not yet been reviewed by a Sharia board, and we say that plainly on the page itself. What you get here is a calculation to work from and a method to understand, not a fatwa that removes the need to ask a scholar who knows your situation."
   },
   "contact": {
     "title": "Contact Us",

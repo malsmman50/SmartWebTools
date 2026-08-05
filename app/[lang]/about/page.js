@@ -50,16 +50,21 @@ export default async function AboutPage({ params }) {
       </section>
 
       <section className="card" style={{ marginBottom: "32px", background: "linear-gradient(135deg, var(--bg) 0%, var(--bg-card) 100%)" }}>
-        <h2>{isAr ? "تاريخ التأسيس وفريق العمل" : "Our History & Team"}</h2>
+        {/* حلّ هذا القسم محلّ قسمٍ ادّعى «فريقاً من الخبراء الماليين» و«خدمة
+            ملايين المستخدمين» و«الالتزام التام بمعايير E-E-A-T». الثانية دعوى
+            غير صحيحة، والثالثة كتابةٌ للخوارزمية لا للقارئ. وصفحةٌ يُحكم بها
+            على مصداقيتنا لا يجوز أن تُبنى على ما لا نستطيع إثباته — والثقة
+            تُبنى بما يستطيع القارئ التحقّق منه بنفسه، لا بما نقوله عن أنفسنا. */}
+        <h2>{isAr ? "كيف تتحقّق من هذا بنفسك" : "How to check this yourself"}</h2>
         <p style={{ marginBottom: "12px" }}>
           {isAr
-            ? "تأسس مشروع SmartCalcTools في منتصف عام 2026 على يد فريق من المطورين والخبراء الماليين المستقلين الذين لاحظوا نقصاً حاداً في الأدوات المالية التي تحترم الخصوصية وتتوافق مع مبادئ التمويل الإسلامي الشفاف. كان هدفنا منذ اليوم الأول هو تقديم أدوات لا تقوم بجمع البيانات ولا ترسلها لخوادم خارجية."
-            : "SmartCalcTools was founded in mid-2026 by a team of independent developers and financial experts who noticed a severe lack of financial tools that respect user privacy while strictly adhering to transparent Islamic finance principles. Our goal from day one has been to provide tools that neither collect data nor send it to external servers."}
+            ? "لا نطلب منك تصديق ما نقوله عن أنفسنا. افتح أي حاسبة ثم اقطع الإنترنت — ستعمل كما هي، لأن الحساب يجري في متصفّحك. وافتح أدوات المطوّر في متصفّحك وراقب الشبكة أثناء إدخال أرقامك: لن تجد طلباً واحداً يحمل ما كتبت."
+            : "We would rather you not take our word for any of this. Open any calculator and disconnect from the internet — it keeps working, because the calculation runs in your browser. Open your browser's developer tools and watch the network while you type: you will not find a single request carrying what you entered."}
         </p>
         <p>
           {isAr
-            ? "يقع مقر عملياتنا وإدارة الخوادم السحابية افتراضياً، حيث نعمل كفريق تقني عن بعد لخدمة ملايين المستخدمين حول العالم، ونسعى لتوفير واجهات صديقة للمستخدم باللغتين العربية والإنجليزية، مع الالتزام التام بأعلى معايير (E-E-A-T) الخبرة والمصداقية والجدارة بالثقة."
-            : "Our operations and cloud management are fully remote, serving millions of users worldwide. We strive to provide user-friendly interfaces in both English and Arabic, strictly adhering to the highest E-E-A-T (Experience, Expertise, Authoritativeness, and Trustworthiness) standards."}
+            ? "وكل رقم في هذا الموقع يجاوره مستنده: المعيار، والمذهب حيث تختلف المذاهب، وما لم يُراجَع بعد. فإن وجدت خطأً — في حساب أو في نقل مذهب أو في رابط — فأخبرنا به، فتصحيحه أنفع لنا من إخفائه."
+            : "Every figure here carries its basis alongside it: the standard, the school of law where schools differ, and what has not yet been reviewed. If you find an error — in a calculation, in how a position is reported, or in a link — tell us. Correcting it serves us better than leaving it."}
         </p>
       </section>
       

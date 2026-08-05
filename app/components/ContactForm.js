@@ -50,16 +50,16 @@ export default function ContactForm({ lang, dict, ...props }) {
       ) : (
         <>
           <div style={{ marginBottom: "16px" }}>
-            <label className="label">{t.name_label}</label>
-            <input type="text" name="name" className="input" placeholder={t.name_placeholder} required disabled={status === "loading"} />
+            <label className="label" htmlFor="contact-name">{t.name_label}</label>
+            <input id="contact-name" type="text" name="name" className="input" placeholder={t.name_placeholder} required disabled={status === "loading"} />
           </div>
           <div style={{ marginBottom: "16px" }}>
-            <label className="label">{t.email_label}</label>
-            <input type="email" name="email" className="input" placeholder={t.email_placeholder} required disabled={status === "loading"} />
+            <label className="label" htmlFor="contact-email">{t.email_label}</label>
+            <input id="contact-email" type="email" name="email" className="input" placeholder={t.email_placeholder} required disabled={status === "loading"} />
           </div>
           <div style={{ marginBottom: "20px" }}>
-            <label className="label">{t.msg_label}</label>
-            <textarea className="input" name="message" rows="5" placeholder={t.msg_placeholder} required disabled={status === "loading"}></textarea>
+            <label className="label" htmlFor="contact-message">{t.msg_label}</label>
+            <textarea id="contact-message" className="input" name="message" rows="5" placeholder={t.msg_placeholder} required disabled={status === "loading"}></textarea>
           </div>
           <button type="submit" className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} disabled={status === "loading"}>
             {status === "loading" ? (lang === "ar" ? "جاري الإرسال..." : "Sending...") : t.send_btn}

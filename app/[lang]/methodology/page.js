@@ -137,8 +137,13 @@ export default async function MethodologyPage({ params }) {
         <h2 style={{ fontSize: "1.2rem" }}>{isAr ? "معايير الامتثال" : "Compliance Standards"}</h2>
         <p style={{ color: "var(--text-muted)" }}>
           {isAr
-            ? "تلتزم جميع حاسباتنا المالية بمعايير هيئة المحاسبة والمراجعة للمؤسسات المالية الإسلامية (AAOIFI) ومبادئ مجلس الخدمات المالية الإسلامية (IFSB). الصيغ الحسابية المستخدمة مبنية على المصادر الفقهية المعتمدة أدناه."
-            : "All our financial calculators adhere to the standards set by the Accounting and Auditing Organization for Islamic Financial Institutions (AAOIFI) and the Islamic Financial Services Board (IFSB). The formulas used are derived from the authoritative Fiqh sources listed below."}
+            /* حُذف ذكر IFSB. لا أثر لأي من معاييرها في الكود، وهي أصلاً جهة
+               معايير رقابة وإشراف على المؤسسات المالية لا معايير حساب — فذكرها
+               هنا إسنادٌ يبدو موثّقاً وهو أجوف، وذلك أسوأ من غياب الإسناد.
+               ورُفع «تلتزم جميع حاسباتنا» أيضاً: الالتزام يُدّعى بمقدار ما
+               يُطبَّق، والمعايير الأربعة المذكورة هي التي طُبّقت فعلاً. */
+            ? "الحاسبات المالية هنا مبنية على معايير هيئة المحاسبة والمراجعة للمؤسسات المالية الإسلامية (أيوفي): رقم 35 للزكاة، و8 للمرابحة، و13 للمضاربة، و17 للصكوك. وتجد تفصيل كل حاسبة ومستندها أدناه، وحيث تختلف المذاهب نذكر ذلك ونسمّي القول المخالف."
+            : "The financial calculators here are built on AAOIFI Sharia Standards: No. 35 for zakat, No. 8 for murabaha, No. 13 for mudarabah, No. 17 for sukuk. Each calculator's basis is set out below, and where the schools of law differ we say so and name the opposing position."}
         </p>
       </section>
 

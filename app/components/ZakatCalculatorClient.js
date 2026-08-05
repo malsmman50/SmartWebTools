@@ -214,7 +214,10 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
             </p>
             <form onSubmit={handleReminderSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <input 
-                type="email" 
+                type="email"
+                // النائب عن التسمية ليس تسمية: يختفي عند الكتابة، ولا يُعلنه
+                // قارئ الشاشة اسماً للحقل، فيصل المستخدم إلى صندوقٍ مجهول.
+                aria-label={lang === "ar" ? "بريدك الإلكتروني لتذكير الزكاة" : "Your email address for the zakat reminder"}
                 placeholder={lang === "ar" ? "بريدك الإلكتروني" : "Your email address"}
                 value={reminderEmail} 
                 onChange={(e) => setReminderEmail(e.target.value)}
@@ -253,8 +256,9 @@ export default function ZakatCalculatorClient({ lang, dict, initialValues, ...pr
                 ? "انسخ الكود أدناه لتضمين حاسبة الزكاة مباشرة في موقعك الإلكتروني أو مدونتك:"
                 : "Copy the code below to embed the Zakat Calculator directly on your website or blog:"}
             </p>
-            <textarea 
-              readOnly 
+            <textarea
+              aria-label={lang === "ar" ? "كود تضمين حاسبة الزكاة" : "Zakat calculator embed code"}
+              readOnly
               value={`<iframe src="https://smartcalctools.xyz/${lang}/embed/zakat" width="100%" height="600" style="border:1px solid #ccc; border-radius:8px;" frameborder="0"></iframe>`}
               onClick={(e) => e.target.select()}
               style={{ width: "100%", height: "80px", padding: "8px", borderRadius: "6px", border: "1px solid var(--border)", background: "var(--bg)", color: "var(--text-muted)", fontSize: "0.8rem", fontFamily: "monospace", resize: "none", cursor: "pointer" }}
