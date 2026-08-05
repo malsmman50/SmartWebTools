@@ -4,6 +4,7 @@ import path from "path";
 import Link from "next/link";
 import { sanitizeArticleHtml } from "@/lib/sanitize";
 import { extractFaq } from "@/lib/faq";
+import ArticleDisclaimer from "@/app/components/UI/ArticleDisclaimer";
 import YouTubeFacade from "@/app/components/YouTubeFacade";
 
 import { cache } from "react";
@@ -123,7 +124,13 @@ export default async function BlogPostPage({ params }) {
           className="blog-content"
           dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(content) }}
         />
-        
+
+        {/* يُعرض هنا لا داخل نصّ المقال. كتابته في blog-data.json تعني 45
+            نسخة تتفرّق مع الوقت: يُضاف مقال بلا تنبيه، أو تُعدّل صياغة في
+            واحد دون بقيّتها. وقد وُجد 35 مقالاً من 45 بلا أي تنبيه قبل هذا.
+            موضعٌ واحد يعني أن الإضافة تصل كل مقال قائم وكل مقال قادم. */}
+        <ArticleDisclaimer lang={lang} />
+
       </article>
       
       {/* JSON-LD Schema for Blog Post */}

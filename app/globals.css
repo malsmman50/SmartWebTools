@@ -1035,3 +1035,17 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 .page-header h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: 8px; }
 .page-header p { color: var(--ink-soft); max-width: 68ch; margin: 0; }
+
+/* ── تنبيه المقال ────────────────────────────────────────────────────
+   يُفصل عن المتن بخطّ وبمساحة، لا بلون صارخ. التنبيه الذي يصرخ يُقرأ
+   إعلاناً فيُتخطّى؛ والمقصود أن يُقرأ. */
+.article-disclaimer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.article-disclaimer__ask {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}

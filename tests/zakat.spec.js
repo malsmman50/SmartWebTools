@@ -10,36 +10,45 @@ test.describe('Zakat Calculator', () => {
     await page.goto('/calculators/zakat');
   });
 
-  test('should calculate correct Zakat for eligible wealth', async ({ page }) => {
+  /**
+   * Filling and asserting are wrapped together and retried as one unit.
+   *
+   * NumericFormat only accepts a value once React has hydrated the field. Fill
+   * before that and the value lands in the DOM, then React mounts and resets it
+   * to the initial state — the inputs read correctly for an instant while the
+   * result sits at $0. Waiting on networkidle appeared to fix this and did not:
+   * it passed on one run and failed on the next, because network idle says
+   * nothing about whether React has attached its handlers.
+   *
+   * Retrying the whole interaction is deterministic where a wait is a guess.
+   */
+  const fillAndExpect = async (page, values, expected) => {
     const inputs = page.locator('.input[type="text"]');
-    await inputs.nth(0).fill('10,000'); // Cash
-    await inputs.nth(1).fill('0');      // Gold
-    await inputs.nth(2).fill('0');      // Silver
-    await inputs.nth(3).fill('2,000');  // Business
-    await inputs.nth(4).fill('1,000');  // Debts
-    
-    // Total Wealth = 12000
-    // Eligible Wealth = 11000
-    // Nisab ≈ $7225 -> Eligible
-    // Zakat Due = 11000 * 0.025 = $275.00
-    
-    const zakatDue = page.locator('.result-value').nth(0);
-    await expect(zakatDue).toContainText('$275');
+    await expect(async () => {
+      for (const [i, v] of values) await inputs.nth(i).fill(v);
+      await expect(page.locator('.result-value').nth(0)).toContainText(expected, { timeout: 1500 });
+    }).toPass({ timeout: 15000 });
+  };
+
+  test('should calculate correct Zakat for eligible wealth', async ({ page }) => {
+    // Total 12,000 · eligible 11,000 · nisab ≈ $7,225 → 11,000 × 2.5% = $275
+    await fillAndExpect(page, [
+      [0, '10,000'], // cash
+      [1, '0'],      // gold
+      [2, '0'],      // silver
+      [3, '2,000'],  // business
+      [4, '1,000'],  // debts
+    ], '$275');
   });
 
   test('should show $0.00 Zakat if wealth is below Nisab', async ({ page }) => {
-    const inputs = page.locator('.input[type="text"]');
-    await inputs.nth(0).fill('5,000'); // Cash
-    await inputs.nth(1).fill('0');      // Gold
-    await inputs.nth(2).fill('0');      // Silver
-    await inputs.nth(3).fill('0');      // Business
-    await inputs.nth(4).fill('0');      // Debts
-    
-    // Eligible Wealth = 5000
-    // Nisab ≈ $7225 -> Not Eligible
-    // Zakat Due = $0.00
-    
-    const zakatDue = page.locator('.result-value').nth(0);
-    await expect(zakatDue).toContainText('$0.00');
+    // Eligible 5,000 is under the ≈$7,225 nisab, so nothing is due
+    await fillAndExpect(page, [
+      [0, '5,000'],
+      [1, '0'],
+      [2, '0'],
+      [3, '0'],
+      [4, '0'],
+    ], '$0.00');
   });
 });

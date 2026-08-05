@@ -111,7 +111,7 @@ export default async function QiblaCompassPage({ params }) {
         <div>
           <QiblaCompassClient lang={lang} dict={dict} />
         </div>
-        <Hashiya source="qibla" lang={lang} methodologyAnchor="qibla" religious={false} />
+        <Hashiya source="qibla" lang={lang} methodologyAnchor="qibla" religious={false} extraDisclaimer="qibla" />
       </div>
       
       <article className="card guide-article blog-content">
