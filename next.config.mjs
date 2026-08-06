@@ -78,6 +78,31 @@ const removedBlogPosts = [
   'mastering-json-web-apis-formatting-validation-debugging',
 ];
 
+// Blog posts removed in phase 3 as near-duplicates. Unlike the developer
+// posts above, each of these had a surviving article covering the same
+// subject better — so each is sent to its own replacement, not to the blog
+// index. A redirect that lands on the topic the visitor asked for is worth
+// far more than one that dumps them at a list, and Google reads a redirect
+// to an unrelated page as a soft 404 anyway.
+//
+// They have returned a bare 404 since 19 July 2026. Any link that still
+// points here — an old search result, a bookmark, someone else's page —
+// has been hitting a dead end for weeks.
+const mergedBlogPosts = {
+  'zakat-agricultural-income-calculation': 'zakat-agricultural-produce-calculation',
+  'mudarabah-vs-savings': 'mudarabah-vs-conventional-savings',
+  'understanding-sukuk-islamic-bonds': 'sukuk-vs-bonds-understanding-shariah-compliance',
+  'halal-home-finance-comparison': 'halal-home-financing-true-costs-calculator',
+  'halal-fixed-deposit-comparison-savings': 'islamic-deposit-accounts-wealth-growth-shariah-compliant-banks',
+  'how-much-zakat-pay-personalized-calculation-guide': 'understanding-nisab-threshold-practical-calculation',
+};
+
+// This one was a how-to for the converter itself, so it goes to the tool
+// rather than to an article about it.
+const mergedBlogToTool = {
+  'tracking-islamic-dates-hijri-converter-guide': 'tools/hijri-converter',
+};
+
 const removedCalculatorPaths = [
   'shopping/shoe-size', 'shopping/discount', 'shopping/customs-duty',
   'lifestyle/split-bill', 'lifestyle/fuel-cost',
@@ -123,6 +148,18 @@ const nextConfig = {
       ...removedBlogPosts.map((slug) => ({
         source: `/:lang(ar|en)/blog/${slug}`,
         destination: '/:lang/blog',
+        statusCode: 301,
+      })),
+
+      // --- Near-duplicates merged in phase 3 -> the article that replaced them ---
+      ...Object.entries(mergedBlogPosts).map(([from, to]) => ({
+        source: `/:lang(ar|en)/blog/${from}`,
+        destination: `/:lang/blog/${to}`,
+        statusCode: 301,
+      })),
+      ...Object.entries(mergedBlogToTool).map(([from, to]) => ({
+        source: `/:lang(ar|en)/blog/${from}`,
+        destination: `/:lang/${to}`,
         statusCode: 301,
       })),
 
